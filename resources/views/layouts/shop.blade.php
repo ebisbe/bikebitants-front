@@ -27,9 +27,8 @@
     <link href="/css/dragtable.css" rel="stylesheet" type="text/css">
     <link href="/css/owl.carousel.css" rel="stylesheet" type="text/css">
     <link href="/css/animate.css" rel="stylesheet" type="text/css">
-    <link href="/css/color-switcher.css" rel="stylesheet" type="text/css">
     <link href="/css/custom.css" rel="stylesheet" type="text/css">
-    <link href="/css/color/red.css" id="main-color" rel="stylesheet" type="text/css">
+    <link href="/css/color/green.css" id="main-color" rel="stylesheet" type="text/css">
 
     <!-- ==========================
     	JS
@@ -48,29 +47,6 @@
 <div id="scrolltop" class="hidden-xs"><i class="fa fa-angle-up"></i></div>
 <!-- ==========================
     SCROLL TOP - END
-=========================== -->
-
-<!-- ==========================
-    COLOR SWITCHER - START
-=========================== -->
-<div id="color-switcher">
-    <div id="toggle-switcher"><i class="fa fa-gear"></i></div>
-    <span>Color Scheme:</span>
-    <ul class="list-unstyled list-inline">
-        <li id="red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Red"></li>
-        <li id="purple" data-toggle="tooltip" data-placement="top" title="" data-original-title="Purple"></li>
-        <li id="yellow" data-toggle="tooltip" data-placement="top" title="" data-original-title="Yellow"></li>
-        <li id="blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Blue"></li>
-        <li id="dark-blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dark Blue"></li>
-        <li id="orange" data-toggle="tooltip" data-placement="top" title="" data-original-title="Orange"></li>
-        <li id="green" data-toggle="tooltip" data-placement="top" title="" data-original-title="Green"></li>
-        <li id="brown" data-toggle="tooltip" data-placement="top" title="" data-original-title="Brown"></li>
-        <li id="dark-red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dark Red"></li>
-        <li id="light-green" data-toggle="tooltip" data-placement="top" title="" data-original-title="Light Green"></li>
-    </ul>
-</div>
-<!-- ==========================
-    COLOR SWITCHER - END
 =========================== -->
 
 <div id="page-wrapper"> <!-- PAGE - START -->
@@ -328,31 +304,6 @@
     </header>
     <!-- ==========================
     	HEADER - END
-    =========================== -->
-
-    <!-- ==========================
-    	BREADCRUMB - START
-    =========================== -->
-    <section class="breadcrumb-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-6">
-                    <h2>Women</h2>
-                    <p>Fusce Aliquam</p>
-                </div>
-                <div class="col-xs-6">
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Women</a></li>
-                        <li><a href="products.html">Dresses</a></li>
-                        <li class="active">Fusce Aliquam</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ==========================
-        BREADCRUMB - END
     =========================== -->
 
     @yield('main')
@@ -649,7 +600,6 @@
 <script src="/js/jquery.card.js"></script>
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/twitterFetcher_min.js"></script>
-<script src="/js/color-switcher.js"></script>
 <script src="/js/custom.js"></script>
 </body>
 </html>
