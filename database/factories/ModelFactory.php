@@ -12,7 +12,10 @@
 */
 
 use App\Color;
+use App\Image;
+use App\Label;
 use App\Product;
+use App\Review;
 use App\Size;
 use App\User;
 
@@ -26,11 +29,15 @@ $factory->define(User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Product::class, function (Faker\Generator $faker) {
+    $name = $faker->words(3, true);
     return [
-        'name' => $faker->name,
+        '_id' => str_slug($name),
+        'name' => $name,
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
-        'price' => $faker->numberBetween(3,150)
+        'price' => $faker->numberBetween(3, 150),
+        'tags' => $faker->words(),
+        'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
     ];
 });
 
@@ -44,5 +51,23 @@ $factory->define(Size::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
         'complementary_text' => $faker->word
+    ];
+});
+
+$factory->define(Review::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->email,
+        'comment' => $faker->paragraphs(2, true)
+    ];
+});
+
+$factory->define(Label::class, function (Faker\Generator $faker) {
+    $type = ['Default','Primary','Success','Info','Warning','Danger'];
+    $chosen = $faker->randomElement($type);
+
+    return [
+        'name' => $chosen,
+        'css' => strtolower($chosen)
     ];
 });

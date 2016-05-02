@@ -37,12 +37,17 @@ PRODUCTS - START
                 <div class="col-xs-4">
                     <div class="product-carousel-wrapper">
                         <div id="product-carousel">
-                            <div class="item"><img src="/images/products/product-1.jpg" class="img-responsive"
-                                                   alt=""></div>
-                            <div class="item"><img src="/images/products/product-2.jpg" class="img-responsive"
-                                                   alt=""></div>
-                            <div class="item"><img src="/images/products/product-3.jpg" class="img-responsive"
-                                                   alt=""></div>
+                            <div class="item">
+                                <img src="/images/products/product-1.jpg" class="img-responsive" alt="">
+                            </div>
+                            <div class="item">
+                                <img src="/images/products/product-2.jpg" class="img-responsive"
+                                                   alt="">
+                            </div>
+                            <div class="item">
+                                <img src="/images/products/product-3.jpg" class="img-responsive"
+                                                   alt="">
+                            </div>
                             <div class="item"><img src="/images/products/product-4.jpg" class="img-responsive"
                                                    alt=""></div>
                         </div>
@@ -52,8 +57,9 @@ PRODUCTS - START
                     <div class="product-body">
                         <h3>{{ $product->name }}</h3>
                         <div class="product-labels">
-                            <span class="label label-info">new</span>
-                            <span class="label label-danger">sale</span>
+                            @foreach($product->labels as $label)
+                                <span class="label label-{{ $label->css }}">{{ $label->name }}</span>
+                            @endforeach
                         </div>
                         <div class="product-rating">
                             <i class="fa fa-star"></i>
@@ -63,14 +69,14 @@ PRODUCTS - START
                             <i class="fa fa-star-o"></i>
                         </div>
                             <span class="price">
-                                <del><span class="amount">$36.00</span></del>
-                                <ins><span class="amount">$30.00</span></ins>
+                                <del><span class="amount">{{ $product->price }} &euro;</span></del>
+                                <ins><span class="amount">{{ $product->price }} &euro;</span></ins>
                             </span>
                         <ul class="list-unstyled product-info">
-                            <li><span>ID</span>U-187423</li>
+                            <li><span>ID</span>{{ $product->_id }}</li>
                             <li><span>Availability</span>In Stock</li>
                             <li><span>Brand</span>Esprit</li>
-                            <li><span>Tags</span>Dress, Black, Women</li>
+                            <li><span>Tags</span>{{ $product->getTagsArray() }}</li>
                         </ul>
                         <p>{{ $product->introduction }}</p>
                         <div class="product-form clearfix">
@@ -102,7 +108,7 @@ PRODUCTS - START
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-sm-4">
+                                <div class="col-md-4 col-sm-4">
                                     <div class="product-color">
                                         <div class="form-inline">
                                             <div class="form-group">
@@ -119,7 +125,7 @@ PRODUCTS - START
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-sm-12">
+                                <div class="col-md-2 col-sm-12">
                                     <a href="" class="btn btn-primary add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add
                                         to cart</a>
@@ -143,7 +149,8 @@ PRODUCTS - START
                                                     aria-controls="description" aria-expanded="false">Description</a>
                 </li>
                 <li role="presentation" class="active"><a href="#reviews" role="tab" data-toggle="tab"
-                                                          aria-controls="reviews" aria-expanded="true">Reviews (25)</a>
+                                                          aria-controls="reviews" aria-expanded="true">Reviews
+                        ({!! count($product->reviews) !!})</a>
                 </li>
                 <li role="presentation" class=""><a href="#video" role="tab" data-toggle="tab" aria-controls="video"
                                                     aria-expanded="false">Responsive Video</a></li>
@@ -156,99 +163,9 @@ PRODUCTS - START
 
                     <div class="comments">
 
-                        <!-- REVIEW - START -->
-                        <div class="media">
-                            <div class="media-left">
-                                <img class="media-object" alt="" src="/images/default-avatar.png">
-                            </div>
-                            <div class="media-body">
-                                <h3 class="media-heading">John Doe</h3>
-                                <div class="meta">
-                                    <span class="date">20 July 2015</span>
-                                    <a data-toggle="modal" data-target="#add-review">Reply</a>
-                                </div>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                    sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra
-                                    turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                                    felis in faucibus.</p>
-                            </div>
-                        </div>
-                        <!-- REVIEW - END -->
-
-                        <!-- REVIEW - START -->
-                        <div class="media">
-                            <div class="media-left">
-                                <img class="media-object" alt="" src="/images/default-avatar.png">
-                            </div>
-                            <div class="media-body">
-                                <h3 class="media-heading">John Doe</h3>
-                                <div class="meta">
-                                    <span class="date">20 July 2015</span>
-                                    <a data-toggle="modal" data-target="#add-review">Reply</a>
-                                </div>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                    sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra
-                                    turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                                    felis in faucibus.</p>
-
-                                <!-- REVIEW - START -->
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img class="media-object" alt="" src="/images/default-avatar.png">
-                                    </div>
-                                    <div class="media-body">
-                                        <h3 class="media-heading">John Doe</h3>
-                                        <div class="meta">
-                                            <span class="date">20 July 2015</span>
-                                        </div>
-                                        <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                            sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus
-                                            viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
-                                            lacinia congue felis in faucibus.</p>
-                                    </div>
-                                </div>
-                                <!-- REVIEW - END -->
-
-                                <!-- REVIEW - START -->
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img class="media-object" alt="" src="/images/default-avatar.png">
-                                    </div>
-                                    <div class="media-body">
-                                        <h3 class="media-heading">John Doe</h3>
-                                        <div class="meta">
-                                            <span class="date">20 July 2015</span>
-                                        </div>
-                                        <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                            sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus
-                                            viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
-                                            lacinia congue felis in faucibus.</p>
-                                    </div>
-                                </div>
-                                <!-- REVIEW - END -->
-
-                            </div>
-                        </div>
-                        <!-- REVIEW - END -->
-
-                        <!-- REVIEW - START -->
-                        <div class="media">
-                            <div class="media-left">
-                                <img class="media-object" alt="" src="/images/default-avatar.png">
-                            </div>
-                            <div class="media-body">
-                                <h3 class="media-heading">John Doe</h3>
-                                <div class="meta">
-                                    <span class="date">20 July 2015</span>
-                                    <a data-toggle="modal" data-target="#add-review">Reply</a>
-                                </div>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                                    sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra
-                                    turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                                    felis in faucibus.</p>
-                            </div>
-                        </div>
-                        <!-- REVIEW - END -->
+                        @foreach($product->reviews as $review)
+                            @include('partials.review', ['review' => $review, 'reply' => true])
+                        @endforeach
 
                     </div>
 
@@ -258,7 +175,7 @@ PRODUCTS - START
                 <div role="tabpanel" class="tab-pane" id="video">
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe allowfullscreen=""
-                                src="http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage"></iframe>
+                                src="{{ $product->video }}"></iframe>
                     </div>
                 </div>
             </div>
