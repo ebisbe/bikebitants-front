@@ -269,11 +269,11 @@ $(document).ready(function() {
     	animateIn: 'fadeIn'
   	});
 	
-	$('#product-quickview').on('shown.bs.modal', function (e) {
-		
-		$("#product-quickview").find(".product-carousel-wrapper").removeClass('hidden');
-		
-		$("#product-carousel-modal").owlCarousel({
+	$('.modal-quickview').on('shown.bs.modal', function (e) {
+
+		$(".modal-quickview").find(".product-carousel-wrapper").removeClass('hidden');
+
+		$(this).find(".product-carousel").owlCarousel({
 			items : 1,
 			animateOut: 'fadeOut',
 			animateIn: 'fadeIn',

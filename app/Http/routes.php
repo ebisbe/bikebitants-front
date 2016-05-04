@@ -15,5 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/product', 'ShopController@product');
-Route::get('/tienda/{slug}', 'ShopController@brand');
+Route::get('/{slug}', 'ShopController@product')->name('shop.product');
+Route::get('/tienda/{slug}', 'ShopController@brand')->name('shop.brand');
+
+Route::resource('cart', 'CartController');

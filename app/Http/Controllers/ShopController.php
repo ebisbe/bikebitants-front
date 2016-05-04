@@ -23,23 +23,27 @@ class ShopController extends Controller
     /**
      * Product view
      *
+     * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function product()
+    public function product($slug)
     {
-        $product = Product::all()->first();
-
-        return view('shop.product', compact('product'));
+        $product = Product::whereSlug($slug)->firstOrFail();
+        $relatedProducts = Brand::find($product->brand->_id)->products->/*where('_id', '!=', $product->_id)->*/
+        take(4);
+        return view('shop.product', compact('product', 'relatedProducts'));
     }
 
     /**
      * Brand view
      *
+     * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function brand($slug)
     {
-        $brand = Brand::where('slug', '=', $slug)->firstOrFail();
+        $brand = Brand::whereSlug($slug)->firstOrFail();
         return view('shop.brand', compact('brand'));
     }
+
 }

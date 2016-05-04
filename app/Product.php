@@ -56,4 +56,13 @@ class Product extends Model
     {
         return $this->embedsMany(Image::class);
     }
+
+    /**
+     * Brand of the product
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function brand()
+    {
+       return $this->belongsTo(Brand::class);
+    }
 }

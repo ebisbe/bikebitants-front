@@ -64,18 +64,22 @@
                 @foreach($brand->products->take(4) as $product)
                     <div class="col-xs-6 col-sm-3">
                         <article class="product-item">
-                            <a href="{{ $product->slug }}">
+                            <a href="{!! route('shop.product', ['slug' => $product->slug]) !!}">
                                 <img src="/images/products/product-3.jpg" class="img-responsive" alt="">
                             </a>
-                            <h3><a href="{{ $product->slug }}">{{ $product->name }}</a></h3>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        <span class="price">
+                            <h3>
+                                <a href="{!! route('shop.product', ['slug' => $product->slug]) !!}">{{ $product->name }}</a>
+                            </h3>
+                            @if(isset($product->rating))
+                                <div class="product-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            @endif
+                            <span class="price">
                             <ins><span class="amount">{{ $product->price }} &euro;</span></ins>
                         </span>
                         </article>
