@@ -1,5 +1,7 @@
 <?php
 
+use App\Brand;
+use App\BrandService;
 use App\Color;
 use App\Label;
 use App\Product;
@@ -16,7 +18,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        /** @var Brand $brand */
+        $brand = factory(Brand::class)->create();
+
+        $brand->services()->save(factory(BrandService::class)->make());
+        $brand->services()->save(factory(BrandService::class)->make());
+        $brand->services()->save(factory(BrandService::class)->make());
+
+        for ($x = 0; $x <= 5; $x++) {
+            $product = $this->product();
+            $brand->products()->save($product);
+        }
+    }
+
+    public function product()
+    {
         /** @var Product $product */
         $product = factory(Product::class)->create();
 
@@ -48,5 +64,7 @@ class DatabaseSeeder extends Seeder
         $product->labels()->save(factory(Label::class)->make());
         $product->labels()->save(factory(Label::class)->make());
         $product->labels()->save(factory(Label::class)->make());
+
+        return $product;
     }
 }

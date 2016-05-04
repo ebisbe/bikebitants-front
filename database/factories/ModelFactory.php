@@ -11,6 +11,8 @@
 |
 */
 
+use App\Brand;
+use App\BrandService;
 use App\Color;
 use App\Image;
 use App\Label;
@@ -33,6 +35,7 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
     return [
         '_id' => str_slug($name),
         'name' => $name,
+        'slug' => str_slug($name),
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'price' => $faker->numberBetween(3, 150),
@@ -63,11 +66,31 @@ $factory->define(Review::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Label::class, function (Faker\Generator $faker) {
-    $type = ['Default','Primary','Success','Info','Warning','Danger'];
+    $type = ['Default', 'Primary', 'Success', 'Info', 'Warning', 'Danger'];
     $chosen = $faker->randomElement($type);
 
     return [
         'name' => $chosen,
         'css' => strtolower($chosen)
+    ];
+});
+
+$factory->define(Brand::class, function (Faker\Generator $faker) {
+    $name = $faker->words(3, true);
+    return [
+        'name' => $name,
+        'slug' => /*str_slug($name)*/ 'cum-aliquid-enim',
+        'description' => $faker->paragraphs(3, true),
+        'image' => ''
+    ];
+});
+
+$factory->define(BrandService::class, function (Faker\Generator $faker) {
+    $position = ['left', 'right'];
+    return [
+        'title' => $faker->words(3, true),
+        'description' => $faker->paragraphs(3, true),
+        'image' => '',
+        'position' => $faker->randomElement($position)
     ];
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -29,5 +30,16 @@ class ShopController extends Controller
         $product = Product::all()->first();
 
         return view('shop.product', compact('product'));
+    }
+
+    /**
+     * Brand view
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function brand($slug)
+    {
+        $brand = Brand::where('slug', '=', $slug)->firstOrFail();
+        return view('shop.brand', compact('brand'));
     }
 }

@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('/product', 'ShopController@product');
+Route::get('/tienda/{slug}', 'ShopController@brand');
