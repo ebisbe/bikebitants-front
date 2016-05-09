@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Jenssegers\Mongodb\Eloquent\Model;
+use App\Business\MongoEloquentModel as Model;
 
 class Product extends Model
 {

@@ -306,7 +306,7 @@
     	HEADER - END
     =========================== -->
 
-    @yield('main')
+    @yield('content')
 
     <!-- ==========================
     	ADD REVIEW - START

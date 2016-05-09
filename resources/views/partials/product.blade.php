@@ -50,13 +50,14 @@
                 <div class="product-form clearfix">
                     <form action="/cart" class="js-add-to-cart" method="POST">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="product_id" value="{{ $product->_id }}">
 
                         <div class="row row-no-padding">
 
                             <div class="col-md-3 col-sm-4">
                                 <div class="product-quantity clearfix">
                                     <a class="btn btn-default" id="qty-minus">-</a>
-                                    <input type="text" class="form-control" id="qty" value="1">
+                                    <input type="text" class="form-control" id="qty" name="quantity" value="1">
                                     <a class="btn btn-default" id="qty-plus">+</a>
                                 </div>
                             </div>
@@ -68,7 +69,7 @@
                                             <label>Size:</label>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select name="size" class="form-control">
                                                 @foreach($product->sizes as $size)
                                                     <option value="{{ $size->_id }}">{{ $size->name }}
                                                         ({{ $size->complementary_text }})
@@ -87,7 +88,7 @@
                                             <label>Color:</label>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select name="color" class="form-control">
                                                 @foreach($product->colors as $color)
                                                     <option value="{{ $color->_id }}">{{ $color->name }}</option>
                                                 @endforeach

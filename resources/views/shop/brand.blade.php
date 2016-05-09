@@ -1,6 +1,6 @@
 @extends('layouts.shop')
 
-@section('main')
+@section('content')
 
         <!-- ==========================
     	LOOKBOOK - START

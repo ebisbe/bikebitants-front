@@ -8,16 +8,17 @@ $(document).ready(function() {
         var form = $(this);
         $.ajax( {
             url: form.attr('action'),
-            data: form.serialize()
+            data: form.serialize(),
+            method: 'post'
         })
             .done(function () {
-                alert("success");
+                //console.log("success");
             })
             .fail(function () {
-                alert("error");
+                //console.log("error");
             })
             .always(function () {
-                alert("complete");
+                //console.log("complete");
             });
     });
 });
