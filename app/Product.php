@@ -16,18 +16,9 @@ class Product extends Model
      * Colors defined for the product
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
-    public function colors()
+    public function attributes()
     {
-        return $this->embedsMany(Color::class);
-    }
-
-    /**
-     * Sizes defined for the product
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
-     */
-    public function sizes()
-    {
-        return $this->embedsMany(Size::class);
+        return $this->embedsMany(Attribute::class);
     }
 
     /**

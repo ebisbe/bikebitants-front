@@ -30,17 +30,17 @@ MY ACCOUNT - START
                                             <td class="col-xs-1"><img src="/images/products/product-1.jpg" alt=""
                                                                       class="img-responsive"></td>
                                             <td class="col-xs-4 col-md-5">
-                                                <h4><a href="single-product.html">{{ $item['product']->name }}</a>
-                                                    <small>M, Black, Esprit</small>
+                                                <h4><a href="{!! url('product', ['slug' => $item['product']->slug]) !!}">{{ $item['product']->name }}</a>
+                                                    <small>{{ $item['product']->sizes->find($item['size'])->name }}, {{ $item['product']->colors->find($item['color'])->name }}, {{ $item['product']->brand->name }}</small>
                                                 </h4>
                                             </td>
-                                            <td class="col-xs-2 text-center"><span>$30</span></td>
+                                            <td class="col-xs-2 text-center"><span>{{ $item['product']->price }}&euro;</span></td>
                                             <td class="col-xs-2 col-md-1">
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" value="{{ $item['quantity'] }}">
                                                 </div>
                                             </td>
-                                            <td class="col-xs-2 text-center"><span><b>$60</b></span></td>
+                                            <td class="col-xs-2 text-center"><span><b>{{ $item['product']->price*$item['quantity'] }}&euro;</b></span></td>
                                             <td class="col-xs-1 text-center">
                                                 <form method="POST" action="/cart/{{ $item['_id'] }}">
                                                     <input type="hidden" name="_method" value="DELETE"/>

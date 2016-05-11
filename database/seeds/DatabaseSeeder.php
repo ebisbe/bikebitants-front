@@ -1,5 +1,7 @@
 <?php
 
+use App\Attribute;
+use App\AttributeValue;
 use App\Brand;
 use App\BrandService;
 use App\Color;
@@ -36,21 +38,42 @@ class DatabaseSeeder extends Seeder
         /** @var Product $product */
         $product = factory(Product::class)->create();
 
-        $product->colors()->save(factory(Color::class)->make());
-        $product->colors()->save(factory(Color::class)->make());
-        $product->colors()->save(factory(Color::class)->make());
+        /** @var Attribute $size */
+        $size = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'size', 'order' => 1]));
 
-        $product->sizes()->save(factory(Size::class)->make([
+        $size->attribute_values()->save(factory(AttributeValue::class)->make([
+            '_id' => 'L',
             'name' => 'L',
             'complementary_text' => '60-62cm'
         ]));
-        $product->sizes()->save(factory(Size::class)->make([
+        $size->attribute_values()->save(factory(AttributeValue::class)->make([
+            '_id' => 'M',
             'name' => 'M',
             'complementary_text' => '57-59cm'
         ]));
-        $product->sizes()->save(factory(Size::class)->make([
+        $size->attribute_values()->save(factory(AttributeValue::class)->make([
+            '_id' => 'S',
             'name' => 'S',
             'complementary_text' => '54-56cm'
+        ]));
+
+        /** @var Attribute $color */
+        $color = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'color', 'order' => 2]));
+
+        $color->attribute_values()->save(factory(AttributeValue::class)->make([
+            '_id' => 'RED',
+            'name' => 'Red',
+            'complementary_text' => ''
+        ]));
+        $color->attribute_values()->save(factory(AttributeValue::class)->make([
+            '_id' => 'GREEN',
+            'name' => 'Green',
+            'complementary_text' => ''
+        ]));
+        $color->attribute_values()->save(factory(AttributeValue::class)->make([
+            '_id' => 'GOLD',
+            'name' => 'Gold',
+            'complementary_text' => ''
         ]));
 
         $product->reviews()->save(factory(Review::class)->make());

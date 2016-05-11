@@ -4,16 +4,13 @@ namespace App;
 
 use App\Business\MongoEloquentModel as Model;
 
-class Review extends Model
+class Attribute extends Model
 {
-
     /**
-     * Comments on a comment
-     *
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
-    public function children()
+    public function attribute_values()
     {
-        return $this->embedsMany(Review::class);
+        return $this->embedsMany(AttributeValue::class);
     }
 }

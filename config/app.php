@@ -160,6 +160,8 @@ return [
          * Bikebitants services
          */
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+
     ],
 
     /*

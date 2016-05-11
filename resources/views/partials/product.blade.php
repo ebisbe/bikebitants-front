@@ -38,7 +38,7 @@
                 @endif
                 <span class="price">
                             <del><span class="amount">{{ $product->price }} &euro;</span></del>
-                            <ins><span class="amount">{{ $product->price }} &euro;</span></ins>
+                            <ins><span class="amount">{{ $product->discount_price }} &euro;</span></ins>
                         </span>
                 <ul class="list-unstyled product-info">
                     <li><span>ID</span>{{ $product->_id }}</li>
@@ -62,17 +62,19 @@
                                 </div>
                             </div>
 
+                            @foreach($product->attributes()->all() as $attribute)
                             <div class="col-md-3 col-sm-4">
                                 <div class="product-size">
                                     <div class="form-inline">
                                         <div class="form-group">
-                                            <label>Size:</label>
+                                            <label>{{ $attribute->name }}:</label>
                                         </div>
                                         <div class="form-group">
                                             <select name="size" class="form-control">
-                                                @foreach($product->sizes as $size)
-                                                    <option value="{{ $size->_id }}">{{ $size->name }}
-                                                        ({{ $size->complementary_text }})
+                                                @foreach($attribute->attribute_values()->all() as $value)
+                                                    <option value="{{ $value->_id }}">
+                                                        {{ $value->name }}
+                                                        {!! !empty($value->complementary_text) ? '('.$value->complementary_text.')' : '' !!}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -80,23 +82,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-4 col-sm-4">
-                                <div class="product-color">
-                                    <div class="form-inline">
-                                        <div class="form-group">
-                                            <label>Color:</label>
-                                        </div>
-                                        <div class="form-group">
-                                            <select name="color" class="form-control">
-                                                @foreach($product->colors as $color)
-                                                    <option value="{{ $color->_id }}">{{ $color->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
 
                             <div class="col-md-2 col-sm-12">
                                 <button type="submit" class="btn btn-primary add-to-cart js-add-button">

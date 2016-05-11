@@ -11,14 +11,14 @@
 |
 */
 
+use App\Attribute;
+use App\AttributeValue;
 use App\Brand;
 use App\BrandService;
-use App\Color;
 use App\Image;
 use App\Label;
 use App\Product;
 use App\Review;
-use App\Size;
 use App\User;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
@@ -35,24 +35,30 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
     return [
         '_id' => str_slug($name),
         'name' => $name,
+        'generic_name' => 'generic '.$name,
         'slug' => str_slug($name),
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'price' => $faker->numberBetween(3, 150),
+        'discount_price' => $faker->numberBetween(3, 150),
+        //'discount_init' => $faker->date(),
+        //'discount_end' => $faker->date(),
         'tags' => $faker->words(),
-        'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
+        //'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
     ];
 });
 
-$factory->define(Color::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->colorName,
-    ];
-});
-
-$factory->define(Size::class, function (Faker\Generator $faker) {
+$factory->define(Attribute::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
+        'order' => $faker->randomNumber()
+    ];
+});
+
+$factory->define(AttributeValue::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'sku' => $faker->word,
         'complementary_text' => $faker->word
     ];
 });
