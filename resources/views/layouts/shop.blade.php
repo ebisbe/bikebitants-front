@@ -21,22 +21,7 @@
     <!-- ==========================
     	CSS
     =========================== -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
-    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/css/dragtable.css" rel="stylesheet" type="text/css">
-    <link href="/css/owl.carousel.css" rel="stylesheet" type="text/css">
-    <link href="/css/animate.css" rel="stylesheet" type="text/css">
-    <link href="/css/custom.css" rel="stylesheet" type="text/css">
-    <link href="/css/color/green.css" id="main-color" rel="stylesheet" type="text/css">
-
-    <!-- ==========================
-    	JS
-    =========================== -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
 
 </head>
 <body>
@@ -474,5 +459,10 @@
  JS
 =========================== -->
 <script src="{{ elixir('js/all.js') }}"></script>
+
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
 </body>
 </html>
