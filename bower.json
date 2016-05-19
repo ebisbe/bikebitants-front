@@ -1,0 +1,27 @@
+{
+  "name": "bikebitants",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "https://bikebitants.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "jquery-ui": "^1.11.4",
+    "bootstrap-hover-dropdown": "^2.2.1",
+    "smoothscroll-for-websites": "^1.4.4",
+    "owl.carousel": "2.0.0-beta.2.4",
+    "google-maps": "^3.2.1",
+    "card": "^1.3.2",
+    "dragtable": "^2.0.14",
+    "twitter-fetcher": "^15.0.1",
+    "font-awesome": "fontawesome#^4.6.2",
+    "jquery.mb.ytplayer": "^3.0.1"
+  }
+}

@@ -29,7 +29,7 @@ class ShopController extends Controller
     public function product($slug)
     {
         $product = Product::whereSlug($slug)->firstOrFail();
-        $relatedProducts = Product::with('brand')->whereBrandId($product->brand_id)->get()->take(4);
+        $relatedProducts = Product::with('brand')->whereBrandId($product->brand_id)->where('_id', '!=', $product->_id)->get()->take(4);
         return view('shop.product', compact('product', 'relatedProducts'));
     }
 

@@ -31,7 +31,7 @@ MY ACCOUNT - START
                                                                       class="img-responsive"></td>
                                             <td class="col-xs-4 col-md-5">
                                                 <h4><a href="{!! url('product', ['slug' => $item['product']->slug]) !!}">{{ $item['product']->name }}</a>
-                                                    <small>{{ $item['product']->sizes->find($item['size'])->name }}, {{ $item['product']->colors->find($item['color'])->name }}, {{ $item['product']->brand->name }}</small>
+                                                    <small> {{ $item['product']->brand->name }}</small>
                                                 </h4>
                                             </td>
                                             <td class="col-xs-2 text-center"><span>{{ $item['product']->price }}&euro;</span></td>

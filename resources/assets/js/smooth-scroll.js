@@ -369,7 +369,7 @@ function keydown(event) {
                   (event.shiftKey && event.keyCode !== key.spacebar);
     
     // our own tracked active element could've been removed from the DOM
-    if (!document.contains(activeElement)) {
+    if (!document.body.contains(activeElement)) {
         activeElement = document.activeElement;
     }
 
@@ -620,12 +620,12 @@ var getScrollRoot = (function() {
       document.body.appendChild(dummy);
       var bodyScrollTop  = document.body.scrollTop;
       var docElScrollTop = document.documentElement.scrollTop;
-      window.scrollBy(0, 1);
+      window.scrollBy(0, 3);
       if (document.body.scrollTop != bodyScrollTop)
         (SCROLL_ROOT = document.body);
       else 
         (SCROLL_ROOT = document.documentElement);
-      window.scrollBy(0, -1);
+      window.scrollBy(0, -3);
       document.body.removeChild(dummy);
     }
     return SCROLL_ROOT;
@@ -680,7 +680,8 @@ var isEdge    = /Edge/.test(userAgent); // thank you MS
 var isChrome  = /chrome/i.test(userAgent) && !isEdge; 
 var isSafari  = /safari/i.test(userAgent) && !isEdge; 
 var isMobile  = /mobile/i.test(userAgent);
-var isEnabledForBrowser = (isChrome || isSafari) && !isMobile;
+var isIEWin7  = /Windows NT 6.1/i.test(userAgent) && /rv:11/i.test(userAgent);
+var isEnabledForBrowser = (isChrome || isSafari || isIEWin7) && !isMobile;
 
 var wheelEvent;
 if ('onwheel' in document.createElement('div'))
@@ -709,7 +710,11 @@ SmoothScroll.destroy = cleanup;
 if (window.SmoothScrollOptions) // async API
     SmoothScroll(window.SmoothScrollOptions)
 
-if ('object' == typeof exports)
+if (typeof define === 'function' && define.amd)
+    define(function() {
+        return SmoothScroll;
+    });
+else if ('object' == typeof exports)
     module.exports = SmoothScroll;
 else
     window.SmoothScroll = SmoothScroll;

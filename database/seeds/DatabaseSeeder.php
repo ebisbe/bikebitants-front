@@ -27,54 +27,58 @@ class DatabaseSeeder extends Seeder
         $brand->services()->save(factory(BrandService::class)->make());
         $brand->services()->save(factory(BrandService::class)->make());
 
-        for ($x = 0; $x <= 5; $x++) {
-            $product = $this->product();
-            $brand->products()->save($product);
-        }
+        $product = $this->product('simple');
+        $brand->products()->save($product);
+
+        $product = $this->product('variable');
+        $brand->products()->save($product);
     }
 
-    public function product()
+    public function product($type)
     {
         /** @var Product $product */
-        $product = factory(Product::class)->create();
+        $product = factory(Product::class)->create(['slug' => $type]);
 
-        /** @var Attribute $size */
-        $size = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'size', 'order' => 1]));
+        if ($type == 'variable') {
 
-        $size->attribute_values()->save(factory(AttributeValue::class)->make([
-            '_id' => 'L',
-            'name' => 'L',
-            'complementary_text' => '60-62cm'
-        ]));
-        $size->attribute_values()->save(factory(AttributeValue::class)->make([
-            '_id' => 'M',
-            'name' => 'M',
-            'complementary_text' => '57-59cm'
-        ]));
-        $size->attribute_values()->save(factory(AttributeValue::class)->make([
-            '_id' => 'S',
-            'name' => 'S',
-            'complementary_text' => '54-56cm'
-        ]));
+            /** @var Attribute $size */
+            $size = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'size', 'order' => 1]));
 
-        /** @var Attribute $color */
-        $color = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'color', 'order' => 2]));
+            $size->attribute_values()->save(factory(AttributeValue::class)->make([
+                '_id' => 'L',
+                'name' => 'L',
+                'complementary_text' => '60-62cm'
+            ]));
+            $size->attribute_values()->save(factory(AttributeValue::class)->make([
+                '_id' => 'M',
+                'name' => 'M',
+                'complementary_text' => '57-59cm'
+            ]));
+            $size->attribute_values()->save(factory(AttributeValue::class)->make([
+                '_id' => 'S',
+                'name' => 'S',
+                'complementary_text' => '54-56cm'
+            ]));
 
-        $color->attribute_values()->save(factory(AttributeValue::class)->make([
-            '_id' => 'RED',
-            'name' => 'Red',
-            'complementary_text' => ''
-        ]));
-        $color->attribute_values()->save(factory(AttributeValue::class)->make([
-            '_id' => 'GREEN',
-            'name' => 'Green',
-            'complementary_text' => ''
-        ]));
-        $color->attribute_values()->save(factory(AttributeValue::class)->make([
-            '_id' => 'GOLD',
-            'name' => 'Gold',
-            'complementary_text' => ''
-        ]));
+            /** @var Attribute $color */
+            $color = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'color', 'order' => 2]));
+
+            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+                '_id' => 'RED',
+                'name' => 'Red',
+                'complementary_text' => ''
+            ]));
+            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+                '_id' => 'GREEN',
+                'name' => 'Green',
+                'complementary_text' => ''
+            ]));
+            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+                '_id' => 'GOLD',
+                'name' => 'Gold',
+                'complementary_text' => ''
+            ]));
+        }
 
         $product->reviews()->save(factory(Review::class)->make());
         /** @var Review $review */

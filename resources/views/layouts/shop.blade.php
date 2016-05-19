@@ -473,18 +473,6 @@
 <!-- ==========================
  JS
 =========================== -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-{{--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=true"></script>--}}
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/bootstrap-hover-dropdown.min.js"></script>
-<script src="/js/SmoothScroll.js"></script>
-<script src="/js/jquery.dragtable.js"></script>
-<script src="/js/jquery.card.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/twitterFetcher_min.js"></script>
-<script src="/js/jquery.mb.YTPlayer.min.js"></script>
-<script src="/js/custom.js"></script>
-<script src="/js/shop.js"></script>
+<script src="{{ elixir('js/all.js') }}"></script>
 </body>
 </html>

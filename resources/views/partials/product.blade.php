@@ -67,7 +67,7 @@
                                 <div class="product-size">
                                     <div class="form-inline">
                                         <div class="form-group">
-                                            <label>{{ $attribute->name }}:</label>
+                                            <label>{{ $attribute->uc_name }}:</label>
                                         </div>
                                         <div class="form-group">
                                             <select name="size" class="form-control">
