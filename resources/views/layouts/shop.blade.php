@@ -12,17 +12,7 @@
     =========================== -->
     <title>uMarket - The easiest way to shop</title>
 
-    <!-- ==========================
-    	Fonts
-    =========================== -->
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900,900italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,900,800' rel='stylesheet' type='text/css'>
-
-    <!-- ==========================
-    	CSS
-    =========================== -->
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
-
 </head>
 <body>
 

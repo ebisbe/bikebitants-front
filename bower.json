@@ -23,6 +23,8 @@
     "twitter-fetcher": "^15.0.1",
     "font-awesome": "fontawesome#^4.6.2",
     "jquery.mb.ytplayer": "^3.0.1",
-    "animate.css": "^3.5.1"
+    "animate.css": "^3.5.1",
+    "sourceSansPro": "https://google-fonts.azurewebsites.net/googleFonts/?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900,900italic",
+    "raleway": "https://google-fonts.azurewebsites.net/googleFonts/?family=Raleway:400,100,200,300,500,600,700,900,800"
   }
 }

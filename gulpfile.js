@@ -32,6 +32,10 @@ elixir(function (mix) {
         .copy('vendor/bower_components/dragtable/dragtable.css', 'resources/assets/css/dragtable.css')
         .copy('vendor/bower_components/owl.carousel/dist/assets/owl.carousel.css', 'resources/assets/css/owl.carousel.css')
         .copy('vendor/bower_components/animate.css/animate.css', 'resources/assets/css/animate.css')
+        .copy('vendor/bower_components/sourceSansPro/sourceSansPro.css', 'resources/assets/css/sourceSansPro.css')
+        .copy('vendor/bower_components/raleway/raleway.css', 'resources/assets/css/raleway.css')
+        .copy('vendor/bower_components/sourceSansPro/*.ttf', 'public/build/css/')
+        .copy('vendor/bower_components/raleway/*.ttf', 'public/build/css/')
 
         .scripts([
             'jquery.js',
@@ -57,7 +61,9 @@ elixir(function (mix) {
             'owl.carousel.css',
             'animate.css',
             'custom.css',
-            'color/green.css'
+            'color/green.css',
+            'sourceSansPro.css',
+            'raleway.css'
         ])
 
         .version(['js/all.js', 'css/all.css']);
