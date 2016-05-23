@@ -38,6 +38,9 @@ elixir(function (mix) {
         .copy('vendor/bower_components/sourceSansPro/*.ttf', 'public/build/css/')
         .copy('vendor/bower_components/raleway/*.ttf', 'public/build/css/')
 
+        //files
+        .copy('resources/assets/images', 'public/build/images/')
+
         .scripts([
             'bower/jquery.js',
             'bower/jquery-ui.js',
