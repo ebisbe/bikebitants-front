@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -14,8 +16,9 @@ class CartController extends Controller
      */
     public function index(Request $request)
     {
-        $items = $request->session()->get('items', []);
-        return view('cart.index', compact('items'));
+        $items = Cart::with('product.brand')->whereSessionId($request->session()->getId())->get();
+        $discount = 0;
+        return view('cart.index', compact('items', 'discount'));
     }
 
     /**
@@ -24,24 +27,36 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $item = $request->all();
-        $quantity = $item['quantity'];
-        unset($item['_token']);
-        unset($item['quantity']);
-        ksort($item);
-        $product_id = implode('-', array_values($item));
+        $productId = $request->input('product_id');
+        $attributes = $request->input('attributes', []);
 
-        $items = $request->session()->get('items', []);
-        if(isset($items[$product_id])) {
-            $items[$product_id]['quantity'] += $quantity;
+        $product = Cart::whereProductId($productId)
+            ->whereSessionId($request->session()->getId())
+            ->when($attributes, function($query) use ($attributes){
+                foreach($attributes as $attribute => $value) {
+                    $query->where($attribute, '=', $value);
+                }
+                return $query;
+            })->first();
+
+        if(empty($product)){
+            $product = new Cart();
+            $product->product_id = $productId;
+            $product->session_id = $request->session()->getId();
+            $product->quantity = (int)$request->input('quantity', 1);
+            foreach($attributes as $attribute => $value) {
+                $product->$attribute = $value;
+            }
         } else {
-            $product = Product::where('_id', $item['product_id'])->firstOrFail();
-            $items[$product_id] = array_merge($item, ['quantity' => $quantity, '_id' => $product_id, 'product' => $product]);
+            $product->increment('quantity', (int)$request->input('quantity', 1));
         }
-        $request->session()->put('items', $items);
+        $product->price = Product::getPrice($productId, $attributes);
+        $product->subtotal = $product->price * $product->quantity;
+
+        $product->save();
 
         if ($request->ajax()) {
-            return $request->session()->get('items', []);
+            return Cart::whereSessionId($request->session()->getId())->get();
         } else {
             return redirect('cart');
         }

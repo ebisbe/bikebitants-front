@@ -70,7 +70,7 @@
                                             <label>{{ $attribute->uc_name }}:</label>
                                         </div>
                                         <div class="form-group">
-                                            <select name="size" class="form-control">
+                                            <select name="attributes[{{ $attribute->name }}]" class="form-control">
                                                 @foreach($attribute->attribute_values()->all() as $value)
                                                     <option value="{{ $value->_id }}">
                                                         {{ $value->name }}

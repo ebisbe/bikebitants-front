@@ -9,6 +9,7 @@ use App\Label;
 use App\Product;
 use App\Review;
 use App\Size;
+use App\Variation;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -78,6 +79,16 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Gold',
                 'complementary_text' => ''
             ]));
+
+            $colours = $color->attribute_values()->get();
+            $sizes = $size->attribute_values()->get();
+            foreach ($sizes as $size) {
+                foreach ($colours as $color) {
+                    $product->variation()->save(factory(Variation::class)->make([
+                        '_id' => [$color->_id, $size->_id]
+                    ]));
+                }
+            }
         }
 
         $product->reviews()->save(factory(Review::class)->make());

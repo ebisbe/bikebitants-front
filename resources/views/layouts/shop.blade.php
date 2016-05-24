@@ -10,7 +10,7 @@
     <!-- ==========================
     	Title
     =========================== -->
-    <title>uMarket - The easiest way to shop</title>
+    <title>Bikebitants</title>
 
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
 </head>

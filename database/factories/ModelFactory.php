@@ -20,6 +20,7 @@ use App\Label;
 use App\Product;
 use App\Review;
 use App\User;
+use App\Variation;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     return [
@@ -98,5 +99,12 @@ $factory->define(BrandService::class, function (Faker\Generator $faker) {
         'description' => $faker->paragraphs(3, true),
         'image' => '',
         'position' => $faker->randomElement($position)
+    ];
+});
+
+$factory->define(Variation::class, function (Faker\Generator $faker) {
+    return [
+        '_id' => $faker->slug(),
+        'price' => $faker->numberBetween(3, 150),
     ];
 });
