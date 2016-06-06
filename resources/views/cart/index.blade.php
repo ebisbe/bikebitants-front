@@ -90,7 +90,7 @@ MY ACCOUNT - START
                         </div>
                     </div>
                     <div class="clearfix">
-                        <a href="checkout.html" class="btn btn-primary btn-lg pull-right ">Checkout</a>
+                        <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-lg pull-right ">Checkout</a>
                     </div>
 
 

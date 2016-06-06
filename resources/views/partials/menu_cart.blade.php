@@ -36,7 +36,7 @@
                         <a href="{{ route('cart.index') }}" class="btn btn-primary btn-block">View Cart</a>
                     </div>
                     <div class="col-sm-6">
-                        <a href="checkout.html" class="btn btn-primary btn-block">Checkout</a>
+                        <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-block">Checkout</a>
                     </div>
                 </div>
             </li>
