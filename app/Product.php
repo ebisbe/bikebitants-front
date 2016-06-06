@@ -7,7 +7,37 @@ use App\Business\MongoEloquentModel as Model;
 class Product extends Model
 {
 
-    public function getTagsArray()
+
+    protected $appends = ['range_price', 'tags_list', 'currency', 'final_price'];
+
+    /**
+     * Get a single point to find a price. The product can be a variable or simple
+     * @return string
+     */
+    public function getRangePriceAttribute() {
+        if(!empty($this->variation)) {
+            $min = $this->variation->min('price');
+            $max = $this->variation->max('price');
+            return $min.$this->currency.' - '.$max.$this->currency;
+        } else {
+            return $this->price.$this->currency;
+        }
+    }
+
+    /**
+     * While we have just one currency we set a default value.
+     * @return string
+     */
+    public function getCurrencyAttribute()
+    {
+        return ' &euro;';
+    }
+
+    /**
+     * Convert tags array into a comma list.
+     * @return string
+     */
+    public function getTagsListAttribute()
     {
         return implode(', ', $this->tags);
     }
@@ -65,17 +95,17 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+
+
     /**
      * Get the price of a product. If has multiple attributes with different prices should work too.
-     * @param $product_id
      * @param array $attributes
      * @return int
      */
-    public static function getPrice($product_id, $attributes = [])
+    public function finalPrice($attributes = [])
     {
         /** @var Product $product */
-        $product = self::where('_id', $product_id)->firstOrFail();
-        $variation = $product
+        $variation = $this
             ->variation()
             ->first(function ($key, $value) use($attributes) {
                 return array_diff($value->_id, array_values($attributes) ) == [];

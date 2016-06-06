@@ -34,7 +34,7 @@ MY ACCOUNT - START
                                                 <a href="{!! url('product', ['slug' => $item->product->slug]) !!}"> {{ $item->product->name }}</a>
                                                 <small> {{ $item->product->brand->name }}
                                                     @foreach($item->product->attributes as $attribute)
-                                                        , {{ $item[$attribute->name] }}
+                                                        , {{ $item->{$attribute->name} }}
                                                     @endforeach
                                                 </small>
                                             </h4>
@@ -43,14 +43,14 @@ MY ACCOUNT - START
                                             <span>{{ $item->price }}&euro;</span></td>
                                         <td class="col-xs-2 col-md-1">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" value="{{ $item['quantity'] }}">
+                                                <input type="text" class="form-control" name="{{ $item->_id }}" value="{{ $item->quantity }}">
                                             </div>
                                         </td>
                                         <td class="col-xs-2 text-center">
                                             <span><b>{{ $item->subtotal }}&euro;</b></span>
                                         </td>
                                         <td class="col-xs-1 text-center">
-                                            <form method="POST" action="/cart/{{ $item['_id'] }}">
+                                            <form method="POST" action="/cart/{{ $item->_id }}">
                                                 <input type="hidden" name="_method" value="DELETE"/>
                                                 {{ csrf_field() }}
                                                 <button class="btn btn-primary js-remove-item" type="submit">

@@ -11,12 +11,11 @@ class CartController extends Controller
 {
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        $items = Cart::with('product.brand')->whereSessionId($request->session()->getId())->get();
+        $items = Cart::with('product.brand')->get();
         $discount = 0;
         return view('cart.index', compact('items', 'discount'));
     }
@@ -30,39 +29,34 @@ class CartController extends Controller
         $productId = $request->input('product_id');
         $attributes = $request->input('attributes', []);
 
-        $product = Cart::whereProductId($productId)
-            ->whereSessionId($request->session()->getId())
-            ->when($attributes, function($query) use ($attributes){
-                foreach($attributes as $attribute => $value) {
-                    $query->where($attribute, '=', $value);
-                }
-                return $query;
-            })->first();
+        $cart = Cart::whereProductId($productId)
+            ->withAttributes($attributes)
+            ->first();
 
-        if(empty($product)){
-            $product = new Cart();
-            $product->product_id = $productId;
-            $product->session_id = $request->session()->getId();
-            $product->quantity = (int)$request->input('quantity', 1);
+        if(empty($cart)){
+            // New product
+            $cart = new Cart();
+            $cart->product_id = $productId;
+            $cart->session_id = $request->session()->getId();
+            $cart->quantity = (int)$request->input('quantity', 1);
             foreach($attributes as $attribute => $value) {
-                $product->$attribute = $value;
+                $cart->$attribute = $value;
             }
         } else {
-            $product->increment('quantity', (int)$request->input('quantity', 1));
+            // update quantity
+            $cart->increment('quantity', (int)$request->input('quantity', 1));
         }
-        $product->price = Product::getPrice($productId, $attributes);
-        $product->subtotal = $product->price * $product->quantity;
+        $cart->price = $cart->product->finalPrice($attributes);
+        $cart->subtotal = $cart->price * $cart->quantity;
 
-        $product->save();
+        $cart->save();
 
         if ($request->ajax()) {
-            return Cart::whereSessionId($request->session()->getId())->get();
+            return Cart::get();
         } else {
             return redirect('cart');
         }
     }
-
-    // update
 
     /**
      * @param Request $request
@@ -71,10 +65,9 @@ class CartController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if ($request->session()->has('items')) {
-            $items = $request->session()->get('items');
-            unset($items[$id]);
-            $request->session()->put('items', $items);
+        $cart = Cart::where('_id', $id)->first();
+        if (!empty($cart)) {
+            $cart->delete();
             $response = true;
         } else {
             $response = trans('cart.no_items_to_delete');

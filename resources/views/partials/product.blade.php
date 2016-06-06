@@ -37,14 +37,15 @@
                     </div>
                 @endif
                 <span class="price">
-                            <del><span class="amount">{{ $product->price }} &euro;</span></del>
-                            <ins><span class="amount">{{ $product->discount_price }} &euro;</span></ins>
-                        </span>
+                    <span class="amount">{{ $product->range_price }}</span>
+                    {{--<del><span class="amount">{{ $product->range_price }} &euro;</span></del>
+                    <ins><span class="amount">{{ $product->discount_price }} &euro;</span></ins>--}}
+                </span>
                 <ul class="list-unstyled product-info">
                     <li><span>ID</span>{{ $product->_id }}</li>
                     <li><span>Availability</span>In Stock</li>
                     <li><span>Brand</span>{{ $product->brand->name }}</li>
-                    <li><span>Tags</span>{{ $product->getTagsArray() }}</li>
+                    <li><span>Tags</span>{{ $product->tags_list }}</li>
                 </ul>
                 <p>{{ $product->introduction }}</p>
                 <div class="product-form clearfix">

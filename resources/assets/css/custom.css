@@ -1289,7 +1289,7 @@ header.navbar li.navbar-cart .dropdown-menu img {
 	padding-right:10px;
 }
 
-header.navbar li.navbar-cart .dropdown-menu a.remove {
+header.navbar li.navbar-cart .dropdown-menu .remove {
 	position:absolute;
 	top:0px;
 	right:0px;
@@ -5824,4 +5824,8 @@ footer.navbar a:hover {
 	a:link:after, a:visited:after {
 		content:"" !important;
 	}
+}
+
+.no-padding {
+	padding: 0px;
 }
