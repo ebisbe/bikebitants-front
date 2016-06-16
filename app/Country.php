@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Business\Scopes\ActiveScope;
+use Illuminate\Database\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 class Country extends Model
@@ -22,6 +23,8 @@ class Country extends Model
     {
         parent::boot();
         
-        static::addGlobalScope(new ActiveScope());
+        static::addGlobalScope('active', function(Builder $builder) {
+            $builder->where('active', '=', 1);
+        });
     }
 }
