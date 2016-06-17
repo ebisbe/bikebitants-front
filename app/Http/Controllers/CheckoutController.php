@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Country;
+use App\PaymentMethod;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,8 +18,12 @@ class CheckoutController extends Controller
             return Country::all()->pluck('name', '_id');
         });
 
+        $paymentMethods = Cache::remember('payment_methods', 5, function(){
+            return PaymentMethod::all();
+        });
+
         $cart = Cart::with('product.brand')->get();
-        return view('checkout.index', compact('countries', 'cart'));
+        return view('checkout.index', compact('countries', 'cart', 'paymentMethods'));
     }
 
     public function store(Request $request)
@@ -43,7 +48,9 @@ class CheckoutController extends Controller
             'shipping.city' => 'required_without:check_shipping',
             'shipping.postal_code' => 'required_without:check_shipping',
             'shipping.phone' => 'required_without:check_shipping',
-            'shipping.country' => 'required_without:check_shipping'
+            'shipping.country' => 'required_without:check_shipping',
+
+            'payment' => 'required'
         ]);
     }
 }

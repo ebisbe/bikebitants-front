@@ -17,6 +17,7 @@ use App\Brand;
 use App\BrandService;
 use App\Image;
 use App\Label;
+use App\PaymentMethod;
 use App\Product;
 use App\Review;
 use App\User;
@@ -106,5 +107,14 @@ $factory->define(Variation::class, function (Faker\Generator $faker) {
     return [
         '_id' => $faker->slug(),
         'price' => $faker->numberBetween(3, 150),
+    ];
+});
+
+$factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->words(3, true),
+        'short_description' => $faker->paragraphs(1, true),
+        'description' => $faker->paragraphs(3, true),
+        'code' => $faker->slug(2),
     ];
 });

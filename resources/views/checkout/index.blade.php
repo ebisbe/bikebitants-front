@@ -288,42 +288,15 @@
 
                                 <h3>Payment Method</h3>
                                 <div class="products-order checkout payment-method">
-                                    <div id="payment-methods" role="tablist" aria-multiselectable="true">
-                                        <div class="panel radio">
-                                            <input type="radio" name="optionsRadios" id="radio-payment-1"
-                                                   checked>
-                                            <label for="radio-payment-1" data-toggle="collapse"
-                                                   data-target="#parent-1" data-parent="#payment-methods"
-                                                   aria-controls="parent-1">Cash On
-                                                Delivery<span>($5)</span></label>
-                                            <div id="parent-1" class="panel-collapse collapse in"
-                                                 role="tabpanel"></div>
-                                        </div>
-                                        <div class="panel radio">
-                                            <input type="radio" name="optionsRadios" id="radio-payment-2">
-                                            <label for="radio-payment-2" class="collapsed"
-                                                   data-toggle="collapse"
-                                                   data-target="#parent-2" data-parent="#payment-methods"
-                                                   aria-controls="parent-2">Payment by Bank Transfer<span>IBAN: CZ00 0000 0000 0000 0000 0000</span></label>
-                                            <div id="parent-2" class="panel-collapse collapse"
-                                                 role="tabpanel"></div>
-                                        </div>
-                                        <div class="panel radio">
-                                            <input type="radio" name="optionsRadios" id="radio-payment-3">
-                                            <label for="radio-payment-3" class="collapsed"
-                                                   data-toggle="collapse"
-                                                   data-target="#parent-3" data-parent="#payment-methods"
-                                                   aria-controls="parent-3">PayPal</label>
-                                            <div id="parent-3" class="panel-collapse collapse"
-                                                 role="tabpanel"></div>
-                                        </div>
-                                        <div class="panel radio">
-                                            <input type="radio" name="optionsRadios" id="radio-payment-4">
-                                            <label for="radio-payment-4" class="collapsed"
-                                                   data-toggle="collapse"
-                                                   data-target="#parent-4" data-parent="#payment-methods"
-                                                   aria-controls="parent-4">Pay via Credit Card</label>
-                                        </div>
+                                    <div id="payment-methods" class="{{ $errors->has('payment') ? 'has-error' : ''}}">
+                                        @foreach($paymentMethods as $payment)
+                                            <div class="panel radio">
+                                                {{ Form::radio('payment', $payment->code, null, ['id' => $payment->code]) }}
+                                                {{ Form::label($payment->code, $payment->name) }}
+                                            </div>
+                                        @endforeach
+                                        {!! $errors->first('payment', '<p class="help-block">:message</p>') !!}
+
                                     </div>
                                 </div>
                                 <div class="clearfix">
