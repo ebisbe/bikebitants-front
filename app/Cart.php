@@ -24,7 +24,7 @@ class Cart extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('currentSession', function(Builder $builder) {
+        static::addGlobalScope('currentSession', function (Builder $builder) {
             $builder->whereSessionId(Request::session()->getId());
         });
     }
@@ -37,8 +37,8 @@ class Cart extends Model
      */
     public function scopeWithAttributes($query, $attributes)
     {
-        return $query->when($attributes, function($query) use ($attributes){
-            foreach($attributes as $attribute => $value) {
+        return $query->when($attributes, function ($query) use ($attributes) {
+            foreach ($attributes as $attribute => $value) {
                 $query->where($attribute, '=', $value);
             }
             return $query;

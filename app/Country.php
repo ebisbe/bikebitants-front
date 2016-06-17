@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Business\Scopes\ActiveScope;
 use Illuminate\Database\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\Model;
 

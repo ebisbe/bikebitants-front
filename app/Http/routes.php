@@ -21,4 +21,6 @@ Route::resource('cart', 'CartController');
 
 Route::get('/product/{slug}', 'ShopController@product')->name('shop.product');
 
-Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+Route::resource('checkout', 'CheckoutController', ['only' => [
+    'index', 'store'
+]]);
