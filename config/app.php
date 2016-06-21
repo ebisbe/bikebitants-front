@@ -162,6 +162,7 @@ return [
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
 
     ],
 
@@ -211,6 +212,9 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
+        'Title'     => App\Facades\Title::class,
+        'BreadCrumbLinks' => App\Facades\BreadCrumbLinks::class,
 
     ],
 

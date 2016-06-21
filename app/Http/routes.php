@@ -11,16 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
+    Route::auth();
+    Route::group([ 'namespace' => 'Admin'], function () {
+
+        Route::get('/', 'AdminController@dashboard')->name('admin.dashboard');
+    });
 });
 
 Route::get('/tienda/{slug}', 'ShopController@brand')->name('shop.brand');
-
-Route::resource('cart', 'CartController');
-
 Route::get('/product/{slug}', 'ShopController@product')->name('shop.product');
 
+Route::resource('cart', 'CartController');
 Route::resource('checkout', 'CheckoutController', ['only' => [
     'index', 'store'
 ]]);
+
+Route::get('/', function () {
+    return view('welcome');
+});
