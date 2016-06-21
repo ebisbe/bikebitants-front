@@ -14,13 +14,14 @@ class Product extends Model
      * Get a single point to find a price. The product can be a variable or simple
      * @return string
      */
-    public function getRangePriceAttribute() {
-        if(!empty($this->variation)) {
+    public function getRangePriceAttribute()
+    {
+        if (!empty($this->variation()->count())) {
             $min = $this->variation->min('price');
             $max = $this->variation->max('price');
-            return $min.$this->currency.' - '.$max.$this->currency;
+            return $min . $this->currency . ' - ' . $max . $this->currency;
         } else {
-            return $this->price.$this->currency;
+            return $this->price . $this->currency;
         }
     }
 
@@ -96,7 +97,6 @@ class Product extends Model
     }
 
 
-
     /**
      * Get the price of a product. If has multiple attributes with different prices should work too.
      * @param array $attributes
@@ -104,16 +104,20 @@ class Product extends Model
      */
     public function finalPrice($attributes = [])
     {
-        /** @var Product $product */
-        $variation = $this
-            ->variation()
-            ->first(function ($key, $value) use($attributes) {
-                return array_diff($value->_id, array_values($attributes) ) == [];
-            });
-        if (!empty($variation)) {
-            $product = $variation;
+        if ($this->variation()->count()) {
+
+            /** @var Product $product */
+            $variation = $this
+                ->variation()
+                ->first(function ($key, $value) use ($attributes) {
+                    return array_diff($value->_id, array_values($attributes)) == [];
+                });
+            if (!empty($variation)) {
+                $product = $variation;
+            }
+            return $product->price;
         }
 
-        return $product->price;
+        return $this->price;
     }
 }

@@ -64,25 +64,25 @@
                             </div>
 
                             @foreach($product->attributes()->all() as $attribute)
-                            <div class="col-md-3 col-sm-4">
-                                <div class="product-size">
-                                    <div class="form-inline">
-                                        <div class="form-group">
-                                            <label>{{ $attribute->uc_name }}:</label>
-                                        </div>
-                                        <div class="form-group">
-                                            <select name="attributes[{{ $attribute->name }}]" class="form-control">
-                                                @foreach($attribute->attribute_values()->all() as $value)
-                                                    <option value="{{ $value->_id }}">
-                                                        {{ $value->name }}
-                                                        {!! !empty($value->complementary_text) ? '('.$value->complementary_text.')' : '' !!}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                <div class="col-md-3 col-sm-4">
+                                    <div class="product-size">
+                                        <div class="form-inline">
+                                            <div class="form-group">
+                                                <label>{{ $attribute->uc_name }}:</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <select name="attributes[{{ $attribute->name }}]" class="form-control">
+                                                    @foreach($attribute->attribute_values()->all() as $value)
+                                                        <option value="{{ $value->_id }}">
+                                                            {{ $value->name }}
+                                                            {!! !empty($value->complementary_text) ? '('.$value->complementary_text.')' : '' !!}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
 
                             <div class="col-md-2 col-sm-12">

@@ -36,21 +36,33 @@ PRODUCTS - START
 
         <div class="tabs product-tabs">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class=""><a href="#description" role="tab" data-toggle="tab"
-                                                    aria-controls="description" aria-expanded="false">Description</a>
+                <li role="presentation" class="active">
+                    <a href="#description"
+                       role="tab"
+                       data-toggle="tab"
+                       aria-controls="description"
+                       aria-expanded="false">Description</a>
                 </li>
-                <li role="presentation" class="active"><a href="#reviews" role="tab" data-toggle="tab"
-                                                          aria-controls="reviews" aria-expanded="true">Reviews
-                        ({!! count($product->reviews) !!})</a>
+                <li role="presentation">
+                    <a href="#reviews"
+                       role="tab"
+                       data-toggle="tab"
+                       aria-controls="reviews"
+                       aria-expanded="true">Reviews ({!! count($product->reviews) !!})</a>
                 </li>
-                <li role="presentation" class=""><a href="#video" role="tab" data-toggle="tab" aria-controls="video"
-                                                    aria-expanded="false">Responsive Video</a></li>
+                <li role="presentation">
+                    <a href="#video"
+                       role="tab"
+                       data-toggle="tab"
+                       aria-controls="video"
+                       aria-expanded="false">Responsive Video</a>
+                </li>
             </ul>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane" id="description">
+                <div role="tabpanel" class="tab-pane active in " id="description">
                     {{ $product->description }}
                 </div>
-                <div role="tabpanel" class="tab-pane active in" id="reviews">
+                <div role="tabpanel" class="tab-pane " id="reviews">
 
                     <div class="comments">
 
