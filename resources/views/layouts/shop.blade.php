@@ -35,23 +35,23 @@
             <div class="row">
                 <div class="col-sm-5">
                     <ul class="list-inline contacts">
-                        <li><i class="fa fa-envelope"></i> help@umarket.com</li>
-                        <li><i class="fa fa-phone"></i> 754 213 456</li>
+                        <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
+                        <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
                     </ul>
                 </div>
                 <div class="col-sm-7 text-right">
-                    <ul class="list-inline links">
+                   {{-- <ul class="list-inline links">
                         <li><a href="my-account.html">My account</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="wishlist.html">Wishlist (5)</a></li>
                         <li><a href="compare.html">Compare (3)</a></li>
                         <li><a href="signin.html">Logout</a></li>
-                    </ul>
-                    <ul class="list-inline languages hidden-sm">
-                        <li><a href="#"><img src="/images/flags/cz.png" alt="cs_CZ"></a></li>
+                    </ul>--}}
+                    {{--<ul class="list-inline languages hidden-sm">
+                        <li><a href="#"><img src="/images/flags/es.png" alt="cs_CZ"></a></li>
                         <li><a href="#"><img src="/images/flags/us.png" alt="en_US"></a></li>
                         <li><a href="#"><img src="/images/flags/de.png" alt="de_DE"></a></li>
-                    </ul>
+                    </ul>--}}
                 </div>
             </div>
         </div>
@@ -59,11 +59,11 @@
     <header class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="index.html" class="navbar-brand"><span>u</span>Market</a>
+                <a href="index.html" class="navbar-brand"><span>Bike</span>Bitants</a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
             </div>
             <div class="navbar-collapse collapse">
-                <p class="navbar-text hidden-xs hidden-sm">The easiest way to shop</p>
+                <p class="navbar-text hidden-xs hidden-sm">{{ StaticVars::slogan() }}</p>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true">Home</a>
@@ -196,7 +196,7 @@
                         </ul>
                     </li>
                     @include('partials.menu_cart')
-                    <li class="dropdown navbar-search hidden-xs">
+                    {{--<li class="dropdown navbar-search hidden-xs">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
                         <ul class="dropdown-menu">
                             <li>
@@ -210,7 +210,7 @@
                                 </form>
                             </li>
                         </ul>
-                    </li>
+                    </li>--}}
                 </ul>
             </div>
         </div>
@@ -306,15 +306,14 @@
                     <div class="footer-widget footer-widget-contacts">
                         <h4>Contacts</h4>
                         <ul class="list-unstyled">
-                            <li><i class="fa fa-envelope"></i> help@umarket.com</li>
-                            <li><i class="fa fa-phone"></i> 754 213 456</li>
-                            <li><i class="fa fa-map-marker"></i> 40°44'00.9"N 73°59'43.4"W</li>
+                            <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
+                            <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
+                            {{--<li><i class="fa fa-map-marker"></i> 40°44'00.9"N 73°59'43.4"W</li>--}}
                             <li class="social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-tumblr"></i></a>
+                                <a target="_blank" href="{{ StaticVars::facebook() }}"><i class="fa fa-facebook"></i></a>
+                                <a target="_blank" href="{{ StaticVars::twitter() }}"><i class="fa fa-twitter"></i></a>
+                                <a target="_blank" href="{{ StaticVars::instagram() }}"><i class="fa fa-instagram"></i></a>
+                                <a target="_blank" href="{{ StaticVars::linkedin() }}"><i class="fa fa-linkedin"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -386,7 +385,7 @@
 <!-- ==========================
  JS
 =========================== -->
-<script async src="{{ elixir('js/all.js') }}"></script>
+<script src="{{ elixir('js/all.js') }}"></script>
 @stack('footer.scripts')
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

@@ -365,7 +365,7 @@ $(document).ready(function() {
 		TWITTER QUERY
 	------------------------------*/	
 	var twitterOptions = {
-		"id": '541286991938457600',
+		"id": '748542100900220928',
 		"domId": '',
 		"customCallback": handleTweets,
 		"maxTweets": 2,
@@ -388,7 +388,7 @@ $(document).ready(function() {
 		element.innerHTML = html;
 	}
 	
-	//twitterFetcher.fetch(twitterOptions);
+	twitterFetcher.fetch(twitterOptions);
 	
 	/*------------------------------
 		GOOGLE MAP
