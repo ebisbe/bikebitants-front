@@ -12,7 +12,7 @@
             <li>
                 <div class="row">
                     <div class="col-sm-3">
-                        <img src="/images/products/product-1.jpg" class="img-responsive" alt="">
+                        <img src="/img/70/{{ $item->product->images()->first()->path }}" alt="{{ $item->product->images()->first()->alt }}" class="img-responsive">
                     </div>
                     <div class="col-sm-9">
                         <h4>

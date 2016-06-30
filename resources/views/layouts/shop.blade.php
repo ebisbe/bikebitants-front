@@ -13,7 +13,7 @@
     =========================== -->
     <title>Bikebitants</title>
 
-    <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
+    <link rel="stylesheet" async href="{{ elixir('css/all.css') }}">
 </head>
 <body>
 
@@ -386,7 +386,7 @@
 <!-- ==========================
  JS
 =========================== -->
-<script src="{{ elixir('js/all.js') }}"></script>
+<script async src="{{ elixir('js/all.js') }}"></script>
 @stack('footer.scripts')
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

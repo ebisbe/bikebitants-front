@@ -41,8 +41,5 @@ Form::macro('img', function ($path, $sizes, $alt) {
     $srcset = $sizes->map(function ($size, $viewPort) use ($path) {
         return "/img/$size/$path $viewPort";
     })->implode(',');
-    return '<img class="img-responsive lazyOwl"
-                                 alt="' . $alt . '"
-                                 sizes="100w"
-                                 srcset="' . $srcset . '">';
+    return '<img class="img-responsive" alt="' . $alt . '" sizes="100w" srcset="' . $srcset . '">';
 });
