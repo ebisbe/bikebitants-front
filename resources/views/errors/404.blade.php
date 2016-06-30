@@ -1,6 +1,6 @@
-@extends('layouts.shop')
+@extends('layouts.error')
 
-@section('main')
+@section('content')
         <!-- ==========================
        ERROR - START
    =========================== -->

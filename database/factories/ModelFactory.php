@@ -43,6 +43,7 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
         'description' => $faker->paragraphs(3, true),
         'price' => $faker->numberBetween(3, 150),
         'discount_price' => $faker->numberBetween(3, 150),
+        //'image' => $faker->image('/tmp', 150, 150),
         //'discount_init' => $faker->date(),
         //'discount_end' => $faker->date(),
         'tags' => $faker->words(),
@@ -87,7 +88,7 @@ $factory->define(Brand::class, function (Faker\Generator $faker) {
     $name = $faker->words(3, true);
     return [
         'name' => $name,
-        'slug' => /*str_slug($name)*/ 'cum-aliquid-enim',
+        'slug' => str_slug($name) ,
         'description' => $faker->paragraphs(3, true),
         'image' => ''
     ];
@@ -116,5 +117,13 @@ $factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
         'short_description' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'code' => $faker->slug(2),
+    ];
+});
+
+$factory->define(Image::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->words(3, true),
+        'alt' => $faker->paragraphs(1, true),
+        'path' => $faker->image(public_path() . '/samples', 1500, 1500, null, false),
     ];
 });

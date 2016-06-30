@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Business\Admin\BreadCrumbLinks;
 use App\Business\Admin\Title;
+use App\Business\StaticVars;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -32,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app['breadcrumblinks'] = $this->app->share(function ($app) {
             return new BreadCrumbLinks();
+        });
+
+        $this->app['staticvars'] = $this->app->share(function ($app) {
+            return new StaticVars();
         });
     }
 }

@@ -5,6 +5,7 @@ use App\AttributeValue;
 use App\Brand;
 use App\BrandService;
 use App\Color;
+use App\Image;
 use App\Label;
 use App\Product;
 use App\Review;
@@ -22,7 +23,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         /** @var Brand $brand */
-        $brand = factory(Brand::class)->create();
+        $brand = factory(Brand::class)->create([
+            'name' => 'cum-aliquid-enim'
+        ]);
 
         $brand->services()->save(factory(BrandService::class)->make());
         $brand->services()->save(factory(BrandService::class)->make());
@@ -91,13 +94,15 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        $product->reviews()->save(factory(Review::class)->make());
-        /** @var Review $review */
-        $review = $product->reviews()->save(factory(Review::class)->make());
-        $review->children()->save(factory(Review::class)->make());
-        $review->children()->save(factory(Review::class)->make());
-        $product->reviews()->save(factory(Review::class)->make());
-        $product->reviews()->save(factory(Review::class)->make());
+        $product->images()->save(factory(Image::class)->make());
+
+//        $product->reviews()->save(factory(Review::class)->make());
+//        /** @var Review $review */
+//        $review = $product->reviews()->save(factory(Review::class)->make());
+//        $review->children()->save(factory(Review::class)->make());
+//        $review->children()->save(factory(Review::class)->make());
+//        $product->reviews()->save(factory(Review::class)->make());
+//        $product->reviews()->save(factory(Review::class)->make());
 
         $product->labels()->save(factory(Label::class)->make());
         $product->labels()->save(factory(Label::class)->make());

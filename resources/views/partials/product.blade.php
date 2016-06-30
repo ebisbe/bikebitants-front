@@ -3,19 +3,11 @@
         <div class="col-{{ $col_size }}-4">
             <div class="product-carousel-wrapper {{ !empty($hidden) ? 'hidden' : '' }}">
                 <div id="product-carousel" class="product-carousel">
-                    <div class="item">
-                        <img src="/images/products/product-1.jpg" class="img-responsive" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="/images/products/product-2.jpg" class="img-responsive"
-                             alt="">
-                    </div>
-                    <div class="item">
-                        <img src="/images/products/product-3.jpg" class="img-responsive"
-                             alt="">
-                    </div>
-                    <div class="item"><img src="/images/products/product-4.jpg" class="img-responsive"
-                                           alt=""></div>
+                    @foreach($product->images as $image)
+                        <div class="item">
+                            {!! Form::img($image->path, StaticVars::productDetail(), $image->alt) !!}
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

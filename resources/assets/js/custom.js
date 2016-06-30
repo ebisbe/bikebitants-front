@@ -177,6 +177,7 @@ $(document).ready(function() {
 	$("#homepage-1-carousel").owlCarousel({
     	items : 1,
 		loop : true,
+		lazyLoad : true,
 		autoplay : true,
 		nav : true,
 		navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
@@ -187,6 +188,7 @@ $(document).ready(function() {
 	$("#homepage-2-carousel").owlCarousel({
     	items : 1,
 		loop : true,
+		lazyLoad : true,
 		autoplay : true,
 		nav : true,
 		navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
@@ -197,6 +199,7 @@ $(document).ready(function() {
 	$("#homepage-3-carousel").owlCarousel({
     	items : 1,
 		loop : true,
+		lazyLoad : true,
 		autoplay : true,
 		nav : true,
 		navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
@@ -207,6 +210,7 @@ $(document).ready(function() {
 	$("#homepage-4-carousel").owlCarousel({
     	items : 1,
 		loop : true,
+		lazyLoad : true,
 		autoplay : true,
 		animateOut: 'fadeOut',
     	animateIn: 'fadeIn'
@@ -215,6 +219,7 @@ $(document).ready(function() {
 	$("#homepage-6-carousel").owlCarousel({
     	items : 1,
 		loop : false,
+		lazyLoad : true,
 		autoplay : false,
 		dots : false,
   	});
@@ -222,6 +227,7 @@ $(document).ready(function() {
 	$("#testimonials-carousel").owlCarousel({
     	items : 1,
 		loop : true,
+		lazyLoad : true,
 		autoplay : true,
 		animateOut: 'fadeOut',
     	animateIn: 'fadeIn'
@@ -230,6 +236,7 @@ $(document).ready(function() {
 	$("#blog-post-gallery").owlCarousel({
     	items : 1,
 		loop : true,
+		lazyLoad : true,
 		nav : true,
 		dots : false,
 		autoplay : true,
@@ -238,6 +245,7 @@ $(document).ready(function() {
 	
 	$("#brands-carousel").owlCarousel({
 		loop : true,
+		lazyLoad : true,
 		autoplayHoverPause : true,
 		autoplay : true,
 		autoplayTimeout : 2000,
@@ -265,6 +273,7 @@ $(document).ready(function() {
 	$("#product-carousel").owlCarousel({
     	items : 1,
 		loop : true,
+		lazyLoad : true,
 		animateOut: 'fadeOut',
     	animateIn: 'fadeIn'
   	});
@@ -283,6 +292,7 @@ $(document).ready(function() {
 	$("#default-carousel").owlCarousel({
     	items : 1,
 		loop : true,
+		lazyLoad : true,
 		autoplay : true,
 		nav : true,
 		navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"]
@@ -291,6 +301,7 @@ $(document).ready(function() {
 	$("#default-carousel-fade").owlCarousel({
     	items : 1,
 		loop : true,
+		lazyLoad : true,
 		autoplay : true,
 		nav : true,
 		navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],

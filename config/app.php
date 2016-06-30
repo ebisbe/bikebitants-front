@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     /*
     |--------------------------------------------------------------------------
@@ -163,6 +163,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -215,7 +216,8 @@ return [
         'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
         'Title'     => App\Facades\Title::class,
         'BreadCrumbLinks' => App\Facades\BreadCrumbLinks::class,
-
+        'StaticVars' => App\Facades\StaticVars::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

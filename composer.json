@@ -13,7 +13,9 @@
         "laravelcollective/html": "5.2.x-dev",
         "omnipay/paypal": "*",
         "nazka/sermepa-omnipay": "*",
-        "creitive/laravel5-breadcrumbs": "^2.0"
+        "creitive/laravel5-breadcrumbs": "^2.0",
+        "intervention/image": "^2.3",
+        "intervention/imageCache": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

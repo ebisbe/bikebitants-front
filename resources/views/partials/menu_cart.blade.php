@@ -15,8 +15,10 @@
                         <img src="/images/products/product-1.jpg" class="img-responsive" alt="">
                     </div>
                     <div class="col-sm-9">
-                        <h4><a href="{{ route('shop.product', ['slug' => $cart->slug]) }}">{{ $cart->product->name }}</a></h4>
-                        <p>{{ $cart->quantity }}x - {{ $cart->price }}</p>
+                        <h4>
+                            <a href="{{ route('shop.product', ['slug' => $cart->slug]) }}">{{ $cart->product->name }}</a>
+                        </h4>
+                        <p>{{ $cart->quantity }}x - {{ $cart->price }}{{ $cart->product->currency }}</p>
                         <form method="POST" action="/cart/{{ $cart->_id }}">
                             <input type="hidden" name="_method" value="DELETE"/>
                             {{ csrf_field() }}
