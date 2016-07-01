@@ -13,6 +13,7 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
 
 /** Shop */
 Route::get('/tienda/{slug}', 'ShopController@brand')->name('shop.brand');
+Route::get('/tienda/', 'ShopController@shopping')->name('shop.catalogue');
 Route::get('/product/{slug}', 'ShopController@product')->name('shop.product');
 Route::resource('cart', 'CartController');
 Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store']]);

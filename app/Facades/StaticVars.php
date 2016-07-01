@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Facade;
  * @method static string instagram()
  * @method static string linkedin()
  *
+ * @method static \Illuminate\Support\Collection productDetail()
+ * @method static \Illuminate\Support\Collection productRelated()
+ * @method static \Illuminate\Support\Collection emptyCart()
+ *
  */
 class StaticVars extends Facade
 {

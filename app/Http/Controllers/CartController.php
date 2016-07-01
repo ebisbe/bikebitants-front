@@ -17,6 +17,9 @@ class CartController extends Controller
     {
         $items = Cart::with('product.brand')->get();
         $discount = 0;
+        if(!$items->count()) {
+            return view('cart.empty');
+        }
         return view('cart.index', compact('items', 'discount'));
     }
 
