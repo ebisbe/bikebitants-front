@@ -17,6 +17,7 @@ use App\Brand;
 use App\BrandService;
 use App\Image;
 use App\Label;
+use App\Lead;
 use App\PaymentMethod;
 use App\Product;
 use App\Review;
@@ -125,5 +126,12 @@ $factory->define(Image::class, function (Faker\Generator $faker) {
         'name' => $faker->words(3, true),
         'alt' => $faker->paragraphs(1, true),
         'path' => $faker->image(public_path() . '/samples', 1500, 1500, null, false),
+    ];
+});
+
+$factory->define(Lead::class, function (Faker\Generator $faker) {
+    return [
+        'email' => $faker->email,
+        'type' => $faker->words(1, true)
     ];
 });

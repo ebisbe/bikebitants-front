@@ -1,18 +1,7 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
 use Illuminate\Support\Collection;
 
+/** Admin */
 Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
     Route::auth();
     Route::group(['namespace' => 'Admin'], function () {
@@ -20,14 +9,14 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
         Route::get('/', 'AdminController@dashboard')->name('admin.dashboard');
     });
 });
+/** END Admin */
 
+/** Shop */
 Route::get('/tienda/{slug}', 'ShopController@brand')->name('shop.brand');
 Route::get('/product/{slug}', 'ShopController@product')->name('shop.product');
-
 Route::resource('cart', 'CartController');
-Route::resource('checkout', 'CheckoutController', ['only' => [
-    'index', 'store'
-]]);
+Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store']]);
+Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 
 Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
     ->where(array('filename' => '[ \w\\.\\/\\-\\@]+', 'filter' => 'original|download|[0-9]+\/[0-9]+|[0-9]+'));
@@ -35,6 +24,8 @@ Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
 Route::get('/', function () {
     return view('welcome');
 });
+
+/** END shop */
 
 Form::macro('img', function ($path, $sizes, $alt) {
     /** @var Collection $sizes */

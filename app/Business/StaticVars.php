@@ -6,6 +6,7 @@ class StaticVars
 {
 
     /** General Info */
+    protected $company = 'Bikebitants';
     protected $email = 'hola@bikebitants.com';
     protected $telephone = '(+34) 696.603.741';
     protected $slogan = 'Tu bici, tu ciudad';
