@@ -421,7 +421,7 @@
     <!-- ==========================
         MODAL ADVERTISING - END
     =========================== -->
-
+    @include('partials/product_popup')
 </div> <!-- PAGE - END -->
 
 <!-- ==========================

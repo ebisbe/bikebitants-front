@@ -125,7 +125,7 @@ $factory->define(Image::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->words(3, true),
         'alt' => $faker->paragraphs(1, true),
-        'path' => $faker->image(public_path() . '/samples', 1500, 1500, null, false),
+        'path' => $faker->image(storage_path('app'), 1500, 1500, null, false),
     ];
 });
 

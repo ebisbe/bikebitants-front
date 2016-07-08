@@ -24,6 +24,7 @@ elixir(function (mix) {
         .copy('vendor/bower_components/owl.carousel/dist/owl.carousel.js', 'resources/assets/js/bower/owl.carousel.js')
         .copy('vendor/bower_components/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js', 'resources/assets/js/bower/jquery.mb.YTPlayer.js')
         .copy('vendor/bower_components/twitter-fetcher/js/twitterFetcher.js', 'resources/assets/js/bower/twitterFetcher.js')
+        .copy('vendor/bower_components/underscore/underscore.js', 'resources/assets/js/bower/underscore.js')
 
         //css
         .copy('vendor/bower_components/bootstrap/dist/css/bootstrap.css', 'resources/assets/css/bower/bootstrap.css')
@@ -53,6 +54,7 @@ elixir(function (mix) {
             'bower/owl.carousel.js',
             'bower/twitterFetcher.js',
             'bower/jquery.mb.YTPlayer.js',
+            'bower/underscore.js',
             'custom.js',
             'shop.js'
         ])
@@ -65,6 +67,7 @@ elixir(function (mix) {
             'bower/owl.carousel.css',
             'bower/animate.css',
             'custom.css',
+            'bikebitants.css',
             'color/green.css',
             'bower/sourceSansPro.css',
             'bower/raleway.css'

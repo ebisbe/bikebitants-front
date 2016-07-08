@@ -3,6 +3,7 @@
 namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Collection;
 /**
  * Class StaticVars
  * @package App\Business
@@ -16,9 +17,18 @@ use Illuminate\Support\Facades\Facade;
  * @method static string instagram()
  * @method static string linkedin()
  *
- * @method static \Illuminate\Support\Collection productDetail()
- * @method static \Illuminate\Support\Collection productRelated()
- * @method static \Illuminate\Support\Collection emptyCart()
+ * @method static Collection productDetail()
+ * @method static Collection productRelated()
+ * @method static Collection emptyCart()
+ *
+ * @method static integer filterMinimumValue()
+ * @method static integer filterMaximumValue()
+ * @method static Collection filterSortingType()
+ * @method static string filterSortingTypeSelected()
+ * @method static Collection filterShow()
+ * @method static string filterShowSelected()
+ *
+ * @method static string imgWrapper()
  *
  */
 class StaticVars extends Facade

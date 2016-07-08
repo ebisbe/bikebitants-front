@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Business\Search\ProductSearch;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -21,14 +22,13 @@ class ShopController extends Controller
     }
 
     /**
-     * Product view
-     *
+     * @param Product $product
      * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function product($slug)
+    public function product(Product $product, $slug)
     {
-        $product = Product::whereSlug($slug)->firstOrFail();
+        $product = $product::whereSlug($slug)->firstOrFail();
 
         $relatedProducts = Product::with('brand')
             ->whereBrandId($product->brand_id)
@@ -39,15 +39,26 @@ class ShopController extends Controller
     }
 
     /**
-     * Brand view
-     *
+     * @param Brand $brand
      * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function brand($slug)
+    public function brand(Brand $brand, $slug)
     {
-        $brand = Brand::whereSlug($slug)->firstOrFail();
+        $brand = $brand::whereSlug($slug)->firstOrFail();
         return view('shop.brand', compact('brand'));
     }
 
+    /**
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function shopping(Request $request)
+    {
+        $products = ProductSearch::apply($request);
+        $filters = ProductSearch::getFilters($request);
+
+        return view('shop.shopping', compact('products', 'filters'));
+    }
 }

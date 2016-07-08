@@ -31,17 +31,23 @@ class DatabaseSeeder extends Seeder
         $brand->services()->save(factory(BrandService::class)->make());
         $brand->services()->save(factory(BrandService::class)->make());
 
-        $product = $this->product('simple');
+        $product = $this->product(['slug' => 'simple']);
         $brand->products()->save($product);
 
-        $product = $this->product('variable');
+        $product = $this->product(['slug' => 'variable']);
         $brand->products()->save($product);
+
+        $cont = 0;
+        while( $cont++ < 25){
+            $product = $this->product();
+            $brand->products()->save($product);
+        }
     }
 
-    public function product($type)
+    public function product($type = [])
     {
         /** @var Product $product */
-        $product = factory(Product::class)->create(['slug' => $type]);
+        $product = factory(Product::class)->create($type);
 
         if ($type == 'variable') {
 
@@ -94,6 +100,9 @@ class DatabaseSeeder extends Seeder
             }
         }
 
+        $product->images()->save(factory(Image::class)->make());
+        $product->images()->save(factory(Image::class)->make());
+        $product->images()->save(factory(Image::class)->make());
         $product->images()->save(factory(Image::class)->make());
 
 //        $product->reviews()->save(factory(Review::class)->make());

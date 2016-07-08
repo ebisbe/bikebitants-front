@@ -1,4 +1,5 @@
 <?php
+use App\Product;
 use Illuminate\Support\Collection;
 
 /** Admin */
@@ -28,10 +29,28 @@ Route::get('/', function () {
 
 /** END shop */
 
-Form::macro('img', function ($path, $sizes, $alt) {
+Form::macro('img', function ($path, $sizes, $alt, $wrapper = '') {
     /** @var Collection $sizes */
     $srcset = $sizes->map(function ($size, $viewPort) use ($path) {
         return "/img/$size/$path $viewPort";
     })->implode(',');
-    return '<img class="img-responsive" alt="' . $alt . '" sizes="100w" srcset="' . $srcset . '">';
+    return str_ireplace('{img}', '<img class="img-responsive" alt="' . $alt . '" sizes="100w" srcset="' . $srcset . '">', $wrapper);
+});
+
+Form::macro('product', function(Product $product){
+
+    $images = [];
+    foreach($product->images as $image) {
+        $images[] = Form::img($image->path, StaticVars::productRelated(), $image->alt, StaticVars::imgWrapper());
+    }
+
+    $arr_product = [
+        'name' => $product->name,
+        'description' => $product->description,
+        'brand' => $product->brand->name,
+        'tags' => $product->tags_list,
+        'images' => $images
+    ];
+
+    return json_encode($arr_product);
 });

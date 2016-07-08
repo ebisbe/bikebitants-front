@@ -18,9 +18,18 @@ class StaticVars
 
     /** Images sizes */
     protected $productDetail = ['360w' => '330', '480w' => '450', '568w' => '538', '1200w' => '355'];
-    protected $productRelated = ['360w' => '330', '480w' => '450', '568w' => '254', '600w' => '270', '767w' => '354', '292w' => '213', '1200w' => '263'];
+    protected $productRelated = ['360w' => '330', '480w' => '450', '568w' => '254', '600w' => '270', '767w' => '354', '992w' => '213', '1200w' => '263'];
 
     protected $emptyCart = ['fa-shopping-basket', 'fa-shopping-bag', 'fa-shopping-cart'];
+
+    /** Filters for product page */
+    protected $filterMinimumValue = 20;
+    protected $filterMaximumValue = 300;
+    protected $filterSortingType = [/*'popularity', 'average_rating',*/ 'selected' => 'newness', 'low_to_high', 'high_to_low'];
+    protected $filterShow = [6, 'selected' => 12, 18, 24, 'all'];
+    protected $filterPage = 1;
+
+    protected $imgWrapper = '<div class="item">{img}</div>';
 
     /**
      * @param $name
@@ -33,5 +42,23 @@ class StaticVars
             return collect($this->$name);
         }
         return $this->$name;
+    }
+
+    /**
+     * @return string
+     */
+    public function filterSortingTypeSelected() {
+        return self::filterSortingType()->first(function($key, $value) {
+            return $key === 'selected';
+        });
+    }
+
+    /**
+     * @return string
+     */
+    public function filterShowSelected() {
+        return self::filterShow()->first(function($key, $value) {
+            return $key === 'selected';
+        });
     }
 }

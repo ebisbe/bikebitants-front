@@ -338,24 +338,29 @@ $(document).ready(function() {
 	
 	/*------------------------------
 		WIDGET - PRICE FILTER
-	------------------------------*/			
-	var minimum = 20;
-	var maximum = 300;
-	
-	$( "#slider-range" ).slider({
+	------------------------------*/
+	var minInput = $( ".min");
+	var maxInput = $( ".max");
+	var slider = $( "#slider-range" );
+	var minimum = minInput.data('value');
+	var maximum = maxInput.data('value');
+
+	slider.slider({
       range: true,
-      min: minimum,
-      max: maximum,
+      min: minInput.data('min'),
+      max: maxInput.data('max'),
       values: [ minimum, maximum ],
       slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] );
-		$( "#amount2" ).val( "$" + ui.values[ 1 ] );
+		  minInput.val( ui.values[ 0 ])
+			  .html( ui.values[ 0 ]);
+		  maxInput.val( ui.values[ 1 ])
+			  .html( ui.values[ 1 ]);
       }
     });
-	
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ));
-	$( "#amount2" ).val( "$" + $( "#slider-range" ).slider( "values", 1 ));
-	
+
+	minInput.val( minimum ).html( minimum );
+	maxInput.val( maximum ).html( maximum );
+
 	/*------------------------------
 		YOUTUBE VIDEO BACKGROUND
 	------------------------------*/

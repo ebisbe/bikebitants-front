@@ -62,4 +62,29 @@ $(document).ready(function () {
                     .addClass(classSpan);
             });
     });
+
+    $('#product-quickview').on('show.bs.modal', function (event) {
+        var modal = $(this);
+
+        $.each( $(event.relatedTarget).data('product'), function( key, value ) {
+            var text = '';
+            if(value !== null && typeof value === 'object') {
+                $.each(value, function(key, value) {
+                    text += value;
+                });
+            } else {
+                text = value;
+            }
+            modal.find('.modal-' + key).html(text);
+
+        });
+
+        modal.find(".product-carousel-wrapper").removeClass('hidden');
+        $("#product-carousel-modal").owlCarousel({
+            items : 1,
+            animateOut: 'fadeOut',
+            animateIn: 'fadeIn'
+        });
+
+    })
 });

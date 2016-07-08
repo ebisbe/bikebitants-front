@@ -665,7 +665,8 @@ textarea {
 	border-radius:0;
 }
 
-.pagination > li > a {
+.pagination > li > a,
+.pagination > li > span{
 	margin:0 5px 5px;
 	border:2px solid #D0D0D0;
     color:#CCCCCC;
@@ -678,7 +679,9 @@ textarea {
 }
 
 .pagination > li:first-child > a,
-.pagination > li:last-child > a {
+.pagination > li:first-child > span,
+.pagination > li:last-child > a,
+.pagination > li:last-child > span{
 	border-radius:0;
 }
 
@@ -690,19 +693,22 @@ textarea {
 }
 
 .pagination > li.active > a,
+.pagination > li.active > span,
 .pagination > li.active > a:hover,
 .pagination > li.active > a:focus {
 	background-color:#FFFFFF;
 }
 
-.pagination-lg > li > a {
+.pagination-lg > li > a,
+.pagination-lg > li > span{
 	font-size:22px;
 	width:46px;
 	height:46px;
 	padding:7px 0 0;
 }
 
-.pagination-sm > li > a {
+.pagination-sm > li > a,
+.pagination-sm > li > span{
 	font-size:12px;
 	width:30px;
 	height:30px;
@@ -5471,7 +5477,8 @@ footer.navbar a:hover {
 		padding:10px 0;
 	}
 	
-	.pagination > li > a {
+	.pagination > li > a,
+	.pagination > li > span 2{
 		margin:0 3px 3px;
 		width:34px;
     	height:34px;
@@ -5824,8 +5831,4 @@ footer.navbar a:hover {
 	a:link:after, a:visited:after {
 		content:"" !important;
 	}
-}
-
-.no-padding {
-	padding: 0px;
 }

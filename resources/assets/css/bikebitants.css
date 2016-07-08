@@ -1,0 +1,13 @@
+.no-padding {
+    padding: 0px;
+}
+
+.widget-price .widget-body .price-slider .fake-input {
+    background-color: transparent;
+    border: 0;
+    width: 50%;
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #999999;
+    display: inline-block;
+}

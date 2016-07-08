@@ -3,7 +3,16 @@
 namespace App;
 
 use App\Business\MongoEloquentModel as Model;
+use Jenssegers\Mongodb\Eloquent\Builder;
 
+/**
+ * Class Brand
+ * @package App
+ *
+ * @property string name
+ *
+ * @method static Builder whereSlug($slug)
+ */
 class Brand extends Model
 {
     /**
