@@ -12,6 +12,7 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  * @property string name
  *
  * @method static Builder whereSlug($slug)
+ * @method static Builder featured()
  */
 class Brand extends Model
 {
@@ -29,5 +30,16 @@ class Brand extends Model
     public function services()
     {
         return $this->embedsMany(BrandService::class);
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFeatured($query)
+    {
+        /** @var Builder $query */
+        return $query->where('featured', true);
     }
 }

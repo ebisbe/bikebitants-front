@@ -19,6 +19,9 @@ use Illuminate\Support\Collection;
  *
  * @method static Collection productDetail()
  * @method static Collection productRelated()
+ * @method static Collection homeLeft()
+ * @method static Collection homeCategories()
+ *
  * @method static Collection emptyCart()
  *
  * @method static integer filterMinimumValue()
@@ -29,6 +32,9 @@ use Illuminate\Support\Collection;
  * @method static string filterShowSelected()
  *
  * @method static string imgWrapper()
+ *
+ * @method static string layoutHeader($layoutHeader)
+ * @method static string layoutTopHeader($layoutTopHeader)
  *
  */
 class StaticVars extends Facade

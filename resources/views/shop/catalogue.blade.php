@@ -46,44 +46,25 @@ PRODUCTS - START
                                 <div class="widget-body">
                                     <ul class="list-unstyled" id="categories" role="tablist"
                                         aria-multiselectable="true">
-                                        <li class="panel"><a class="collapsed" role="button" data-toggle="collapse"
-                                                             data-parent="#categories" href="#parent-1"
-                                                             aria-expanded="false"
-                                                             aria-controls="parent-1">Men<span>[12]</span></a>
-                                            <ul id="parent-1" class="list-unstyled panel-collapse collapse" role="menu">
-                                                <li><a href="#">Accessories</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Jumpers</a></li>
-                                                <li><a href="#">Jeans</a></li>
-                                                <li><a href="#">Shoes</a></li>
-                                                <li><a href="#">T-Shirt & Polo Shirts</a></li>
-                                                <li><a href="#">Blazers</a></li>
+                                        {{-- */$x=0;/* --}}
+                                        @foreach($categories as $category)
+                                            {{-- */$x++;/* --}}
+                                        <li class="panel">
+                                            <a class="collapsed"
+                                               role="button"
+                                               data-toggle="collapse"
+                                               data-parent="#categories"
+                                               href="#parent-{{ $x }}"
+                                               aria-expanded="false"
+                                               aria-controls="parent-{{ $x }}">{{ $category->name }}<span>[{{ $category->products }}]</span>
+                                            </a>
+                                            <ul id="parent-{{ $x }}" class="list-unstyled panel-collapse collapse" role="menu">
+                                                @foreach($category->children as $subcategory)
+                                                    <li><a href="#">{{ $subcategory->name }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </li>
-                                        <li class="panel"><a role="button" data-toggle="collapse"
-                                                             data-parent="#categories"
-                                                             href="#parent-2" aria-expanded="true"
-                                                             aria-controls="parent-2">Women<span>[34]</span></a>
-                                            <ul id="parent-2" class="list-unstyled panel-collapse collapse in"
-                                                role="menu">
-                                                <li><a href="#">Accessories</a></li>
-                                                <li><a href="#">Swimwear</a></li>
-                                                <li><a href="#">Basics</a></li>
-                                                <li class="active"><a href="#">Dresses</a></li>
-                                                <li><a href="#">Jeans</a></li>
-                                                <li><a href="#">Skirts</a></li>
-                                                <li><a href="#">Leggings</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="panel"><a class="collapsed" role="button" data-toggle="collapse"
-                                                             data-parent="#categories" href="#parent-3"
-                                                             aria-expanded="false"
-                                                             aria-controls="parent-3">Accessories<span>[8]</span></a>
-                                            <ul id="parent-3" class="list-unstyled panel-collapse collapse" role="menu">
-                                                <li><a href="#">Basics</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                            </ul>
-                                        </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -177,12 +158,12 @@ PRODUCTS - START
                                                 <div class="product-mask"></div>
                                                 <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                    class="product-permalink"></a>
-                                                    {!! Form::img($product->images()->first()->path, StaticVars::productRelated(), $product->images()->first()->alt, StaticVars::imgWrapper()) !!}
+                                                {!! Form::img($product->images()->first()->path, StaticVars::productRelated(), $product->images()->first()->alt, StaticVars::imgWrapper()) !!}
                                                 <div class="product-quickview">
                                                     <a class="btn btn-quickview"
-                                                        data-toggle="modal"
-                                                        data-target="#product-quickview"
-                                                        data-product="{{ Form::product($product) }}"
+                                                       data-toggle="modal"
+                                                       data-target="#product-quickview"
+                                                       data-product="{{ Form::product($product) }}"
                                                     >Quick View</a>
                                                 </div>
                                             </div>

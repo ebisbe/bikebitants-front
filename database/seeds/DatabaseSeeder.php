@@ -4,6 +4,7 @@ use App\Attribute;
 use App\AttributeValue;
 use App\Brand;
 use App\BrandService;
+use App\Category;
 use App\Color;
 use App\Image;
 use App\Label;
@@ -37,8 +38,10 @@ class DatabaseSeeder extends Seeder
         $product = $this->product(['slug' => 'variable']);
         $brand->products()->save($product);
 
+        $this->categories();
+
         $cont = 0;
-        while( $cont++ < 25){
+        while ($cont++ < 25) {
             $product = $this->product();
             $brand->products()->save($product);
         }
@@ -118,5 +121,65 @@ class DatabaseSeeder extends Seeder
         $product->labels()->save(factory(Label::class)->make());
 
         return $product;
+    }
+
+    public function categories()
+    {
+
+        $categories = collect([
+            ['name' => 'Electrónica bicicleta',
+                'subcategories' => collect([
+                    'Cargador móvil',
+                    'Navegadores',
+                    'Radar',
+                ])],
+            ['name' => 'Cascos', 'subcategories' => collect([
+                'Airbag',
+                'Cascos plegables',
+                'Cascos ventilados',
+                'Complementos para cascos'
+            ])],
+            ['name' => 'Accesorios bicicleta',
+                'subcategories' => collect([
+                    'Candados',
+                    'Luces',
+                    'Intermitentes',
+                    'Reflectantes',
+                    'Timbres',
+                    'Guardabarros',
+                    'Soporte Móvil'
+                ])],
+            ['name' => 'Ropa',
+                'subcategories' => collect([
+                    'Chaquetas',
+                    'Chubasqueros',
+                    'Complementos'
+                ])],
+            ['name' => 'Mochilas y bolsas'],
+            ['name' => 'Niños',
+                'subcategories' => collect([
+                    'Bicis de aprendizaje',
+                    'Remolque para niños',
+                    'Sillas portabebes',
+                    'Cascos para niños',
+                    'Timbres'
+                ])]
+        ]);
+
+        $categories->each(function ($item, $key) {
+            /** @var Category $cat */
+            $cat = factory(Category::class)->create([
+                'name' => $item['name'],
+                'slug' => str_slug($item['name'])
+            ]);
+            if(isset($item['subcategories'])) {
+                $item['subcategories']->each(function($item,$key) use ($cat) {
+                    $cat->children()->save(factory(Category::class)->make([
+                        'name' => $item,
+                        'slug' => str_slug($item)
+                    ]));
+                });
+            }
+        });
     }
 }

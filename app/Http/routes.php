@@ -13,8 +13,9 @@ Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
 /** END Admin */
 
 /** Shop */
-Route::get('/tienda/{slug}', 'ShopController@brand')->name('shop.brand');
-Route::get('/tienda/', 'ShopController@shopping')->name('shop.catalogue');
+Route::get('/', 'ShopController@home')->name('shop.home');
+Route::get('/brand/{slug}', 'ShopController@brand')->name('shop.brand');
+Route::get('/tienda/{slugCategory}/{slugSubCategory?}', 'ShopController@catalogue')->name('shop.catalogue');
 Route::get('/product/{slug}', 'ShopController@product')->name('shop.product');
 Route::resource('cart', 'CartController');
 Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store']]);
@@ -22,14 +23,9 @@ Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 
 Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
     ->where(array('filename' => '[ \w\\.\\/\\-\\@]+', 'filter' => 'original|download|[0-9]+\/[0-9]+|[0-9]+'));
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /** END shop */
 
-Form::macro('img', function ($path, $sizes, $alt, $wrapper = '') {
+Form::macro('img', function ($path, $sizes, $alt, $wrapper = '{img}') {
     /** @var Collection $sizes */
     $srcset = $sizes->map(function ($size, $viewPort) use ($path) {
         return "/img/$size/$path $viewPort";

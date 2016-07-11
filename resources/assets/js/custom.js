@@ -174,7 +174,7 @@ $(document).ready(function() {
 	/*------------------------------
 		OWL CAROUSEL
 	------------------------------*/
-	$("#homepage-1-carousel").owlCarousel({
+	/*$("#homepage-1-carousel").owlCarousel({
     	items : 1,
 		loop : true,
 		lazyLoad : true,
@@ -183,7 +183,7 @@ $(document).ready(function() {
 		navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
 		animateOut: 'fadeOut',
     	animateIn: 'fadeIn'
-  	});
+  	});*/
 	
 	$("#homepage-2-carousel").owlCarousel({
     	items : 1,
@@ -196,7 +196,7 @@ $(document).ready(function() {
     	animateIn: 'fadeIn'
   	});
 	
-	$("#homepage-3-carousel").owlCarousel({
+	/*$("#homepage-3-carousel").owlCarousel({
     	items : 1,
 		loop : true,
 		lazyLoad : true,
@@ -222,7 +222,7 @@ $(document).ready(function() {
 		lazyLoad : true,
 		autoplay : false,
 		dots : false,
-  	});
+  	});*/
 	
 	$("#testimonials-carousel").owlCarousel({
     	items : 1,

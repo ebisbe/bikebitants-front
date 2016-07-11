@@ -19,6 +19,8 @@ class StaticVars
     /** Images sizes */
     protected $productDetail = ['360w' => '330', '480w' => '450', '568w' => '538', '1200w' => '355'];
     protected $productRelated = ['360w' => '330', '480w' => '450', '568w' => '254', '600w' => '270', '767w' => '354', '992w' => '213', '1200w' => '263'];
+    protected $homeLeft = ['360w' => '150', '480w' => '210', '568w' => '254', '600w' => '270', '767w' => '354', '992w' => '213', '1200w' => '263'];
+    protected $homeCategories = ['360w' => '360', '480w' => '480', '568w' => '568', '600w' => '200', '767w' => '256', '992w' => '330', '1200w' => '500'];
 
     protected $emptyCart = ['fa-shopping-basket', 'fa-shopping-bag', 'fa-shopping-cart'];
 
@@ -30,19 +32,6 @@ class StaticVars
     protected $filterPage = 1;
 
     protected $imgWrapper = '<div class="item">{img}</div>';
-
-    /**
-     * @param $name
-     * @param $arguments
-     * @return \Illuminate\Support\Collection|string
-     */
-    public function __call($name, $arguments)
-    {
-        if(is_array($this->$name)) {
-            return collect($this->$name);
-        }
-        return $this->$name;
-    }
 
     /**
      * @return string
@@ -60,5 +49,37 @@ class StaticVars
         return self::filterShow()->first(function($key, $value) {
             return $key === 'selected';
         });
+    }
+
+    /**
+     * @param string $layoutStyle
+     * @return string
+     */
+    public function layoutHeader($layoutStyle = 'navbar-default navbar-static-top') {
+        if(empty($layoutStyle)) {
+            $layoutStyle = 'navbar-default navbar-static-top';
+        }
+        return $layoutStyle;
+    }
+
+    /**
+     * @param string $layoutStyle
+     * @return string
+     */
+    public function layoutTopHeader($layoutStyle = '') {
+        return $layoutStyle;
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @return \Illuminate\Support\Collection|string
+     */
+    public function __call($name, $arguments)
+    {
+        if(is_array($this->$name)) {
+            return collect($this->$name);
+        }
+        return $this->$name;
     }
 }

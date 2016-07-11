@@ -33,7 +33,7 @@ html, body, #page-wrapper {
 }
 
 body {
-	background-image:url(../images/pattern.png);
+	background-image:url(/images/pattern.png);
 	font-family:'Source Sans Pro', Verdana, Geneva, sans-serif;
 }
 
@@ -282,7 +282,7 @@ span.required {
 
 select.form-control {
 	color:#CCCCCC;
-	background-image:url(../images/angle-down.png);
+	background-image:url(/images/angle-down.png);
 	background-repeat:no-repeat;
 	-webkit-appearance:none;
 	-moz-appearance:none;
@@ -792,12 +792,12 @@ textarea {
 ------------------------------*/
 
 #modalAdvertising .modal-header {
-	background-image:url(../images/pattern.png);
+	background-image:url(/images/pattern.png);
 }
 
 #modalAdvertising .modal-body {
 	padding:15px 30px 0;
-	background-image:url(../images/pattern.png);
+	background-image:url(/images/pattern.png);
 }
 
 #modalAdvertising .modal-body h3 {
@@ -1665,7 +1665,7 @@ header.navbar-dark li.navbar-search .form-control {
 }
 
 body.page-boxed .content.pattern {
-	background-image:url(../images/pattern.png);
+	background-image:url(/images/pattern.png);
 }
 
 .content h1 {
@@ -3514,7 +3514,7 @@ footer.navbar a:hover {
 
 #homepage-1-carousel .slide-1 {
 	text-align:center;
-	background-image:url(../images/slide-1.jpg);
+	background-image:url(/images/slide-1.jpg);
 	background-position-y:-230px;
 }
 
@@ -3531,7 +3531,7 @@ footer.navbar a:hover {
 /* HOME1 - SLIDE 2 */
 
 #homepage-1-carousel .slide-2 {
-	background-image:url(../images/slide-2.jpg);
+	background-image:url(/images/slide-2.jpg);
 }
 
 #homepage-1-carousel .slide-2 .slide-mask {
@@ -3546,9 +3546,9 @@ footer.navbar a:hover {
 
 /* HOME1 - SLIDE 3 */
 
-#homepage-1-carousel .slide-3 {
+/*#homepage-1-carousel .slide-3 {
 	text-align:right;
-	background-image:url(../images/slide-3.jpg);
+	background-image:url(/images/slide-3.jpg);
 }
 
 #homepage-1-carousel .slide-3 .slide-mask {
@@ -3557,14 +3557,14 @@ footer.navbar a:hover {
 
 #homepage-1-carousel .slide-3 h1 {
 	margin:210px 0 20px;
-}
+}*/
 
 /* HOMEPAGE 2 */
 
 /* HOME2 - SLIDE 1 */
 
 #homepage-2-carousel .slide-1 {
-	background-image:url(../images/slide-4.jpg);
+	background-image:url(/images/slide-4.jpg);
 	text-align:center;
 }
 
@@ -3587,7 +3587,7 @@ footer.navbar a:hover {
 /* HOME2 - SLIDE 2 */
 
 #homepage-2-carousel .slide-2 {
-	background-image:url(../images/slide-5.jpg);
+	background-image:url(/images/slide-5.jpg);
 }
 
 #homepage-2-carousel .slide-2 .slide-mask {
@@ -3618,10 +3618,10 @@ footer.navbar a:hover {
 /* HOMEPAGE 3 */
 
 /* HOME3 - SLIDE 1 */
-
+/*
 #homepage-3-carousel .slide-1 {
 	text-align:center;
-	background-image:url(../images/slide-7.jpg);
+	background-image:url(/images/slide-7.jpg);
 }
 
 #homepage-3-carousel .slide-1 h1 {
@@ -3633,14 +3633,14 @@ footer.navbar a:hover {
 	font-weight:500;
 }
 
-/* HOME3 - SLIDE 2 */
+!* HOME3 - SLIDE 2 *!
 
 #homepage-3-carousel .slide-2 {
-	background-image:url(../images/slide-6.jpg);
+	background-image:url(/images/slide-6.jpg);
 	background-position:0 -200px;
 }
 
-/* HOMEPAGE 4 */
+!* HOMEPAGE 4 *!
 
 #homepage-4-carousel {
 	margin-bottom:30px;
@@ -3650,10 +3650,10 @@ footer.navbar a:hover {
 	height:300px;
 }
 
-/* HOME4 - SLIDE 1 */
+!* HOME4 - SLIDE 1 *!
 
 #homepage-4-carousel .slide-1 {
-	background-image:url(../images/slide-6.jpg);
+	background-image:url(/images/slide-6.jpg);
 }
 
 #homepage-4-carousel .slide-1 .slide-mask {
@@ -3666,10 +3666,10 @@ footer.navbar a:hover {
 	margin:100px 0 0;
 }
 
-/* HOME4 - SLIDE 2 */
+!* HOME4 - SLIDE 2 *!
 
 #homepage-4-carousel .slide-2 {
-	background-image:url(../images/slide-7.jpg);
+	background-image:url(/images/slide-7.jpg);
 }
 
 #homepage-4-carousel .slide-2 h1 {
@@ -3677,16 +3677,16 @@ footer.navbar a:hover {
 }
 
 #homepage-4-carousel .slide-2 h2 {
-	font-weight:800;	
+	font-weight:800;
 }
 
-/* HOMEPAGE 6 */
+!* HOMEPAGE 6 *!
 
 #homepage-6-carousel .item {
 	height:550px;
 }
 
-/* HOME6 - SLIDE 1 */
+!* HOME6 - SLIDE 1 *!
 
 #homepage-6-carousel .slide-1 {
 	text-align:center;
@@ -3700,7 +3700,7 @@ footer.navbar a:hover {
 	color:#FFFFFF;
 	font-size:60px;
 	margin:170px 0 10px;
-}
+}*/
 
 /* OWL ANIMATION */
 
@@ -4076,7 +4076,7 @@ footer.navbar a:hover {
 /* SECTION - OUR STORES */
 
 .our-stores {
-	background-image:url(../images/map.jpg);
+	background-image:url(/images/map.jpg);
 	background-size:cover;
 	background-repeat:no-repeat;
 	background-position:0 -100px;
@@ -4136,6 +4136,7 @@ footer.navbar a:hover {
 	position:relative;
 	border-bottom:1px dashed #DDDDDD;
 	clear:both;
+	min-height: 90px;
 }
 
 .small-product li:last-child {

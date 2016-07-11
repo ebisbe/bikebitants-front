@@ -30,7 +30,7 @@
     <!-- ==========================
         HEADER - START
     =========================== -->
-    <div class="top-header hidden-xs">
+    <div class="top-header hidden-xs {{ StaticVars::layoutTopHeader(!empty($layoutTopHeader) ? $layoutTopHeader : '') }}">
         <div class="container">
             <div class="row">
                 <div class="col-sm-5">
@@ -39,8 +39,8 @@
                         <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
                     </ul>
                 </div>
-                <div class="col-sm-7 text-right">
-                   {{-- <ul class="list-inline links">
+                {{--<div class="col-sm-7 text-right">
+                    <ul class="list-inline links">
                         <li><a href="my-account.html">My account</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="wishlist.html">Wishlist (5)</a></li>
@@ -51,15 +51,15 @@
                         <li><a href="#"><img src="/images/flags/es.png" alt="cs_CZ"></a></li>
                         <li><a href="#"><img src="/images/flags/us.png" alt="en_US"></a></li>
                         <li><a href="#"><img src="/images/flags/de.png" alt="de_DE"></a></li>
-                    </ul>--}}
-                </div>
+                    </ul>
+                </div>--}}
             </div>
         </div>
     </div>
-    <header class="navbar navbar-default navbar-static-top">
+    <header class="navbar {{ StaticVars::layoutHeader(!empty($layoutHeader) ? $layoutHeader : '') }}">
         <div class="container">
             <div class="navbar-header">
-                <a href="index.html" class="navbar-brand"><span>Bike</span>Bitants</a>
+                <a href="{{ route('shop.home') }}" class="navbar-brand"><span>Bike</span>Bitants</a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
             </div>
             <div class="navbar-collapse collapse">

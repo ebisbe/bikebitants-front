@@ -15,6 +15,7 @@ use App\Attribute;
 use App\AttributeValue;
 use App\Brand;
 use App\BrandService;
+use App\Category;
 use App\Image;
 use App\Label;
 use App\Lead;
@@ -91,7 +92,8 @@ $factory->define(Brand::class, function (Faker\Generator $faker) {
         'name' => $name,
         'slug' => str_slug($name) ,
         'description' => $faker->paragraphs(3, true),
-        'image' => ''
+        'image' => '',
+        'featured' => true
     ];
 });
 
@@ -125,7 +127,7 @@ $factory->define(Image::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->words(3, true),
         'alt' => $faker->paragraphs(1, true),
-        'path' => $faker->image(storage_path('app'), 1500, 1500, null, false),
+        'path' => $faker->image(storage_path('app'), 640, 480, null, false),
     ];
 });
 
@@ -133,5 +135,18 @@ $factory->define(Lead::class, function (Faker\Generator $faker) {
     return [
         'email' => $faker->email,
         'type' => $faker->words(1, true)
+    ];
+});
+
+$factory->define(Category::class, function (Faker\Generator $faker) {
+    $name = $faker->words(3, true);
+    return [
+        'name' => $name,
+        'slug' => str_slug($name),
+        'path' => $faker->image(storage_path('app'), 640, 480, null, false),
+        'products' => 0,
+        'meta_title' => '',
+        'meta_description' => '',
+        'meta_keywords' => ''
     ];
 });

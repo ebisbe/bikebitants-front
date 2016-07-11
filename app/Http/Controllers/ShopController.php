@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\Business\Search\ProductSearch;
+use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -12,13 +13,21 @@ use App\Http\Requests;
 class ShopController extends Controller
 {
     /**
-     * Home View
-     *
+     * @param Brand $brand
+     * @param Product $product
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home()
+    public function home(Brand $brand, Product $product, Category $category)
     {
-        return view('shop.home');
+        $layoutHeader = 'navbar-transparent navbar-fixed-top';
+        $layoutTopHeader = 'hidden';
+
+        $brands = $brand->featured()->get();
+        $productsLeft = $product->take(2)->get();
+        $productsRight = $product->take(8)->get();
+        $categories = $category->take(3)->get();
+
+        return view('shop.home', compact('layoutHeader', 'layoutTopHeader', 'brands', 'productsLeft', 'productsRight', 'categories'));
     }
 
     /**
@@ -50,15 +59,20 @@ class ShopController extends Controller
     }
 
     /**
-     *
      * @param Request $request
+     * @param ProductSearch $productSearch
+     * @param Category $category
+     * @param string $slugCategory
+     * @param string $slugSubCategory
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function shopping(Request $request)
+    public function catalogue(Request $request, ProductSearch $productSearch, Category $category,  $slugCategory = '', $slugSubCategory = '')
     {
-        $products = ProductSearch::apply($request);
-        $filters = ProductSearch::getFilters($request);
+        $products = $productSearch::apply($request);
+        $filters = $productSearch::getFilters($request);
 
-        return view('shop.shopping', compact('products', 'filters'));
+        $categories = $category->with('children')->get();
+
+        return view('shop.catalogue', compact('products', 'filters', 'categories'));
     }
 }
