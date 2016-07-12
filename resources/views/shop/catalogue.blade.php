@@ -9,15 +9,11 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-6">
-                <h2>Women</h2>
-                <p>Dresses</p>
+                <h2>{{ $cat->name }}</h2>
+                <p>{{ $subCat->name }}</p>
             </div>
             <div class="col-xs-6">
-                <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Women</a></li>
-                    <li class="active">Dresses</li>
-                </ol>
+                {!! BreadCrumbLinks::render('breadcrumb', 'ol') !!}
             </div>
         </div>
     </div>
@@ -50,7 +46,7 @@ PRODUCTS - START
                                         @foreach($categories as $category)
                                             {{-- */$x++;/* --}}
                                         <li class="panel">
-                                            <a class="collapsed"
+                                            <a class="{{ $category->_id == $cat->_id ? '' : 'collapsed' }}"
                                                role="button"
                                                data-toggle="collapse"
                                                data-parent="#categories"
@@ -58,9 +54,9 @@ PRODUCTS - START
                                                aria-expanded="false"
                                                aria-controls="parent-{{ $x }}">{{ $category->name }}<span>[{{ $category->products }}]</span>
                                             </a>
-                                            <ul id="parent-{{ $x }}" class="list-unstyled panel-collapse collapse" role="menu">
+                                            <ul id="parent-{{ $x }}" class="list-unstyled panel-collapse collapse {{ $category->_id == $cat->_id ? 'in' : '' }}" role="menu">
                                                 @foreach($category->children as $subcategory)
-                                                    <li><a href="#">{{ $subcategory->name }}</a></li>
+                                                    <li><a href="{{ route('shop.catalogue', ['category' => $category->slug, 'subcategory' => $subcategory->slug]) }}">{{ $subcategory->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </li>
@@ -84,10 +80,10 @@ PRODUCTS - START
                                     <div class="price-slider">
                                         <input type="hidden" class="min" name="min_price"
                                                data-min="{{ StaticVars::filterMinimumValue() }}"
-                                               data-value="{{ $filters['min_price'] }}" readonly>
+                                               data-value="{{ $filters->get('min_price') }}" readonly>
                                         <input type="hidden" class="max" name="max_price"
                                                data-max="{{ StaticVars::filterMaximumValue() }}"
-                                               data-value="{{ $filters['max_price'] }}" readonly>
+                                               data-value="{{ $filters->get('max_price') }}" readonly>
                                         <span class="fake-input pull-left">
                                             <span class="min"></span>&euro;
                                         </span>
@@ -114,7 +110,7 @@ PRODUCTS - START
                                     <div class="form-group">
                                         <select class="form-control" name="show">
                                             @foreach(StaticVars::filterShow() as $option)
-                                                <option value="{{ $option }}" {!! $filters['show'] == $option ? 'selected="selected"' : '' !!}>{{ $option }}</option>
+                                                <option value="{{ $option }}" {!! $filters->get('how') == $option ? 'selected="selected"' : '' !!}>{{ $option }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -137,7 +133,7 @@ PRODUCTS - START
                                     <div class="form-group">
                                         <select class="form-control" name="sort">
                                             @foreach(StaticVars::filterSortingType() as $isSelected => $option)
-                                                <option value="{{ $option }}" {!! $filters['sort'] == $option ? 'selected="selected"' : '' !!}>{{ trans('filters.sorting.'.$option) }}</option>
+                                                <option value="{{ $option }}" {!! $filters->get('sort') == $option ? 'selected="selected"' : '' !!}>{{ trans('filters.sorting.'.$option) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -205,9 +201,9 @@ PRODUCTS - START
                                     <!-- PRODUCT - END -->
 
                     </div>
-                    @if($filters['show'] != 'all')
+                    @if($filters->get('show') != 'all')
                         <div class="pagination-wrapper">
-                            {{ $products->appends($filters)->links() }}
+                            {{ $products->appends($filters->all())->links() }}
                         </div>
                     @endif
 

@@ -12,6 +12,13 @@ use App\Http\Requests;
 
 class ShopController extends Controller
 {
+
+    public function __construct()
+    {
+        \BreadCrumbLinks::set(['href' => route('shop.home'), 'value' => 'Home']);
+
+    }
+
     /**
      * @param Brand $brand
      * @param Product $product
@@ -66,13 +73,21 @@ class ShopController extends Controller
      * @param string $slugSubCategory
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function catalogue(Request $request, ProductSearch $productSearch, Category $category,  $slugCategory = '', $slugSubCategory = '')
+    public function catalogue(Request $request, ProductSearch $productSearch, Category $category, $slugCategory = '', $slugSubCategory = '')
     {
-        $products = $productSearch::apply($request);
+        /** @var Category $cat */
+        $cat = Category::whereSlug($slugCategory)->first();
+        $subCat = $cat->whereSlugSubCategory($slugSubCategory)->first();
+        \BreadCrumbLinks::set(['href' => route('shop.catalogue', ['category' => $cat->slug]), 'value' => $cat->name]);
+        if(!empty($slugSubCategory)) {
+            \BreadCrumbLinks::set(['value' => $subCat->name, 'li_class' => '']);
+        }
+
+        $products = $productSearch::apply($request, $cat, $slugSubCategory);
         $filters = $productSearch::getFilters($request);
 
         $categories = $category->with('children')->get();
 
-        return view('shop.catalogue', compact('products', 'filters', 'categories'));
+        return view('shop.catalogue', compact('products', 'filters', 'categories', 'cat', 'subCat'));
     }
 }

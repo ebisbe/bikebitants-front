@@ -4,6 +4,7 @@ namespace App;
 
 use App\Business\MongoEloquentModel as Model;
 use Jenssegers\Mongodb\Eloquent\Builder;
+
 /**
  * Class Product
  * @package App
@@ -107,6 +108,14 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
 

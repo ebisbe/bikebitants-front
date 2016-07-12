@@ -16,6 +16,8 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    /** @var Brand $brand */
+    protected $brand;
     /**
      * Run the database seeds.
      *
@@ -23,30 +25,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        /** @var Brand $brand */
-        $brand = factory(Brand::class)->create([
+        $this->brand = factory(Brand::class)->create([
             'name' => 'cum-aliquid-enim'
         ]);
 
-        $brand->services()->save(factory(BrandService::class)->make());
-        $brand->services()->save(factory(BrandService::class)->make());
-        $brand->services()->save(factory(BrandService::class)->make());
+        $this->brand->services()->save(factory(BrandService::class)->make());
+        $this->brand->services()->save(factory(BrandService::class)->make());
+        $this->brand->services()->save(factory(BrandService::class)->make());
 
         $product = $this->product(['slug' => 'simple']);
-        $brand->products()->save($product);
+        $this->brand->products()->save($product);
 
         $product = $this->product(['slug' => 'variable']);
-        $brand->products()->save($product);
+        $this->brand->products()->save($product);
 
         $this->categories();
-
-        $cont = 0;
-        while ($cont++ < 25) {
-            $product = $this->product();
-            $brand->products()->save($product);
-        }
     }
 
+    /**
+     * Create a new product
+     * @param array $type
+     * @return Product
+     */
     public function product($type = [])
     {
         /** @var Product $product */
@@ -123,6 +123,9 @@ class DatabaseSeeder extends Seeder
         return $product;
     }
 
+    /**
+     * Create tree category structure
+     */
     public function categories()
     {
 
@@ -172,12 +175,21 @@ class DatabaseSeeder extends Seeder
                 'name' => $item['name'],
                 'slug' => str_slug($item['name'])
             ]);
+            $catSlug = str_slug($item['name']);
             if(isset($item['subcategories'])) {
                 $item['subcategories']->each(function($item,$key) use ($cat) {
-                    $cat->children()->save(factory(Category::class)->make([
+                    /** @var Category $child */
+                    $child = $cat->children()->save(factory(Category::class)->make([
                         'name' => $item,
                         'slug' => str_slug($item)
                     ]));
+
+                    $cont = 0;
+                    while ($cont++ < 5) {
+                        $product = $this->product();
+                        $this->brand->products()->save($product);
+                        $child->products()->save($product);
+                    }
                 });
             }
         });
