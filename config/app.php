@@ -165,6 +165,7 @@ return [
         Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Spatie\CookieConsent\CookieConsentServiceProvider::class,
 
     ],
 

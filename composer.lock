@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f5f46a78c8e35f41e7d1b39357b88bf",
-    "content-hash": "d7de1bbefdeab4f0ac95d0f71ff3e886",
+    "hash": "540457b628ebd8b2261ceb255eada1ee",
+    "content-hash": "63693a4759fe74ffed43ce5ff38ac9a8",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2125,6 +2125,66 @@
                 "shell"
             ],
             "time": "2016-03-09 05:03:14"
+        },
+        {
+            "name": "spatie/laravel-cookie-consent",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-cookie-consent.git",
+                "reference": "3f0d40765b67c7526af3aa47a8e887c9b262389e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/3f0d40765b67c7526af3aa47a8e887c9b262389e",
+                "reference": "3f0d40765b67c7526af3aa47a8e887c9b262389e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/cookie": "^5.1",
+                "illuminate/support": "^5.1",
+                "illuminate/view": "^5.1",
+                "php": "^5.5|^7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.2",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\CookieConsent\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Willem Van Bockstal",
+                    "email": "willem@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Make your Laravel app comply with the crazy EU cookie law",
+            "homepage": "https://github.com/spatie/laravel-cookie-consent",
+            "keywords": [
+                "comply",
+                "cookie",
+                "eu",
+                "laravel-cookie-consent",
+                "law",
+                "spatie"
+            ],
+            "time": "2016-07-04 13:17:32"
         },
         {
             "name": "swiftmailer/swiftmailer",
