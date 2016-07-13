@@ -179,10 +179,12 @@ class DatabaseSeeder extends Seeder
             if(isset($item['subcategories'])) {
                 $item['subcategories']->each(function($item,$key) use ($cat, $catSlug) {
                     /** @var Category $child */
-                    $child = $cat->children()->save(factory(Category::class)->make([
+                    $child = factory(Category::class)->create([
                         'name' => $item,
                         'slug' => str_slug($item)
-                    ]));
+                    ]);
+                    $child->father()->associate($cat);
+                    $child->save();
 
                     $cont = 0;
                     while ($cont++ < 5) {

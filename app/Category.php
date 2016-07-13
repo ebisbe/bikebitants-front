@@ -7,11 +7,19 @@ use App\Business\MongoEloquentModel as Model;
 class Category extends Model
 {
     /**
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function children()
     {
-        return $this->embedsMany(Category::class);
+        return $this->hasMany(self::class, 'father_id', '_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function father()
+    {
+        return $this->belongsTo(self::class);
     }
 
     /**
@@ -20,17 +28,5 @@ class Category extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
-    }
-
-    /**
-     * @param string $slugSubCategory
-     * @return mixed
-     */
-    public function whereSlugSubCategory($slugSubCategory = '')
-    {
-        return $this->children()
-            ->filter(function ($value, $key) use ($slugSubCategory) {
-                return empty($slugSubCategory) || $value->slug == $slugSubCategory;
-            });
     }
 }

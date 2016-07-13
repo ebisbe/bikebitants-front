@@ -47,14 +47,22 @@ class ShopController extends Controller
      */
     public function product(Product $product, $slug)
     {
-        $product = $product::whereSlug($slug)->firstOrFail();
+        $product = $product::with('category.father')->whereSlug($slug)->firstOrFail();
+
+        \BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
+        \BreadCrumbLinks::set(['href' => route('shop.category', ['category' => $product->category->father->slug]), 'value' => $product->category->father->name]);
+        \BreadCrumbLinks::set(['href' => route('shop.subcategory', ['category' => $product->category->father->slug, 'subcategory' => $product->category->slug]), 'value' => $product->category->name]);
+        \BreadCrumbLinks::set(['value' => $product->name]);
+
+        $title = $product->category->name;
+        $subtitle = $product->name;
 
         $relatedProducts = Product::with('brand')
             ->whereBrandId($product->brand_id)
             ->where('_id', '!=', $product->_id)
             ->get()
             ->take(4);
-        return view('shop.product', compact('product', 'relatedProducts'));
+        return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle'));
     }
 
     /**
@@ -85,7 +93,7 @@ class ShopController extends Controller
 
         $products = $productSearch::apply($request, $route);
         $filters = $productSearch::getFilters($request, $route);
-        $categories = $category->with('children')->get();
+        $categories = $category->with('children')->whereNull('father_id')->get();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
@@ -111,7 +119,7 @@ class ShopController extends Controller
 
         $products = $productSearch::apply($request, $route);
         $filters = $productSearch::getFilters($request, $route);
-        $categories = $category->with('children')->get();
+        $categories = $category->with('children')->whereNull('father_id')->get();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
@@ -129,7 +137,7 @@ class ShopController extends Controller
     {
         /** @var Category $cat */
         $cat = Category::whereSlug($slugCategory)->first();
-        $subCat = $cat->whereSlugSubCategory($slugSubCategory)->first();
+        $subCat = Category::whereSlug($slugSubCategory)->first();
 
         \BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
         \BreadCrumbLinks::set(['href' => route('shop.category', ['category' => $cat->slug]), 'value' => $cat->name]);
@@ -141,7 +149,7 @@ class ShopController extends Controller
 
         $products = $productSearch::apply($request, $route);
         $filters = $productSearch::getFilters($request, $route);
-        $categories = $category->with('children')->get();
+        $categories = $category->with('children')->whereNull('father_id')->get();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }

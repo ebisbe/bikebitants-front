@@ -339,7 +339,7 @@
     <!-- ==========================
         MODAL ADVERTISING - END
     =========================== -->
-    @include('partials/product_popup')
+    @include('partials.product_popup')
     @include('cookieConsent::index')
 </div> <!-- PAGE - END -->
 

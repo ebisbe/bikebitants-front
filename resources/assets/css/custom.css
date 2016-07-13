@@ -33,7 +33,7 @@ html, body, #page-wrapper {
 }
 
 body {
-	background-image:url(/images/pattern.png);
+	background-image:url(../images/pattern.png);
 	font-family:'Source Sans Pro', Verdana, Geneva, sans-serif;
 }
 
@@ -282,7 +282,7 @@ span.required {
 
 select.form-control {
 	color:#CCCCCC;
-	background-image:url(/images/angle-down.png);
+	background-image:url(../images/angle-down.png);
 	background-repeat:no-repeat;
 	-webkit-appearance:none;
 	-moz-appearance:none;
@@ -792,12 +792,12 @@ textarea {
 ------------------------------*/
 
 #modalAdvertising .modal-header {
-	background-image:url(/images/pattern.png);
+	background-image:url(../images/pattern.png);
 }
 
 #modalAdvertising .modal-body {
 	padding:15px 30px 0;
-	background-image:url(/images/pattern.png);
+	background-image:url(../images/pattern.png);
 }
 
 #modalAdvertising .modal-body h3 {
@@ -1665,7 +1665,7 @@ header.navbar-dark li.navbar-search .form-control {
 }
 
 body.page-boxed .content.pattern {
-	background-image:url(/images/pattern.png);
+	background-image:url(../images/pattern.png);
 }
 
 .content h1 {
