@@ -27,7 +27,7 @@ class BreadCrumbLinks
     {
         return [
             'href' => '',
-            'li_class' => 'active',
+            'li_class' => '',
             'class' => '',
             'value' => ''
         ];
@@ -42,7 +42,7 @@ class BreadCrumbLinks
     }
 
     /**
-     * Render all the links from the collection
+     * Render all the links from the collection. The last one will never be a link
      * @param string $class
      * @param string $listType
      * @return string
@@ -52,12 +52,15 @@ class BreadCrumbLinks
         if (!$this->render) {
             return '';
         }
+        $last = $this->links->count() - 1;
+
         $links = $this->links
-            ->map(function ($value, $key) {
-                if($value['href']) {
+            ->map(function ($value, $key) use ($last) {
+                if($value['href'] && $key != $last) {
                     $text = "<a href='{$value['href']}' class='{$value['class']}'>{$value['value']}</a>";
                 } else {
                     $text = $value['value'];
+                    $value['li_class'] = 'active';
                 }
 
                 return "<li class='{$value['li_class']}'>$text</li>";

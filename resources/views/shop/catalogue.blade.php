@@ -9,8 +9,8 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-6">
-                <h2>{{ $cat->name }}</h2>
-                <p>{{ $subCat->name }}</p>
+                <h2>{{ $title }}</h2>
+                <p>{{ $subtitle }}</p>
             </div>
             <div class="col-xs-6">
                 {!! BreadCrumbLinks::render('breadcrumb', 'ol') !!}
@@ -46,7 +46,7 @@ PRODUCTS - START
                                         @foreach($categories as $category)
                                             {{-- */$x++;/* --}}
                                         <li class="panel">
-                                            <a class="{{ $category->_id == $cat->_id ? '' : 'collapsed' }}"
+                                            <a class="{{ $category->_id == $selectedCat ? '' : 'collapsed' }}"
                                                role="button"
                                                data-toggle="collapse"
                                                data-parent="#categories"
@@ -54,9 +54,9 @@ PRODUCTS - START
                                                aria-expanded="false"
                                                aria-controls="parent-{{ $x }}">{{ $category->name }}<span>[{{ $category->products }}]</span>
                                             </a>
-                                            <ul id="parent-{{ $x }}" class="list-unstyled panel-collapse collapse {{ $category->_id == $cat->_id ? 'in' : '' }}" role="menu">
+                                            <ul id="parent-{{ $x }}" class="list-unstyled panel-collapse collapse {{ $category->_id == $selectedCat ? 'in' : '' }}" role="menu">
                                                 @foreach($category->children as $subcategory)
-                                                    <li><a href="{{ route('shop.catalogue', ['category' => $category->slug, 'subcategory' => $subcategory->slug]) }}">{{ $subcategory->name }}</a></li>
+                                                    <li><a href="{{ route('shop.subcategory', ['category' => $category->slug, 'subcategory' => $subcategory->slug]) }}">{{ $subcategory->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                         </li>

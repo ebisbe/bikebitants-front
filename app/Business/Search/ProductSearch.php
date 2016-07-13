@@ -5,6 +5,7 @@ namespace App\Business\Search;
 use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use MongoDB\BSON\ObjectID;
 use StaticVars;
@@ -15,15 +16,13 @@ class ProductSearch
 
     /**
      * @param Request $filters
-     * @param $slugCategory
-     * @param $slugSubCategory
+     * @param Route $route
      * @return Builder
      */
-    public static function apply(Request $filters, $category, $slugSubCategory)
+    public static function apply(Request $filters, Route $route)
     {
         $query = (new Product)->newQuery()->with('brand');
-        $categories = static::filterCategories($category, $slugSubCategory);
-        return static::applyDecoratorsFromRequest($filters, $query, $categories);
+        return static::applyDecoratorsFromRequest($filters, $query, $route);
     }
 
     /**
@@ -45,12 +44,12 @@ class ProductSearch
      * For each input received from the request apply it's own filter.
      * @param Request $filters
      * @param Builder $query
-     * @param Collection $categories
+     * @param Route $route
      * @return Builder
      */
-    private static function applyDecoratorsFromRequest(Request $filters, Builder $query, Collection $categories)
+    private static function applyDecoratorsFromRequest(Request $filters, Builder $query, Route $route)
     {
-        foreach (static::getFilters($filters, $categories) as $filterName => $value) {
+        foreach (static::getFilters($filters, $route) as $filterName => $value) {
 
             $decorator = static::createFilterDecorator($filterName);
 
@@ -65,14 +64,14 @@ class ProductSearch
     /**
      * Return applied filters. Whether are the default or the requested.
      * @param Request $filters
-     * @param Collection $categories
+     * @param Route $route
      * @return static
      */
-    public static function getFilters(Request $filters, Collection $categories = null)
+    public static function getFilters(Request $filters, Route $route)
     {
         return static::getDefaultFilters()
-            ->merge(collect($filters->all()))
-            ->merge($categories)
+            ->merge($filters->all())
+            ->merge($route->parameters())
             ->reverse();
     }
 
@@ -94,19 +93,5 @@ class ProductSearch
     private static function isValidDecorator($decorator)
     {
         return class_exists($decorator);
-    }
-
-    /**
-     * @param Category $slugCategory
-     * @param string $slugSubCategory
-     * @return Collection
-     */
-    private static function filterCategories(Category $cat, $slugSubCategory)
-    {
-        $categories = $cat->whereSlugSubCategory($slugSubCategory)
-            ->map(function ($item, $key) {
-                return $item->_id;
-            });
-        return collect(['category' => $categories]);
     }
 }

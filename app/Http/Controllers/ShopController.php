@@ -9,14 +9,17 @@ use App\Product;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Routing\Route;
 
 class ShopController extends Controller
 {
 
+    /**
+     * ShopController constructor.
+     */
     public function __construct()
     {
         \BreadCrumbLinks::set(['href' => route('shop.home'), 'value' => 'Home']);
-
     }
 
     /**
@@ -68,26 +71,78 @@ class ShopController extends Controller
     /**
      * @param Request $request
      * @param ProductSearch $productSearch
+     * @param Route $route
+     * @param Category $category
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function shop(Request $request, ProductSearch $productSearch, Route $route, Category $category)
+    {
+        \BreadCrumbLinks::set(['value' => 'Shop']);
+
+        $title = 'Home';
+        $subtitle = 'Shop';
+        $selectedCat = '';
+
+        $products = $productSearch::apply($request, $route);
+        $filters = $productSearch::getFilters($request, $route);
+        $categories = $category->with('children')->get();
+
+        return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
+    }
+
+    /**
+     * @param Request $request
+     * @param ProductSearch $productSearch
+     * @param Route $route
+     * @param Category $category
+     * @param string $slugCategory
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function category(Request $request, ProductSearch $productSearch, Route $route, Category $category, $slugCategory)
+    {
+        /** @var Category $cat */
+        $cat = Category::whereSlug($slugCategory)->first();
+        \BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
+        \BreadCrumbLinks::set(['href' => route('shop.category', ['category' => $cat->slug]), 'value' => $cat->name]);
+
+        $title = 'Shop';
+        $subtitle = $cat->name;
+        $selectedCat = $cat->_id;
+
+        $products = $productSearch::apply($request, $route);
+        $filters = $productSearch::getFilters($request, $route);
+        $categories = $category->with('children')->get();
+
+        return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
+    }
+
+    /**
+     * @param Request $request
+     * @param ProductSearch $productSearch
+     * @param Route $route
      * @param Category $category
      * @param string $slugCategory
      * @param string $slugSubCategory
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function catalogue(Request $request, ProductSearch $productSearch, Category $category, $slugCategory = '', $slugSubCategory = '')
+    public function subcategory(Request $request, ProductSearch $productSearch, Route $route, Category $category, $slugCategory, $slugSubCategory)
     {
         /** @var Category $cat */
         $cat = Category::whereSlug($slugCategory)->first();
         $subCat = $cat->whereSlugSubCategory($slugSubCategory)->first();
-        \BreadCrumbLinks::set(['href' => route('shop.catalogue', ['category' => $cat->slug]), 'value' => $cat->name]);
-        if(!empty($slugSubCategory)) {
-            \BreadCrumbLinks::set(['value' => $subCat->name, 'li_class' => '']);
-        }
 
-        $products = $productSearch::apply($request, $cat, $slugSubCategory);
-        $filters = $productSearch::getFilters($request);
+        \BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
+        \BreadCrumbLinks::set(['href' => route('shop.category', ['category' => $cat->slug]), 'value' => $cat->name]);
+        \BreadCrumbLinks::set(['value' => $subCat->name]);
 
+        $title = $cat->name;
+        $subtitle = $subCat->name;
+        $selectedCat = $cat->_id;
+
+        $products = $productSearch::apply($request, $route);
+        $filters = $productSearch::getFilters($request, $route);
         $categories = $category->with('children')->get();
 
-        return view('shop.catalogue', compact('products', 'filters', 'categories', 'cat', 'subCat'));
+        return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
 }

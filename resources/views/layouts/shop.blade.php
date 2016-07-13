@@ -66,17 +66,12 @@
                 <p class="navbar-text hidden-xs hidden-sm">{{ StaticVars::slogan() }}</p>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true">Home</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="index.html">Homepage 1</a></li>
-                            <li><a href="homepage-2.html">Homepage 2</a></li>
-                            <li><a href="homepage-3.html">Homepage 3<span class="label label-warning pull-right">Updated</span></a></li>
-                            <li><a href="homepage-4.html">Homepage 4</a></li>
-                            <li><a href="homepage-5.html">Homepage 5<span class="label label-danger pull-right">New</span></a></li>
-                            <li><a href="homepage-6.html">Homepage 6<span class="label label-danger pull-right">New</span></a></li>
-                        </ul>
+                        <a href="{{ route('shop.home') }}">Home</a>
                     </li>
-                    <li class="dropdown megamenu">
+                    <li class="dropdown">
+                        <a href="{{ route('shop.catalogue') }}">Shop</a>
+                    </li>
+                    {{--<li class="dropdown megamenu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true">Eshop</a>
                         <ul class="dropdown-menu">
                             <li class="col-sm-4 col-md-3">
@@ -116,85 +111,8 @@
                                 <img src="/images/megamenu.png" class="img-responsive center-block" alt="">
                             </li>
                         </ul>
-                    </li>
-                    <li class="dropdown megamenu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true">Pages</a>
-                        <ul class="dropdown-menu">
-                            <li class="col-sm-4">
-                                <ul class="list-unstyled">
-                                    <li class="title">Eshop</li>
-                                    <li><a href="products.html">Products</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="compare.html">Compare</a></li>
-                                    <li><a href="single-product.html">One Product</a></li>
-                                    <li><a href="stores.html">Stores</a></li>
-                                    <li><a href="about-shop.html">About Shop</a></li>
-                                    <li><a href="lookbook.html">Lookbook</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-sm-4">
-                                <ul class="list-unstyled">
-                                    <li class="title">Account</li>
-                                    <li><a href="my-account.html">My Account<span class="label label-warning pull-right">Updated</span></a></li>
-                                    <li><a href="profile.html">Profile</a></li>
-                                    <li><a href="orders.html">Ordres</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="address.html">Address</a></li>
-                                    <li><a href="warranty-claims.html">Warranty Claims<span class="label label-danger pull-right">New</span></a></li>
-                                    <li><a href="signup.html">Sign Up</a></li>
-                                    <li><a href="signin.html">Sign In</a></li>
-                                    <li><a href="lost-password.html">Lost Password</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-sm-4">
-                                <ul class="list-unstyled">
-                                    <li class="title">Other Pages</li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="single-post.html">One Blog Post</a></li>
-                                    <li><a href="single-order.html">Order Detail</a></li>
-                                    <li><a href="downloads.html">Downloads<span class="label label-danger pull-right">New</span></a></li>
-                                    <li><a href="faq.html">FAQ</a></li>
-                                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                    <li><a href="terms-conditions.html">Terms & Conditions</a></li>
-                                    <li><a href="404.html">404 Error</a></li>
-                                    <li><a href="email-template.html" target="_blank">Email Template</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown megamenu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true">Components<span class="label label-danger pull-right">New</span></a>
-                        <ul class="dropdown-menu">
-                            <li class="col-sm-4">
-                                <ul class="list-unstyled">
-                                    <li><a href="components.html#headings">Headings</a></li>
-                                    <li><a href="components.html#paragraphs">Paragraphs</a></li>
-                                    <li><a href="components.html#lists">Lists</a></li>
-                                    <li><a href="components.html#tabs">Tabs</a></li>
-                                    <li><a href="components.html#accordition">Accordition</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-sm-4">
-                                <ul class="list-unstyled">
-                                    <li><a href="components.html#collapse">Collapse</a></li>
-                                    <li><a href="components.html#buttons">Buttons</a></li>
-                                    <li><a href="components.html#tables">Tables</a></li>
-                                    <li><a href="components.html#grids">Grids</a></li>
-                                    <li><a href="components.html#responsive-video-audio">Responsive Video &amp; Audio</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-sm-4">
-                                <ul class="list-unstyled">
-                                    <li><a href="components.html#alerts">Alerts</a></li>
-                                    <li><a href="components.html#forms">Forms</a></li>
-                                    <li><a href="components.html#labels">Labels</a></li>
-                                    <li><a href="components.html#paginations">Paginations</a></li>
-                                    <li><a href="components.html#carousels">Carousels</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                    </li>--}}
+
                     @include('partials.menu_cart')
                     {{--<li class="dropdown navbar-search hidden-xs">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>

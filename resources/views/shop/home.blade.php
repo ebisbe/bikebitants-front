@@ -95,7 +95,7 @@
         @foreach($categories as $category)
             <div class="col-xs-4">
                 <div class="category">
-                    <a href="{{ route('shop.catalogue', ['slugCategory' => $category->slug]) }}">
+                    <a href="{{ route('shop.category', ['slugCategory' => $category->slug]) }}">
                         {!! Form::img($category->path, StaticVars::homeCategories(), $category->name) !!}
                         <div class="category-mask"></div>
                         <h3 class="category-title">{{ $category->name }}</h3>

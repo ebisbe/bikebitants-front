@@ -3,7 +3,7 @@ namespace App\Business\Search\Filters;
 
 use Jenssegers\Mongodb\Eloquent\Builder;
 
-class Category implements Filter {
+class SlugCategory implements Filter {
 
     /**
      * @param Builder $builder
@@ -12,6 +12,6 @@ class Category implements Filter {
      */
     public static function apply(Builder $builder, $value)
     {
-        return $builder->whereIn('category_id', $value);
+        return $builder->whereIn('categories', [$value]);
     }
 }

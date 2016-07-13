@@ -124,10 +124,14 @@ $factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Image::class, function (Faker\Generator $faker) {
+    $files = collect(Storage::files());
+    if($files->isEmpty()) {
+        $files->push($faker->image(storage_path('app'), 640, 480, null, false));
+    }
     return [
         'name' => $faker->words(3, true),
         'alt' => $faker->paragraphs(1, true),
-        'path' => $faker->image(storage_path('app'), 640, 480, null, false),
+        'path' => $files->random(),
     ];
 });
 
@@ -140,10 +144,14 @@ $factory->define(Lead::class, function (Faker\Generator $faker) {
 
 $factory->define(Category::class, function (Faker\Generator $faker) {
     $name = $faker->words(3, true);
+    $files = collect(Storage::files());
+    if(empty($files)) {
+        $files->push($faker->image(storage_path('app'), 640, 480, null, false));
+    }
     return [
         'name' => $name,
         'slug' => str_slug($name),
-        'path' => $faker->image(storage_path('app'), 640, 480, null, false),
+        'path' => $files->random(),
         'products' => 0,
         'meta_title' => '',
         'meta_description' => '',

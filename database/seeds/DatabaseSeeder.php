@@ -177,7 +177,7 @@ class DatabaseSeeder extends Seeder
             ]);
             $catSlug = str_slug($item['name']);
             if(isset($item['subcategories'])) {
-                $item['subcategories']->each(function($item,$key) use ($cat) {
+                $item['subcategories']->each(function($item,$key) use ($cat, $catSlug) {
                     /** @var Category $child */
                     $child = $cat->children()->save(factory(Category::class)->make([
                         'name' => $item,
@@ -186,7 +186,7 @@ class DatabaseSeeder extends Seeder
 
                     $cont = 0;
                     while ($cont++ < 5) {
-                        $product = $this->product();
+                        $product = $this->product(['categories' => [$catSlug, str_slug($item)]]);
                         $this->brand->products()->save($product);
                         $child->products()->save($product);
                     }
