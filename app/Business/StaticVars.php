@@ -28,8 +28,10 @@ class StaticVars
     /** Filters for product page */
     protected $filterMinimumValue = 20;
     protected $filterMaximumValue = 300;
-    protected $filterSortingType = [/*'popularity', 'average_rating',*/ 'selected' => 'newness', 'low_to_high', 'high_to_low'];
-    protected $filterShow = [6, 'selected' => 12, 18, 24, 'all'];
+    protected $filterSortingType = [/*'popularity', 'average_rating',*/
+        'selected' => 'newness', 'low_to_high', 'high_to_low'
+    ];
+    protected $filterShow = [8 => 8, 12 => 12, 18 => 18, 24 => 24, 'all' => 'all'];
     protected $filterPage = 1;
 
     protected $imgWrapper = '<div class="item">{img}</div>';
@@ -37,8 +39,9 @@ class StaticVars
     /**
      * @return string
      */
-    public function filterSortingTypeSelected() {
-        return self::filterSortingType()->first(function($key, $value) {
+    public function filterSortingTypeSelected()
+    {
+        return self::filterSortingType()->first(function ($key, $value) {
             return $key === 'selected';
         });
     }
@@ -46,18 +49,18 @@ class StaticVars
     /**
      * @return string
      */
-    public function filterShowSelected() {
-        return self::filterShow()->first(function($key, $value) {
-            return $key === 'selected';
-        });
+    public function filterShowSelected()
+    {
+        return self::filterShow()->first();
     }
 
     /**
      * @param string $layoutStyle
      * @return string
      */
-    public function layoutHeader($layoutStyle = 'navbar-default navbar-static-top') {
-        if(empty($layoutStyle)) {
+    public function layoutHeader($layoutStyle = 'navbar-default navbar-static-top')
+    {
+        if (empty($layoutStyle)) {
             $layoutStyle = 'navbar-default navbar-static-top';
         }
         return $layoutStyle;
@@ -67,7 +70,8 @@ class StaticVars
      * @param string $layoutStyle
      * @return string
      */
-    public function layoutTopHeader($layoutStyle = '') {
+    public function layoutTopHeader($layoutStyle = '')
+    {
         return $layoutStyle;
     }
 
@@ -78,7 +82,7 @@ class StaticVars
      */
     public function __call($name, $arguments)
     {
-        if(is_array($this->$name)) {
+        if (is_array($this->$name)) {
             return collect($this->$name);
         }
         return $this->$name;

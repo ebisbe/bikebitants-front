@@ -105,9 +105,9 @@ class ShopController extends Controller
         $filters = $productSearch::getFilters($request, $route);
         $categories = $category->with('children')->whereNull('father_id')->get();
 
-        MetaTag::set('title', $brand->meta_title);
-        MetaTag::set('description', $brand->meta_description);
-        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
+        MetaTag::set('title', 'Bikebitants shop');
+        MetaTag::set('description', 'This is the metra description');
+        MetaTag::set('keywords', 'some meta tags here');
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }

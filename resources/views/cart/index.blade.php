@@ -28,7 +28,7 @@ MY ACCOUNT - START
                                 @foreach($items as $item)
                                     <tr>
                                         <td class="col-xs-1">
-                                            <img src="/img/70/{{ $item->product->images()->first()->path }}" alt="{{ $item->product->images()->first()->alt }}" class="img-responsive">
+                                            <img src="/img/70/{{ $item->product->images()->first()->filename }}" alt="{{ $item->product->images()->first()->alt }}" class="img-responsive">
                                         </td>
                                         <td class="col-xs-4 col-md-5">
                                             <h4>

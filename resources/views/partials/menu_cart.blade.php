@@ -16,7 +16,7 @@
                 <li>
                     <div class="row">
                         <div class="col-sm-3">
-                            <img src="/img/70/{{ $cart->product->images()->first()->path }}"
+                            <img src="/img/70/{{ $cart->product->images()->first()->filename }}"
                                  alt="{{ $cart->product->images()->first()->alt }}" class="img-responsive">
                         </div>
                         <div class="col-sm-9">

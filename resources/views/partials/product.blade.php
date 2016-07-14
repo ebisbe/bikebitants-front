@@ -5,7 +5,7 @@
                 <div id="product-carousel" class="product-carousel">
                     @foreach($product->images as $image)
                         <div class="item">
-                            {!! Form::img($image->path, StaticVars::productDetail(), $image->alt) !!}
+                            {!! Form::img($image->filename, StaticVars::productDetail(), $image->alt) !!}
                         </div>
                     @endforeach
                 </div>
@@ -42,7 +42,7 @@
                 <p>{{ $product->introduction }}</p>
                 <div class="product-form clearfix">
                     <form action="/cart" class="js-add-to-cart" method="POST">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        {{ csrf_field() }}
                         <input type="hidden" name="product_id" value="{{ $product->_id }}">
 
                         <div class="row row-no-padding">

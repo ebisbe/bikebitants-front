@@ -9,7 +9,7 @@ PRODUCTS - START
 <section class="content products">
     <div class="container">
         <h2 class="hidden">Products</h2>
-        <form action="/tienda" method="GET">
+        <form action="" method="GET" id="js-catalogue">
             <div class="row">
                 <div class="col-sm-3">
                     <aside class="sidebar">
@@ -26,21 +26,26 @@ PRODUCTS - START
                                         {{-- */$x=0;/* --}}
                                         @foreach($categories as $category)
                                             {{-- */$x++;/* --}}
-                                        <li class="panel">
-                                            <a class="{{ $category->_id == $selectedCat ? '' : 'collapsed' }}"
-                                               role="button"
-                                               data-toggle="collapse"
-                                               data-parent="#categories"
-                                               href="#parent-{{ $x }}"
-                                               aria-expanded="false"
-                                               aria-controls="parent-{{ $x }}">{{ $category->name }}<span>[{{ $category->products }}]</span>
-                                            </a>
-                                            <ul id="parent-{{ $x }}" class="list-unstyled panel-collapse collapse {{ $category->_id == $selectedCat ? 'in' : '' }}" role="menu">
-                                                @foreach($category->children as $subcategory)
-                                                    <li><a href="{{ route('shop.subcategory', ['category' => $category->slug, 'subcategory' => $subcategory->slug]) }}">{{ $subcategory->name }}</a></li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
+                                            <li class="panel">
+                                                <a class="{{ $category->_id == $selectedCat ? '' : 'collapsed' }}"
+                                                   role="button"
+                                                   data-toggle="collapse"
+                                                   data-parent="#categories"
+                                                   href="#parent-{{ $x }}"
+                                                   aria-expanded="false"
+                                                   aria-controls="parent-{{ $x }}">{{ $category->name }}
+                                                    <span>[{{ $category->products }}]</span>
+                                                </a>
+                                                <ul id="parent-{{ $x }}"
+                                                    class="list-unstyled panel-collapse collapse {{ $category->_id == $selectedCat ? 'in' : '' }}"
+                                                    role="menu">
+                                                    @foreach($category->children as $subcategory)
+                                                        <li>
+                                                            <a href="{{ route('shop.subcategory', ['category' => $category->slug, 'subcategory' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -77,7 +82,9 @@ PRODUCTS - START
                             </div>
                         </div>
                         <!-- WIDGET:PRICE - END -->
-
+                        <button type="submit" class="btn btn-primary add-to-cart js-add-button">
+                            Update search
+                        </button>
                     </aside>
                 </div>
                 <div class="col-sm-9">
@@ -89,11 +96,7 @@ PRODUCTS - START
                                         <label>Show:</label>
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" name="show">
-                                            @foreach(StaticVars::filterShow() as $option)
-                                                <option value="{{ $option }}" {!! $filters->get('how') == $option ? 'selected="selected"' : '' !!}>{{ $option }}</option>
-                                            @endforeach
-                                        </select>
+                                        {!! Form::select('show', StaticVars::filterShow(), $filters->get('show'), ['class' => 'form-control js-change']) !!}
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +115,7 @@ PRODUCTS - START
                                         <label>Sort by:</label>
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" name="sort">
+                                        <select class="form-control js-change" name="sort">
                                             @foreach(StaticVars::filterSortingType() as $isSelected => $option)
                                                 <option value="{{ $option }}" {!! $filters->get('sort') == $option ? 'selected="selected"' : '' !!}>{{ trans('filters.sorting.'.$option) }}</option>
                                             @endforeach
@@ -168,8 +171,23 @@ PRODUCTS - START
                                                 <p>{{ $product->description }}</p>
                                                 <div class="buttons">
                                                     {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
-                                                    <a href="" class="btn btn-primary btn-sm add-to-cart"><i
-                                                                class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                    @if($product->variation->count())
+                                                        <a href="{{ route('shop.product', ['slug' => $product->slug]) }}" class="btn btn-primary btn-sm add-to-cart">
+                                                            <i class="fa fa-plus"></i>Choose options
+                                                        </a>
+                                                    @else
+                                                        <button class="btn btn-primary btn-sm js-shop-add-button"
+                                                                data-quantity="1"
+                                                                data-product_id="{{ $product->_id }}"
+                                                                data-action="{{ route('cart.store') }}"
+                                                                data-token="{{ csrf_token() }}">
+                                                            <i class="fa fa-shopping-cart"></i>&nbsp;Add to cart
+                                                        </button>
+                                                    @endif
+                                                    {{--<button type="submit" class="btn btn-primary add-to-cart js-add-button">--}}
+                                                    {{--<i class="fa fa-shopping-cart"></i>--}}
+                                                    {{--Add to cart--}}
+                                                    {{--</button>--}}
                                                     {{--<a href="" class="btn btn-primary btn-sm"><i--}}
                                                     {{--class="fa fa-heart"></i></a>--}}
                                                 </div>
@@ -182,17 +200,13 @@ PRODUCTS - START
                                     <!-- PRODUCT - END -->
 
                     </div>
-                    @if($filters->get('show') != 'all')
+                    @if($filters->get('show') != 'all' && $products->count() >= $products->perPage())
                         <div class="pagination-wrapper">
                             {{ $products->appends($filters->all())->links() }}
                         </div>
                     @endif
 
                 </div>
-                <button type="submit" class="btn btn-primary add-to-cart js-add-button">
-                    <i class="fa fa-shopping-cart"></i>
-                    Add to cart
-                </button>
             </div>
 
         </form>

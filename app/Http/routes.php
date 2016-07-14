@@ -40,7 +40,8 @@ Form::macro('product', function (Product $product) {
 
     $images = [];
     foreach ($product->images as $image) {
-        $images[] = Form::img($image->path, StaticVars::productRelated(), $image->alt, StaticVars::imgWrapper());
+        $images[] = Form::img($image->filename, StaticVars::productRelated(), $image->alt, StaticVars::imgWrapper());
+        break; // TODO Make Owl.js to work when changin it's images src
     }
 
     $arr_product = [
