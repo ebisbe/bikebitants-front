@@ -50,6 +50,9 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
         //'discount_end' => $faker->date(),
         'tags' => $faker->words(),
         //'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
+        'meta_title' => $name,
+        'meta_description' => $faker->paragraphs(1, true),
+        'meta_keywords' => $faker->words(6, true)
     ];
 });
 
@@ -88,12 +91,19 @@ $factory->define(Label::class, function (Faker\Generator $faker) {
 
 $factory->define(Brand::class, function (Faker\Generator $faker) {
     $name = $faker->words(3, true);
+    $files = collect(Storage::files());
+    if($files->isEmpty()) {
+        $files->push($faker->image(storage_path('app'), 640, 480, null, false));
+    }
     return [
         'name' => $name,
         'slug' => str_slug($name) ,
         'description' => $faker->paragraphs(3, true),
-        'image' => '',
-        'featured' => true
+        'filename' => $files->random(),
+        'featured' => true,
+        'meta_title' => $name,
+        'meta_description' => $faker->paragraphs(1, true),
+        'meta_keywords' => $faker->words(6, true)
     ];
 });
 
@@ -131,7 +141,7 @@ $factory->define(Image::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->words(3, true),
         'alt' => $faker->paragraphs(1, true),
-        'path' => $files->random(),
+        'filename' => $files->random(),
     ];
 });
 
@@ -151,10 +161,10 @@ $factory->define(Category::class, function (Faker\Generator $faker) {
     return [
         'name' => $name,
         'slug' => str_slug($name),
-        'path' => $files->random(),
+        'filename' => $files->random(),
         'products' => 0,
-        'meta_title' => '',
-        'meta_description' => '',
-        'meta_keywords' => ''
+        'meta_title' => $name,
+        'meta_description' => $faker->paragraphs(1, true),
+        'meta_keywords' => $faker->words(6, true)
     ];
 });

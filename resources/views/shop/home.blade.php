@@ -96,7 +96,7 @@
             <div class="col-xs-4">
                 <div class="category">
                     <a href="{{ route('shop.category', ['slugCategory' => $category->slug]) }}">
-                        {!! Form::img($category->path, StaticVars::homeCategories(), $category->name) !!}
+                        {!! Form::img($category->filename, StaticVars::homeCategories(), $category->name) !!}
                         <div class="category-mask"></div>
                         <h3 class="category-title">{{ $category->name }}</h3>
                     </a>
@@ -121,7 +121,7 @@
                 <div class="col-xs-6 col-sm-3">
                     <article class="product-item">
 
-                        {!! Form::img($product->images->first()->path, StaticVars::homeLeft(), $product->images->first()->alt) !!}
+                        {!! Form::img($product->images->first()->filename, StaticVars::homeLeft(), $product->images->first()->alt) !!}
                         <h3><a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">{{ $product->name }}</a>
                         </h3>
                         {{--<div class="product-rating">
@@ -146,7 +146,7 @@
                                 <!-- PRODUCT - START -->
                         <li class="clearfix">
                             <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
-                                {!! Form::img($product->images->first()->path, collect(['1200w' => '60']), $product->images->first()->alt) !!}
+                                {!! Form::img($product->images->first()->filename, collect(['1200w' => '60']), $product->images->first()->alt) !!}
                                 <h3>{{ $product->name }}</h3>
                             </a>
                             {{--<div class="product-rating">
@@ -266,7 +266,7 @@
             @foreach($brands as $brand)
                 <div class="item">
                     <a href="{{ route('shop.brand', ['slug' => $brand->slug]) }}">
-                        <img src="{{ $brand->image }}" class="img-responsive" alt="{{ $brand->name }}">
+                        {!! Form::img($brand->filename, collect(['1200w' => '300']), $brand->name) !!}
                     </a>
                 </div>
             @endforeach

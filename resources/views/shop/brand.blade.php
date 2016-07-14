@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-                <img src="/images/clients/7.png" class="img-responsive center-block" alt="">
+                {!! Form::img($brand->filename, StaticVars::brandMain(), $brand->filename, '{img}', 'img-responsive center-block') !!}
             </div>
         </div>
         <h2>{{ $brand->name }}</h2>

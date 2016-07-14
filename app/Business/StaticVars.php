@@ -21,6 +21,7 @@ class StaticVars
     protected $productRelated = ['360w' => '330', '480w' => '450', '568w' => '254', '600w' => '270', '767w' => '354', '992w' => '213', '1200w' => '263'];
     protected $homeLeft = ['360w' => '150', '480w' => '210', '568w' => '254', '600w' => '270', '767w' => '354', '992w' => '213', '1200w' => '263'];
     protected $homeCategories = ['360w' => '360', '480w' => '480', '568w' => '568', '600w' => '200', '767w' => '256', '992w' => '330', '1200w' => '500'];
+    protected $brandMain = ['360w' => '330', '480w' => '450', '568w' => '538', '600w' => '570', '767w' => '600', '993w' => '459', '1200w' => '555'];
 
     protected $emptyCart = ['fa-shopping-basket', 'fa-shopping-bag', 'fa-shopping-cart'];
 

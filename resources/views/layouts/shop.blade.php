@@ -8,12 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    <!-- ==========================
-    	Title
-    =========================== -->
-    <title>Bikebitants</title>
 
     <link rel="stylesheet" async href="{{ elixir('css/all.css') }}">
+
+    <title>{{ MetaTag::get('title') }}</title>
+
+    {!! MetaTag::tag('description') !!}
+    {!! MetaTag::tag('image') !!}
+    {!! MetaTag::tag('keywords') !!}
+
+    {!! MetaTag::openGraph() !!}
+
+    {!! MetaTag::twitterCard() !!}
+
+    {{--Set default share picture after custom section pictures--}}
+    {!! MetaTag::tag('image', asset('images/default-logo.png')) !!}
 </head>
 <body>
 

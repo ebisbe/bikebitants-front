@@ -24,21 +24,22 @@ Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store']]
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 
 Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
-    ->where(array('filename' => '[ \w\\.\\/\\-\\@]+', 'filter' => 'original|download|[0-9]+\/[0-9]+|[0-9]+'));
+    ->where(array('filename' => '[ \w\\.\\/\\-\\@]+', 'filter' => 'original|download|[0-9]+\/[0-9]+|[0-9]+'))
+    ->name('shop.image');
 /** END shop */
 
-Form::macro('img', function ($path, $sizes, $alt, $wrapper = '{img}') {
+Form::macro('img', function ($path, $sizes, $alt, $wrapper = '{img}', $class = 'img-responsive') {
     /** @var Collection $sizes */
     $srcset = $sizes->map(function ($size, $viewPort) use ($path) {
         return "/img/$size/$path $viewPort";
     })->implode(',');
-    return str_ireplace('{img}', '<img class="img-responsive" alt="' . $alt . '" sizes="100w" srcset="' . $srcset . '">', $wrapper);
+    return str_ireplace('{img}', '<img class="' . $class . '" alt="' . $alt . '" sizes="100w" srcset="' . $srcset . '">', $wrapper);
 });
 
-Form::macro('product', function(Product $product){
+Form::macro('product', function (Product $product) {
 
     $images = [];
-    foreach($product->images as $image) {
+    foreach ($product->images as $image) {
         $images[] = Form::img($image->path, StaticVars::productRelated(), $image->alt, StaticVars::imgWrapper());
     }
 

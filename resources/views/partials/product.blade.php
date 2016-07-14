@@ -36,7 +36,7 @@
                 <ul class="list-unstyled product-info">
                     <li><span>ID</span>{{ $product->_id }}</li>
                     <li><span>Availability</span>In Stock</li>
-                    <li><span>Brand</span>{{ $product->brand->name }}</li>
+                    <li><span>Brand</span><a href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a></li>
                     <li><span>Tags</span>{{ $product->tags_list }}</li>
                 </ul>
                 <p>{{ $product->introduction }}</p>

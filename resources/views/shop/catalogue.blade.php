@@ -135,7 +135,7 @@ PRODUCTS - START
                                                 <div class="product-mask"></div>
                                                 <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                    class="product-permalink"></a>
-                                                {!! Form::img($product->images()->first()->path, StaticVars::productRelated(), $product->images()->first()->alt, StaticVars::imgWrapper()) !!}
+                                                {!! Form::img($product->images()->first()->filename, StaticVars::productRelated(), $product->images()->first()->alt, StaticVars::imgWrapper()) !!}
                                                 <div class="product-quickview">
                                                     <a class="btn btn-quickview"
                                                        data-toggle="modal"

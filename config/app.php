@@ -166,6 +166,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
+        Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
 
     ],
 
@@ -220,6 +221,7 @@ return [
         'BreadCrumbLinks' => App\Facades\BreadCrumbLinks::class,
         'StaticVars' => App\Facades\StaticVars::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'MetaTag'   => Torann\LaravelMetaTags\Facades\MetaTag::class,
     ],
 
 ];

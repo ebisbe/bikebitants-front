@@ -7,7 +7,7 @@ use App\Business\Search\ProductSearch;
 use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
-
+use Torann\LaravelMetaTags\Facades\MetaTag;
 use App\Http\Requests;
 use Illuminate\Routing\Route;
 
@@ -54,6 +54,10 @@ class ShopController extends Controller
         \BreadCrumbLinks::set(['href' => route('shop.subcategory', ['category' => $product->category->father->slug, 'subcategory' => $product->category->slug]), 'value' => $product->category->name]);
         \BreadCrumbLinks::set(['value' => $product->name]);
 
+        MetaTag::set('title', $product->meta_title);
+        MetaTag::set('description', $product->meta_description);
+        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $product->images()->first()->path]));
+
         $title = $product->category->name;
         $subtitle = $product->name;
 
@@ -73,6 +77,12 @@ class ShopController extends Controller
     public function brand(Brand $brand, $slug)
     {
         $brand = $brand::whereSlug($slug)->firstOrFail();
+
+        MetaTag::set('title', $brand->meta_title);
+        MetaTag::set('description', $brand->meta_description);
+        MetaTag::set('keywords', $brand->meta_keywords);
+        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
+
         return view('shop.brand', compact('brand'));
     }
 
@@ -95,6 +105,10 @@ class ShopController extends Controller
         $filters = $productSearch::getFilters($request, $route);
         $categories = $category->with('children')->whereNull('father_id')->get();
 
+        MetaTag::set('title', $brand->meta_title);
+        MetaTag::set('description', $brand->meta_description);
+        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
+
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
 
@@ -112,6 +126,11 @@ class ShopController extends Controller
         $cat = Category::whereSlug($slugCategory)->first();
         \BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
         \BreadCrumbLinks::set(['href' => route('shop.category', ['category' => $cat->slug]), 'value' => $cat->name]);
+
+        MetaTag::set('title', $cat->meta_title);
+        MetaTag::set('description', $cat->meta_description);
+        MetaTag::set('keywords', $cat->meta_keywords);
+        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->path]));
 
         $title = 'Shop';
         $subtitle = $cat->name;
@@ -142,6 +161,11 @@ class ShopController extends Controller
         \BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
         \BreadCrumbLinks::set(['href' => route('shop.category', ['category' => $cat->slug]), 'value' => $cat->name]);
         \BreadCrumbLinks::set(['value' => $subCat->name]);
+
+        MetaTag::set('title', $subCat->meta_title);
+        MetaTag::set('description', $subCat->meta_description);
+        MetaTag::set('keywords', $subCat->meta_keywords);
+        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $subCat->path]));
 
         $title = $cat->name;
         $subtitle = $subCat->name;

@@ -21,6 +21,7 @@ use Illuminate\Support\Collection;
  * @method static Collection productRelated()
  * @method static Collection homeLeft()
  * @method static Collection homeCategories()
+ * @method static Collection brandMain()
  *
  * @method static Collection emptyCart()
  *
