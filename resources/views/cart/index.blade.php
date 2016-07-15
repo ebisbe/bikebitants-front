@@ -64,7 +64,7 @@ MY ACCOUNT - START
                                 </tbody>
                             </table>
                         </div>
-                        <a href="products.html" class="btn btn-inverse">Continue Shopping</a>
+                        <a href="{{ route('shop.catalogue') }}" class="btn btn-inverse">Continue Shopping</a>
                         <a href="" class="btn btn-inverse update-cart">Update Shopping Cart</a>
                     </div>
 

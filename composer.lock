@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e85058ba84f0139c2ef50eaf1dfc83df",
-    "content-hash": "e6b2ebbb03b1e43e6b0095761beffc4c",
+    "hash": "a7d93e6e994ca450682744a62759a910",
+    "content-hash": "3224b5cf06ea7bec6710f3a420665737",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -682,6 +682,52 @@
                 "uri"
             ],
             "time": "2016-06-24 23:00:38"
+        },
+        {
+            "name": "ignited/laravel-omnipay",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ignited/laravel-omnipay.git",
+                "reference": "c64bb5acab93dcf99d4d601ef644eaf33b88433f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ignited/laravel-omnipay/zipball/c64bb5acab93dcf99d4d601ef644eaf33b88433f",
+                "reference": "c64bb5acab93dcf99d4d601ef644eaf33b88433f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5",
+                "omnipay/common": "2.3.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Ignited\\LaravelOmnipay": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Alex Whiteside",
+                    "email": "alexwhiteside@ignitedlabs.com.au"
+                }
+            ],
+            "description": "Integerates Omnipay with Laravel and provides an easy configuration.",
+            "keywords": [
+                "laravel",
+                "laravel5",
+                "omnipay",
+                "payments"
+            ],
+            "time": "2015-09-03 01:40:05"
         },
         {
             "name": "intervention/image",

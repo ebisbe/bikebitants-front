@@ -300,7 +300,12 @@
                                     </div>
                                 </div>
                                 <div class="clearfix">
-                                    <button type="submit" class="btn btn-primary btn-lg pull-right">Continue</button>
+                                    <div class="checkbox pull-left {{ $errors->has('checkout-terms-conditions') ? 'has-error' : ''}}">
+                                        {{ Form::checkbox('checkout-terms-conditions', null, false, ['id' => 'checkout-terms-conditions']) }}
+                                        {{ Form::label('checkout-terms-conditions', 'I have read and agree to the <a href="terms-conditions.html" target="_blank">Terms & Conditions</a>', [], false) }}
+                                        {!! $errors->first('checkout-terms-conditions', '<p class="help-block">:message</p>') !!}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg pull-right">Confirm order</button>
                                 </div>
                             </div>
                         </div>

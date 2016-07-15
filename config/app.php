@@ -167,6 +167,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
+        Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
 
     ],
 
@@ -222,6 +223,7 @@ return [
         'StaticVars' => App\Facades\StaticVars::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'MetaTag'   => Torann\LaravelMetaTags\Facades\MetaTag::class,
+        'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class
     ],
 
 ];

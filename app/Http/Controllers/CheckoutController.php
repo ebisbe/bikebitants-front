@@ -8,25 +8,25 @@ use App\PaymentMethod;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Cache;
-use Omnipay\Omnipay;
+use \Omnipay;
 
 class CheckoutController extends Controller
 {
-    public function index()
+    public function index(Country $country, PaymentMethod $paymentMethod, Cart $cart)
     {
-        $countries = Cache::remember('countries_list', 5, function () {
-            return Country::all()->pluck('name', '_id');
+        $countries = Cache::remember('countries_list', 5, function () use ($country) {
+            return $country->all()->pluck('name', '_id');
         });
 
-        $paymentMethods = Cache::remember('payment_methods', 5, function () {
-            return PaymentMethod::all();
+        $paymentMethods = Cache::remember('payment_methods', 5, function () use ($paymentMethod) {
+            return $paymentMethod->all();
         });
 
-        $cart = Cart::with('product.brand')->get();
+        $cart = $cart->with('product.brand')->get();
         return view('checkout.index', compact('countries', 'cart', 'paymentMethods'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Cart $cart)
     {
         //dd($request);
         $this->validate($request, [
@@ -48,28 +48,26 @@ class CheckoutController extends Controller
             'shipping.phone' => 'required_without:check_shipping',
             'shipping.country' => 'required_without:check_shipping',
 
-            'payment' => 'required'
+            'payment' => 'required',
+            'checkout-terms-conditions' => 'required'
         ]);
 
+        Omnipay::setGateway($request->input('payment'));
+        $gateway = Omnipay::gateway();
+        //dd(Omnipay::getDefaultParameters());
 
-        $gateway = Omnipay::create('PayPal_Express');
-
-        $formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
-        $response = $gateway->purchase([
-            'amount' => '10.00',
-            'currency' => 'USD',
-            'card' => $formData,
-            'returnUrl' => env('APP_URL') . '/confirmation',
-            'cancelUrl' => env('APP_URL') . '/cancel',
-            'username' => 'miguel-facilitator_api1.bikebitants.com',
-            'password' => 'W5JLH95872M8F4UB',
-            'signature' => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AqhU.JcFYXI2hr-gd0RFTwI1sknm',
-            "testMode" => true,
-            "brandName" => "Bikebitants",
-            "headerImageUrl" => "",
-            "logoImageUrl" => "",
-            "borderColor" => "",
-        ])->send();
+        //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
+        $params = [
+            'amount' => number_format($cart->all()->sum('subtotal'), 2),
+            'currency' => 'EUR',
+            'returnUrl' => route('checkout.confirmation'),
+            'cancelUrl' => route('checkout.cancellation'),
+            //'card' => $formData,
+        ];
+        $request->session()->put('payment', $request->input('payment'));
+        $request->session()->put('params', $params);
+        $request->session()->save();
+        $response = $gateway->purchase($params)->send();
 
         if ($response->isSuccessful()) {
             // payment was successful: update database
@@ -81,5 +79,21 @@ class CheckoutController extends Controller
             // payment failed: display message to customer
             echo $response->getMessage();
         }
+    }
+
+    public function confirmation(Request $request)
+    {
+        Omnipay::setGateway($request->session()->get('payment'));
+        $response = Omnipay::completePurchase(array_merge($request->all(), $request->session()->get('params', [])))->send();
+
+        $items = Cart::with('product.brand')->get();
+        $discount = 0;
+
+        return view('checkout.confirmation', compact('items', 'discount'));
+    }
+
+    public function cancel()
+    {
+
     }
 }

@@ -18,7 +18,8 @@
         "intervention/imageCache": "^2.3",
         "barryvdh/laravel-ide-helper": "^2.2",
         "spatie/laravel-cookie-consent": "^1.2",
-        "torann/laravel-meta-tags": "^3.0"
+        "torann/laravel-meta-tags": "^3.0",
+        "ignited/laravel-omnipay": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

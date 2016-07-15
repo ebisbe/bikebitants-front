@@ -56,7 +56,7 @@
             <li>
                 <div class="row">
                     <div class="col-sm-12">
-                        <a href="" class="btn btn-primary btn-block">Go Shopping!</a>
+                        <a href="{{ route('shop.catalogue') }}" class="btn btn-primary btn-block">Go Shopping!</a>
                     </div>
                 </div>
             </li>
