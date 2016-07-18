@@ -37,20 +37,33 @@ $(document).ready(function () {
         that.prop("disabled", true)
             .find('i')
             .toggleClass('fa-spinner fa-shopping-cart fa-spin');
+
+        var quantity = that.data('quantity');
+        var product_id = that.data('product_id');
+        var token = that.data('token');
+        var product_name = that.data('product_name');
+
         $.ajax({
                 url: that.data('action'),
                 data: {
-                    'quantity': that.data('quantity'),
-                    'product_id': that.data('product_id'),
-                    '_token': that.data('token')
+                    'quantity': quantity,
+                    'product_id': product_id,
+                    '_token': token
                 },
                 method: 'post'
             })
             .done(function () {
-                //console.log("success");
+                var text = 'Added ' + quantity + ' ' + product_name;
+                new PNotify({
+                    title: 'Watch out!',
+                    text: text
+                });
             })
             .fail(function () {
-                //console.log("error");
+                new PNotify({
+                    title: 'Watch out!',
+                    text: 'Product could not be added'
+                });
             })
             .always(function () {
                 //console.log("complete");
@@ -62,7 +75,7 @@ $(document).ready(function () {
 
     $('#js-popup').submit(function (event) {
         var form = $(this);
-        var response = classSpan =  '';
+        var response = classSpan = '';
 
         event.preventDefault();
         form.find('div').removeClass('has-error')
@@ -96,10 +109,10 @@ $(document).ready(function () {
     $('#product-quickview').on('show.bs.modal', function (event) {
         var modal = $(this);
 
-        $.each( $(event.relatedTarget).data('product'), function( key, value ) {
+        $.each($(event.relatedTarget).data('product'), function (key, value) {
             var text = '';
-            if(value !== null && typeof value === 'object') {
-                $.each(value, function(key, value) {
+            if (value !== null && typeof value === 'object') {
+                $.each(value, function (key, value) {
                     text += value;
                 });
             } else {
@@ -111,13 +124,13 @@ $(document).ready(function () {
 
         modal.find(".product-carousel-wrapper").removeClass('hidden');
         $("#product-carousel-modal").owlCarousel({
-            items : 1,
+            items: 1,
             animateOut: 'fadeOut',
             animateIn: 'fadeIn'
         });
     });
 
-    $('#js-catalogue').on('change', '.js-change', function(event) {
+    $('#js-catalogue').on('change', '.js-change', function (event) {
         var that = $(this);
         that.parents('form').submit();
     });

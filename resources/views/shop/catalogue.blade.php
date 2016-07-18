@@ -179,6 +179,7 @@ PRODUCTS - START
                                                         <button class="btn btn-primary btn-sm js-shop-add-button"
                                                                 data-quantity="1"
                                                                 data-product_id="{{ $product->_id }}"
+                                                                data-product_name="{{ $product->name }}"
                                                                 data-action="{{ route('cart.store') }}"
                                                                 data-token="{{ csrf_token() }}">
                                                             <i class="fa fa-shopping-cart"></i>&nbsp;Add to cart
