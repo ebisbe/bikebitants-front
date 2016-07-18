@@ -12,6 +12,17 @@ use \Omnipay;
 
 class CheckoutController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkout');
+    }
+
+    /**
+     * @param Country $country
+     * @param PaymentMethod $paymentMethod
+     * @param Cart $cart
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Country $country, PaymentMethod $paymentMethod, Cart $cart)
     {
         $countries = Cache::remember('countries_list', 5, function () use ($country) {
@@ -26,6 +37,10 @@ class CheckoutController extends Controller
         return view('checkout.index', compact('countries', 'cart', 'paymentMethods'));
     }
 
+    /**
+     * @param Request $request
+     * @param Cart $cart
+     */
     public function store(Request $request, Cart $cart)
     {
         //dd($request);
@@ -60,8 +75,8 @@ class CheckoutController extends Controller
         $params = [
             'amount' => number_format($cart->all()->sum('subtotal'), 2),
             'currency' => 'EUR',
-            'returnUrl' => route('checkout.confirmation'),
-            'cancelUrl' => route('checkout.cancellation'),
+            'returnUrl' => route('shop.confirmation'),
+            'cancelUrl' => route('shop.cancellation'),
             //'card' => $formData,
         ];
         $request->session()->put('payment', $request->input('payment'));
@@ -81,6 +96,10 @@ class CheckoutController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function confirmation(Request $request)
     {
         Omnipay::setGateway($request->session()->get('payment'));
@@ -94,6 +113,7 @@ class CheckoutController extends Controller
 
     public function cancel()
     {
-
+        // TODO on anem??
+        return view('checkout.cancel');
     }
 }

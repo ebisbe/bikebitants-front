@@ -25,6 +25,7 @@ elixir(function (mix) {
         .copy('vendor/bower_components/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js', 'resources/assets/js/bower/jquery.mb.YTPlayer.js')
         .copy('vendor/bower_components/twitter-fetcher/js/twitterFetcher.js', 'resources/assets/js/bower/twitterFetcher.js')
         .copy('vendor/bower_components/underscore/underscore.js', 'resources/assets/js/bower/underscore.js')
+        .copy('vendor/bower_components/pnotify/dist/pnotify.js', 'resources/assets/js/bower/pnotify.js')
 
         //css
         .copy('vendor/bower_components/bootstrap/dist/css/bootstrap.css', 'resources/assets/css/bower/bootstrap.css')
@@ -38,6 +39,8 @@ elixir(function (mix) {
         .copy('vendor/bower_components/raleway/raleway.css', 'resources/assets/css/bower/raleway.css')
         .copy('vendor/bower_components/sourceSansPro/*.ttf', 'public/build/css/')
         .copy('vendor/bower_components/raleway/*.ttf', 'public/build/css/')
+        .copy('vendor/bower_components/pnotify/dist/pnotify.css', 'resources/assets/css/bower/pnotify.css')
+        .copy('vendor/bower_components/pnotify/dist/pnotify.brighttheme.css', 'resources/assets/css/bower/brighttheme.css')
 
         //files
         .copy('resources/assets/images', 'public/build/images/')
@@ -55,6 +58,7 @@ elixir(function (mix) {
             'bower/twitterFetcher.js',
             'bower/jquery.mb.YTPlayer.js',
             'bower/underscore.js',
+            'bower/pnotify.js',
             'custom.js',
             'shop.js'
         ])
@@ -70,7 +74,9 @@ elixir(function (mix) {
             'bikebitants.css',
             'color/green.css',
             'bower/sourceSansPro.css',
-            'bower/raleway.css'
+            'bower/raleway.css',
+            'bower/pnotify.css',
+            'bower/brighttheme.css'
         ])
 
         .version(['js/all.js', 'css/all.css']);

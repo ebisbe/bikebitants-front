@@ -2,8 +2,6 @@
 
 @section('content')
 
-@include('partials.breadcrumb')
-
 <!-- ==========================
 PRODUCTS - START
 =========================== -->
