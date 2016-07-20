@@ -13,6 +13,7 @@
 
 use App\Attribute;
 use App\AttributeValue;
+use App\Billing;
 use App\Brand;
 use App\BrandService;
 use App\Category;
@@ -22,10 +23,12 @@ use App\Lead;
 use App\PaymentMethod;
 use App\Product;
 use App\Review;
+use App\Shipping;
 use App\User;
 use App\Variation;
+use \Faker\Generator;
 
-$factory->define(User::class, function (Faker\Generator $faker) {
+$factory->define(User::class, function (Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
@@ -34,7 +37,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Product::class, function (Faker\Generator $faker) {
+$factory->define(Product::class, function (Generator $faker) {
     $name = $faker->words(3, true);
     return [
         '_id' => str_slug($name),
@@ -56,14 +59,14 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Attribute::class, function (Faker\Generator $faker) {
+$factory->define(Attribute::class, function (Generator $faker) {
     return [
         'name' => $faker->word,
         'order' => $faker->randomNumber()
     ];
 });
 
-$factory->define(AttributeValue::class, function (Faker\Generator $faker) {
+$factory->define(AttributeValue::class, function (Generator $faker) {
     return [
         'name' => $faker->word,
         'sku' => $faker->word,
@@ -71,7 +74,7 @@ $factory->define(AttributeValue::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Review::class, function (Faker\Generator $faker) {
+$factory->define(Review::class, function (Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -79,7 +82,7 @@ $factory->define(Review::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Label::class, function (Faker\Generator $faker) {
+$factory->define(Label::class, function (Generator $faker) {
     $type = ['Default', 'Primary', 'Success', 'Info', 'Warning', 'Danger'];
     $chosen = $faker->randomElement($type);
 
@@ -89,7 +92,7 @@ $factory->define(Label::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Brand::class, function (Faker\Generator $faker) {
+$factory->define(Brand::class, function (Generator $faker) {
     $name = $faker->words(3, true);
     $files = collect(Storage::files());
     if($files->isEmpty()) {
@@ -107,7 +110,7 @@ $factory->define(Brand::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(BrandService::class, function (Faker\Generator $faker) {
+$factory->define(BrandService::class, function (Generator $faker) {
     $position = ['left', 'right'];
     return [
         'title' => $faker->words(3, true),
@@ -117,14 +120,14 @@ $factory->define(BrandService::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Variation::class, function (Faker\Generator $faker) {
+$factory->define(Variation::class, function (Generator $faker) {
     return [
         '_id' => $faker->slug(),
         'price' => $faker->numberBetween(3, 150),
     ];
 });
 
-$factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
+$factory->define(PaymentMethod::class, function (Generator $faker) {
     return [
         'name' => $faker->words(3, true),
         'short_description' => $faker->paragraphs(1, true),
@@ -133,7 +136,7 @@ $factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Image::class, function (Faker\Generator $faker) {
+$factory->define(Image::class, function (Generator $faker) {
     $files = collect(Storage::files());
     if($files->isEmpty()) {
         $files->push($faker->image(storage_path('app'), 640, 480, null, false));
@@ -145,14 +148,14 @@ $factory->define(Image::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Lead::class, function (Faker\Generator $faker) {
+$factory->define(Lead::class, function (Generator $faker) {
     return [
         'email' => $faker->email,
         'type' => $faker->words(1, true)
     ];
 });
 
-$factory->define(Category::class, function (Faker\Generator $faker) {
+$factory->define(Category::class, function (Generator $faker) {
     $name = $faker->words(3, true);
     $files = collect(Storage::files());
     if(empty($files)) {
@@ -166,5 +169,41 @@ $factory->define(Category::class, function (Faker\Generator $faker) {
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
         'meta_keywords' => $faker->words(6, true)
+    ];
+});
+
+$factory->define(Billing::class, function(Generator $faker) {
+    return [
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'email' => $faker->freeEmail,
+        'phone' => $faker->phoneNumber,
+        'address' => $faker->address,
+        'address_2' => '',
+        'city' => $faker->city,
+        'postcode' => $faker->postcode,
+        'country' => $faker->country,
+        'country_id' => $faker->country,
+        'province' => 'province',
+        'province_id' => 'province_id',
+    ];
+});
+
+$factory->define(Shipping::class, function(Generator $faker) {
+    return [
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'email' => $faker->freeEmail,
+        'phone' => $faker->phoneNumber,
+        'fax' => $faker->phoneNumber,
+        'company' => $faker->company,
+        'address' => $faker->address,
+        'address_2' => '',
+        'city' => $faker->city,
+        'postcode' => $faker->postcode,
+        'country' => $faker->country,
+        'country_id' => $faker->country,
+        'province' => 'province',
+        'province_id' => 'province_id',
     ];
 });

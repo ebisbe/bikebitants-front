@@ -57,16 +57,16 @@
 
                     <div class="progress checkout-progress hidden-xs"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;"></div></div>
 
-                        <h3>Review Order</h3>
+                        <h3>You Order {{ $order->_id }}</h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="box">
                                     <h4>Billing Address</h4>
                                     <ul class="list-unstyled">
-                                        <li><b>John Doe</b></li>
-                                        <li>17 Boulevard des Invalides</li>
-                                        <li>75007 Paris</li>
-                                        <li>France</li>
+                                        <li><b>{{ $order->billing->first_name }} {{ $order->billing->last_name }}</b></li>
+                                        <li>{{ $order->billing->address }}</li>
+                                        <li>{{ $order->billing->postal_code }} {{ $order->billing->city }}</li>
+                                        <li>{{ $order->billing->country }} ({{ $order->billing->province }})</li>
                                     </ul>
                                 </div>
                             </div>
@@ -74,10 +74,10 @@
                                 <div class="box">
                                     <h4>Shipping Address</h4>
                                     <ul class="list-unstyled">
-                                        <li><b>John Doe</b></li>
-                                        <li>17 Boulevard des Invalides</li>
-                                        <li>75007 Paris</li>
-                                        <li>France</li>
+                                        <li><b>{{ $order->shipping->first_name }} {{ $order->shipping->last_name }}</b></li>
+                                        <li>{{ $order->shipping->address }}</li>
+                                        <li>{{ $order->shipping->postal_code }} {{ $order->shipping->city }}</li>
+                                        <li>{{ $order->shipping->country }} ({{ $order->shipping->province }})</li>
                                     </ul>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                 <div class="box">
                                     <h4>Payment Method</h4>
                                     <ul class="list-unstyled">
-                                        <li>Credit Card - VISA</li>
+                                        <li>{{ $order->payment_method }}</li>
                                     </ul>
                                 </div>
                                 <div class="box">
@@ -101,8 +101,8 @@
                                 <div class="box">
                                     <h4>Order Details</h4>
                                     <ul class="list-unstyled">
-                                        <li><b>Email: </b>johndoe@umarket.com</li>
-                                        <li><b>Phone: </b>+420 123 456 789</li>
+                                        <li><b>Email: </b>{{ $order->billing->email }}</li>
+                                        <li><b>Phone: </b>{{ $order->billing->phone }}</li>
                                     </ul>
                                     <h5>Addition information:</h5>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue.</p>

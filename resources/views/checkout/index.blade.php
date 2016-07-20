@@ -90,10 +90,10 @@
                                             {{ Form::text('billing[email]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('billing.email', '<p class="help-block">:message</p>') !!}
                                         </div>
-                                        <div class="form-group col-sm-6 {{ $errors->has('billing.company') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[company]', 'Company', []) }}
-                                            {{ Form::text('billing[company]', null, ['class' => 'form-control']) }}
-                                            {!! $errors->first('billing.company', '<p class="help-block">:message</p>') !!}
+                                        <div class="form-group col-sm-6 {{ $errors->has('billing.phone') ? 'has-error' : ''}}">
+                                            {{ Form::label('billing[phone]', 'Phone <span class="required">*</span>', [], false) }}
+                                            {{ Form::text('billing[phone]', null, ['class' => 'form-control']) }}
+                                            {!! $errors->first('billing.phone', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-12 {{ $errors->has('billing.address') ? 'has-error' : ''}}">
                                             {{ Form::label('billing[address]', 'Address <span class="required">*</span>', [], false) }}
@@ -118,10 +118,10 @@
                                             {{ Form::select('billing[country]', $countries, 'ES', ['class' => 'form-control']) }}
                                             {!! $errors->first('billing.country', '<p class="help-block">:message</p>') !!}
                                         </div>
-                                        <div class="form-group col-sm-6 {{ $errors->has('billing.phone') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[phone]', 'Phone <span class="required">*</span>', [], false) }}
-                                            {{ Form::text('billing[phone]', null, ['class' => 'form-control']) }}
-                                            {!! $errors->first('billing.phone', '<p class="help-block">:message</p>') !!}
+                                        <div class="form-group col-sm-6 {{ $errors->has('billing.province') ? 'has-error' : ''}}">
+                                            {{ Form::label('billing[province]', 'Province <span class="required">*</span>', [], false) }}
+                                            {{ Form::select('billing[province]', $provinces, 'B', ['class' => 'form-control']) }}
+                                            {!! $errors->first('billing.province', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                 </div>
@@ -223,25 +223,25 @@
                                                 {{ Form::text('shipping[postal_code]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.postal_code', '<p class="help-block">:message</p>') !!}
                                             </div>
-                                            <div class="form-group col-sm-6 {{ $errors->has('shipping.country') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[country]', 'Country <span class="required">*</span>', [], false) }}
-                                                {{ Form::select('shipping[country]', $countries, 'ES', ['class' => 'form-control']) }}
-                                                {!! $errors->first('shipping.country', '<p class="help-block">:message</p>') !!}
-                                            </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.phone') ? 'has-error' : ''}}">
                                                 {{ Form::label('shipping[phone]', 'Phone <span class="required">*</span>', [], false) }}
                                                 {{ Form::text('shipping[phone]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.phone', '<p class="help-block">:message</p>') !!}
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-6">
-                                                <label>Phone <span class="required">*</span></label>
-                                                <input type="text" class="form-control">
+                                            <div class="form-group col-sm-6 {{ $errors->has('shipping.fax') ? 'has-error' : ''}}">
+                                                {{ Form::label('shipping[fax]', 'Fax', [], false) }}
+                                                {{ Form::text('shipping[fax]', null, ['class' => 'form-control']) }}
+                                                {!! $errors->first('shipping.fax', '<p class="help-block">:message</p>') !!}
                                             </div>
-                                            <div class="form-group col-sm-6">
-                                                <label>Fax</label>
-                                                <input type="text" class="form-control">
+                                            <div class="form-group col-sm-6 {{ $errors->has('shipping.country') ? 'has-error' : ''}}">
+                                                {{ Form::label('shipping[country]', 'Country <span class="required">*</span>', [], false) }}
+                                                {{ Form::select('shipping[country]', $countries, 'ES', ['class' => 'form-control']) }}
+                                                {!! $errors->first('shipping.country', '<p class="help-block">:message</p>') !!}
+                                            </div>
+                                            <div class="form-group col-sm-6 {{ $errors->has('billing.province') ? 'has-error' : ''}}">
+                                                {{ Form::label('billing[province]', 'Province <span class="required">*</span>', [], false) }}
+                                                {{ Form::select('billing[province]', $provinces, 'B', ['class' => 'form-control']) }}
+                                                {!! $errors->first('billing.province', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
                                     </div>
@@ -261,7 +261,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($cart as $product)
+                                            @foreach($products as $product)
                                                 <tr>
                                                     <td class="col-xs-4 col-md-5">
                                                         <h4>{{ $product->product->name }}
@@ -283,6 +283,15 @@
                                             @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="">
+                                            <ul class="list-unstyled order-total">
+                                                <li>Total products<span>{{ $products->sum('subtotal') }} &euro;</span></li>
+                                                @if($discount != 0)
+                                                    <li>Discount<span>- {{ $discount }}&euro;</span></li>
+                                                @endif
+                                                <li>Subtotal<span class="total">{{ $products->sum('subtotal') - $discount }}&euro;</span></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
 

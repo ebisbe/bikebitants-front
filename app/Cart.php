@@ -18,6 +18,14 @@ class Cart extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    /**
      * Adding global Scopes
      */
     protected static function boot()

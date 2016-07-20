@@ -15,12 +15,12 @@ class CartController extends Controller
      */
     public function index()
     {
-        $items = Cart::with('product.brand')->get();
+        $products = Cart::with('product.brand')->get();
         $discount = 0;
-        if(!$items->count()) {
+        if($products->isEmpty()) {
             return view('cart.empty');
         }
-        return view('cart.index', compact('items', 'discount'));
+        return view('cart.index', compact('products', 'discount'));
     }
 
     /**
@@ -42,9 +42,9 @@ class CartController extends Controller
             $cart->product_id = $productId;
             $cart->session_id = $request->session()->getId();
             $cart->quantity = (int)$request->input('quantity', 1);
-            foreach($attributes as $attribute => $value) {
-                $cart->$attribute = $value;
-            }
+            collect($attributes)->map(function($value, $attribute) use ($cart) {
+                return $cart->$attribute = $value;
+            });
         } else {
             // update quantity
             $cart->increment('quantity', (int)$request->input('quantity', 1));

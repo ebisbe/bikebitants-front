@@ -36,6 +36,12 @@ class StaticVars
 
     protected $imgWrapper = '<div class="item">{img}</div>';
 
+    /** Order status */
+    protected $orderNew = 1;
+    protected $orderValidData = 2;
+    protected $orderConfirmed = 3;
+    protected $orderCancelled = -1;
+
     /**
      * @return string
      */
