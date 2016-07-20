@@ -45,22 +45,25 @@ trait Image
         $content = $manager->cache(function ($image) use ($filter, $filename) {
 
             $height = null;
-            if(strpos($filter, '/') !== false){
+            if (strpos($filter, '/') !== false) {
                 list($width, $height) = explode('/', $filter);
             } else {
                 $width = $filter;
             }
-            $image->make(Storage::get($filename))->resize($width, $height, function ($constraint) use ($height) {
-                if(is_null($height)) {
-                    $constraint->aspectRatio();
-                }
-            })->text($width, 50, 10, function($font) {
-                $font->file(5);
-                $font->size(60);
-                $font->color('#fdf6e3');
-                $font->align('center');
-                $font->valign('top');
-            });
+            $image->make(Storage::get($filename))
+                /*->resize($width, $height, function ($constraint) use ($height) {
+                    if (is_null($height)) {
+                        $constraint->aspectRatio();
+                    }
+                })*/
+                ->fit($width, (int)$width + 30)
+                ->text($width, 50, 10, function ($font) {
+                    $font->file(5);
+                    $font->size(60);
+                    $font->color('#fdf6e3');
+                    $font->align('center');
+                    $font->valign('top');
+                });
 
         }, config('cache.image.lifetime'));
 
@@ -108,7 +111,7 @@ trait Image
         // return http response
         return new IlluminateResponse($content, 200, array(
             'Content-Type' => $mime,
-            'Cache-Control' => 'max-age='.(config('cache.image.lifetime')*60).', public',
+            'Cache-Control' => 'max-age=' . (config('cache.image.lifetime') * 60) . ', public',
             'Etag' => md5($content)
         ));
     }

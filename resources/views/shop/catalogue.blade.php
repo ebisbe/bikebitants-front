@@ -136,7 +136,9 @@ PRODUCTS - START
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div class="product-overlay">
-                                                <div class="product-mask"></div>
+                                                <div class="product-mask">
+                                                    {!! Form::img($product->images()->last()->filename, StaticVars::productRelated(), $product->images()->last()->alt, StaticVars::imgWrapper()) !!}
+                                                </div>
                                                 <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                    class="product-permalink"></a>
                                                 {!! Form::img($product->images()->first()->filename, StaticVars::productRelated(), $product->images()->first()->alt, StaticVars::imgWrapper()) !!}

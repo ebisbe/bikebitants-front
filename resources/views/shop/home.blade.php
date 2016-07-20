@@ -120,8 +120,15 @@
             @foreach($productsLeft as $product)
                 <div class="col-xs-6 col-sm-3">
                     <article class="product-item">
+                        <div class="product-overlay">
+                            <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
+                                <div class="product-mask">
+                                    {!! Form::img($product->images()->last()->filename, StaticVars::productRelated(), $product->images()->last()->alt) !!}
+                                </div>
+                                {!! Form::img($product->images->first()->filename, StaticVars::homeLeft(), $product->images->first()->alt) !!}
+                            </a>
+                        </div>
                         <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
-                            {!! Form::img($product->images->first()->filename, StaticVars::homeLeft(), $product->images->first()->alt) !!}
                             <h3>{{ $product->name }}</h3>
                         </a>
                         {{--<div class="product-rating">
@@ -136,6 +143,7 @@
                             	<ins><span class="amount">{{ $product->range_price }}</span></ins>
 
                             </span>
+
                     </article>
                 </div>
             @endforeach
@@ -145,8 +153,16 @@
                         @foreach ($chunk as $product)
                                 <!-- PRODUCT - START -->
                         <li class="clearfix">
+
+                            <div class="product-overlay">
+                                <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
+                                    <div class="product-mask">
+                                        {!! Form::img($product->images()->last()->filename, StaticVars::productRelated(), $product->images()->last()->alt) !!}
+                                    </div>
+                                    {!! Form::img($product->images->first()->filename, StaticVars::homeLeft(), $product->images->first()->alt) !!}
+                                </a>
+                            </div>
                             <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
-                                {!! Form::img($product->images->first()->filename, collect(['1200w' => '60']), $product->images->first()->alt) !!}
                                 <h3>{{ $product->name }}</h3>
                             </a>
                             {{--<div class="product-rating">
@@ -278,176 +294,4 @@
 =========================== -->
 @endif
 
-        <!-- ==========================
-    SMALL PRODUCTS - START
-=========================== -->
-<section class="content small-products">
-    <div class="container">
-        <div class="row">
-
-            <!-- COLUMN - START -->
-            <div class="col-sm-4">
-                <h2>On Sale Products</h2>
-                <ul class="list-unstyled small-product">
-
-                    <!-- PRODUCT - START -->
-                    <li class="clearfix">
-                        <a href="single-product.html">
-                            <img src="/images/products/product-1.jpg" class="img-responsive" alt="">
-                            <h3>Sunny Tank Selected Femme</h3>
-                        </a>
-                            <span class="price">
-                                <del><span class="amount">$36.00</span></del>
-                                <ins><span class="amount">$30.00</span></ins>
-                            </span>
-                    </li>
-                    <!-- PRODUCT - END -->
-
-                    <!-- PRODUCT - START -->
-                    <li class="clearfix">
-                        <a href="single-product.html">
-                            <img src="/images/products/product-2.jpg" class="img-responsive" alt="">
-                            <h3>Sunny Tank Selected Femme</h3>
-                        </a>
-                            <span class="price">
-                                <del><span class="amount">$36.00</span></del>
-                                <ins><span class="amount">$30.00</span></ins>
-                            </span>
-                    </li>
-                    <!-- PRODUCT - END -->
-
-                    <!-- PRODUCT - START -->
-                    <li class="clearfix">
-                        <a href="single-product.html">
-                            <img src="/images/products/product-3.jpg" class="img-responsive" alt="">
-                            <h3>Sunny Tank Selected Femme</h3>
-                        </a>
-                            <span class="price">
-                                <del><span class="amount">$36.00</span></del>
-                                <ins><span class="amount">$30.00</span></ins>
-                            </span>
-                    </li>
-                    <!-- PRODUCT - END -->
-
-                </ul>
-            </div>
-            <!-- COLUMN - END -->
-
-            <!-- COLUMN - START -->
-            <div class="col-sm-4">
-                <h2>Featured Products</h2>
-                <ul class="list-unstyled small-product">
-
-                    <!-- PRODUCT - START -->
-                    <li class="clearfix">
-                        <a href="single-product.html">
-                            <img src="/images/products/product-1.jpg" class="img-responsive" alt="">
-                            <h3>Sunny Tank Selected Femme</h3>
-                        </a>
-                            <span class="price">
-                                <ins><span class="amount">$30.00</span></ins>
-                            </span>
-                    </li>
-                    <!-- PRODUCT - END -->
-
-                    <!-- PRODUCT - START -->
-                    <li class="clearfix">
-                        <a href="single-product.html">
-                            <img src="/images/products/product-2.jpg" class="img-responsive" alt="">
-                            <h3>Sunny Tank Selected Femme</h3>
-                        </a>
-                            <span class="price">
-                                <ins><span class="amount">$30.00</span></ins>
-                            </span>
-                    </li>
-                    <!-- PRODUCT - END -->
-
-                    <!-- PRODUCT - START -->
-                    <li class="clearfix">
-                        <a href="single-product.html">
-                            <img src="/images/products/product-3.jpg" class="img-responsive" alt="">
-                            <h3>Sunny Tank Selected Femme</h3>
-                        </a>
-                            <span class="price">
-                                <ins><span class="amount">$30.00</span></ins>
-                            </span>
-                    </li>
-                    <!-- PRODUCT - END -->
-
-                </ul>
-            </div>
-            <!-- COLUMN - END -->
-
-            <!-- COLUMN - START -->
-            <div class="col-sm-4">
-                <h2>Top Rated Products</h2>
-                <ul class="list-unstyled small-product">
-
-                    <!-- PRODUCT - START -->
-                    <li class="clearfix">
-                        <a href="single-product.html">
-                            <img src="/images/products/product-1.jpg" class="img-responsive" alt="">
-                            <h3>Sunny Tank Selected Femme</h3>
-                        </a>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                            <span class="price">
-                                <ins><span class="amount">$30.00</span></ins>
-                            </span>
-                    </li>
-                    <!-- PRODUCT - END -->
-
-                    <!-- PRODUCT - START -->
-                    <li class="clearfix">
-                        <a href="single-product.html">
-                            <img src="/images/products/product-2.jpg" class="img-responsive" alt="">
-                            <h3>Sunny Tank Selected Femme</h3>
-                        </a>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                            <span class="price">
-                                <ins><span class="amount">$30.00</span></ins>
-                            </span>
-                    </li>
-                    <!-- PRODUCT - END -->
-
-                    <!-- PRODUCT - START -->
-                    <li class="clearfix">
-                        <a href="single-product.html">
-                            <img src="/images/products/product-3.jpg" class="img-responsive" alt="">
-                            <h3>Sunny Tank Selected Femme</h3>
-                        </a>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                            <span class="price">
-                                <ins><span class="amount">$30.00</span></ins>
-                            </span>
-                    </li>
-                    <!-- PRODUCT - END -->
-
-                </ul>
-            </div>
-            <!-- COLUMN - END -->
-
-        </div>
-    </div>
-</section>
-<!-- ==========================
-   SMALL PRODUCTS - END
-=========================== -->
 @endsection
