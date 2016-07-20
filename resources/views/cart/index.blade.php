@@ -54,7 +54,7 @@ MY ACCOUNT - START
                                             <form method="POST" action="/cart/{{ $product->_id }}">
                                                 <input type="hidden" name="_method" value="DELETE"/>
                                                 {{ csrf_field() }}
-                                                <button class="btn btn-primary js-remove-item" type="submit">
+                                                <button class="btn btn-transparent js-remove-item" type="submit">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </form>

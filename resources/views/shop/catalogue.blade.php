@@ -28,12 +28,13 @@ PRODUCTS - START
                                             {{-- */$x++;/* --}}
                                             <li class="panel">
                                                 <a class="{{ $category->_id == $selectedCat ? '' : 'collapsed' }}"
-                                                   role="button"
+                                                   {{--role="button"
                                                    data-toggle="collapse"
                                                    data-parent="#categories"
                                                    href="#parent-{{ $x }}"
-                                                   aria-expanded="false"
-                                                   aria-controls="parent-{{ $x }}">{{ $category->name }}
+                                                   aria-expanded="true"
+                                                   aria-controls="parent-{{ $x }}"--}}
+                                                   href="{{ route('shop.category', ['category' => $category->slug]) }}">{{ $category->name }}
                                                     <span>[{{ $category->products }}]</span>
                                                 </a>
                                                 <ul id="parent-{{ $x }}"
@@ -82,9 +83,9 @@ PRODUCTS - START
                             </div>
                         </div>
                         <!-- WIDGET:PRICE - END -->
-                        <button type="submit" class="btn btn-primary add-to-cart js-add-button">
+                        {{--<button type="submit" class="btn btn-primary add-to-cart js-add-button">
                             Update search
-                        </button>
+                        </button>--}}
                     </aside>
                 </div>
                 <div class="col-sm-9">
@@ -139,13 +140,13 @@ PRODUCTS - START
                                                 <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                    class="product-permalink"></a>
                                                 {!! Form::img($product->images()->first()->filename, StaticVars::productRelated(), $product->images()->first()->alt, StaticVars::imgWrapper()) !!}
-                                                <div class="product-quickview">
+                                                {{--<div class="product-quickview">
                                                     <a class="btn btn-quickview"
                                                        data-toggle="modal"
                                                        data-target="#product-quickview"
                                                        data-product="{{ Form::product($product) }}"
                                                     >Quick View</a>
-                                                </div>
+                                                </div>--}}
                                             </div>
                                         </div>
                                         <div class="col-sm-9">
@@ -172,17 +173,26 @@ PRODUCTS - START
                                                 <div class="buttons">
                                                     {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
                                                     @if($product->variation->count())
-                                                        <a href="{{ route('shop.product', ['slug' => $product->slug]) }}" class="btn btn-primary btn-sm add-to-cart">
+                                                        <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
+                                                           class="btn btn-transparent btn-sm add-to-cart">
                                                             <i class="fa fa-plus"></i>Choose options
                                                         </a>
                                                     @else
-                                                        <button class="btn btn-primary btn-sm js-shop-add-button"
+                                                        <button class="btn btn-transparent btn-sm js-shop-add-button"
                                                                 data-quantity="1"
                                                                 data-product_id="{{ $product->_id }}"
                                                                 data-product_name="{{ $product->name }}"
                                                                 data-action="{{ route('cart.store') }}"
                                                                 data-token="{{ csrf_token() }}">
-                                                            <i class="fa fa-shopping-cart"></i>&nbsp;Add to cart
+                                                            <i class="fa fa-shopping-cart"></i>&nbsp;Add
+                                                        </button>
+                                                        <button class="btn btn-transparent btn-sm js-shop-add-button"
+                                                                data-quantity="1"
+                                                                data-product_id="{{ $product->_id }}"
+                                                                data-product_name="{{ $product->name }}"
+                                                                data-action="{{ route('cart.store') }}"
+                                                                data-token="{{ csrf_token() }}">
+                                                            <i class=""></i>&nbsp;Add & Buy
                                                         </button>
                                                     @endif
                                                     {{--<button type="submit" class="btn btn-primary add-to-cart js-add-button">--}}

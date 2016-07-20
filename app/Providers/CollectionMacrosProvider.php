@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Facades\StaticVars;
 use App\Product;
 use Collective\Html\FormBuilder;
-use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use \Form;
 
@@ -13,7 +13,7 @@ class CollectionMacrosProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
-     * @@param ResponseFactory $factory
+     * @param FormBuilder $factory
      * @return void
      */
 

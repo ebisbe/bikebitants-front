@@ -103,7 +103,7 @@ class ShopController extends Controller
 
         $products = $productSearch::apply($request, $route);
         $filters = $productSearch::getFilters($request, $route);
-        $categories = $category->with('children')->whereNull('father_id')->get();
+        $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
 
         MetaTag::set('title', 'Bikebitants shop');
         MetaTag::set('description', 'This is the metra description');
@@ -138,7 +138,7 @@ class ShopController extends Controller
 
         $products = $productSearch::apply($request, $route);
         $filters = $productSearch::getFilters($request, $route);
-        $categories = $category->with('children')->whereNull('father_id')->get();
+        $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
@@ -173,7 +173,7 @@ class ShopController extends Controller
 
         $products = $productSearch::apply($request, $route);
         $filters = $productSearch::getFilters($request, $route);
-        $categories = $category->with('children')->whereNull('father_id')->get();
+        $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }

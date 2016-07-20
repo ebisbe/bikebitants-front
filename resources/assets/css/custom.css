@@ -234,6 +234,28 @@ h6 {
 	border:2px solid rgba(0,0,0,0.1);
 }
 
+.btn-transparent {
+	background-color:transparent;
+	border:2px solid #D0D0D0;
+	color:#CCCCCC;
+}
+
+.btn-transparent:hover,
+.btn-transparent:focus {
+	background-color:transparent;
+	border-color:#B0B0B0;
+	color:#AAAAAA;
+}
+
+.btn-transparent.active,
+.btn-transparent:active,
+.btn-transparent.active:hover,
+.btn-transparent.active:focus,
+.btn-transparent:active:hover,
+.btn-transparent:active:focus {
+	background-color:transparent;
+}
+
 /*------------------------------
 	FORM
 ------------------------------*/

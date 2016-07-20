@@ -26,8 +26,8 @@ class StaticVars
     protected $emptyCart = ['fa-shopping-basket', 'fa-shopping-bag', 'fa-shopping-cart'];
 
     /** Filters for product page */
-    protected $filterMinimumValue = 20;
-    protected $filterMaximumValue = 300;
+    protected $filterMinimumValue = 5;
+    protected $filterMaximumValue = 500;
     protected $filterSortingType = [/*'popularity', 'average_rating',*/
         'selected' => 'newness', 'low_to_high', 'high_to_low'
     ];
