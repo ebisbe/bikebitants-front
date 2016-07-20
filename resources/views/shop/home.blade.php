@@ -224,47 +224,16 @@
             <p>Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue.</p>
         </div>
         <div class="row">
-
             <!-- BLOG POST - START -->
-            <div class="col-xs-6 col-sm-3">
-                <article class="post">
-                    <img src="/images/blog/blog-1.jpg" class="img-responsive" alt="">
-                    <h3><a href="single-post.html">How to pickup shoes</a></h3>
-                    <span class="date">01/12/2015</span>
-                </article>
-            </div>
+            @foreach($feed as $post)
+                <div class="col-xs-6 col-sm-3">
+                    <article class="post">
+                        <img src="{{ Form::postImage($post->get_description()) }}" class="img-responsive" alt="{{ $post->get_title() }}">
+                        <h3><a href="{{ $post->get_permalink() }}">{{ $post->get_title() }}</a></h3>
+                    </article>
+                </div>
+            @endforeach
             <!-- BLOG POST - END -->
-
-            <!-- BLOG POST - START -->
-            <div class="col-xs-6 col-sm-3">
-                <article class="post">
-                    <img src="/images/blog/blog-2.jpg" class="img-responsive" alt="">
-                    <h3><a href="single-post.html">Fine mens gloves</a></h3>
-                    <span class="date">24/11/2015</span>
-                </article>
-            </div>
-            <!-- BLOG POST - END -->
-
-            <!-- BLOG POST - START -->
-            <div class="col-xs-6 col-sm-3">
-                <article class="post">
-                    <img src="/images/blog/blog-3.jpg" class="img-responsive" alt="">
-                    <h3><a href="single-post.html">Sunglasses for a beach</a></h3>
-                    <span class="date">10/11/2015</span>
-                </article>
-            </div>
-            <!-- BLOG POST - END -->
-
-            <!-- BLOG POST - START -->
-            <div class="col-xs-6 col-sm-3">
-                <article class="post">
-                    <img src="/images/blog/blog-4.jpg" class="img-responsive" alt="">
-                    <h3><a href="single-post.html">Pyjamas for a good night</a></h3>
-                    <span class="date">19/10/2015</span>
-                </article>
-            </div>
-            <!-- BLOG POST - END -->
-
         </div>
     </div>
 </section>

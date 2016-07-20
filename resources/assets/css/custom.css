@@ -4169,6 +4169,7 @@ footer.navbar a:hover {
 
 .small-product li .product-overlay {
 	margin-right:15px;
+	float: left;
 }
 
 .small-product li .product-overlay img {

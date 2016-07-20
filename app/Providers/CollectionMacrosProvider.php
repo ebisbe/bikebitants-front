@@ -45,6 +45,11 @@ class CollectionMacrosProvider extends ServiceProvider
 
             return json_encode($arr_product);
         });
+
+        $factory->macro('postImage', function($description) {
+            preg_match("#src=[\"'](.+?)[\"']#i", $description, $matches);
+            return $matches[1];
+        });
     }
 
     /**

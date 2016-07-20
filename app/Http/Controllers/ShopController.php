@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Torann\LaravelMetaTags\Facades\MetaTag;
 use App\Http\Requests;
 use Illuminate\Routing\Route;
+use Awjudd\FeedReader\Facades\FeedReader;
 
 class ShopController extends Controller
 {
@@ -37,7 +38,9 @@ class ShopController extends Controller
         $productsRight = $product->take(8)->get();
         $categories = $category->take(3)->get();
 
-        return view('shop.home', compact('layoutHeader', 'layoutTopHeader', 'brands', 'productsLeft', 'productsRight', 'categories'));
+        $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);
+
+        return view('shop.home', compact('layoutHeader', 'layoutTopHeader', 'brands', 'productsLeft', 'productsRight', 'categories', 'feed'));
     }
 
     /**

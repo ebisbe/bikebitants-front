@@ -168,7 +168,8 @@ return [
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
         Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
-        App\Providers\CollectionMacrosProvider::class
+        App\Providers\CollectionMacrosProvider::class,
+        Awjudd\FeedReader\FeedReaderServiceProvider::class
 
     ],
 
@@ -219,12 +220,13 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
-        'Title'     => App\Facades\Title::class,
+        'Title' => App\Facades\Title::class,
         'BreadCrumbLinks' => App\Facades\BreadCrumbLinks::class,
         'StaticVars' => App\Facades\StaticVars::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'MetaTag'   => Torann\LaravelMetaTags\Facades\MetaTag::class,
-        'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class
+        'MetaTag' => Torann\LaravelMetaTags\Facades\MetaTag::class,
+        'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class,
+        'FeedReader' => Awjudd\FeedReader\Facades::class,
     ],
 
 ];
