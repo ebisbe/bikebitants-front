@@ -281,7 +281,7 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
+            <div class="footer-bottom footer-line">
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="copyright">© Umarket 2015 All right reserved.</p>

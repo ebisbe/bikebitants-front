@@ -1,4 +1,4 @@
-@extends('layouts.shop')
+@extends('layouts.checkout')
 
 @section('content')
     <section class="content account">
