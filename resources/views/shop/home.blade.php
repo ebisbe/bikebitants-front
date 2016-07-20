@@ -120,10 +120,10 @@
             @foreach($productsLeft as $product)
                 <div class="col-xs-6 col-sm-3">
                     <article class="product-item">
-
-                        {!! Form::img($product->images->first()->filename, StaticVars::homeLeft(), $product->images->first()->alt) !!}
-                        <h3><a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">{{ $product->name }}</a>
-                        </h3>
+                        <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
+                            {!! Form::img($product->images->first()->filename, StaticVars::homeLeft(), $product->images->first()->alt) !!}
+                            <h3>{{ $product->name }}</h3>
+                        </a>
                         {{--<div class="product-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
