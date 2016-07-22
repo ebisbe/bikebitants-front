@@ -37,13 +37,6 @@ use Illuminate\Support\Collection;
  * @method static string layoutHeader($layoutHeader)
  * @method static string layoutTopHeader($layoutTopHeader)
  *
- * @method static integer orderNew()
- * @method static integer orderValidData()
- * @method static integer orderConfirmed()
- * @method static integer orderCancelled()
- * @method static integer orderError()
- * @method static integer orderToRedirect()
- * @method static integer orderRedirected()
  *
  */
 class StaticVars extends Facade

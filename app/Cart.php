@@ -52,4 +52,14 @@ class Cart extends Model
             return $query;
         });
     }
+
+    /**
+     * Empty cart
+     */
+    public static function empty()
+    {
+        self::all()->map(function($item) {
+           $item->delete();
+        });
+    }
 }

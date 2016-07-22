@@ -28,11 +28,11 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
     public function cart()
     {
-        return $this->hasMany(Cart::class);
+        return $this->embedsMany(Cart::class);
     }
 
     /**
@@ -41,5 +41,13 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public static function exists()
+    {
+        return self::whereSessionId(\Request::session()->getId())->count() ? true : false;
     }
 }

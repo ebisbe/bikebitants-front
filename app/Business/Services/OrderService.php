@@ -16,6 +16,14 @@ use App\Facades\StaticVars;
 
 class OrderService
 {
+    const orderNew = 1;
+    const orderValidData = 2;
+    const orderToRedirect = 3;
+    const orderRedirected = 4;
+    const orderConfirmed = 5;
+    const orderCancelled = -1;
+    const orderError = -2;
+
     /** @var Request $request */
     protected $request;
     protected $cache;
@@ -55,22 +63,22 @@ class OrderService
     {
         $this->getOrder();
         switch ($this->order->status) {
-            case StaticVars::orderNew():
+            case self::orderNew:
                 $this->orderNew();
                 break;
-            case StaticVars::orderToRedirect():
+            case self::orderToRedirect:
                 //$this->pay();
-                $this->order->status = StaticVars::orderRedirected();
+                $this->order->status = self::orderRedirected;
                 $this->order->save();
                 $this->response->redirect();
                 break;
-            case StaticVars::orderRedirected():
+            case self::orderRedirected:
                 $this->confirmPayment();
                 break;
-            case StaticVars::orderConfirmed():
+            case self::orderConfirmed:
                 $this->orderConfirmed();
                 break;
-            case StaticVars::orderError():
+            case self::orderError:
             default:
                 $this->orderError();
                 break;
@@ -118,7 +126,7 @@ class OrderService
 
     public function orderConfirmed()
     {
-        $items = $this->getCart()->with('product.brand')->get();
+        $items = $this->getCart()->get();
         $discount = 0;
         $order = $this->order;
 
@@ -131,11 +139,12 @@ class OrderService
     {
         $this->getOrder();
         if ($this->response->isSuccessful()) {
-            $this->order->status = StaticVars::orderConfirmed();
+            $this->order->status = self::orderConfirmed;
+            // TODO send email
         } elseif ($this->response->isRedirect()) {
-            $this->order->status = StaticVars::orderToRedirect();
+            $this->order->status = self::orderToRedirect;
         } else {
-            $this->order->status = StaticVars::orderError();
+            $this->order->status = self::orderError;
             $this->order->error_message = $this->response->getMessage();
         }
 
@@ -150,7 +159,7 @@ class OrderService
         $this->getUser();
         $this->getOrder();
 
-        $this->order->status = StaticVars::orderValidData();
+        $this->order->status = self::orderValidData;
         $this->order->user()->associate($this->user);
         $this->order->billing()->save($this->billing);
         $this->order->shipping()->save($this->shipping);
@@ -177,7 +186,7 @@ class OrderService
             return $this->paymentMethod->all();
         });
         $discount = 0;
-        $products = $this->getCart()->with('product.brand')->get();
+        $products = $this->getCart()->get();
 
         $this->setView('checkout.index');
         $this->setViewVars(compact('countries', 'provinces', 'products', 'paymentMethods', 'discount'));
@@ -194,16 +203,17 @@ class OrderService
         if ($order->isEmpty()) {
             $order = new Order();
             $order->session_id = $this->request->session()->getId();
-            $order->status = StaticVars::orderNew();
-            if (!$order->save()) {
-                // throw exception
+            $order->status = self::orderNew;
+            Cart::all()->map(function($cart) use ($order) {
+                $order->cart()->associate($cart);
+            });
+
+            if($order->save()) {
+                Cart::empty();
             }
         } else {
             $order = $order->first();
         }
-        $cart = Cart::all();
-        $order->cart()->saveMany($cart);
-
         $this->order = $order;
     }
 
