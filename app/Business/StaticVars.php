@@ -39,8 +39,11 @@ class StaticVars
     /** Order status */
     protected $orderNew = 1;
     protected $orderValidData = 2;
-    protected $orderConfirmed = 3;
+    protected $orderToRedirect = 3;
+    protected $orderRedirected = 4;
+    protected $orderConfirmed = 5;
     protected $orderCancelled = -1;
+    protected $orderError = -2;
 
     /**
      * @return string

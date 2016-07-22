@@ -19,7 +19,6 @@ Route::get('/tienda/{slugCategory}/{slugSubCategory}', 'ShopController@subcatego
 Route::get('/product/{slug}', 'ShopController@product')->name('shop.product');
 Route::resource('cart', 'CartController');
 Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store']]);
-Route::get('/checkout/confirmation', 'CheckoutController@confirmation')->name('shop.confirmation');
 Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 

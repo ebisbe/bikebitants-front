@@ -4,16 +4,22 @@ namespace App\Business\Services;
 
 use App\Billing;
 use App\Cart;
+use App\Country;
 use App\Order;
+use App\PaymentMethod;
 use App\Shipping;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use \Omnipay;
 use App\Facades\StaticVars;
 
-
 class OrderService
 {
+    /** @var Request $request */
+    protected $request;
+    protected $cache;
+
     /** @var  User $user */
     protected $user;
     /** @var  Order $order */
@@ -23,19 +29,171 @@ class OrderService
     /** @var  Shipping $shipping */
     protected $shipping;
 
+    /** @var  String $view */
+    protected $view;
+    /** @var  array $viewVars */
+    protected $viewVars = [];
+
+    protected $response;
+
+    /**
+     * OrderService constructor.
+     * @param Request $request
+     * @param Cache $cache
+     * @param Country $country
+     * @param PaymentMethod $paymentMethod
+     */
+    public function __construct(Request $request, Cache $cache, Country $country, PaymentMethod $paymentMethod)
+    {
+        $this->request = $request;
+        $this->cache = $cache;
+        $this->country = $country;
+        $this->paymentMethod = $paymentMethod;
+    }
+
+    public function checkoutOrder()
+    {
+        $this->getOrder();
+        switch ($this->order->status) {
+            case StaticVars::orderNew():
+                $this->orderNew();
+                break;
+            case StaticVars::orderToRedirect():
+                //$this->pay();
+                $this->order->status = StaticVars::orderRedirected();
+                $this->order->save();
+                $this->response->redirect();
+                break;
+            case StaticVars::orderRedirected():
+                $this->confirmPayment();
+                break;
+            case StaticVars::orderConfirmed():
+                $this->orderConfirmed();
+                break;
+            case StaticVars::orderError():
+            default:
+                $this->orderError();
+                break;
+        }
+    }
+
+    /**
+     * @param
+     * @return mixed
+     */
+    public function pay()
+    {
+        $this->placeOrder();
+
+        Omnipay::setGateway($this->request->input('payment'));
+        $gateway = Omnipay::gateway();
+        $params = [
+            'amount' => number_format($this->order->cart()->sum('subtotal'), 2), // Add shipping amount
+            'currency' => 'EUR',
+            'returnUrl' => route('checkout.index'),
+            'cancelUrl' => route('shop.cancellation'),
+            //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
+        ];
+        $this->request->session()->put('payment', $this->request->input('payment'));
+        $this->request->session()->put('params', $params);
+        $this->request->session()->save();
+
+        $this->response = $gateway->purchase($params)->send();
+        $this->validateResponse();
+        $this->checkoutOrder();
+    }
+
+    /**
+     * @param
+     */
+    private function confirmPayment()
+    {
+        Omnipay::setGateway($this->request->session()->get('payment'));
+        $params = collect($this->request->all())->merge($this->request->session()->get('params', []));
+        $this->response = Omnipay::completePurchase($params->toArray())->send();
+
+        $this->validateResponse();
+        $this->orderConfirmed();
+    }
+
+    public function orderConfirmed()
+    {
+        $items = $this->getCart()->with('product.brand')->get();
+        $discount = 0;
+        $order = $this->order;
+
+        $this->setView('checkout.confirmation');
+        $this->setViewVars(compact('items', 'discount', 'order'));
+    }
+    /**
+     */
+    private function validateResponse()
+    {
+        $this->getOrder();
+        if ($this->response->isSuccessful()) {
+            $this->order->status = StaticVars::orderConfirmed();
+        } elseif ($this->response->isRedirect()) {
+            $this->order->status = StaticVars::orderToRedirect();
+        } else {
+            $this->order->status = StaticVars::orderError();
+            $this->order->error_message = $this->response->getMessage();
+        }
+
+        $this->order->save();
+    }
+
+    /**
+     * @param
+     */
+    private function placeOrder()
+    {
+        $this->getUser();
+        $this->getOrder();
+
+        $this->order->status = StaticVars::orderValidData();
+        $this->order->user()->associate($this->user);
+        $this->order->billing()->save($this->billing);
+        $this->order->shipping()->save($this->shipping);
+
+        $this->order->user_id = $this->user->id;
+        $this->order->billing_id = $this->billing->_id;
+        $this->order->shipping_id = $this->shipping->_id;
+        $this->order->payment_method = $this->request->input('payment');
+
+        $this->order->save();
+    }
+
+    private function orderNew()
+    {
+        $countries = Cache::remember('countries_list', 5, function () {
+            return $this->country->all()->pluck('name', '_id');
+        });
+
+        $provinces = Cache::remember('provinces_list', 5, function () {
+            return $this->country->first()->provinces->pluck('name', '_id');
+        });
+
+        $paymentMethods = Cache::remember('payment_methods', 5, function () {
+            return $this->paymentMethod->all();
+        });
+        $discount = 0;
+        $products = $this->getCart()->with('product.brand')->get();
+
+        $this->setView('checkout.index');
+        $this->setViewVars(compact('countries', 'provinces', 'products', 'paymentMethods', 'discount'));
+    }
+
     /**
      * Creates a new order for the current session if not exists. Relates all the products
      * from that session to the order.
-     * @param Request $request
-     * @return Order
      */
-    public function getOrder(Request $request)
+    private function getOrder()
     {
-        $order = Order::whereSessionId($request->session()->getId())->get();
+        $order = Order::whereSessionId($this->request->session()->getId())->get();
 
         if ($order->isEmpty()) {
             $order = new Order();
-            $order->session_id = $request->session()->getId();
+            $order->session_id = $this->request->session()->getId();
             $order->status = StaticVars::orderNew();
             if (!$order->save()) {
                 // throw exception
@@ -45,64 +203,49 @@ class OrderService
         }
         $cart = Cart::all();
         $order->cart()->saveMany($cart);
+
         $this->order = $order;
-        return $order;
     }
 
-    /**
-     * @param Request $request
-     */
-    public function placeOrder(Request $request)
+    public function orderError()
     {
-        $this->user = $this->getUser($request);
-        $this->order = $this->getOrder($request);
-        $this->order->status = StaticVars::orderValidData();
-        $this->order->user()->associate($this->user);
-        $this->order->billing()->save($this->billing);
-        $this->order->shipping()->save($this->shipping);
-
-        $this->order->user_id = $this->user->id;
-        $this->order->billing_id = $this->billing->_id;
-        $this->order->shipping_id = $this->shipping->_id;
-        $this->order->payment_method = $request->input('payment');
-
-        $this->order->save();
+        $this->setView('checkout.error');
+        $message = $this->order->error_message;
+        $this->setViewVars(compact('message'));
     }
 
     /**
-     * @param Request $request
-     * @param User $user
-     * @return User|\Illuminate\Database\Eloquent\Model|null|static
+     *
      */
-    private function getUser(Request $request)
+    private function getUser()
     {
         //If not logged search user by billing.email
-        $user = User::whereEmail($request->input('billing.email'))->get();
+        $user = User::whereEmail($this->request->input('billing.email'))->get();
 
-        if($user->isEmpty()) {
+        if ($user->isEmpty()) {
             $user = new User();
-            $user->name = $request->input('billing.first_name');
-            $user->email = $request->input('billing.email');
+            $user->name = $this->request->input('billing.first_name');
+            $user->email = $this->request->input('billing.email');
         } else {
             $user = $user->first();
         }
 
         $billing = new Billing();
-        $billing->first_name = $request->billing['first_name'];
-        $billing->last_name = $request->billing['last_name'];
-        $billing->email = $request->billing['email'];
-        $billing->address = $request->billing['address'];
-        $billing->city = $request->billing['city'];
-        $billing->postal_code = $request->billing['postal_code'];
-        $billing->phone = $request->billing['phone'];
-        $billing->country = $request->billing['country'];
-        $billing->province = $request->billing['province'];
+        $billing->first_name = $this->request->billing['first_name'];
+        $billing->last_name = $this->request->billing['last_name'];
+        $billing->email = $this->request->billing['email'];
+        $billing->address = $this->request->billing['address'];
+        $billing->city = $this->request->billing['city'];
+        $billing->postal_code = $this->request->billing['postal_code'];
+        $billing->phone = $this->request->billing['phone'];
+        $billing->country = $this->request->billing['country'];
+        $billing->province = $this->request->billing['province'];
         $this->billing = $billing;
         $user->billing()->associate($billing);
 
-        $data = $request->shipping;
-        if ($request->check_shipping == 'true') {
-            $data = $request->billing;
+        $data = $this->request->shipping;
+        if ($this->request->check_shipping == 'true') {
+            $data = $this->request->billing;
         }
         $shipping = new Shipping();
         $shipping->first_name = $data['first_name'];
@@ -119,7 +262,7 @@ class OrderService
 
         $user->save();
 
-        return $user;
+        $this->user = $user;
     }
 
     /**
@@ -128,72 +271,41 @@ class OrderService
     public function getCart()
     {
         if (empty($this->order)) {
-            //throw exception
+            $this->getOrder();
         }
 
         return $this->order->cart();
     }
 
     /**
-     * @param Request $request
-     * @return mixed
+     * @param $view
      */
-    public function pay(Request $request)
+    public function setView($view)
     {
-        $this->placeOrder($request);
-
-        Omnipay::setGateway($request->input('payment'));
-        $gateway = Omnipay::gateway();
-        $params = [
-            'amount' => number_format($this->order->cart()->sum('subtotal'), 2), // Add shipping amount
-            'currency' => 'EUR',
-            'returnUrl' => route('shop.confirmation'),
-            'cancelUrl' => route('shop.cancellation'),
-            //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
-        ];
-        $request->session()->put('payment', $request->input('payment'));
-        $request->session()->put('params', $params);
-        $request->session()->save();
-
-        $response = $gateway->purchase($params)->send();
-        $response = $this->validateResponse($response);
+        $this->view = $view;
     }
 
     /**
-     * @param Request $request
+     * @return String
      */
-    public function confirmPayment(Request $request)
+    public function getView()
     {
-        Omnipay::setGateway($request->session()->get('payment'));
-        $params = collect($request->all())->merge($request->session()->get('params', []));
-        $response = Omnipay::completePurchase($params->toArray())->send();
-
-        $this->validateResponse($response,$request);
-
+        return $this->view;
     }
 
     /**
-     * @param $response
-     * @return mixed
-     * @throws \Exception
+     * @param array $viewVars
      */
-    private function validateResponse($response, Request $request)
+    public function setViewVars($viewVars = [])
     {
-        if ($response->isSuccessful()) {
-            // payment was successful: update database
-            $this->getOrder($request);
+        $this->viewVars = $viewVars;
+    }
 
-            $this->order->status = StaticVars::orderConfirmed();
-            if(!$this->order->save()) {
-                //throw exception
-            }
-            return $response;
-        } elseif ($response->isRedirect()) {
-            // redirect to offsite payment gateway
-            $response->redirect();
-        } else {
-            // payment failed: display message to customer
-            throw new \Exception($response->getMessage(), 401);
-        }
+    /**
+     * @return array
+     */
+    public function getViewVars()
+    {
+        return $this->viewVars;
     }
 }
