@@ -11,7 +11,7 @@
                 <div class="error-wrapper">
                     <div class="error-number">404</div>
                     <div class="error-text">
-                        <h1>PAGE NOT FOUND</h1>
+                        <h1>Your order has been cancelled</h1>
                         <p>Something went wrong. We couldn't find this page. Go back to <a
                                     href="http://velvet.pixelized.cz">Homepage</a></p>
                         <form>

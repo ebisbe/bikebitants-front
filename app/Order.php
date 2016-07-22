@@ -48,6 +48,8 @@ class Order extends Model
      */
     public static function exists()
     {
-        return self::whereSessionId(\Request::session()->getId())->count() ? true : false;
+        return self::whereSessionId(\Request::session()->getId())
+            ->where('status', '<>', 5)
+            ->count() ? true : false;
     }
 }

@@ -12,17 +12,16 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use \Omnipay;
-use App\Facades\StaticVars;
 
 class OrderService
 {
-    const orderNew = 1;
-    const orderValidData = 2;
-    const orderToRedirect = 3;
-    const orderRedirected = 4;
-    const orderConfirmed = 5;
-    const orderCancelled = -1;
-    const orderError = -2;
+    const New = 1;
+    const ValidData = 2;
+    const ToRedirect = 3;
+    const Redirected = 4;
+    const Confirmed = 5;
+    const Cancelled = -1;
+    const Error = -2;
 
     /** @var Request $request */
     protected $request;
@@ -63,22 +62,25 @@ class OrderService
     {
         $this->getOrder();
         switch ($this->order->status) {
-            case self::orderNew:
+            case self::New:
                 $this->orderNew();
                 break;
-            case self::orderToRedirect:
+            case self::ToRedirect:
                 //$this->pay();
-                $this->order->status = self::orderRedirected;
+                $this->order->status = self::Redirected;
                 $this->order->save();
                 $this->response->redirect();
                 break;
-            case self::orderRedirected:
+            case self::Redirected:
                 $this->confirmPayment();
                 break;
-            case self::orderConfirmed:
+            case self::Confirmed:
                 $this->orderConfirmed();
                 break;
-            case self::orderError:
+            case self::Cancelled:
+                $this->setView('checkout.cancel');
+                break;
+            case self::Error:
             default:
                 $this->orderError();
                 break;
@@ -111,6 +113,13 @@ class OrderService
         $this->checkoutOrder();
     }
 
+    public function cancel()
+    {
+        $this->getOrder();
+        $this->order->status = self::Cancelled;
+        $this->order->save();
+    }
+
     /**
      * @param
      */
@@ -124,7 +133,7 @@ class OrderService
         $this->orderConfirmed();
     }
 
-    public function orderConfirmed()
+    private function orderConfirmed()
     {
         $items = $this->getCart()->get();
         $discount = 0;
@@ -139,12 +148,12 @@ class OrderService
     {
         $this->getOrder();
         if ($this->response->isSuccessful()) {
-            $this->order->status = self::orderConfirmed;
+            $this->order->status = self::Confirmed;
             // TODO send email
         } elseif ($this->response->isRedirect()) {
-            $this->order->status = self::orderToRedirect;
+            $this->order->status = self::ToRedirect;
         } else {
-            $this->order->status = self::orderError;
+            $this->order->status = self::Error;
             $this->order->error_message = $this->response->getMessage();
         }
 
@@ -159,7 +168,7 @@ class OrderService
         $this->getUser();
         $this->getOrder();
 
-        $this->order->status = self::orderValidData;
+        $this->order->status = self::ValidData;
         $this->order->user()->associate($this->user);
         $this->order->billing()->save($this->billing);
         $this->order->shipping()->save($this->shipping);
@@ -198,12 +207,12 @@ class OrderService
      */
     private function getOrder()
     {
-        $order = Order::whereSessionId($this->request->session()->getId())->get();
+        $order = Order::whereSessionId($this->request->session()->getId())->where('status', '<>', 5)->get();
 
         if ($order->isEmpty()) {
             $order = new Order();
             $order->session_id = $this->request->session()->getId();
-            $order->status = self::orderNew;
+            $order->status = self::New;
             Cart::all()->map(function($cart) use ($order) {
                 $order->cart()->associate($cart);
             });

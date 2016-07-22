@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business\Services\OrderService;
+use App\Order;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -28,10 +29,9 @@ class CheckoutController extends Controller
     /**
      * @param Request $request
      * @param OrderService $orderService
-     * @param User $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, OrderService $orderService, User $user)
+    public function store(Request $request, OrderService $orderService)
     {
         $this->validate($request, [
             'billing.first_name' => 'required',
@@ -58,14 +58,14 @@ class CheckoutController extends Controller
             'checkout-terms-conditions' => 'required'
         ]);
 
-        $response = $orderService->pay();
+        $orderService->pay();
 
         return redirect(route('checkout.index'));
     }
 
-    public function cancel()
+    public function cancel(OrderService $orderService)
     {
-        // TODO on anem??
-        return view('checkout.cancelled');
+        $orderService->cancel();
+        return redirect(route('checkout.index'));
     }
 }
