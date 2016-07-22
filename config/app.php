@@ -169,7 +169,8 @@ return [
         Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
         Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
         App\Providers\CollectionMacrosProvider::class,
-        Awjudd\FeedReader\FeedReaderServiceProvider::class
+        Awjudd\FeedReader\FeedReaderServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class
 
     ],
 
@@ -227,6 +228,7 @@ return [
         'MetaTag' => Torann\LaravelMetaTags\Facades\MetaTag::class,
         'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class,
         'FeedReader' => Awjudd\FeedReader\Facades::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class
     ],
 
 ];

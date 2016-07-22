@@ -22,7 +22,7 @@ class Product extends Model
 {
 
 
-    protected $appends = ['range_price', 'tags_list', 'currency', 'final_price'];
+    protected $appends = ['range_price', 'tags_list', 'currency'];
 
     /**
      * Get a single point to find a price. The product can be a variable or simple
@@ -30,13 +30,16 @@ class Product extends Model
      */
     public function getRangePriceAttribute()
     {
+        $price = $this->price;
         if (!empty($this->variation()->count())) {
             $min = $this->variation->min('price');
             $max = $this->variation->max('price');
-            return $min . $this->currency . ' - ' . $max . $this->currency;
-        } else {
-            return $this->price . $this->currency;
+            if ($min != $max) {
+                return $min . $this->currency . ' - ' . $max . $this->currency;
+            }
+            $price = $min;
         }
+        return $price . $this->currency;
     }
 
     /**
@@ -118,6 +121,18 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * @param $attributes
+     * @return Product
+     */
+    public function productVariation($attributes)
+    {
+        return $this
+            ->variation()
+            ->first(function ($key, $value) use ($attributes) {
+                return array_diff($value->_id, array_values($attributes)) == [];
+            });
+    }
 
     /**
      * Get the price of a product. If has multiple attributes with different prices should work too.
@@ -127,17 +142,8 @@ class Product extends Model
     public function finalPrice($attributes = [])
     {
         if ($this->variation()->count()) {
-
-            /** @var Product $product */
-            $variation = $this
-                ->variation()
-                ->first(function ($key, $value) use ($attributes) {
-                    return array_diff($value->_id, array_values($attributes)) == [];
-                });
-            if (!empty($variation)) {
-                $product = $variation;
-            }
-            return $product->price;
+            $variation = $this->productVariation($attributes);
+            return $variation->price;
         }
 
         return $this->price;

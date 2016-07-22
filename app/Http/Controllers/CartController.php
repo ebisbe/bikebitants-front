@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Product;
-use Carbon\Carbon;
+use Darryldecode\Cart\Facades\CartFacade;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -15,12 +15,12 @@ class CartController extends Controller
      */
     public function index()
     {
-        $products = Cart::with('product.brand')->get();
+        $cartCollect = CartFacade::getContent();
         $discount = 0;
-        if($products->isEmpty()) {
+        if($cartCollect->isEmpty()) {
             return view('cart.empty');
         }
-        return view('cart.index', compact('products', 'discount'));
+        return view('cart.index', compact('cartCollect', 'discount'));
     }
 
     /**
@@ -32,30 +32,29 @@ class CartController extends Controller
         $productId = $request->input('product_id');
         $attributes = $request->input('attributes', []);
 
-        $cart = Cart::whereProductId($productId)
-            ->withAttributes($attributes)
-            ->first();
-
-        if(empty($cart)){
-            // New product
-            $cart = new Cart();
-            $cart->product_id = $productId;
-            $cart->session_id = $request->session()->getId();
-            $cart->quantity = (int)$request->input('quantity', 1);
-            collect($attributes)->map(function($value, $attribute) use ($cart) {
-                return $cart->$attribute = $value;
-            });
+        /** @var Product $product */
+        $product = Product::find($productId);
+        if(!empty($attributes)) {
+            $variation = $product->productVariation($attributes);
+            $id = implode('_', $variation->_id);
         } else {
-            // update quantity
-            $cart->increment('quantity', (int)$request->input('quantity', 1));
+            $id = $product->_id;
         }
-        $cart->price = $cart->product->finalPrice($attributes);
-        $cart->subtotal = $cart->price * $cart->quantity;
 
-        $cart->save();
+        CartFacade::add([
+            'id' => $id,
+            'name' => $product->name,
+            'price' => $product->finalPrice($attributes),
+            'quantity' => $request->input('quantity', 1),
+            'attributes' => [
+                'product' => $product,
+                'attributes' => $attributes
+            ]
+        ]);
+
 
         if ($request->ajax()) {
-            return Cart::get();
+            return CartFacade::get($id);
         } else {
             return redirect('cart');
         }
@@ -68,12 +67,11 @@ class CartController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $cart = Cart::where('_id', $id)->first();
-        if (!empty($cart)) {
-            $cart->delete();
-            $response = true;
-        } else {
+        if (CartFacade::isEmpty()) {
             $response = trans('cart.no_items_to_delete');
+        } else {
+            CartFacade::remove($id);
+            $response = true;
         }
 
         if ($request->ajax()) {
