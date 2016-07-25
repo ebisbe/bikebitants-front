@@ -6,6 +6,7 @@ use App\Brand;
 use App\BrandService;
 use App\Category;
 use App\Color;
+use App\Coupon;
 use App\Image;
 use App\Label;
 use App\Product;
@@ -40,6 +41,10 @@ class DatabaseSeeder extends Seeder
         $this->brand->products()->save($product);
 
         $this->categories();
+
+        factory(Coupon::class)->create(['name' => 'DISCOUNT10']);
+        factory(Coupon::class)->create(['name' => 'DISCOUNT20']);
+        factory(Coupon::class)->create(['name' => 'DISCOUNT30']);
     }
 
     /**

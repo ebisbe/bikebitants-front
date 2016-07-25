@@ -170,7 +170,8 @@ return [
         Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
         App\Providers\CollectionMacrosProvider::class,
         Awjudd\FeedReader\FeedReaderServiceProvider::class,
-        Darryldecode\Cart\CartServiceProvider::class
+        Darryldecode\Cart\CartServiceProvider::class,
+        App\Providers\CustomValidationsProvider::class
 
     ],
 

@@ -17,6 +17,7 @@ use App\Billing;
 use App\Brand;
 use App\BrandService;
 use App\Category;
+use App\Coupon;
 use App\Image;
 use App\Label;
 use App\Lead;
@@ -26,7 +27,9 @@ use App\Review;
 use App\Shipping;
 use App\User;
 use App\Variation;
+use Carbon\Carbon;
 use \Faker\Generator;
+use MongoDB\BSON\UTCDatetime;
 
 $factory->define(User::class, function (Generator $faker) {
     return [
@@ -205,5 +208,26 @@ $factory->define(Shipping::class, function(Generator $faker) {
         'country_id' => $faker->country,
         'province' => 'province',
         'province_id' => 'province_id',
+    ];
+});
+
+$factory->define(Coupon::class, function(Generator $faker) {
+    $discount_value = $faker->numberBetween(10, 30);
+    $discount_type = collect([Coupon::DIRECT, Coupon::PERCENTAGE])->random();
+    return [
+        'name' => str_slug($faker->words(3, true)),
+        'type' => 'coupon',
+        'target' => 'subtotal',
+        'value' => "-{$discount_value}{$discount_type}",
+
+        'discount_value' => $discount_value,
+        'discount_type' => $discount_type,
+        'limit_usage_by_coupon' => 3,
+        'limit_usage_by_user' => 1,
+        'expiry_date' => New UTCDatetime(Carbon::now()->addDays(4)->timestamp * 1000) ,
+        'minimum_cart' => 0,
+        'maximum_cart' => null,
+        'single_use' => true,
+        'emails' => [ $faker->email, $faker->email, $faker->email ]
     ];
 });

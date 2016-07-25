@@ -23,7 +23,7 @@ class CartController extends Controller
         MetaTag::set('title', 'Cart');
         MetaTag::set('description', 'cart');
         MetaTag::set('keywords', 'cart');
-
+//Cart::clear();
         $condition1 = new \Darryldecode\Cart\CartCondition(array(
             'name' => 'VAT 12.5%',
             'type' => 'tax',
@@ -36,11 +36,10 @@ class CartController extends Controller
         $subtitle = 'Cart';
 
         $cartCollect = Cart::getContent();
-        $discount = 0;
         if($cartCollect->isEmpty()) {
             return view('cart.empty', compact('title', 'subtitle'));
         }
-        return view('cart.index', compact('cartCollect', 'discount', 'title', 'subtitle'));
+        return view('cart.index', compact('cartCollect', 'title', 'subtitle'));
     }
 
     /**

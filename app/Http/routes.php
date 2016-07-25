@@ -4,7 +4,6 @@
 Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
     Route::auth();
     Route::group(['namespace' => 'Admin'], function () {
-
         Route::get('/', 'AdminController@dashboard')->name('admin.dashboard');
     });
 });
@@ -21,6 +20,7 @@ Route::resource('cart', 'CartController');
 Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store']]);
 Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);
+Route::resource('coupon', 'CouponController', ['only' => ['store']]);
 
 Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
     ->where(array('filename' => '[ \w\\.\\/\\-\\@]+', 'filter' => 'original|download|[0-9]+\/[0-9]+|[0-9]+'))
