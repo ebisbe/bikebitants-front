@@ -1,4 +1,3 @@
-@inject('carts', 'App\Cart')
 <li class="dropdown navbar-cart hidden-xs">
     <a href="#" class="dropdown-toggle"
        data-toggle="dropdown"
@@ -7,24 +6,24 @@
        data-close-others="true">
         <i class="fa fa-shopping-cart"></i>
     </a>
-    @php
-    $products = $carts->with('product.brand')->get();
-    @endphp
-    @if(!empty($products->count()))
+    @if(!Cart::isEmpty())
         <ul class="dropdown-menu">
-            @foreach($products as $cart)
+            @foreach(Cart::getContent() as $cart)
+                @php
+                    $item = $cart->attributes->product;
+                @endphp
                 <li>
                     <div class="row">
                         <div class="col-sm-3">
-                            <img src="/img/70/{{ $cart->product->images()->first()->filename }}"
-                                 alt="{{ $cart->product->images()->first()->alt }}" class="img-responsive">
+                            <img src="/img/70/{{ $item->images()->first()->filename }}"
+                                 alt="{{ $item->images()->first()->alt }}" class="img-responsive">
                         </div>
                         <div class="col-sm-9">
                             <h4>
-                                <a href="{{ route('shop.product', ['slug' => $cart->slug]) }}">{{ $cart->product->name }}</a>
+                                <a href="{{ route('shop.product', ['slug' => $item->slug]) }}">{{ $item->name }}</a>
                             </h4>
-                            <p>{{ $cart->quantity }}x - {{ $cart->price }}{{ $cart->product->currency }}</p>
-                            <form method="POST" action="/cart/{{ $cart->_id }}">
+                            <p>{{ $cart->quantity }}x - {{ $cart->price }}{{ $item->currency }}</p>
+                            <form method="POST" action="/cart/{{ $item->_id }}">
                                 <input type="hidden" name="_method" value="DELETE"/>
                                 {{ csrf_field() }}
                                 <button class="btn btn-link remove no-padding" type="submit">

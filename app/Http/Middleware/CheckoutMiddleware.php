@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Cart;
+use Cart;
 use App\Order;
 use Closure;
 
@@ -33,11 +33,11 @@ class CheckoutMiddleware
     protected function shouldRedirect()
     {
         //We don't have products and there is no current order started
-        if (Cart::all()->isEmpty() && !Order::exists()) {
+        if (Cart::isEmpty() && !Order::exists()) {
             return true;
         }
         //
-        if (!Cart::all()->isEmpty() && Order::exists()) {
+        if (!Cart::isEmpty() && Order::exists()) {
             return true;
         }
         return false;

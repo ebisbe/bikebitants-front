@@ -1,32 +1,9 @@
 @extends('layouts.checkout')
 
 @section('content')
-        <!-- ==========================
-    	BREADCRUMB - START
-    =========================== -->
-<section class="breadcrumb-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-6">
-                <h2>Shopping cart</h2>
-                <p>Empty cart</p>
-            </div>
-            <div class="col-xs-6">
-                <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li class="active">Cart</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ==========================
-    BREADCRUMB - END
-=========================== -->
 
-<!-- ==========================
-    ERROR - START
-=========================== -->
+@include('partials.breadcrumb')
+
 <section class="content error">
     <div class="container">
         <div class="row">
@@ -50,8 +27,4 @@
         </div>
     </div>
 </section>
-<!-- ==========================
-    ERROR - END
-=========================== -->
-
 @endsection
