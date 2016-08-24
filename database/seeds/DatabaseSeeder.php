@@ -11,14 +11,17 @@ use App\Image;
 use App\Label;
 use App\Product;
 use App\Review;
+use App\ShippingMethod;
 use App\Size;
 use App\Variation;
+use App\Zone;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     /** @var Brand $brand */
     protected $brand;
+
     /**
      * Run the database seeds.
      *
@@ -41,10 +44,8 @@ class DatabaseSeeder extends Seeder
         $this->brand->products()->save($product);
 
         $this->categories();
-
-        factory(Coupon::class)->create(['name' => 'DISCOUNT10']);
-        factory(Coupon::class)->create(['name' => 'DISCOUNT20']);
-        factory(Coupon::class)->create(['name' => 'DISCOUNT30']);
+        $this->discounts();
+        $this->zones();
     }
 
     /**
@@ -182,8 +183,8 @@ class DatabaseSeeder extends Seeder
                 'slug' => str_slug($item['name'])
             ]);
             $catSlug = str_slug($item['name']);
-            if(isset($item['subcategories'])) {
-                $item['subcategories']->each(function($item,$key) use ($cat, $catSlug) {
+            if (isset($item['subcategories'])) {
+                $item['subcategories']->each(function ($item, $key) use ($cat, $catSlug) {
                     /** @var Category $child */
                     $child = factory(Category::class)->create([
                         'name' => $item,
@@ -194,12 +195,84 @@ class DatabaseSeeder extends Seeder
 
                     $cont = 0;
                     while ($cont++ < 5) {
-                        $product = $this->product(rand(0,1), ['categories' => [$catSlug, str_slug($item)]]);
+                        $product = $this->product(rand(0, 1), ['categories' => [$catSlug, str_slug($item)]]);
                         $this->brand->products()->save($product);
                         $child->products()->save($product);
                     }
                 });
             }
+        });
+    }
+
+    public function discounts()
+    {
+        factory(Coupon::class)->create(['name' => 'DISCOUNT10']);
+        factory(Coupon::class)->create(['name' => 'DISCOUNT20']);
+        factory(Coupon::class)->create(['name' => 'DISCOUNT30']);
+    }
+
+    public function zones()
+    {
+        $zonesCol = collect([
+            [
+                'name' => 'España (Península)',
+                'region' => ['C', 'VI', 'AB', 'A', 'AL', 'O', 'AV', 'BA', 'B', 'BU', 'CC', 'CA', 'S', 'CS', 'CR', 'CO', 'CU', 'GI', 'GR', 'GU', 'SS', 'H', 'HU', 'J', 'LO', 'LE', 'L', 'LU', 'M', 'MA', 'MU', 'NA', 'OR', 'P', 'PO', 'SA', 'SG', 'SE', 'SO', 'T', 'TE', 'TO', 'V', 'VA', 'BI', 'ZA', 'Z'],
+                'shippingMethods' => collect([
+                    [   'name' => 'Envío 24-48 horas',
+                        'cost' => 3,305785123966942,
+                        'free_shipping' => 0],
+                    [   'name' => 'Envío gratuito 24-48 horas',
+                        'cost' => 25,
+                        'free_shipping' => 1]
+                ])
+            ],
+            [
+                'name' => 'España (Baleares)',
+                'region' => ['PM'],
+                'shippingMethods' => collect([
+                    [   'name' => 'Envío 3-4 días',
+                        'cost' => 8,264462809917355,
+                        'free_shipping' => 0],
+                    [   'name' => 'Envío gratuito 3-4 dias',
+                        'cost' => 25,
+                        'free_shipping' => 1]
+                ])
+            ],
+            [
+                'name' => 'España (Canarias)',
+                'region' => ['GC', 'TF'],
+                'shippingMethods' => collect([
+                    [   'name' => 'Envío 3-4 dias',
+                        'cost' => 25,
+                        'free_shipping' => 0]
+                ])
+            ],
+            [
+                'name' => 'España (Ceuta Melilla)',
+                'region' => ['CE', 'ML'],
+                'shippingMethods' => collect([
+                    [   'name' => 'Envío 3-4 dias',
+                        'cost' => 25,
+                        'free_shipping' => 0]
+                ])
+            ],
+        ]);
+
+        $zonesCol->each(function($item, $key) {
+            /** @var Zone $zone */
+            $zone = factory(Zone::class)->create([
+                'name' => $item['name'],
+                'region' => $item['region']
+            ]);
+            $item['shippingMethods']->each(function ($item, $key) use ($zone) {
+                /** @var Category $child */
+                $shippingMethod = factory(ShippingMethod::class)->make([
+                    'name' => $item['name'],
+                    'cost' => $item['cost'],
+                    'free_shipping' => $item['free_shipping'],
+                ]);
+                $zone->shippingMethods()->save($shippingMethod);
+            });
         });
     }
 }

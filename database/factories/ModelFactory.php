@@ -25,8 +25,10 @@ use App\PaymentMethod;
 use App\Product;
 use App\Review;
 use App\Shipping;
+use App\ShippingMethod;
 use App\User;
 use App\Variation;
+use App\Zone;
 use Carbon\Carbon;
 use \Faker\Generator;
 use MongoDB\BSON\UTCDatetime;
@@ -229,5 +231,20 @@ $factory->define(Coupon::class, function(Generator $faker) {
         'maximum_cart' => null,
         'single_use' => true,
         'emails' => [ $faker->email, $faker->email, $faker->email ]
+    ];
+});
+
+$factory->define(Zone::class, function(Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'region' => ['C', 'AL', 'B', 'GI'],
+    ];
+});
+
+$factory->define(ShippingMethod::class, function(Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'cost' => $faker->numberBetween(3,25),
+        'free_shipping' => $faker->boolean
     ];
 });
