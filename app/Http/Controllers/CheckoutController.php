@@ -11,8 +11,7 @@ class CheckoutController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('checkout');
-        $this->middleware('cart');
+        $this->middleware(['checkout', 'cart']);
     }
 
     /**

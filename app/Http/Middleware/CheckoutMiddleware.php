@@ -33,11 +33,11 @@ class CheckoutMiddleware
     protected function shouldRedirect()
     {
         //We don't have products and there is no current order started
-        if (Cart::isEmpty() && !Order::exists()) {
+        if (Cart::isEmpty() && !Order::isCurrentOrderConfirmed()) {
             return true;
         }
         //
-        if (!Cart::isEmpty() && Order::exists()) {
+        if (!Cart::isEmpty() && Order::isCurrentOrderConfirmed()) {
             return true;
         }
         return false;

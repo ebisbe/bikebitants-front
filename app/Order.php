@@ -54,12 +54,11 @@ class Order extends Model
     /**
      * @return bool
      */
-    /*public static function exists()
+    public static function isCurrentOrderConfirmed()
     {
-        return self::whereSessionId(\Request::session()->getId())
-            ->where('status', '<>', 5)
-            ->count() ? true : false;
-    }*/
+        $order = self::currentOrder();
+        return !$order->isEmpty() && $order->first()->status == self::Confirmed ? true : false;
+    }
     /**
      * @return Order|null
      */

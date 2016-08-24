@@ -144,7 +144,6 @@ class OrderService
             $this->order->status = Order::Confirmed;
             Cart::clear();
             Cart::clearCartConditions();
-            $this->request->session()->forget('order');
             // TODO send email
         } elseif ($this->response->isRedirect()) {
             $this->order->status = Order::ToRedirect;
