@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use MetaTag;
@@ -10,6 +11,11 @@ use BreadCrumbLinks;
 
 class CartController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('cart');
+    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -23,14 +29,6 @@ class CartController extends Controller
         MetaTag::set('title', 'Cart');
         MetaTag::set('description', 'cart');
         MetaTag::set('keywords', 'cart');
-//Cart::clear();
-        $condition1 = new \Darryldecode\Cart\CartCondition(array(
-            'name' => 'VAT 12.5%',
-            'type' => 'tax',
-            'target' => 'subtotal',
-            'value' => '12.5%',
-        ));
-        Cart::condition($condition1);
 
         $title = 'Shop';
         $subtitle = 'Cart';
@@ -48,6 +46,12 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        $order = Order::currentOrder();
+        if(!$order->isEmpty() && $order->first()->status != Order::New) {
+            //TODO throw response in ajax form if it is an ajax request
+            abort(402, 'Unable to add more products while checking out the cart.');
+        }
+
         $productId = $request->input('product_id');
         $attributes = $request->input('attributes', []);
 
@@ -70,7 +74,6 @@ class CartController extends Controller
                 'attributes' => $attributes
             ]
         ]);
-
 
         if ($request->ajax()) {
             return Cart::get($id);

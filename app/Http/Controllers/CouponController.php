@@ -17,15 +17,7 @@ class CouponController extends Controller
             'coupon' => 'bail|required|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
         ]);
 
-        $coupon = Coupon::whereName($request->input('coupon'))->first();
-
-        $condition = new CartCondition(array(
-            'name' => $coupon->name,
-            'type' => $coupon->type,
-            'target' => $coupon->target,
-            'value' => $coupon->value,
-        ));
-        Cart::condition($condition);
+        Coupon::addToCart($request->input('coupon'));
 
         return redirect(route('cart.index'));
     }

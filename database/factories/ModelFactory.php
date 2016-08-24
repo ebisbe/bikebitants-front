@@ -49,8 +49,8 @@ $factory->define(Product::class, function (Generator $faker) {
         'slug' => str_slug($name),
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
-        'price' => $faker->numberBetween(3, 150),
-        'discount_price' => $faker->numberBetween(3, 150),
+        'price' => $faker->numberBetween(1, 10),
+        'discount_price' => $faker->numberBetween(1, 10),
         //'image' => $faker->image('/tmp', 150, 150),
         //'discount_init' => $faker->date(),
         //'discount_end' => $faker->date(),
@@ -126,7 +126,7 @@ $factory->define(BrandService::class, function (Generator $faker) {
 $factory->define(Variation::class, function (Generator $faker) {
     return [
         '_id' => $faker->slug(),
-        'price' => $faker->numberBetween(3, 150),
+        'price' => $faker->numberBetween(1, 10),
     ];
 });
 
@@ -212,7 +212,7 @@ $factory->define(Shipping::class, function(Generator $faker) {
 });
 
 $factory->define(Coupon::class, function(Generator $faker) {
-    $discount_value = $faker->numberBetween(10, 30);
+    $discount_value = $faker->numberBetween(4, 5);
     $discount_type = collect([Coupon::DIRECT, Coupon::PERCENTAGE])->random();
     return [
         'name' => str_slug($faker->words(3, true)),

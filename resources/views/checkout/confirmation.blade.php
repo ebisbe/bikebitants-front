@@ -132,8 +132,8 @@
                                                 <h4>
                                                     <a href="{!! url('product', ['slug' => $item->product->slug]) !!}"> {{ $item->product->name }}</a>
                                                     <small> {{ $item->product->brand->name }}
-                                                        @foreach($item->product->attributes as $attribute)
-                                                            , {{ $item->{$attribute->name} }}
+                                                        @foreach($item->attributes as $attribute)
+                                                            , {{ $attribute }}
                                                         @endforeach
                                                     </small>
                                                 </h4>
@@ -141,10 +141,10 @@
                                             <td class="col-xs-2 text-center">
                                                 <span>{{ $item->price }}&euro;</span></td>
                                             <td class="col-xs-2 col-md-1 text-center">
-                                                <span><b>{{ $item->quantity }} {{ str_plural('item', $item->quantity) }}</b></span>
+                                                <span><b>{{ $item->quantity }} {{ str_plural('item', (int)$item->quantity) }}</b></span>
                                             </td>
                                             <td class="col-xs-2 text-center">
-                                                <span><b>{{ $item->subtotal }}&euro;</b></span>
+                                                <span><b>{{ $item->total }}&euro;</b></span>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -153,12 +153,11 @@
                             </div>
 
                             <ul class="list-unstyled order-total">
-                                <li>Total products<span>{{ $items->sum('subtotal') }} &euro;</span></li>
-                                @if($discount != 0)
-                                    <li>Discount<span>- {{ $discount }}&euro;</span></li>
-                                @endif
-                                <li>Shipping<span>$15.00</span></li>
-                                <li>Subtotal<span class="total">{{ $items->sum('subtotal') - $discount }}&euro;</span></li>
+                                <li>Subtotal products<span>{{ $order->subtotal }} &euro;</span></li>
+                                @foreach($order->conditions as $condition)
+                                    <li>{{ $condition['name'] }}<span>{{ $condition['value'] }}</span></li>
+                                @endforeach
+                                <li>Total<span class="total">{{ $order->total }} &euro;</span></li>
                             </ul>
                         </div>
                 </article>

@@ -6,7 +6,6 @@ use App\Coupon;
 use Carbon\Carbon;
 use Cache;
 use Cart;
-use StaticVars;
 
 class CouponValidator
 {
@@ -15,7 +14,7 @@ class CouponValidator
      * @param $validator
      * @return Coupon
      */
-    protected function getCoupon($attribute, $validator)
+    private function getCoupon($attribute, $validator)
     {
         $couponName = $validator->getData()[$attribute];
         return Cache::remember('coupon_'.$attribute, 10*60, function() use ($couponName){
@@ -55,6 +54,7 @@ class CouponValidator
      * @param $value
      * @param $parameters
      * @param $validator
+     * @return bool
      */
     public function maximum_cart($attribute, $value, $parameters, $validator)
     {

@@ -7,6 +7,14 @@ use App\Business\MongoEloquentModel as Model;
 class Order extends Model
 {
 
+    const New = 1;
+    const ValidData = 2;
+    const ToRedirect = 3;
+    const Redirected = 4;
+    const Confirmed = 5;
+    const Cancelled = -1;
+    const Error = -2;
+
     protected $fillable = [
         'billing_id', 'shipping_id', 'user_id', 'status', 'payment_method'
     ];
@@ -46,10 +54,16 @@ class Order extends Model
     /**
      * @return bool
      */
-    public static function exists()
+    /*public static function exists()
     {
         return self::whereSessionId(\Request::session()->getId())
             ->where('status', '<>', 5)
             ->count() ? true : false;
+    }*/
+    /**
+     * @return Order|null
+     */
+    public static function currentOrder() {
+        return self::where('_id', \Request::session()->get('order'))->get();
     }
 }

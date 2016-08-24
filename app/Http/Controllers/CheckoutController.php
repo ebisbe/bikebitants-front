@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Business\Services\OrderService;
-use App\Order;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use \Omnipay;
@@ -13,7 +11,8 @@ class CheckoutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('checkout');
+        //$this->middleware('checkout');
+        $this->middleware('cart');
     }
 
     /**
@@ -55,7 +54,9 @@ class CheckoutController extends Controller
             'shipping.province' => 'required_without:check_shipping',
 
             'payment' => 'required',
-            'checkout-terms-conditions' => 'required'
+            'checkout-terms-conditions' => 'required',
+
+            'coupon' => 'bail|present|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
         ]);
 
         $orderService->pay();

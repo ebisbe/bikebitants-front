@@ -261,22 +261,25 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($products as $product)
+                                            @foreach($items as $item)
+                                                @php
+                                                $product = $item->attributes->product;
+                                                @endphp
                                                 <tr>
                                                     <td class="col-xs-4 col-md-5">
-                                                        <h4>{{ $product->product->name }}
-                                                            <small> {{ $product->product->brand->name }}
-                                                                @foreach($product->product->attributes as $attribute)
-                                                                    , {{ $product->{$attribute->name} }}
+                                                        <h4>{{ $product->name }}
+                                                            <small> {{ $product->brand->name }}
+                                                                @foreach($item->attributes->attributes as $attribute)
+                                                                    , {{ $attribute }}
                                                                 @endforeach
                                                             </small>
                                                         </h4>
                                                     </td>
                                                     <td class="col-xs-2 text-center">
-                                                        <small>{{ $product->quantity }}
-                                                            x {{ $product->price }}{{ $product->product->currency }}</small>
+                                                        <small>
+                                                            {{ $item->price }}{{ $product->currency }} x {{ $item->quantity }}</small>
                                                         <span>
-                                                            <b>{{ $product->subtotal }}{{ $product->product->currency }}</b>
+                                                            <b>{{ $item->getPriceSum() }}{{ $product->currency }}</b>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -285,13 +288,22 @@
                                         </table>
                                         <div class="">
                                             <ul class="list-unstyled order-total">
-                                                <li>Total products<span>{{ $products->sum('subtotal') }} &euro;</span></li>
-                                                @if($discount != 0)
-                                                    <li>Discount<span>- {{ $discount }}&euro;</span></li>
-                                                @endif
-                                                <li>Subtotal<span class="total">{{ $products->sum('subtotal') - $discount }}&euro;</span></li>
+                                                <li>Total products<span>{{ Cart::getSubTotal() }} &euro;</span></li>
+                                                @foreach(Cart::getConditions() as $condition)
+                                                    <li>{{ $condition->getName() }}<span>{{ $condition->getValue() }}</span></li>
+                                                @endforeach
+                                                <li>Total<span class="total">{{ Cart::getTotal() }}&euro;</span></li>
                                             </ul>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <h3>Coupon Code</h3>
+                                <div class="products-order checkout payment-method">
+                                    <div class="payment-methods {{ $errors->has('coupon') ? 'has-error' : ''}}">
+                                        {{ Form::label('coupon', 'Apply coupon code', [], false) }}
+                                        {{ Form::text('coupon', null, ['class' => 'form-control']) }}
+                                        {!! $errors->first('coupon', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
 

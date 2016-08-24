@@ -56,7 +56,7 @@ MY ACCOUNT - START
                                             </div>
                                         </td>
                                         <td class="col-xs-2 text-center">
-                                            <span><b>{{ $item->price * $item->quantity }}&euro;</b></span>
+                                            <span><b>{{ $item->getPriceSum() }}{{ $product->currency }}</b></span>
                                         </td>
                                         <td class="col-xs-1 text-center">
                                             <form method="POST" action="/cart/{{ $item->id }}">
@@ -102,7 +102,7 @@ MY ACCOUNT - START
                                     @foreach(Cart::getConditions() as $condition)
                                         <li>{{ $condition->getName() }}<span>{{ $condition->getValue() }}</span></li>
                                     @endforeach
-                                    <li>Subtotal<span class="total">{{ Cart::getTotal() }}&euro;</span></li>
+                                    <li>Total<span class="total">{{ Cart::getTotal() }}&euro;</span></li>
                                 </ul>
                             </div>
                         </div>

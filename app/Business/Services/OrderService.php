@@ -3,26 +3,19 @@
 namespace App\Business\Services;
 
 use App\Billing;
-use App\Cart;
 use App\Country;
+use App\Coupon;
 use App\Order;
 use App\PaymentMethod;
 use App\Shipping;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use \Omnipay;
+use Omnipay;
+use Cart;
 
 class OrderService
 {
-    const New = 1;
-    const ValidData = 2;
-    const ToRedirect = 3;
-    const Redirected = 4;
-    const Confirmed = 5;
-    const Cancelled = -1;
-    const Error = -2;
-
     /** @var Request $request */
     protected $request;
     protected $cache;
@@ -62,25 +55,25 @@ class OrderService
     {
         $this->getOrder();
         switch ($this->order->status) {
-            case self::New:
+            case Order::New :
                 $this->orderNew();
                 break;
-            case self::ToRedirect:
+            case Order::ToRedirect :
                 //$this->pay();
-                $this->order->status = self::Redirected;
+                $this->order->status = Order::Redirected;
                 $this->order->save();
                 $this->response->redirect();
                 break;
-            case self::Redirected:
+            case Order::Redirected :
                 $this->confirmPayment();
                 break;
-            case self::Confirmed:
+            case Order::Confirmed :
                 $this->orderConfirmed();
                 break;
-            case self::Cancelled:
+            case Order::Cancelled :
                 $this->setView('checkout.cancel');
                 break;
-            case self::Error:
+            case Order::Error :
             default:
                 $this->orderError();
                 break;
@@ -98,7 +91,7 @@ class OrderService
         Omnipay::setGateway($this->request->input('payment'));
         $gateway = Omnipay::gateway();
         $params = [
-            'amount' => number_format($this->order->cart()->sum('subtotal'), 2), // Add shipping amount
+            'amount' => number_format($this->order->total, 2), // Add shipping amount
             'currency' => 'EUR',
             'returnUrl' => route('checkout.index'),
             'cancelUrl' => route('shop.cancellation'),
@@ -116,7 +109,7 @@ class OrderService
     public function cancel()
     {
         $this->getOrder();
-        $this->order->status = self::Cancelled;
+        $this->order->status = Order::Cancelled;
         $this->order->save();
     }
 
@@ -136,24 +129,26 @@ class OrderService
     private function orderConfirmed()
     {
         $items = $this->getCart()->get();
-        $discount = 0;
         $order = $this->order;
 
         $this->setView('checkout.confirmation');
-        $this->setViewVars(compact('items', 'discount', 'order'));
+        $this->setViewVars(compact('items', 'order'));
     }
+
     /**
      */
     private function validateResponse()
     {
         $this->getOrder();
         if ($this->response->isSuccessful()) {
-            $this->order->status = self::Confirmed;
+            $this->order->status = Order::Confirmed;
+            Cart::clear();
+            Cart::clearCartConditions();
             // TODO send email
         } elseif ($this->response->isRedirect()) {
-            $this->order->status = self::ToRedirect;
+            $this->order->status = Order::ToRedirect;
         } else {
-            $this->order->status = self::Error;
+            $this->order->status = Order::Error;
             $this->order->error_message = $this->response->getMessage();
         }
 
@@ -168,7 +163,12 @@ class OrderService
         $this->getUser();
         $this->getOrder();
 
-        $this->order->status = self::ValidData;
+        $couponName = $this->request->input('coupon', '');
+        if (!empty($couponName)) {
+            Coupon::addToCart($couponName);
+        }
+
+        $this->order->status = Order::ValidData;
         $this->order->user()->associate($this->user);
         $this->order->billing()->save($this->billing);
         $this->order->shipping()->save($this->shipping);
@@ -181,6 +181,9 @@ class OrderService
         $this->order->save();
     }
 
+    /**
+     *
+     */
     private function orderNew()
     {
         $countries = Cache::remember('countries_list', 5, function () {
@@ -194,11 +197,10 @@ class OrderService
         $paymentMethods = Cache::remember('payment_methods', 5, function () {
             return $this->paymentMethod->all();
         });
-        $discount = 0;
-        $products = $this->getCart()->get();
+        $items = Cart::getContent();
 
         $this->setView('checkout.index');
-        $this->setViewVars(compact('countries', 'provinces', 'products', 'paymentMethods', 'discount'));
+        $this->setViewVars(compact('countries', 'provinces', 'items', 'paymentMethods'));
     }
 
     /**
@@ -207,22 +209,54 @@ class OrderService
      */
     private function getOrder()
     {
-        $order = Order::whereSessionId($this->request->session()->getId())->where('status', '<>', 5)->get();
+        $order = Order::currentOrder();
 
         if ($order->isEmpty()) {
             $order = new Order();
             $order->session_id = $this->request->session()->getId();
-            $order->status = self::New;
-            Cart::all()->map(function($cart) use ($order) {
-                $order->cart()->associate($cart);
-            });
-
-            if($order->save()) {
-                Cart::empty();
-            }
+            $order->status = Order::New;
         } else {
             $order = $order->first();
         }
+
+        if($order->status == Order::New) {
+
+            $order->subtotal = Cart::getSubTotal();
+            $order->total = Cart::getTotal();
+            $order->total_items = Cart::getTotalQuantity();
+
+            $conditions = Cart::getConditions()->map(function ($item) {
+                return [
+                    'target' => $item->getTarget(),
+                    'value' => $item->getValue(),
+                    'name' => $item->getName(),
+                    'type' => $item->getType(),
+                ];
+            })->values()->toArray();
+
+            $order->conditions = $conditions;
+            $ids = $order->cart()->get()->map(function ($item) {
+                return $item->_id;
+            });
+            $order->cart()->destroy($ids);
+            Cart::getContent()->map(function ($item) use ($order) {
+                //dd($item);
+                $cart = new \App\Cart();
+                $cart->price = $item['price'];
+                $cart->quantity = $item['quantity'];
+                $cart->total = (int)$item['quantity'] * (int)$item['price'];
+                $cart->attributes = $item['attributes']['attributes'];
+                $cart->product()->associate($item['attributes']['product']);
+                //dd($cart);
+                $order->cart()->associate($cart);
+            });
+        }
+
+        if ($order->save()) {
+            //Cart::empty();
+            $this->request->session()->set('order', $order->_id);
+        }
+
         $this->order = $order;
     }
 
