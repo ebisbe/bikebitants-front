@@ -26,6 +26,16 @@ class CheckoutController extends Controller
     }
 
     /**
+     * @param $oderId
+     * @param OrderService $orderService
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($oderId, OrderService $orderService) {
+        $orderService->checkoutOrder($oderId);
+        return view($orderService->getView(), $orderService->getViewVars());
+    }
+
+    /**
      * @param Request $request
      * @param OrderService $orderService
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector

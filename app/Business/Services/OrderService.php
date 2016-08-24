@@ -51,9 +51,9 @@ class OrderService
         $this->paymentMethod = $paymentMethod;
     }
 
-    public function checkoutOrder()
+    public function checkoutOrder($orderId = null)
     {
-        $this->getOrder();
+        $this->getOrder($orderId);
         switch ($this->order->status) {
             case Order::New :
                 $this->orderNew();
@@ -207,9 +207,13 @@ class OrderService
      * Creates a new order for the current session if not exists. Relates all the products
      * from that session to the order.
      */
-    private function getOrder()
+    private function getOrder($orderId = null)
     {
-        $order = Order::currentOrder();
+        if(!is_null($orderId)) {
+            $order = Order::where('_id', $orderId)->get();
+        } else {
+            $order = Order::currentOrder();
+        }
 
         if ($order->isEmpty()) {
             $order = new Order();
