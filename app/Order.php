@@ -46,9 +46,9 @@ class Order extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function user()
+    public function buyer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Buyer::class);
     }
 
     /**

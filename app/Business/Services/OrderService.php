@@ -8,7 +8,7 @@ use App\Coupon;
 use App\Order;
 use App\PaymentMethod;
 use App\Shipping;
-use App\User;
+use App\Buyer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Omnipay;
@@ -20,8 +20,8 @@ class OrderService
     protected $request;
     protected $cache;
 
-    /** @var  User $user */
-    protected $user;
+    /** @var  Buyer $buyer */
+    protected $buyer;
     /** @var  Order $order */
     protected $order;
     /** @var  Billing $billing */
@@ -160,17 +160,17 @@ class OrderService
      */
     private function placeOrder()
     {
-        $this->getUser();
+        $this->getBuyer();
         $this->getOrder();
 
         Coupon::addToCart($this->request->input('coupon', ''));
 
         $this->order->status = Order::ValidData;
-        $this->order->user()->associate($this->user);
+        $this->order->buyer()->associate($this->buyer);
         $this->order->billing()->save($this->billing);
         $this->order->shipping()->save($this->shipping);
 
-        $this->order->user_id = $this->user->id;
+        $this->order->buyer_id = $this->buyer->id;
         $this->order->billing_id = $this->billing->_id;
         $this->order->shipping_id = $this->shipping->_id;
         $this->order->payment_method = $this->request->input('payment');
@@ -271,17 +271,17 @@ class OrderService
     /**
      *
      */
-    private function getUser()
+    private function getBuyer()
     {
-        //If not logged search user by billing.email
-        $user = User::whereEmail($this->request->input('billing.email'))->get();
+        //If not logged search buyer by billing.email
+        $buyer = Buyer::whereEmail($this->request->input('billing.email'))->get();
 
-        if ($user->isEmpty()) {
-            $user = new User();
-            $user->name = $this->request->input('billing.first_name');
-            $user->email = $this->request->input('billing.email');
+        if ($buyer->isEmpty()) {
+            $buyer = new Buyer();
+            $buyer->name = $this->request->input('billing.first_name');
+            $buyer->email = $this->request->input('billing.email');
         } else {
-            $user = $user->first();
+            $buyer = $buyer->first();
         }
 
         $billing = new Billing();
@@ -295,7 +295,7 @@ class OrderService
         $billing->country = $this->request->billing['country'];
         $billing->province = $this->request->billing['province'];
         $this->billing = $billing;
-        $user->billing()->associate($billing);
+        $buyer->billing()->associate($billing);
 
         $data = $this->request->shipping;
         if ($this->request->check_shipping == 'true') {
@@ -312,11 +312,11 @@ class OrderService
         $shipping->country = $data['country'];
         $shipping->province = $data['province'];
         $this->shipping = $shipping;
-        $user->shipping()->associate($shipping);
+        $buyer->shipping()->associate($shipping);
 
-        $user->save();
+        $buyer->save();
 
-        $this->user = $user;
+        $this->buyer = $buyer;
     }
 
     /**

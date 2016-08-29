@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Jenssegers\Mongodb\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 /**
@@ -41,19 +40,4 @@ class User extends Model implements
         'password', 'remember_token',
     ];
 
-    /**
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
-     */
-    public function billing()
-    {
-        return $this->embedsMany(Billing::class);
-    }
-
-    /**
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
-     */
-    public function shipping()
-    {
-        return $this->embedsMany(Shipping::class);
-    }
 }

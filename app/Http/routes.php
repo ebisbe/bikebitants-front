@@ -1,7 +1,7 @@
 <?php
 
 /** Admin */
-Route::group(['domain' => 'admin.' . env('DOMAIN')], function () {
+Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
     Route::auth();
     Route::group(['namespace' => 'Admin'], function () {
         Route::get('/', 'AdminController@dashboard')->name('admin.dashboard');
