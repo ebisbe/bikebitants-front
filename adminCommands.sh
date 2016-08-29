@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+php artisan crud:generate Brand --fields="name#string#required, slug#string, description#text#required, filename#string#required, featured#boolean#required, meta_title#string#required, meta_description#text#required, meta_keywords#string#required" --route=yes --pk=_id --view-path="admin" --namespace=Admin

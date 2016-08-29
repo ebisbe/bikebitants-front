@@ -171,7 +171,8 @@ return [
         App\Providers\CollectionMacrosProvider::class,
         Awjudd\FeedReader\FeedReaderServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
-        App\Providers\CustomValidationsProvider::class
+        App\Providers\CustomValidationsProvider::class,
+        Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
 
     ],
 

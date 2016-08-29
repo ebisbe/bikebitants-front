@@ -1,0 +1,147 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceHttp\Requests;
+
+use DummyRootNamespace{{modelName}};
+use Illuminate\Http\Request;
+use Session;
+use BreadCrumbLinks;
+use Breadcrumbs;
+use Title;
+
+class DummyClass extends AdminController
+{
+    /**
+     * Initialize middleware
+     */
+    public function __construct() {
+        $this->middleware('auth');
+        parent::__construct();
+        Breadcrumbs::addCrumb('{{modelName}}', '/{{crudName}}');
+        BreadCrumbLinks::set(['href' => url('{{crudName}}/create'), 'value' => '<i class="icon-new position-left"></i> {{modelName}}']);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        //$this->isAuthorized('{{crudName}}.index');
+        Title::setSemiBold('{{modelName}}');
+        return view('{{viewPath}}{{crudName}}.index');
+    }
+
+    /**
+    * Return all data for index DataTable filtering and sorting
+    *
+    * @return array
+    */
+    public function dataTable() {
+        //$this->isAuthorized('{{crudName}}.data-table');
+        return ['data' => {{modelName}}::all()];
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        //$this->isAuthorized('{{crudName}}.create');
+        Breadcrumbs::addCrumb('Create');
+        Title::setSemiBold('New {{modelName}}');
+        Title::useLeftArrow(true);
+        return view('{{viewPath}}{{crudName}}.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function store(Request $request)
+    {
+        //$this->isAuthorized('{{crudName}}.store');
+        {{validationRules}}
+        {{modelName}}::create($request->all());
+
+        Session::flash('flash_message', '{{modelName}} added!');
+
+        return redirect('{{routeGroup}}{{crudName}}');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id)
+    {
+        //$this->isAuthorized('{{crudName}}.show');
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+        Breadcrumbs::addCrumb('View', '/{{crudName}}/'.${{crudNameSingular}}->id);
+        Title::setSemiBold(${{crudNameSingular}}->name);
+        Title::useLeftArrow(true);
+        return view('{{viewPath}}{{crudName}}.show', compact('{{crudNameSingular}}'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        //$this->isAuthorized('{{crudName}}.edit');
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+        Breadcrumbs::addCrumb('Edit', '/{{crudName}}/'.${{crudNameSingular}}->id);
+        Title::setSemiBold(${{crudNameSingular}}->name);
+        Title::useLeftArrow(true);
+        return view('{{viewPath}}{{crudName}}.edit', compact('{{crudNameSingular}}'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function update($id, Request $request)
+    {
+        //$this->isAuthorized('{{crudName}}.update');
+        {{validationRules}}
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+        ${{crudNameSingular}}->update($request->all());
+        Session::flash('flash_message', '{{modelName}} updated!');
+
+        return redirect('{{routeGroup}}{{crudName}}');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function destroy($id)
+    {
+        $this->isAuthorized('{{crudName}}.destroy');
+        {{modelName}}::destroy($id);
+
+        Session::flash('flash_message', '{{modelName}} deleted!');
+
+        return redirect('{{routeGroup}}{{crudName}}');
+    }
+
+}
