@@ -17,6 +17,13 @@ use Jenssegers\Mongodb\Eloquent\Builder;
 class Brand extends Model
 {
     /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'slug', 'description', 'filename', 'featured', 'meta_title', 'meta_description', 'meta_keywords'];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function products()

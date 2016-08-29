@@ -172,12 +172,12 @@
 
 </div>
 <!-- /page container -->
-{!! Html::script('/js/underscore.js') !!}
+{{--{!! Html::script('/js/underscore.js') !!}--}}
 {!! Html::script('/assets/js/plugins/forms/selects/select2.min.js') !!}
 <script type="text/javascript">
-    _.templateSettings = {
+    /*_.templateSettings = {
         interpolate: /\{\{(.+?)\}\}/g
-    };
+    };*/
 
     $('.select').select2({
         minimumResultsForSearch: Infinity

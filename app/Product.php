@@ -21,7 +21,6 @@ use Jenssegers\Mongodb\Eloquent\Builder;
 class Product extends Model
 {
 
-
     protected $appends = ['range_price', 'tags_list', 'currency'];
 
     /**

@@ -3,9 +3,9 @@
 /** Admin */
 Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
     Route::auth();
-    Route::group(['namespace' => 'Admin'], function () {
-        Route::get('/', 'AdminController@dashboard')->name('admin.dashboard');
-    });
+    Route::get('/', 'Admin\\AdminController@dashboard')->name('admin.dashboard');
+    Route::get('brand/data-table', 'Admin\\BrandController@dataTable')->name('brand.data-table');
+    Route::resource('brand', 'Admin\\BrandController');
 });
 /** END Admin */
 

@@ -5,14 +5,13 @@ use App\AttributeValue;
 use App\Brand;
 use App\BrandService;
 use App\Category;
-use App\Color;
 use App\Coupon;
 use App\Image;
 use App\Label;
 use App\Product;
 use App\Review;
 use App\ShippingMethod;
-use App\Size;
+use App\User;
 use App\Variation;
 use App\Zone;
 use Illuminate\Database\Seeder;
@@ -46,6 +45,12 @@ class DatabaseSeeder extends Seeder
         $this->categories();
         $this->discounts();
         $this->zones();
+
+        factory(User::class)->create([
+            'name' => 'Admin',
+            'email' => 'enricu@gmail.com',
+            'password' => bcrypt('123456'),
+        ]);
     }
 
     /**
