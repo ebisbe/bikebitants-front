@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
+use Breadcrumbs;
 
 class AdminController extends BaseController
 {
@@ -15,7 +16,16 @@ class AdminController extends BaseController
     public function __construct()
     {
         $this->middleware('auth');
+        Breadcrumbs::addCrumb('<i class="icon-home2 position-left"></i> Dashboard', '/');
+        Breadcrumbs::setCssClasses('breadcrumb');
+        Breadcrumbs::setDivider('');
     }
+
+    /*public function isAuthorized($routeName) {
+        if(!\Auth::user()->canDo($routeName)) {
+            abort(403, 'Unauthorized action.');
+        }
+    }*/
 
     public function dashboard()
     {
