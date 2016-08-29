@@ -17,10 +17,11 @@ class CartMiddleware
     public function handle($request, Closure $next)
     {
         $condition = new \Darryldecode\Cart\CartCondition([
-            'name' => 'VAT 12.5%',
+            'name' => '[21%] IVA',
             'type' => 'tax',
             'target' => 'subtotal',
-            'value' => '12.5%',
+            'value' => '21%',
+            'order' => 5
         ]);
         Cart::condition($condition);
 

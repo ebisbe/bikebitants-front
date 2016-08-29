@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Business\MongoEloquentModel as Model;
-use Cart;
 use Darryldecode\Cart\CartCondition;
 use MongoDB\BSON\UTCDatetime;
 
@@ -23,9 +22,14 @@ class Coupon extends Model
     /**
      * Add to cart conditions a valid couponName
      * @param $couponName
+     * @return bool
      */
     public static function addToCart($couponName)
     {
+        if(empty($couponName)) {
+            return false;
+        }
+
         $coupon = Coupon::whereName($couponName)->first();
 
         $condition = new CartCondition([
@@ -33,7 +37,10 @@ class Coupon extends Model
             'type' => $coupon->type,
             'target' => $coupon->target,
             'value' => $coupon->value,
+            'order' => 1
         ]);
-        Cart::condition($condition);
+        \Cart::condition($condition);
+
+        return true;
     }
 }

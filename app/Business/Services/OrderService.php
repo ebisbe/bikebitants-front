@@ -163,10 +163,7 @@ class OrderService
         $this->getUser();
         $this->getOrder();
 
-        $couponName = $this->request->input('coupon', '');
-        if (!empty($couponName)) {
-            Coupon::addToCart($couponName);
-        }
+        Coupon::addToCart($this->request->input('coupon', ''));
 
         $this->order->status = Order::ValidData;
         $this->order->user()->associate($this->user);

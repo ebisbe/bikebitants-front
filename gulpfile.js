@@ -1,4 +1,6 @@
 var elixir = require('laravel-elixir');
+elixir.config.sourcemaps = false;
+require('laravel-elixir-vueify');
 
 /*
  |--------------------------------------------------------------------------
@@ -26,6 +28,7 @@ elixir(function (mix) {
         .copy('vendor/bower_components/twitter-fetcher/js/twitterFetcher.js', 'resources/assets/js/bower/twitterFetcher.js')
         .copy('vendor/bower_components/underscore/underscore.js', 'resources/assets/js/bower/underscore.js')
         .copy('vendor/bower_components/pnotify/dist/pnotify.js', 'resources/assets/js/bower/pnotify.js')
+        .copy('vendor/bower_components/vue/dist/vue.js', 'resources/assets/js/bower/vue.js')
 
         //css
         .copy('vendor/bower_components/bootstrap/dist/css/bootstrap.css', 'resources/assets/css/bower/bootstrap.css')
@@ -44,6 +47,7 @@ elixir(function (mix) {
 
         //files
         .copy('resources/assets/images', 'public/build/images/')
+        .browserify('shop_vue.js', 'resources/assets/js/bower/vue_main.js')
 
         .scripts([
             'bower/jquery.js',
@@ -59,8 +63,10 @@ elixir(function (mix) {
             'bower/jquery.mb.YTPlayer.js',
             'bower/underscore.js',
             'bower/pnotify.js',
+            'bower/vue.js',
             'custom.js',
-            'shop.js'
+            'shop.js',
+            'bower/vue_main.js'
         ])
 
         .styles([

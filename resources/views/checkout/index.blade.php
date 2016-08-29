@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-8">
+                            <div id="js-shipping" class="col-sm-8 ">
                                 <h3>Billing Information</h3>
                                 <div class="products-order checkout billing-information">
                                     <button class="btn btn-primary addresses-toggle" type="button"
@@ -115,12 +115,12 @@
                                         </div>
                                         <div class="form-group col-sm-6 {{ $errors->has('billing.country') ? 'has-error' : ''}}">
                                             {{ Form::label('billing[country]', 'Country <span class="required">*</span>', [], false) }}
-                                            {{ Form::select('billing[country]', $countries, 'ES', ['class' => 'form-control']) }}
+                                            {{ Form::select('billing[country]', $countries, 'ES', ['class' => 'form-control js-country']) }}
                                             {!! $errors->first('billing.country', '<p class="help-block">:message</p>') !!}
                                         </div>
-                                        <div class="form-group col-sm-6 {{ $errors->has('billing.province') ? 'has-error' : ''}}">
+                                        <div class="form-group col-sm-6  {{ $errors->has('billing.province') ? 'has-error' : ''}}">
                                             {{ Form::label('billing[province]', 'Province <span class="required">*</span>', [], false) }}
-                                            {{ Form::select('billing[province]', $provinces, 'B', ['class' => 'form-control']) }}
+                                            {{ Form::select('billing[province]', $provinces, 'B', ['class' => 'form-control js-change', 'data-token' => csrf_token()]) }}
                                             {!! $errors->first('billing.province', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
@@ -287,13 +287,7 @@
                                             </tbody>
                                         </table>
                                         <div class="">
-                                            <ul class="list-unstyled order-total">
-                                                <li>Total products<span>{{ Cart::getSubTotal() }} &euro;</span></li>
-                                                @foreach(Cart::getConditions() as $condition)
-                                                    <li>{{ $condition->getName() }}<span>{{ $condition->getValue() }}</span></li>
-                                                @endforeach
-                                                <li>Total<span class="total">{{ Cart::getTotal() }}&euro;</span></li>
-                                            </ul>
+                                            <total-checkout></total-checkout>
                                         </div>
                                     </div>
                                 </div>

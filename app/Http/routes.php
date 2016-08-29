@@ -21,6 +21,7 @@ Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store', 
 Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 Route::resource('coupon', 'CouponController', ['only' => ['store']]);
+Route::resource('cart-conditions', 'CartConditionsController', ['only' => ['index', 'store']]);
 
 Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
     ->where(array('filename' => '[ \w\\.\\/\\-\\@]+', 'filter' => 'original|download|[0-9]+\/[0-9]+|[0-9]+'))

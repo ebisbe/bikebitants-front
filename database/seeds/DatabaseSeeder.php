@@ -219,11 +219,11 @@ class DatabaseSeeder extends Seeder
                 'region' => ['C', 'VI', 'AB', 'A', 'AL', 'O', 'AV', 'BA', 'B', 'BU', 'CC', 'CA', 'S', 'CS', 'CR', 'CO', 'CU', 'GI', 'GR', 'GU', 'SS', 'H', 'HU', 'J', 'LO', 'LE', 'L', 'LU', 'M', 'MA', 'MU', 'NA', 'OR', 'P', 'PO', 'SA', 'SG', 'SE', 'SO', 'T', 'TE', 'TO', 'V', 'VA', 'BI', 'ZA', 'Z'],
                 'shippingMethods' => collect([
                     [   'name' => 'Envío 24-48 horas',
-                        'cost' => 3,305785123966942,
-                        'free_shipping' => 0],
+                        'cost' => 3.305785123966942,
+                        'price_condition' => 0],
                     [   'name' => 'Envío gratuito 24-48 horas',
-                        'cost' => 25,
-                        'free_shipping' => 1]
+                        'cost' => 0,
+                        'price_condition' => 25]
                 ])
             ],
             [
@@ -231,11 +231,11 @@ class DatabaseSeeder extends Seeder
                 'region' => ['PM'],
                 'shippingMethods' => collect([
                     [   'name' => 'Envío 3-4 días',
-                        'cost' => 8,264462809917355,
-                        'free_shipping' => 0],
+                        'cost' => 8.264462809917355,
+                        'price_condition' => 0],
                     [   'name' => 'Envío gratuito 3-4 dias',
-                        'cost' => 25,
-                        'free_shipping' => 1]
+                        'cost' => 0,
+                        'price_condition' => 25]
                 ])
             ],
             [
@@ -244,7 +244,7 @@ class DatabaseSeeder extends Seeder
                 'shippingMethods' => collect([
                     [   'name' => 'Envío 3-4 dias',
                         'cost' => 25,
-                        'free_shipping' => 0]
+                        'price_condition' => 0]
                 ])
             ],
             [
@@ -253,7 +253,7 @@ class DatabaseSeeder extends Seeder
                 'shippingMethods' => collect([
                     [   'name' => 'Envío 3-4 dias',
                         'cost' => 25,
-                        'free_shipping' => 0]
+                        'price_condition' => 0]
                 ])
             ],
         ]);
@@ -269,7 +269,7 @@ class DatabaseSeeder extends Seeder
                 $shippingMethod = factory(ShippingMethod::class)->make([
                     'name' => $item['name'],
                     'cost' => $item['cost'],
-                    'free_shipping' => $item['free_shipping'],
+                    'price_condition' => $item['price_condition'],
                 ]);
                 $zone->shippingMethods()->save($shippingMethod);
             });

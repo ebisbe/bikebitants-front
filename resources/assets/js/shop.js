@@ -134,4 +134,16 @@ $(document).ready(function () {
         var that = $(this);
         that.parents('form').submit();
     });
+
+    $('#js-shipping').on('change', '.js-change', function (event) {
+        var that = $(this);
+        var country = $('.js-country').val();
+        var region = that.val();
+        var token = that.data('token');
+
+        $('#vue-token').val(token).trigger('change');
+        $('#vue-country').val(country).trigger('change');
+        $('#vue-region').val(region).trigger('change');
+    });
+
 });
