@@ -8,7 +8,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use MetaTag;
-use BreadCrumbLinks;
+use Breadcrumbs;
 use App\Http\Requests;
 use Illuminate\Routing\Route;
 use Awjudd\FeedReader\Facades\FeedReader;
@@ -21,7 +21,10 @@ class ShopController extends Controller
      */
     public function __construct()
     {
-        BreadCrumbLinks::set(['href' => route('shop.home'), 'value' => 'Home']);
+        Breadcrumbs::setCssClasses('breadcrumb');
+        Breadcrumbs::setListElement('ol');
+        Breadcrumbs::setDivider('');
+        Breadcrumbs::addCrumb('Home', route('shop.home'));
     }
 
     /**
@@ -53,10 +56,10 @@ class ShopController extends Controller
     {
         $product = $product::with('category.father')->whereSlug($slug)->firstOrFail();
 
-        BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
-        BreadCrumbLinks::set(['href' => route('shop.category', ['category' => $product->category->father->slug]), 'value' => $product->category->father->name]);
-        BreadCrumbLinks::set(['href' => route('shop.subcategory', ['category' => $product->category->father->slug, 'subcategory' => $product->category->slug]), 'value' => $product->category->name]);
-        BreadCrumbLinks::set(['value' => $product->name]);
+        Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
+        Breadcrumbs::addCrumb($product->category->father->name, route('shop.category', ['category' => $product->category->father->slug]));
+        Breadcrumbs::addCrumb($product->category->name, route('shop.subcategory', ['category' => $product->category->father->slug, 'subcategory' => $product->category->slug]));
+        Breadcrumbs::addCrumb($product->name);
 
         MetaTag::set('title', $product->meta_title);
         MetaTag::set('description', $product->meta_description);
@@ -99,7 +102,7 @@ class ShopController extends Controller
      */
     public function shop(Request $request, ProductSearch $productSearch, Route $route, Category $category)
     {
-        BreadCrumbLinks::set(['value' => 'Shop']);
+        Breadcrumbs::addCrumb('Shop');
 
         $title = 'Home';
         $subtitle = 'Shop';
@@ -128,8 +131,8 @@ class ShopController extends Controller
     {
         /** @var Category $cat */
         $cat = Category::whereSlug($slugCategory)->first();
-        BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
-        BreadCrumbLinks::set(['href' => route('shop.category', ['category' => $cat->slug]), 'value' => $cat->name]);
+        Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
+        Breadcrumbs::addCrumb($cat->name, route('shop.category', ['category' => $cat->slug]));
 
         MetaTag::set('title', $cat->meta_title);
         MetaTag::set('description', $cat->meta_description);
@@ -162,9 +165,9 @@ class ShopController extends Controller
         $cat = Category::whereSlug($slugCategory)->first();
         $subCat = Category::whereSlug($slugSubCategory)->first();
 
-        BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
-        BreadCrumbLinks::set(['href' => route('shop.category', ['category' => $cat->slug]), 'value' => $cat->name]);
-        BreadCrumbLinks::set(['value' => $subCat->name]);
+        Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
+        Breadcrumbs::addCrumb($cat->name, route('shop.category', ['category' => $cat->slug]));
+        Breadcrumbs::addCrumb($subCat->name);
 
         MetaTag::set('title', $subCat->meta_title);
         MetaTag::set('description', $subCat->meta_description);

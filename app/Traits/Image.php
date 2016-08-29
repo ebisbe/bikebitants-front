@@ -16,7 +16,7 @@ trait Image
      *
      * @param  string $filter
      * @param  string $filename
-     * @return Illuminate\Http\Response
+     * @return IlluminateResponse
      */
     public function getResponse($filter, $filename)
     {
@@ -37,7 +37,7 @@ trait Image
      *
      * @param  string $filter
      * @param  string $filename
-     * @return Illuminate\Http\Response
+     * @return IlluminateResponse
      */
     public function getImage($filter, $filename)
     {
@@ -74,7 +74,7 @@ trait Image
      * Get HTTP response of original image file
      *
      * @param  string $filename
-     * @return Illuminate\Http\Response
+     * @return IlluminateResponse
      */
     public function getOriginal($filename)
     {
@@ -85,7 +85,7 @@ trait Image
      * Get HTTP response of original image as download
      *
      * @param  string $filename
-     * @return Illuminate\Http\Response
+     * @return IlluminateResponse
      */
     public function getDownload($filename)
     {
@@ -101,7 +101,7 @@ trait Image
      * Builds HTTP response from given image data
      *
      * @param  string $content
-     * @return Illuminate\Http\Response
+     * @return IlluminateResponse
      */
     private function buildResponse($content)
     {

@@ -9,7 +9,7 @@
                 <p>{{ $subtitle }}</p>
             </div>
             <div class="col-xs-6">
-                {!! BreadCrumbLinks::render('breadcrumb', 'ol') !!}
+                {!! Breadcrumbs::render() !!}
             </div>
         </div>
     </div>
