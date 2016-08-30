@@ -8,6 +8,16 @@ class BreadCrumbLinks
     var $links = null;
     var $render = false;
 
+    /** @param string $class */
+    var $cssClass = 'breadcrumb-elements';
+    /** @param string $listType */
+    var $listType = 'ul';
+    /** @param boolean $lastElementWithoutLink */
+    var $lastElementWithoutLink = false;
+
+    /**
+     * BreadCrumbLinks constructor.
+     */
     public function __construct()
     {
         $this->links = collect();
@@ -21,6 +31,32 @@ class BreadCrumbLinks
     {
         $this->links->push(array_merge($this->getDefaultParameters(), $parameters));
         $this->render = true;
+    }
+
+    /**
+     * Define the main css clas for the breadcrumb list
+     * @param $cssClass
+     */
+    public function setCssClasses($cssClass) {
+        $this->cssClass = $cssClass;
+    }
+
+    /**
+     * Define the list type for the breadcrumb list
+     * @param $listType
+     */
+    public function setListType($listType)
+    {
+        $this->listType = $listType;
+    }
+
+    /**
+     * Define whether the last element should or not should have a link independently that has href property
+     * @param $lastElementWithoutLink
+     */
+    public function setLastElementWithoutLink($lastElementWithoutLink)
+    {
+        $this->lastElementWithoutLink = $lastElementWithoutLink;
     }
 
     public function getDefaultParameters()
@@ -42,21 +78,23 @@ class BreadCrumbLinks
     }
 
     /**
-     * Render all the links from the collection. The last one will never be a link
-     * @param string $class
-     * @param string $listType
+     * Render all the links from the collection. Last element can be set to not have a link
      * @return string
      */
-    public function render($class = 'breadcrumb-elements', $listType = 'ul')
+    public function render()
     {
         if (!$this->render) {
             return '';
         }
-        $last = $this->links->count() - 1;
+        if ($this->lastElementWithoutLink) {
+            $last = $this->links->count() - 1;
+        } else {
+            $last = -1;
+        }
 
         $links = $this->links
             ->map(function ($value, $key) use ($last) {
-                if($value['href'] && $key != $last) {
+                if ($value['href'] && $key != $last) {
                     $text = "<a href='{$value['href']}' class='{$value['class']}'>{$value['value']}</a>";
                 } else {
                     $text = $value['value'];
@@ -67,6 +105,6 @@ class BreadCrumbLinks
             })
             ->implode('');
 
-        return '<' . $listType . ' class="' . $class . '">' . $links . '</' . $listType . '>';
+        return '<' . $this->listType . ' class="' . $this->cssClass . '">' . $links . '</' . $this->listType . '>';
     }
 }
