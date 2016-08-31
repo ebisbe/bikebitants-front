@@ -16,7 +16,8 @@ class DummyClass extends AdminController
     /**
      * Initialize middleware
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
         parent::__construct();
         Breadcrumbs::addCrumb('{{modelName}}', '/{{crudName}}');
@@ -61,6 +62,8 @@ class DummyClass extends AdminController
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -112,7 +115,8 @@ class DummyClass extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int  $id
+     * @param Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -136,7 +140,7 @@ class DummyClass extends AdminController
      */
     public function destroy($id)
     {
-        $this->isAuthorized('{{crudName}}.destroy');
+        //$this->isAuthorized('{{crudName}}.destroy');
         {{modelName}}::destroy($id);
 
         Session::flash('flash_message', '{{modelName}} deleted!');

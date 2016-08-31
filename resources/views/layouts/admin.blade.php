@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ env('APP_ENV_STRING') }}Adinton</title>
+    <title>{{ env('APP_ENV_STRING') }} Bikebitants</title>
 
     <!-- Global stylesheets -->
     {!! Html::style('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900') !!}
@@ -25,6 +25,7 @@
     {!! Html::script('/assets/js/core/libraries/bootstrap.min.js') !!}
     {!! Html::script('/assets/js/plugins/loaders/pace.min.js') !!}
     {!! Html::script('/assets/js/plugins/loaders/blockui.min.js') !!}
+    {!! Html::script('/assets/js/plugins/forms/styling/uniform.min.js') !!}
     {!! Html::script('/assets/js/core/app.js') !!}
             <!-- /core JS files -->
     <!-- Header custom scripts -->
@@ -157,7 +158,7 @@
 
                             <!-- Footer -->
                     <div class="footer text-muted">
-                        &copy; 2016. <a href="http://www.adinton.com">Adinton</a> All rights reserved.
+                        &copy; 2016. <a href="http://www.adinton.com">Bikebitants</a> All rights reserved.
                     </div>
                     <!-- /footer -->
 
@@ -181,6 +182,14 @@
 
     $('.select').select2({
         minimumResultsForSearch: Infinity
+    });
+
+    $(".styled").uniform({ radioClass: 'choice' });
+
+    // File input
+    $(".file-styled").uniform({
+        fileButtonHtml: '<i class="icon-googleplus5"></i>',
+        wrapperClass: 'bg-warning'
     });
 </script>
 @stack('footer.scripts')

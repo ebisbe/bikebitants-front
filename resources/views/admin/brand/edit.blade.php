@@ -23,10 +23,11 @@
             {!! Form::model($brand, [
                 'method' => 'PATCH',
                 'url' => ['brand', $brand->_id],
-                'class' => 'form-horizontal'
+                'class' => 'form-horizontal',
+                'files' => true
             ]) !!}
 
-                        <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+            <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                 {!! Form::label('name', 'Name', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) !!}
@@ -48,23 +49,41 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('filename') ? 'has-error' : ''}}">
-                {!! Form::label('filename', 'Filename', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::text('filename', null, ['class' => 'form-control', 'required' => 'required']) !!}
-                    {!! $errors->first('filename', '<p class="help-block">:message</p>') !!}
+                {!! Form::label('filename', 'Brand Image', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-lg-6">
+                    <div class="media no-margin-top">
+                        <div class="media-left">
+                            <a href="#">
+                                <img src="/img/58/{{ $brand->filename }}"
+                                     style="width: 58px; height: 58px;"
+                                     class="img-rounded" alt="">
+                            </a>
+                        </div>
+
+                        <div class="media-body">
+                            <div class="uploader bg-warning">
+                                {!! Form::file('filename', ['class' => 'form-control file-styled', 'required' => 'required']) !!}
+                            </div>
+                            <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                            {!! $errors->first('filename', '<p class="help-block">:message</p>') !!}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group {{ $errors->has('featured') ? 'has-error' : ''}}">
                 {!! Form::label('featured', 'Featured', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                                <div class="checkbox">
-                <label>{!! Form::radio('featured', '1') !!} Yes</label>
-            </div>
-            <div class="checkbox">
-                <label>{!! Form::radio('featured', '0', true) !!} No</label>
-            </div>
-                    {!! $errors->first('featured', '<p class="help-block">:message</p>') !!}
+                <div class="col-lg-6">
+                    <label class="radio-inline">
+                        {!! Form::radio('featured', '1', null, ['class' => 'styled']) !!}
+                        Yes
+                    </label>
+
+                    <label class="radio-inline">
+                        {!! Form::radio('featured', '0', true, ['class' => 'styled']) !!}
+                        No
+                    </label>
                 </div>
+                {!! $errors->first('featured', '<p class="help-block">:message</p>') !!}
             </div>
             <div class="form-group {{ $errors->has('meta_title') ? 'has-error' : ''}}">
                 {!! Form::label('meta_title', 'Meta Title', ['class' => 'col-sm-3 control-label']) !!}

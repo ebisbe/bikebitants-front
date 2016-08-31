@@ -25,7 +25,7 @@ class CrudViewCommandCustom extends CrudViewCommand
                                         'url' => \"/%%routeGroup%%%%crudName%%/full_id\" ,
                                         'style' => 'display:inline'
                                     ]) !!}{!! Form::button('<i class=\"icon-bin\" alt=\"edit\"></i>', ['type' => 'submit', 'class' => 'btn btn-xs btn-link']) !!}{!! Form::close() !!}';
-                            return view_btn + '&nbsp;' + edit_btn + '&nbsp;' + delete_btn.replace('full_id', full.id);
+                            return view_btn + '&nbsp;' + edit_btn + '&nbsp;' + delete_btn.replace('full_id', full._id);
                         }
                     }";
                     $columnsDefs[] = "'{$field['name']}'";

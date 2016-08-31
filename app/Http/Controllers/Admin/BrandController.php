@@ -13,14 +13,16 @@ use Title;
 
 class BrandController extends AdminController
 {
+
     /**
      * Initialize middleware
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
         parent::__construct();
         Breadcrumbs::addCrumb('Brand', '/brand');
-        BreadCrumbLinks::set(['href' => url('brand/create'), 'value' => '<i class="icon-new position-left"></i> Brand']);
+        BreadCrumbLinks::set(['href' => route('brand.create'), 'value' => '<i class="icon-new position-left"></i> Brand']);
     }
 
     /**
@@ -36,11 +38,12 @@ class BrandController extends AdminController
     }
 
     /**
-    * Return all data for index DataTable filtering and sorting
-    *
-    * @return array
-    */
-    public function dataTable() {
+     * Return all data for index DataTable filtering and sorting
+     *
+     * @return array
+     */
+    public function dataTable()
+    {
         //$this->isAuthorized('brand.data-table');
         return ['data' => Brand::all()];
     }
@@ -62,14 +65,27 @@ class BrandController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function store(Request $request)
     {
         //$this->isAuthorized('brand.store');
-        $this->validate($request, ['name' => 'required', 'description' => 'required', 'filename' => 'required', 'featured' => 'required', 'meta_title' => 'required', 'meta_description' => 'required', 'meta_keywords' => 'required', ]);
+        $this->validate($request, [
+            'name' => 'required',
+            'slug' => 'required',
+            'description' => 'required',
+            'filename' => 'required|image',
+            'featured' => 'required',
+            'meta_title' => 'required',
+            'meta_description' => 'required',
+            'meta_keywords' => 'required'
+        ]);
 
-        Brand::create($request->all());
+        $data = $request->all();
+        $data['filename'] = $this->saveImage($request);;
+        Brand::create($data);
 
         Session::flash('flash_message', 'Brand added!');
 
@@ -79,7 +95,7 @@ class BrandController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -87,7 +103,7 @@ class BrandController extends AdminController
     {
         //$this->isAuthorized('brand.show');
         $brand = Brand::findOrFail($id);
-        Breadcrumbs::addCrumb('View', '/brand/'.$brand->id);
+        Breadcrumbs::addCrumb('View', '/brand/' . $brand->id);
         Title::setSemiBold($brand->name);
         Title::useLeftArrow(true);
         return view('admin.brand.show', compact('brand'));
@@ -96,7 +112,7 @@ class BrandController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -104,7 +120,7 @@ class BrandController extends AdminController
     {
         //$this->isAuthorized('brand.edit');
         $brand = Brand::findOrFail($id);
-        Breadcrumbs::addCrumb('Edit', '/brand/'.$brand->id);
+        Breadcrumbs::addCrumb('Edit', '/brand/' . $brand->id);
         Title::setSemiBold($brand->name);
         Title::useLeftArrow(true);
         return view('admin.brand.edit', compact('brand'));
@@ -113,17 +129,29 @@ class BrandController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     * @param Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function update($id, Request $request)
     {
         //$this->isAuthorized('brand.update');
-        $this->validate($request, ['name' => 'required', 'description' => 'required', 'filename' => 'required', 'featured' => 'required', 'meta_title' => 'required', 'meta_description' => 'required', 'meta_keywords' => 'required', ]);
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'filename' => 'required',
+            'featured' => 'required',
+            'meta_title' => 'required',
+            'meta_description' => 'required',
+            'meta_keywords' => 'required'
+        ]);
 
         $brand = Brand::findOrFail($id);
-        $brand->update($request->all());
+
+        $data = $request->all();
+        $data['filename'] = $this->saveImage($request);
+        $brand->update($data);
         Session::flash('flash_message', 'Brand updated!');
 
         return redirect('brand');
@@ -132,13 +160,13 @@ class BrandController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function destroy($id)
     {
-        $this->isAuthorized('brand.destroy');
+        //$this->isAuthorized('brand.destroy');
         Brand::destroy($id);
 
         Session::flash('flash_message', 'Brand deleted!');
@@ -146,4 +174,20 @@ class BrandController extends AdminController
         return redirect('brand');
     }
 
+    /**
+     * Checks if the request has a file and isValid(). Saves the file to the storage.
+     * @param Request $request
+     * @return string $filename
+     */
+    private function saveImage(Request $request)
+    {
+        if (!$request->hasFile('filename') || !$request->file('filename')->isValid()) {
+            redirect()->back(422)->withErrors(['msg', 'Error uploading the image.']);
+        }
+
+        $filename = $request->input('slug') . '.' . $request->file('filename')->getClientOriginalExtension();
+        $request->file('filename')->move(storage_path('app'), $filename);
+
+        return $filename;
+    }
 }
