@@ -11,6 +11,9 @@ Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
     Route::get('coupon/types', 'Admin\\CouponController@types')->name('coupon.types');
     Route::get('coupon/data-table', 'Admin\\CouponController@dataTable')->name('coupon.data-table');
     Route::resource('coupon', 'Admin\\CouponController');
+
+    Route::get('lead/data-table', 'Admin\\LeadController@dataTable')->name('lead.data-table');
+    Route::resource('lead', 'Admin\\LeadController');
 });
 /** END Admin */
 
