@@ -26,7 +26,13 @@
     {!! Html::script('/assets/js/plugins/loaders/pace.min.js') !!}
     {!! Html::script('/assets/js/plugins/loaders/blockui.min.js') !!}
     {!! Html::script('/assets/js/plugins/forms/styling/uniform.min.js') !!}
+    {!! Html::script('/assets/js/plugins/forms/tags/tokenfield.min.js') !!}
+    {!! Html::script('/assets/js/plugins/ui/moment/moment.min.js') !!}
+    {!! Html::script('/assets/js/plugins/pickers/daterangepicker.js') !!}
+    {!! Html::script('/assets/js/plugins/forms/inputs/touchspin.min.js') !!}
+    {!! Html::script('/assets/js/plugins/forms/selects/select2.min.js') !!}
     {!! Html::script('/assets/js/core/app.js') !!}
+
             <!-- /core JS files -->
     <!-- Header custom scripts -->
     @stack('header.scripts')
@@ -174,22 +180,53 @@
 </div>
 <!-- /page container -->
 {{--{!! Html::script('/js/underscore.js') !!}--}}
-{!! Html::script('/assets/js/plugins/forms/selects/select2.min.js') !!}
 <script type="text/javascript">
     /*_.templateSettings = {
-        interpolate: /\{\{(.+?)\}\}/g
-    };*/
+     interpolate: /\{\{(.+?)\}\}/g
+     };*/
 
     $('.select').select2({
         minimumResultsForSearch: Infinity
     });
 
-    $(".styled").uniform({ radioClass: 'choice' });
+    $(".styled").uniform({radioClass: 'choice'});
 
     // File input
     $(".file-styled").uniform({
         fileButtonHtml: '<i class="icon-googleplus5"></i>',
         wrapperClass: 'bg-warning'
+    });
+
+    $('.tokenfield').tokenfield();
+    $('.tokenfield-email')
+            .on('tokenfield:createdtoken', function (e) {
+                var re = {{ StaticVars::emailValidation() }}
+                var valid = re.test(e.attrs.value)
+                if (!valid) {
+                    $(e.relatedTarget).addClass('invalid')
+                }
+            })
+            .tokenfield({
+                'inputType': 'email'
+            });
+
+    // Single picker
+    $('.daterange-single').daterangepicker({
+        singleDatePicker: true,
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
+    });
+
+    $.each($('.touchspin'), function () {
+        var minValue = $(this).data('min-value');
+        var maxValue = $(this).data('max-value');
+        $(this).TouchSpin({
+            min: minValue ? minValue : 0,
+            max: maxValue ? maxValue : 1000000,
+            step: 1,
+            decimals: 2
+        });
     });
 </script>
 @stack('footer.scripts')

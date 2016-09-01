@@ -32,7 +32,7 @@ class CouponValidator
     public function not_expired($attribute, $value, $parameters, $validator)
     {
         $coupon = $this->getCoupon($attribute, $validator);
-        $expiryDate = Carbon::createFromFormat('Y-m-d H:i:s',$coupon->expiry_date);
+        $expiryDate = Carbon::createFromFormat('Y-m-d H:i:s',$coupon->expired_at);
         return Carbon::now()->diffInSeconds($expiryDate, false) > 0 ? true : false;
     }
 

@@ -36,6 +36,8 @@ class StaticVars
 
     protected $imgWrapper = '<div class="item">{img}</div>';
 
+    public $emailValidation = '/^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4}(, )?)+$/';
+
     /**
      * @return string
      */

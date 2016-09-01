@@ -37,6 +37,8 @@ use Illuminate\Support\Collection;
  * @method static string layoutHeader($layoutHeader)
  * @method static string layoutTopHeader($layoutTopHeader)
  *
+ * @method static string emailValidation()
+ *
  *
  */
 class StaticVars extends Facade

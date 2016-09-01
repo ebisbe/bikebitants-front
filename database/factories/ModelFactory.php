@@ -214,22 +214,20 @@ $factory->define(Shipping::class, function(Generator $faker) {
 });
 
 $factory->define(Coupon::class, function(Generator $faker) {
-    $discount_value = $faker->numberBetween(4, 5);
-    $discount_type = collect([Coupon::DIRECT, Coupon::PERCENTAGE])->random();
+    $magnitude = $faker->numberBetween(-4, -5);
+    $type = collect([Coupon::DIRECT, Coupon::PERCENTAGE])->random();
     return [
         'name' => str_slug($faker->words(3, true)),
-        'type' => 'coupon',
-        'target' => 'subtotal',
-        'value' => "-{$discount_value}{$discount_type}",
-
-        'discount_value' => $discount_value,
-        'discount_type' => $discount_type,
-        'limit_usage_by_coupon' => 3,
-        'limit_usage_by_user' => 1,
-        'expiry_date' => New UTCDatetime(Carbon::now()->addDays(4)->timestamp * 1000) ,
+        'magnitude' => $magnitude,
+        'type' => $type,
+        'value' => "{$magnitude}{$type}",
+        'expired_at' => New UTCDatetime(Carbon::now()->addDays(4)->timestamp * 1000) ,
         'minimum_cart' => 0,
         'maximum_cart' => null,
-        'single_use' => true,
+
+        'limit_usage_by_coupon' => 3,
+        'limit_usage_by_user' => 1,
+        'single_use' => 1,
         'emails' => [ $faker->email, $faker->email, $faker->email ]
     ];
 });

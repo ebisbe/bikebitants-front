@@ -4,8 +4,13 @@
 Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
     Route::auth();
     Route::get('/', 'Admin\\AdminController@dashboard')->name('admin.dashboard');
+
     Route::get('brand/data-table', 'Admin\\BrandController@dataTable')->name('brand.data-table');
     Route::resource('brand', 'Admin\\BrandController');
+
+    Route::get('coupon/types', 'Admin\\CouponController@types')->name('coupon.types');
+    Route::get('coupon/data-table', 'Admin\\CouponController@dataTable')->name('coupon.data-table');
+    Route::resource('coupon', 'Admin\\CouponController');
 });
 /** END Admin */
 

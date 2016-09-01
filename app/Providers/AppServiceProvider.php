@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Business\Admin\BreadCrumbLinks;
 use App\Business\Admin\Title;
 use App\Business\StaticVars;
+use App\Coupon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Coupon::updating(function ($coupon) {
+            $coupon->emails = explode(',', $coupon->emails);
+            return $coupon;
+        });
+
         DB::connection('mongodb')->enableQueryLog();
     }
 
