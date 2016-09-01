@@ -14,6 +14,9 @@ Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
 
     Route::get('lead/data-table', 'Admin\\LeadController@dataTable')->name('lead.data-table');
     Route::resource('lead', 'Admin\\LeadController');
+
+    Route::get('country/data-table', 'Admin\\CountryController@dataTable')->name('country.data-table');
+    Route::resource('country', 'Admin\\CountryController');
 });
 /** END Admin */
 

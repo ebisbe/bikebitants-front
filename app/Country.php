@@ -7,6 +7,9 @@ use Jenssegers\Mongodb\Eloquent\Model;
 
 class Country extends Model
 {
+
+    protected $casts = ['active' => 'boolean'];
+
     /**
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
