@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Business\Admin\BreadCrumbLinks;
 use App\Business\Admin\Title;
 use App\Business\StaticVars;
+use App\Category;
 use App\Coupon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -18,9 +19,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Coupon::updating(function ($coupon) {
+        Coupon::saving(function ($coupon) {
             $coupon->emails = explode(',', $coupon->emails);
             return $coupon;
+        });
+
+        Category::saving(function($category) {
+            //Categories are created at parent level, never on child level
+            if(empty($category->order)) {
+                $category->order = Category::where('father_id', 'exists', false)->orderBy('order', 'desc')->first()->order + 1;
+            }
         });
 
         DB::connection('mongodb')->enableQueryLog();

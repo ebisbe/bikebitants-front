@@ -28,6 +28,9 @@
             <li><a href="{{ route('country.index') }}">
                     <i class="glyphicon glyphicon-globe"></i><span>Countries</span></a>
             </li>
+            <li><a href="{{ route('category.index') }}">
+                    <i class="glyphicon glyphicon-barcode"></i><span>Category</span></a>
+            </li>
         </ul>
     </div>
 </div>

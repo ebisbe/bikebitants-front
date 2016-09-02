@@ -17,6 +17,10 @@ Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
 
     Route::get('country/data-table', 'Admin\\CountryController@dataTable')->name('country.data-table');
     Route::resource('country', 'Admin\\CountryController');
+
+    Route::get('category/tree', 'Admin\\CategoryController@tree')->name('category.tree');
+    Route::post('category/update-order', 'Admin\\CategoryController@updateOrder')->name('category.update-order');
+    Route::resource('category', 'Admin\\CategoryController');
 });
 /** END Admin */
 

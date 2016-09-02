@@ -31,6 +31,12 @@
     {!! Html::script('/assets/js/plugins/pickers/daterangepicker.js') !!}
     {!! Html::script('/assets/js/plugins/forms/inputs/touchspin.min.js') !!}
     {!! Html::script('/assets/js/plugins/forms/selects/select2.min.js') !!}
+
+    {!! Html::script('/assets/js/core/libraries/jquery_ui/core.min.js') !!}
+    {!! Html::script('/assets/js/core/libraries/jquery_ui/effects.min.js') !!}
+    {!! Html::script('/assets/js/core/libraries/jquery_ui/interactions.min.js') !!}
+    {!! Html::script('/assets/js/plugins/trees/fancytree_all.min.js') !!}
+
     {!! Html::script('/assets/js/core/app.js') !!}
 
             <!-- /core JS files -->

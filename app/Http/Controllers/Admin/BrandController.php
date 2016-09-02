@@ -74,7 +74,7 @@ class BrandController extends AdminController
         //$this->isAuthorized('brand.store');
         $this->validate($request, [
             'name' => 'required',
-            'slug' => 'required',
+            'slug' => 'required|unique',
             'description' => 'required',
             'filename' => 'required|image',
             'featured' => 'required',
@@ -83,9 +83,7 @@ class BrandController extends AdminController
             'meta_keywords' => 'required'
         ]);
 
-        $data = $request->all();
-        $data['filename'] = $this->saveImage($request);;
-        Brand::create($data);
+        Brand::create($this->saveImage($request));
 
         Session::flash('flash_message', 'Brand added!');
 
@@ -104,6 +102,7 @@ class BrandController extends AdminController
         //$this->isAuthorized('brand.show');
         $brand = Brand::findOrFail($id);
         Breadcrumbs::addCrumb('View', '/brand/' . $brand->id);
+        BreadCrumbLinks::set(['href' => route('brand.edit', ['id' => $id]), 'value' => '<i class="icon-pencil6 position-left"></i> Edit']);
         Title::setSemiBold($brand->name);
         Title::useLeftArrow(true);
         return view('admin.brand.show', compact('brand'));
@@ -139,6 +138,7 @@ class BrandController extends AdminController
         //$this->isAuthorized('brand.update');
         $this->validate($request, [
             'name' => 'required',
+            'slug' => 'required|unique',
             'description' => 'required',
             'filename' => 'required',
             'featured' => 'required',
@@ -149,9 +149,7 @@ class BrandController extends AdminController
 
         $brand = Brand::findOrFail($id);
 
-        $data = $request->all();
-        $data['filename'] = $this->saveImage($request);
-        $brand->update($data);
+        $brand->update($this->saveImage($request));
         Session::flash('flash_message', 'Brand updated!');
 
         return redirect('brand');
@@ -172,22 +170,5 @@ class BrandController extends AdminController
         Session::flash('flash_message', 'Brand deleted!');
 
         return redirect('brand');
-    }
-
-    /**
-     * Checks if the request has a file and isValid(). Saves the file to the storage.
-     * @param Request $request
-     * @return string $filename
-     */
-    private function saveImage(Request $request)
-    {
-        if (!$request->hasFile('filename') || !$request->file('filename')->isValid()) {
-            redirect()->back(422)->withErrors(['msg', 'Error uploading the image.']);
-        }
-
-        $filename = $request->input('slug') . '.' . $request->file('filename')->getClientOriginalExtension();
-        $request->file('filename')->move(storage_path('app'), $filename);
-
-        return $filename;
     }
 }

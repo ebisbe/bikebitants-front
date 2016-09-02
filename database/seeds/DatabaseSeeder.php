@@ -177,26 +177,30 @@ class DatabaseSeeder extends Seeder
                     'Remolque para niños',
                     'Sillas portabebes',
                     'Cascos para niños',
-                    'Timbres'
+                    'Timbres para niños'
                 ])]
         ]);
 
-        $categories->each(function ($item, $key) {
+        $order = 1;
+        $categories->each(function ($item) use(&$order) {
             /** @var Category $cat */
             $cat = factory(Category::class)->create([
                 'name' => $item['name'],
-                'slug' => str_slug($item['name'])
+                'slug' => str_slug($item['name']),
+                'order' => $order++
             ]);
             $catSlug = str_slug($item['name']);
+            $total_products = 0;
             if (isset($item['subcategories'])) {
-                $item['subcategories']->each(function ($item, $key) use ($cat, $catSlug) {
+                $subOrder = 1;
+                $item['subcategories']->each(function ($item) use ($cat, $catSlug, &$subOrder, &$total_products) {
                     /** @var Category $child */
                     $child = factory(Category::class)->create([
                         'name' => $item,
-                        'slug' => str_slug($item)
+                        'slug' => str_slug($item),
+                        'order' => $subOrder++
                     ]);
                     $child->father()->associate($cat);
-                    $child->save();
 
                     $cont = 0;
                     while ($cont++ < 5) {
@@ -204,8 +208,15 @@ class DatabaseSeeder extends Seeder
                         $this->brand->products()->save($product);
                         $child->products()->save($product);
                     }
+                    $child->products = $cont;
+                    $child->save();
+
+                    $total_products += $cont;
                 });
             }
+
+            $cat->products = $total_products;
+            $cat->save();
         });
     }
 
@@ -223,10 +234,10 @@ class DatabaseSeeder extends Seeder
                 'name' => 'España (Península)',
                 'region' => ['C', 'VI', 'AB', 'A', 'AL', 'O', 'AV', 'BA', 'B', 'BU', 'CC', 'CA', 'S', 'CS', 'CR', 'CO', 'CU', 'GI', 'GR', 'GU', 'SS', 'H', 'HU', 'J', 'LO', 'LE', 'L', 'LU', 'M', 'MA', 'MU', 'NA', 'OR', 'P', 'PO', 'SA', 'SG', 'SE', 'SO', 'T', 'TE', 'TO', 'V', 'VA', 'BI', 'ZA', 'Z'],
                 'shippingMethods' => collect([
-                    [   'name' => 'Envío 24-48 horas',
+                    ['name' => 'Envío 24-48 horas',
                         'cost' => 3.305785123966942,
                         'price_condition' => 0],
-                    [   'name' => 'Envío gratuito 24-48 horas',
+                    ['name' => 'Envío gratuito 24-48 horas',
                         'cost' => 0,
                         'price_condition' => 25]
                 ])
@@ -235,10 +246,10 @@ class DatabaseSeeder extends Seeder
                 'name' => 'España (Baleares)',
                 'region' => ['PM'],
                 'shippingMethods' => collect([
-                    [   'name' => 'Envío 3-4 días',
+                    ['name' => 'Envío 3-4 días',
                         'cost' => 8.264462809917355,
                         'price_condition' => 0],
-                    [   'name' => 'Envío gratuito 3-4 dias',
+                    ['name' => 'Envío gratuito 3-4 dias',
                         'cost' => 0,
                         'price_condition' => 25]
                 ])
@@ -247,7 +258,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'España (Canarias)',
                 'region' => ['GC', 'TF'],
                 'shippingMethods' => collect([
-                    [   'name' => 'Envío 3-4 dias',
+                    ['name' => 'Envío 3-4 dias',
                         'cost' => 25,
                         'price_condition' => 0]
                 ])
@@ -256,14 +267,14 @@ class DatabaseSeeder extends Seeder
                 'name' => 'España (Ceuta Melilla)',
                 'region' => ['CE', 'ML'],
                 'shippingMethods' => collect([
-                    [   'name' => 'Envío 3-4 dias',
+                    ['name' => 'Envío 3-4 dias',
                         'cost' => 25,
                         'price_condition' => 0]
                 ])
             ],
         ]);
 
-        $zonesCol->each(function($item, $key) {
+        $zonesCol->each(function ($item, $key) {
             /** @var Zone $zone */
             $zone = factory(Zone::class)->create([
                 'name' => $item['name'],

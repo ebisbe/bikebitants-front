@@ -13,6 +13,7 @@ class CreateTableBrand extends Migration
     public function up()
     {
         Schema::create('brands', function (Blueprint $table) {
+            $table->unique('slug');
         });
     }
 

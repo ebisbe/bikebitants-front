@@ -55,6 +55,7 @@ class DummyClass extends AdminController
     {
         //$this->isAuthorized('{{crudName}}.create');
         Breadcrumbs::addCrumb('Create');
+        BreadCrumbLinks::set(['href' => route('{{crudName}}.edit', ['id' => $id]), 'value' => '<i class="icon-pencil6 position-left"></i> Edit']);
         Title::setSemiBold('New {{modelName}}');
         Title::useLeftArrow(true);
         return view('{{viewPath}}{{crudName}}.create');
