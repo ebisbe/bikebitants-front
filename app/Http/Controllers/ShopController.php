@@ -55,7 +55,7 @@ class ShopController extends Controller
     public function product(Product $product, $slug)
     {
         /** @var Product $product */
-        $product = $product::with(['category.father', 'images'])->whereSlug($slug)->firstOrFail();
+        $product = $product::with(['category.father', 'images', 'faqs'])->whereSlug($slug)->firstOrFail();
 
         Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
         Breadcrumbs::addCrumb($product->category->father->name, route('shop.category', ['category' => $product->category->father->slug]));

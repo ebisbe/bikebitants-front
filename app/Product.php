@@ -140,6 +140,14 @@ class Product extends Model
     }
 
     /**
+     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
+     */
+    public function faqs()
+    {
+        return $this->embedsMany(Faq::class);
+    }
+
+    /**
      * @param $attributes
      * @return Product
      */

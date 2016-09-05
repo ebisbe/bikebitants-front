@@ -6,6 +6,7 @@ use App\Brand;
 use App\BrandService;
 use App\Category;
 use App\Coupon;
+use App\Faq;
 use App\Image;
 use App\Label;
 use App\Product;
@@ -131,6 +132,10 @@ class DatabaseSeeder extends Seeder
         $product->labels()->save(factory(Label::class)->make());
         $product->labels()->save(factory(Label::class)->make());
         $product->labels()->save(factory(Label::class)->make());
+
+        for($cont = 0; $cont < 5; $cont++) {
+            $product->faqs()->save(factory(Faq::class)->make());
+        }
 
         return $product;
     }

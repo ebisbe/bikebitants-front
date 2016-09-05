@@ -21,6 +21,9 @@ Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
     Route::get('category/tree', 'Admin\\CategoryController@tree')->name('category.tree');
     Route::post('category/update-order', 'Admin\\CategoryController@updateOrder')->name('category.update-order');
     Route::resource('category', 'Admin\\CategoryController');
+
+    Route::get('faq/data-table', 'Admin\\FaqController@dataTable')->name('faq.data-table');
+    Route::resource('faq', 'Admin\\FaqController');
 });
 /** END Admin */
 

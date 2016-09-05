@@ -18,6 +18,7 @@ use App\Brand;
 use App\BrandService;
 use App\Category;
 use App\Coupon;
+use App\Faq;
 use App\Image;
 use App\Label;
 use App\Lead;
@@ -53,7 +54,6 @@ $factory->define(Product::class, function (Generator $faker) {
         'description' => $faker->paragraphs(3, true),
         'price' => $faker->numberBetween(1, 10),
         'discount_price' => $faker->numberBetween(1, 10),
-        //'image' => $faker->image('/tmp', 150, 150),
         //'discount_init' => $faker->date(),
         //'discount_end' => $faker->date(),
         'tags' => $faker->words(),
@@ -228,7 +228,7 @@ $factory->define(Coupon::class, function(Generator $faker) {
         'limit_usage_by_coupon' => 3,
         'limit_usage_by_user' => 1,
         'single_use' => 1,
-        'emails' => [ $faker->email, $faker->email, $faker->email ]
+        'emails' => $faker->email.','.$faker->email.','.$faker->email
     ];
 });
 
@@ -244,5 +244,12 @@ $factory->define(ShippingMethod::class, function(Generator $faker) {
         'name' => $faker->name,
         'cost' => $faker->numberBetween(3,25),
         'free_shipping' => $faker->boolean
+    ];
+});
+
+$factory->define(Faq::class, function(Generator $faker) {
+    return [
+        'name' => $faker->sentence().' ?',
+        'answer' => $faker->paragraph()
     ];
 });

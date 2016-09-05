@@ -3,7 +3,7 @@
 @section('content')
 
 @include('partials.breadcrumb')
-<!-- ==========================
+        <!-- ==========================
 PRODUCTS - START
 =========================== -->
 <section class="content products">
@@ -33,6 +33,13 @@ PRODUCTS - START
                        aria-controls="video"
                        aria-expanded="false">Responsive Video</a>
                 </li>
+                <li role="presentation">
+                    <a href="#faq"
+                       role="tab"
+                       data-toggle="tab"
+                       aria-controls="faq"
+                       aria-expanded="false">FAQ</a>
+                </li>
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active in " id="description">
@@ -57,6 +64,21 @@ PRODUCTS - START
                                 src="{{ $product->video }}"></iframe>
                     </div>
                 </div>
+
+                <div role="tabpanel" class="tab-pane panel-group" id="faq">
+                    {{--*/$x=0/* --}}
+                    @foreach($product->faqs as $faq)
+                        {{--*/$x++/* --}}
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" href="#faq-{{ $x }}" aria-expanded="false" aria-controls="faq-{{ $x }}">{{ $faq->name }}</a></h4>
+                            </div>
+                            <div aria-expanded="false" id="faq-{{ $x }}" class="panel-collapse collapse" role="tabpanel">
+                                <div class="panel-body">{{ $faq->answer }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
 
@@ -72,7 +94,8 @@ PRODUCTS - START
                                 <div class="col-sm-3">
                                     <div class="product-overlay">
                                         <div class="product-mask"></div>
-                                        <a href="{{ route('shop.product', $relatedProduct->slug) }}" class="product-permalink"></a>
+                                        <a href="{{ route('shop.product', $relatedProduct->slug) }}"
+                                           class="product-permalink"></a>
                                         {!! Form::img($relatedProduct->front_image->filename, StaticVars::productRelated(), $relatedProduct->front_image->filename) !!}
                                         <div class="product-quickview">
                                             <a class="btn btn-quickview" data-toggle="modal"
@@ -130,9 +153,9 @@ PRODUCTS - START
             </div>
         </div>
     </div>
-<!-- ==========================
-    PRODUCT QUICKVIEW - END
-=========================== -->
+    <!-- ==========================
+        PRODUCT QUICKVIEW - END
+    =========================== -->
 @endforeach
 
 @endsection

@@ -4,3 +4,4 @@ php artisan crud:generate Coupon --fields="name#string#required|unique, value#st
 php artisan crud:generate Lead --fields="email#string#required|unique|email, type#string#required" --route=yes --pk=_id --view-path="admin" --namespace=Admin
 php artisan crud:generate Country --fields="name#string#required, active#boolean#required, provinces#string" --route=yes --pk=_id --view-path="admin" --namespace=Admin
 php artisan crud:generate Category --fields="name#string#required,slug#string#required|unique,filename#string#required|image,products#integer,meta_title#string#required,meta_description#string#required,meta_keywords#string#required" --route=yes --pk=_id --view-path="admin" --namespace=Admin
+php artisan crud:generate Faq --fields="name#string#required, answer#text#required" --route=yes --pk=_id --view-path="admin" --namespace=Admin
