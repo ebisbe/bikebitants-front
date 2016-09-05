@@ -123,9 +123,9 @@
                         <div class="product-overlay">
                             <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
                                 <div class="product-mask">
-                                    {!! Form::img($product->images()->last()->filename, StaticVars::productRelated(), $product->images()->last()->alt) !!}
+                                    {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt) !!}
                                 </div>
-                                {!! Form::img($product->images->first()->filename, StaticVars::homeLeft(), $product->images->first()->alt) !!}
+                                {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
                             </a>
                         </div>
                         <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
@@ -157,9 +157,9 @@
                             <div class="product-overlay">
                                 <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
                                     <div class="product-mask">
-                                        {!! Form::img($product->images()->last()->filename, StaticVars::productRelated(), $product->images()->last()->alt) !!}
+                                        {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt) !!}
                                     </div>
-                                    {!! Form::img($product->images->first()->filename, StaticVars::homeLeft(), $product->images->first()->alt) !!}
+                                    {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
                                 </a>
                             </div>
                             <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">

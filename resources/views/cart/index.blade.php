@@ -32,8 +32,8 @@ MY ACCOUNT - START
                                     @endphp
                                     <tr>
                                         <td class="col-xs-1">
-                                            <img src="/img/70/{{ $product->images()->first()->filename }}"
-                                                 alt="{{ $product->images()->first()->alt }}"
+                                            <img src="/img/70/{{ $product->front_image->filename }}"
+                                                 alt="{{ $product->front_image->alt }}"
                                                  class="img-responsive">
                                         </td>
                                         <td class="col-xs-4 col-md-5">

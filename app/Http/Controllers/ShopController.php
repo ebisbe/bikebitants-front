@@ -54,7 +54,8 @@ class ShopController extends Controller
      */
     public function product(Product $product, $slug)
     {
-        $product = $product::with('category.father')->whereSlug($slug)->firstOrFail();
+        /** @var Product $product */
+        $product = $product::with(['category.father', 'images'])->whereSlug($slug)->firstOrFail();
 
         Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
         Breadcrumbs::addCrumb($product->category->father->name, route('shop.category', ['category' => $product->category->father->slug]));
@@ -63,7 +64,7 @@ class ShopController extends Controller
 
         MetaTag::set('title', $product->meta_title);
         MetaTag::set('description', $product->meta_description);
-        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $product->images()->first()->path]));
+        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $product->front_image->filename]));
 
         $title = $product->category->name;
         $subtitle = $product->name;
@@ -137,7 +138,7 @@ class ShopController extends Controller
         MetaTag::set('title', $cat->meta_title);
         MetaTag::set('description', $cat->meta_description);
         MetaTag::set('keywords', $cat->meta_keywords);
-        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->path]));
+        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->filename]));
 
         $title = 'Shop';
         $subtitle = $cat->name;
@@ -172,7 +173,7 @@ class ShopController extends Controller
         MetaTag::set('title', $subCat->meta_title);
         MetaTag::set('description', $subCat->meta_description);
         MetaTag::set('keywords', $subCat->meta_keywords);
-        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $subCat->path]));
+        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $subCat->filename]));
 
         $title = $cat->name;
         $subtitle = $subCat->name;

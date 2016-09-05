@@ -9,11 +9,14 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  * Class Product
  * @package App
  *
- * @property string name
- * @property string description
- * @property string currency
- * @property Brand brand
- * @property string tags_list
+ * @property string $name
+ * @property string $description
+ * @property string $currency
+ * @property Brand $brand
+ * @property string $tags_list
+ * @property-read Image $front_image
+ * @property-read Image $front_image_hover
+ * @property-read Category $category
  *
  * @method static Builder whereSlug($slug)
  * @method static Builder whereBrandId($brandId)
@@ -57,6 +60,22 @@ class Product extends Model
     public function getTagsListAttribute()
     {
         return implode(', ', $this->tags);
+    }
+
+    /**
+     * @return Image|null
+     */
+    public function getFrontImageAttribute()
+    {
+        return self::images()->first();
+    }
+
+    /**
+     * @return Image|null
+     */
+    public function getFrontImageHoverAttribute()
+    {
+        return self::images()->slice(1,1)->first();
     }
 
     /**

@@ -73,7 +73,7 @@ PRODUCTS - START
                                     <div class="product-overlay">
                                         <div class="product-mask"></div>
                                         <a href="{{ route('shop.product', $relatedProduct->slug) }}" class="product-permalink"></a>
-                                        {!! Form::img($relatedProduct->images->first()->filename, StaticVars::productRelated(), $relatedProduct->images->first()->filename) !!}
+                                        {!! Form::img($relatedProduct->front_image->filename, StaticVars::productRelated(), $relatedProduct->front_image->filename) !!}
                                         <div class="product-quickview">
                                             <a class="btn btn-quickview" data-toggle="modal"
                                                data-target="#product-{{ $relatedProduct->slug }}">Quick View</a>

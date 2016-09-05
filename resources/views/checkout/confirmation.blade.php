@@ -126,7 +126,7 @@
                                     @foreach($items as $item)
                                         <tr>
                                             <td class="col-xs-1">
-                                                <img src="/img/70/{{ $item->product->images()->first()->filename }}" alt="{{ $item->product->images()->first()->alt }}" class="img-responsive">
+                                                <img src="/img/70/{{ $item->product->front_image->filename }}" alt="{{ $item->product->front_image->alt }}" class="img-responsive">
                                             </td>
                                             <td class="col-xs-4 col-md-5">
                                                 <h4>
@@ -155,7 +155,7 @@
                             <ul class="list-unstyled order-total">
                                 <li>Subtotal products<span>{{ $order->subtotal }} &euro;</span></li>
                                 @foreach($order->conditions as $condition)
-                                    <li>{{ $condition['name'] }}<span>{{ $condition['value'] }}</span></li>
+                                    <li>{{ $condition['name'] }}<span>{{ round($condition['value'], 2) }}</span></li>
                                 @endforeach
                                 <li>Total<span class="total">{{ $order->total }} &euro;</span></li>
                             </ul>

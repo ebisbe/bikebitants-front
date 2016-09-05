@@ -137,11 +137,11 @@ PRODUCTS - START
                                         <div class="col-sm-3">
                                             <div class="product-overlay">
                                                 <div class="product-mask">
-                                                    {!! Form::img($product->images()->last()->filename, StaticVars::productRelated(), $product->images()->last()->alt, StaticVars::imgWrapper()) !!}
+                                                    {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt, StaticVars::imgWrapper()) !!}
                                                 </div>
                                                 <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                    class="product-permalink"></a>
-                                                {!! Form::img($product->images()->first()->filename, StaticVars::productRelated(), $product->images()->first()->alt, StaticVars::imgWrapper()) !!}
+                                                {!! Form::img($product->front_image->filename, StaticVars::productRelated(), $product->front_image->alt, StaticVars::imgWrapper()) !!}
                                                 {{--<div class="product-quickview">
                                                     <a class="btn btn-quickview"
                                                        data-toggle="modal"

@@ -15,8 +15,8 @@
                 <li>
                     <div class="row">
                         <div class="col-sm-3">
-                            <img src="/img/70/{{ $item->images()->first()->filename }}"
-                                 alt="{{ $item->images()->first()->alt }}" class="img-responsive">
+                            <img src="/img/70/{{ $item->front_image->filename }}"
+                                 alt="{{ $item->front_image->alt }}" class="img-responsive">
                         </div>
                         <div class="col-sm-9">
                             <h4>

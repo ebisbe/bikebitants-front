@@ -4,6 +4,30 @@ namespace App;
 
 use App\Business\MongoEloquentModel as Model;
 
+/**
+ * Class Category
+ * @package App
+ *
+ * @property string $name
+ * [
+{
+ * @property string $_id
+ * @property $products
+ * @property $name
+ * @property $slug
+ * @property $filename
+ * @property $meta_title
+ * @property $meta_description
+ * @property $meta_keywords
+ * @property $order
+ * @property-read $updated_at
+ * @property-read $created_at
+}
+]
+
+ *
+ * @method static Builder whereSlug($slug)
+ */
 class Category extends Model
 {
     protected $attributes = array(
