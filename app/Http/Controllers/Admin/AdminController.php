@@ -54,6 +54,6 @@ class AdminController extends BaseController
 
     public function dashboard()
     {
-        return view('dashboard');
+        return view('admin.dashboard');
     }
 }

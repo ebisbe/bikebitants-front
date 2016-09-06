@@ -126,7 +126,7 @@
                 <!-- /user menu -->
 
 
-                @include('partials.menu')
+                @include('admin.partials.menu')
 
             </div>
         </div>

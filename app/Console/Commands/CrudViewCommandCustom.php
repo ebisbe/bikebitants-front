@@ -41,7 +41,7 @@ class CrudViewCommandCustom extends CrudViewCommand
             }
         }
 
-        for($cont = -1; $cont > (-1 * count($this->formFields)) + $this->defaultColumsToShow; $cont --) {
+        for($cont = -1; $cont > (-1 * count($this->formFields)) + $this->defaultColumnsToShow; $cont --) {
             $columnsToHide[] = $cont;
         }
 
