@@ -15,7 +15,7 @@
 
     {!! MetaTag::tag('description') !!}
     {!! MetaTag::tag('image') !!}
-    {!! MetaTag::tag('keywords') !!}
+    {!! MetaTag::tag('slug') !!}
 
     {!! MetaTag::openGraph() !!}
 

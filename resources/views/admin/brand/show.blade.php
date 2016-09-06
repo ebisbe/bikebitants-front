@@ -86,9 +86,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('meta_keywords', 'Meta Keywords', ['class' => 'col-sm-3 control-label']) !!}
+                    {!! Form::label('meta_slug', 'Meta Keywords', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
-                        {!! Form::input('text', 'meta_keywords', $brand->meta_keywords, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                        {!! Form::input('text', 'meta_slug', $brand->meta_slug, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     </div>
                 </div>
 

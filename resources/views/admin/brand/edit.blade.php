@@ -99,11 +99,11 @@
                     {!! $errors->first('meta_description', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('meta_keywords') ? 'has-error' : ''}}">
-                {!! Form::label('meta_keywords', 'Meta Keywords', ['class' => 'col-sm-3 control-label']) !!}
+            <div class="form-group {{ $errors->has('meta_slug') ? 'has-error' : ''}}">
+                {!! Form::label('meta_slug', 'Meta Keywords', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('meta_keywords', null, ['class' => 'form-control', 'required' => 'required']) !!}
-                    {!! $errors->first('meta_keywords', '<p class="help-block">:message</p>') !!}
+                    {!! Form::text('meta_slug', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! $errors->first('meta_slug', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
 

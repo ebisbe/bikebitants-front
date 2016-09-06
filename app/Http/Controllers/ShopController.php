@@ -88,7 +88,7 @@ class ShopController extends Controller
 
         MetaTag::set('title', $brand->meta_title);
         MetaTag::set('description', $brand->meta_description);
-        MetaTag::set('keywords', $brand->meta_keywords);
+        MetaTag::set('slug', $brand->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
 
         return view('shop.brand', compact('brand'));
@@ -115,7 +115,7 @@ class ShopController extends Controller
 
         MetaTag::set('title', 'Bikebitants shop');
         MetaTag::set('description', 'This is the metra description');
-        MetaTag::set('keywords', 'some meta tags here');
+        MetaTag::set('slug', 'some meta tags here');
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
@@ -137,7 +137,7 @@ class ShopController extends Controller
 
         MetaTag::set('title', $cat->meta_title);
         MetaTag::set('description', $cat->meta_description);
-        MetaTag::set('keywords', $cat->meta_keywords);
+        MetaTag::set('slug', $cat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->filename]));
 
         $title = 'Shop';
@@ -172,7 +172,7 @@ class ShopController extends Controller
 
         MetaTag::set('title', $subCat->meta_title);
         MetaTag::set('description', $subCat->meta_description);
-        MetaTag::set('keywords', $subCat->meta_keywords);
+        MetaTag::set('slug', $subCat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $subCat->filename]));
 
         $title = $cat->name;

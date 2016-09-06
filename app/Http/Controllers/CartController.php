@@ -28,7 +28,7 @@ class CartController extends Controller
 
         MetaTag::set('title', 'Cart');
         MetaTag::set('description', 'cart');
-        MetaTag::set('keywords', 'cart');
+        MetaTag::set('slug', 'cart');
 
         $title = 'Shop';
         $subtitle = 'Cart';

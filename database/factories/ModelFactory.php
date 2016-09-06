@@ -61,7 +61,7 @@ $factory->define(Product::class, function (Generator $faker) {
         //'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
-        'meta_keywords' => $faker->words(6, true)
+        'meta_slug' => $faker->words(6, true)
     ];
 });
 
@@ -112,7 +112,7 @@ $factory->define(Brand::class, function (Generator $faker) {
         'featured' => true,
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
-        'meta_keywords' => $faker->words(6, true)
+        'meta_slug' => $faker->words(6, true)
     ];
 });
 
@@ -174,7 +174,7 @@ $factory->define(Category::class, function (Generator $faker) {
         'products' => 0,
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
-        'meta_keywords' => $faker->words(6, true)
+        'meta_slug' => $faker->words(6, true)
     ];
 });
 

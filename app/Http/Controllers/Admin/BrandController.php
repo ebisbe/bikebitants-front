@@ -80,7 +80,7 @@ class BrandController extends AdminController
             'featured' => 'required',
             'meta_title' => 'required',
             'meta_description' => 'required',
-            'meta_keywords' => 'required'
+            'meta_slug' => 'required'
         ]);
 
         Brand::create($this->saveImage($request));
@@ -144,7 +144,7 @@ class BrandController extends AdminController
             'featured' => 'required',
             'meta_title' => 'required',
             'meta_description' => 'required',
-            'meta_keywords' => 'required'
+            'meta_slug' => 'required'
         ]);
 
         $brand = Brand::findOrFail($id);

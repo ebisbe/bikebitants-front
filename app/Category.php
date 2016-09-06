@@ -18,7 +18,7 @@ use App\Business\MongoEloquentModel as Model;
  * @property $filename
  * @property $meta_title
  * @property $meta_description
- * @property $meta_keywords
+ * @property $meta_slug
  * @property $order
  * @property-read $updated_at
  * @property-read $created_at
@@ -34,7 +34,7 @@ class Category extends Model
         'products' => 0
     );
 
-    protected $fillable = ['name', 'slug', 'filename', 'products', 'meta_title', 'meta_description' , 'meta_keywords'];
+    protected $fillable = ['name', 'slug', 'filename', 'products', 'meta_title', 'meta_description' , 'meta_slug'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

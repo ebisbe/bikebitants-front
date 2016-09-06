@@ -87,7 +87,7 @@ class CategoryController extends AdminController
             'filename' => 'required|image',
             'meta_title' => 'required',
             'meta_description' => 'required',
-            'meta_keywords' => 'required'
+            'meta_slug' => 'required'
         ]);
 
         Category::create($this->saveImage($request));
@@ -149,7 +149,7 @@ class CategoryController extends AdminController
             'filename' => 'image',
             'meta_title' => 'required',
             'meta_description' => 'required',
-            'meta_keywords' => 'required'
+            'meta_slug' => 'required'
         ]);
 
         $category = Category::findOrFail($id);
