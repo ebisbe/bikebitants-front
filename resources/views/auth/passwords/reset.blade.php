@@ -1,4 +1,4 @@
-@extends('layouts.auth')
+@extends('admin.auth')
 
 @section('content')
         <!-- Reset recovery -->
