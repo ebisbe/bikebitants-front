@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Business\Traits;
 
 use Intervention\Image\ImageManager;
 use Session;

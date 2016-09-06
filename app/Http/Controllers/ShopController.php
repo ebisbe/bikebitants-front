@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Business\Search\ProductSearch;
 use App\Category;
-use App\Product;
+use App\PublishedProduct;
 use Illuminate\Http\Request;
 use MetaTag;
 use Breadcrumbs;
@@ -29,10 +29,10 @@ class ShopController extends Controller
 
     /**
      * @param Brand $brand
-     * @param Product $product
+     * @param PublishedProduct $product
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home(Brand $brand, Product $product, Category $category)
+    public function home(Brand $brand, PublishedProduct $product, Category $category)
     {
         $layoutHeader = 'navbar-transparent navbar-fixed-top';
         $layoutTopHeader = 'hidden';
@@ -48,11 +48,11 @@ class ShopController extends Controller
     }
 
     /**
-     * @param Product $product
+     * @param PublishedProduct $product
      * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function product(Product $product, $slug)
+    public function product(PublishedProduct $product, $slug)
     {
         /** @var Product $product */
         $product = $product::with(['category.father', 'images', 'faqs'])->whereSlug($slug)->firstOrFail();
@@ -69,7 +69,7 @@ class ShopController extends Controller
         $title = $product->category->name;
         $subtitle = $product->name;
 
-        $relatedProducts = Product::with('brand')
+        $relatedProducts = PublishedProduct::with('brand')
             ->whereBrandId($product->brand_id)
             ->where('_id', '!=', $product->_id)
             ->get()

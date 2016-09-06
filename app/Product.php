@@ -23,6 +23,12 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  */
 class Product extends Model
 {
+    /** @var string $table Defined for inheritance in PublishedProduct*/
+    protected $table = 'products';
+
+    const DRAFT = 1;
+    const PUBLISHED = 2;
+    const HIDDEN = 3;
 
     protected $appends = ['range_price', 'tags_list', 'currency'];
 
@@ -75,7 +81,7 @@ class Product extends Model
      */
     public function getFrontImageHoverAttribute()
     {
-        return self::images()->slice(1,1)->first();
+        return self::images()->slice(1, 1)->first();
     }
 
     /**

@@ -49,6 +49,7 @@ $factory->define(Product::class, function (Generator $faker) {
         '_id' => str_slug($name),
         'name' => $name,
         'generic_name' => 'generic '.$name,
+        'status' => Product::PUBLISHED,
         'slug' => str_slug($name),
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),

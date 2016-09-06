@@ -2,12 +2,10 @@
 
 namespace App\Business\Search;
 
-use App\Category;
-use App\Product;
+use App\PublishedProduct;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Jenssegers\Mongodb\Eloquent\Builder;
-use MongoDB\BSON\ObjectID;
 use StaticVars;
 use Illuminate\Support\Collection;
 
@@ -21,7 +19,7 @@ class ProductSearch
      */
     public static function apply(Request $filters, Route $route)
     {
-        $query = (new Product)->newQuery()->with('brand');
+        $query = (new PublishedProduct())->newQuery()->with('brand');
         return static::applyDecoratorsFromRequest($filters, $query, $route);
     }
 

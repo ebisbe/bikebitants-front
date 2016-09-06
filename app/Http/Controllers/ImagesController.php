@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\Image;
-use Illuminate\Http\Request;
+use App\Business\Traits\Image;
 
 use App\Http\Requests;
 
