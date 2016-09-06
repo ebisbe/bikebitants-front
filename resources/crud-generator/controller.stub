@@ -55,7 +55,6 @@ class DummyClass extends AdminController
     {
         //$this->isAuthorized('{{crudName}}.create');
         Breadcrumbs::addCrumb('Create');
-        BreadCrumbLinks::set(['href' => route('{{crudName}}.edit', ['id' => $id]), 'value' => '<i class="icon-pencil6 position-left"></i> Edit']);
         Title::setSemiBold('New {{modelName}}');
         Title::useLeftArrow(true);
         return view('{{viewPath}}{{crudName}}.create');
@@ -91,6 +90,7 @@ class DummyClass extends AdminController
         //$this->isAuthorized('{{crudName}}.show');
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
         Breadcrumbs::addCrumb('View', '/{{crudName}}/'.${{crudNameSingular}}->id);
+        BreadCrumbLinks::set(['href' => route('{{crudName}}.edit', ['id' => $id]), 'value' => '<i class="icon-pencil6 position-left"></i> Edit']);
         Title::setSemiBold(${{crudNameSingular}}->name);
         Title::useLeftArrow(true);
         return view('{{viewPath}}{{crudName}}.show', compact('{{crudNameSingular}}'));
