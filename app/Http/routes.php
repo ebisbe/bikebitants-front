@@ -5,6 +5,10 @@ Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
     Route::auth();
     Route::get('/', 'Admin\\AdminController@dashboard')->name('admin.dashboard');
 
+    Route::get('product/data-table', 'Admin\\ProductController@dataTable')->name('product.data-table');
+    Route::get('product/status', 'Admin\\ProductController@status')->name('product.status');
+    Route::resource('product', 'Admin\\ProductController');
+
     Route::get('brand/data-table', 'Admin\\BrandController@dataTable')->name('brand.data-table');
     Route::resource('brand', 'Admin\\BrandController');
 

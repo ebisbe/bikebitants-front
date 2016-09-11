@@ -23,14 +23,20 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  */
 class Product extends Model
 {
-    /** @var string $table Defined for inheritance in PublishedProduct*/
+    /** @var string $table Defined for inheritance in PublishedProduct */
     protected $table = 'products';
 
     const DRAFT = 1;
     const PUBLISHED = 2;
     const HIDDEN = 3;
 
+    const DRAFT_CLASS = 'bg-danger';
+    const PUBLISHED_CLASS = 'bg-primary';
+    const HIDDEN_CLASS = 'bg-info';
+
     protected $appends = ['range_price', 'tags_list', 'currency'];
+
+    protected $fillable = ['name', 'slug', 'status', 'introduction', 'description', 'meta_title', 'meta_description', 'meta_slug'];
 
     /**
      * Get a single point to find a price. The product can be a variable or simple
@@ -48,6 +54,11 @@ class Product extends Model
             $price = $min;
         }
         return $price . $this->currency;
+    }
+
+    public function getStatusTextAttribute()
+    {
+        return trans('Product.' . $this->status);
     }
 
     /**

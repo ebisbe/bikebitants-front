@@ -48,6 +48,7 @@ elixir(function (mix) {
         //files
         .copy('resources/assets/images', 'public/build/images/')
         .browserify('shop_vue.js', 'resources/assets/js/bower/vue_main.js')
+        .copy('resources/assets/js/bower/vue_main.js', 'public/assets/js/vue.js')
 
         .scripts([
             'bower/jquery.js',

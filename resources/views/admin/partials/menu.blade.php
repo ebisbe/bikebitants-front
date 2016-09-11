@@ -11,6 +11,9 @@
                 <i class="icon-menu" title="Main pages"></i>
             </li>
 
+            <li><a href="{{ route('product.index') }}">
+                    <i class="icon icon-bike"></i><span>Products</span></a>
+            </li>
             <li><a href="{{ route('brand.index') }}">
                     <i class="glyphicon glyphicon-tags"></i><span>Brands</span></a>
             </li>

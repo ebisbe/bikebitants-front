@@ -31,6 +31,7 @@
     {!! Html::script('/assets/js/plugins/pickers/daterangepicker.js') !!}
     {!! Html::script('/assets/js/plugins/forms/inputs/touchspin.min.js') !!}
     {!! Html::script('/assets/js/plugins/forms/selects/select2.min.js') !!}
+    {!! Html::script('/assets/js/plugins/notifications/pnotify.min.js') !!}
 
     {!! Html::script('/assets/js/core/libraries/jquery_ui/core.min.js') !!}
     {!! Html::script('/assets/js/core/libraries/jquery_ui/effects.min.js') !!}
@@ -186,6 +187,7 @@
 </div>
 <!-- /page container -->
 {{--{!! Html::script('/js/underscore.js') !!}--}}
+{!! Html::script('/assets/js/vue.js') !!}
 <script type="text/javascript">
     /*_.templateSettings = {
      interpolate: /\{\{(.+?)\}\}/g
@@ -206,7 +208,8 @@
     $('.tokenfield').tokenfield();
     $('.tokenfield-email')
             .on('tokenfield:createdtoken', function (e) {
-                var re = {{ StaticVars::emailValidation() }}
+                var re =
+                        {{ StaticVars::emailValidation() }}
                 var valid = re.test(e.attrs.value)
                 if (!valid) {
                     $(e.relatedTarget).addClass('invalid')
