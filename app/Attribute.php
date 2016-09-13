@@ -7,6 +7,8 @@ use App\Business\MongoEloquentModel as Model;
 class Attribute extends Model
 {
 
+    protected $fillable = ['name', 'order'];
+
     /**
      * The accessors to append to the model's array form.
      *

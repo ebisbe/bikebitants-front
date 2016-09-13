@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Shop;
 
 use App\Business\Traits\PublishedProducts;
+use App\Product;
 
 class PublishedProduct extends Product
 {

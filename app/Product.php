@@ -4,6 +4,7 @@ namespace App;
 
 use App\Business\MongoEloquentModel as Model;
 use Jenssegers\Mongodb\Eloquent\Builder;
+use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 /**
  * Class Product
@@ -23,6 +24,8 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  */
 class Product extends Model
 {
+    use SoftDeletes;
+
     /** @var string $table Defined for inheritance in PublishedProduct */
     protected $table = 'products';
 
@@ -35,8 +38,8 @@ class Product extends Model
     const HIDDEN_CLASS = 'bg-info';
 
     protected $appends = ['range_price', 'tags_list', 'currency'];
-
-    protected $fillable = ['name', 'slug', 'status', 'introduction', 'description', 'meta_title', 'meta_description', 'meta_slug'];
+    protected $dates = ['deleted_at'];
+    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'price', 'discount_price', 'tags', 'meta_title', 'meta_description', 'meta_slug'];
 
     /**
      * Get a single point to find a price. The product can be a variable or simple
@@ -45,9 +48,9 @@ class Product extends Model
     public function getRangePriceAttribute()
     {
         $price = $this->price;
-        if (!empty($this->variation()->count())) {
-            $min = $this->variation->min('price');
-            $max = $this->variation->max('price');
+        if (!empty($this->variations()->count())) {
+            $min = $this->variations->min('price');
+            $max = $this->variations->max('price');
             if ($min != $max) {
                 return $min . $this->currency . ' - ' . $max . $this->currency;
             }
@@ -76,7 +79,7 @@ class Product extends Model
      */
     public function getTagsListAttribute()
     {
-        return implode(', ', $this->tags);
+        return is_array($this->tags) ? implode(', ', $this->tags) : $this->tags;
     }
 
     /**
@@ -84,7 +87,7 @@ class Product extends Model
      */
     public function getFrontImageAttribute()
     {
-        return self::images()->first();
+        return static::images()->first();
     }
 
     /**
@@ -92,7 +95,7 @@ class Product extends Model
      */
     public function getFrontImageHoverAttribute()
     {
-        return self::images()->slice(1, 1)->first();
+        return static::images()->slice(1, 1)->first();
     }
 
     /**
@@ -107,7 +110,7 @@ class Product extends Model
     /**
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
-    public function variation()
+    public function variations()
     {
         return $this->embedsMany(Variation::class);
     }

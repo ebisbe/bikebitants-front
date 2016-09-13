@@ -161,19 +161,14 @@
 
             <!-- Content area -->
             <div class="content">
-                @if (session('flash_message'))
-                    <div class="alert alert-success">
-                        {{ session('flash_message') }}
-                    </div>
-                    @endif
-                    @yield('content')
+                @yield('content')
 
 
-                            <!-- Footer -->
-                    <div class="footer text-muted">
-                        &copy; 2016. <a href="http://www.adinton.com">Bikebitants</a> All rights reserved.
-                    </div>
-                    <!-- /footer -->
+                        <!-- Footer -->
+                <div class="footer text-muted">
+                    &copy; 2016. <a href="http://www.adinton.com">Bikebitants</a> All rights reserved.
+                </div>
+                <!-- /footer -->
 
             </div>
             <!-- /content area -->
@@ -192,51 +187,61 @@
     /*_.templateSettings = {
      interpolate: /\{\{(.+?)\}\}/g
      };*/
+    $(document).ready(function () {
 
-    $('.select').select2({
-        minimumResultsForSearch: Infinity
-    });
+        $('.select').select2({
+            minimumResultsForSearch: Infinity
+        });
 
-    $(".styled").uniform({radioClass: 'choice'});
+        $(".styled").uniform({radioClass: 'choice'});
 
-    // File input
-    $(".file-styled").uniform({
-        fileButtonHtml: '<i class="icon-googleplus5"></i>',
-        wrapperClass: 'bg-warning'
-    });
+        // File input
+        $(".file-styled").uniform({
+            fileButtonHtml: '<i class="icon-googleplus5"></i>',
+            wrapperClass: 'bg-warning'
+        });
 
-    $('.tokenfield').tokenfield();
-    $('.tokenfield-email')
-            .on('tokenfield:createdtoken', function (e) {
-                var re =
-                        {{ StaticVars::emailValidation() }}
-                var valid = re.test(e.attrs.value)
-                if (!valid) {
-                    $(e.relatedTarget).addClass('invalid')
-                }
-            })
-            .tokenfield({
-                'inputType': 'email'
+        $('.tokenfield').tokenfield();
+        $('.tokenfield-email')
+                .on('tokenfield:createdtoken', function (e) {
+                    var re =
+                            {{ StaticVars::emailValidation() }}
+                    var valid = re.test(e.attrs.value)
+                    if (!valid) {
+                        $(e.relatedTarget).addClass('invalid')
+                    }
+                })
+                .tokenfield({
+                    'inputType': 'email'
+                });
+
+        // Single picker
+        $('.daterange-single').daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
+
+        $.each($('.touchspin'), function () {
+            var minValue = $(this).data('min-value');
+            var maxValue = $(this).data('max-value');
+            $(this).TouchSpin({
+                min: minValue ? minValue : 0,
+                max: maxValue ? maxValue : 1000000,
+                step: 1,
+                decimals: 2
             });
+        });
 
-    // Single picker
-    $('.daterange-single').daterangepicker({
-        singleDatePicker: true,
-        locale: {
-            format: 'YYYY-MM-DD'
-        }
-    });
-
-    $.each($('.touchspin'), function () {
-        var minValue = $(this).data('min-value');
-        var maxValue = $(this).data('max-value');
-        $(this).TouchSpin({
-            min: minValue ? minValue : 0,
-            max: maxValue ? maxValue : 1000000,
-            step: 1,
-            decimals: 2
+        new PNotify({
+            title: 'As you command!',
+            text: '{{ session('flash_message') }}',
+            addclass: 'alert-styled-right',
+            type: 'success'
         });
     });
+
 </script>
 @stack('footer.scripts')
 </body>

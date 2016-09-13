@@ -46,7 +46,6 @@ $factory->define(User::class, function (Generator $faker) {
 $factory->define(Product::class, function (Generator $faker) {
     $name = $faker->words(3, true);
     return [
-        '_id' => str_slug($name),
         'name' => $name,
         'generic_name' => 'generic '.$name,
         'status' => Product::PUBLISHED,

@@ -12,5 +12,5 @@ use App\Business\MongoEloquentModel as Model;
  */
 class Image extends Model
 {
-
+    protected $fillable = ['name', 'alt', 'filename'];
 }

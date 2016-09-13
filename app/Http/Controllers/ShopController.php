@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Business\Search\ProductSearch;
 use App\Category;
-use App\PublishedProduct;
+use App\Shop\PublishedProduct;
 use Illuminate\Http\Request;
 use MetaTag;
 use Breadcrumbs;

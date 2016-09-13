@@ -174,7 +174,7 @@ PRODUCTS - START
                                                 <p>{{ $product->description }}</p>
                                                 <div class="buttons">
                                                     {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
-                                                    @if($product->variation->count())
+                                                    @if($product->variations->count())
                                                         <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                            class="btn btn-transparent btn-sm add-to-cart">
                                                             <i class="fa fa-plus"></i>Choose options

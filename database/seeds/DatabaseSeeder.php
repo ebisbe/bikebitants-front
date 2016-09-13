@@ -109,7 +109,7 @@ class DatabaseSeeder extends Seeder
             $sizes = $size->attribute_values()->get();
             foreach ($sizes as $size) {
                 foreach ($colours as $color) {
-                    $product->variation()->save(factory(Variation::class)->make([
+                    $product->variations()->save(factory(Variation::class)->make([
                         '_id' => [$color->_id, $size->_id]
                     ]));
                 }
@@ -129,13 +129,8 @@ class DatabaseSeeder extends Seeder
 //        $product->reviews()->save(factory(Review::class)->make());
 //        $product->reviews()->save(factory(Review::class)->make());
 
-        $product->labels()->save(factory(Label::class)->make());
-        $product->labels()->save(factory(Label::class)->make());
-        $product->labels()->save(factory(Label::class)->make());
-
-        for($cont = 0; $cont < 5; $cont++) {
-            $product->faqs()->save(factory(Faq::class)->make());
-        }
+        $product->labels()->saveMany(factory(Label::class, 2)->make());
+        $product->faqs()->saveMany(factory(Faq::class, 5)->make());
 
         return $product;
     }

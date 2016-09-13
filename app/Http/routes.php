@@ -7,6 +7,7 @@ Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
 
     Route::get('product/data-table', 'Admin\\ProductController@dataTable')->name('product.data-table');
     Route::get('product/status', 'Admin\\ProductController@status')->name('product.status');
+    Route::get('product/duplicate/{id}', 'Admin\\ProductController@duplicate')->name('product.duplicate');
     Route::resource('product', 'Admin\\ProductController');
 
     Route::get('brand/data-table', 'Admin\\BrandController@dataTable')->name('brand.data-table');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Attribute;
+use App\Business\Services\ProductService;
 use App\Http\Requests;
 
 use App\Product;
@@ -138,7 +140,7 @@ class ProductController extends AdminController
         $product = Product::findOrFail($id);
         $product->update($request->all());
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return ['message' => 'Product updated!'];
         }
 
@@ -174,5 +176,20 @@ class ProductController extends AdminController
             Product::PUBLISHED => ['_id' => Product::PUBLISHED, 'text' => trans('Product.' . Product::PUBLISHED), 'class' => Product::PUBLISHED_CLASS],
             Product::HIDDEN => ['_id' => Product::HIDDEN, 'text' => trans('Product.' . Product::HIDDEN), 'class' => Product::HIDDEN_CLASS],
         ];
+    }
+
+    /**
+     * Duplicates a product.
+     * @param $id
+     * @param ProductService $productService
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function duplicate($id, ProductService $productService)
+    {
+        $productService::duplicate($id);
+
+        Session::flash('flash_message', 'Product duplicated!');
+
+        return redirect('product');
     }
 }
