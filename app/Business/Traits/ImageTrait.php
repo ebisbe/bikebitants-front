@@ -8,7 +8,7 @@ use Illuminate\Http\Response as IlluminateResponse;
 use Config;
 use Storage;
 
-trait Image
+trait ImageTrait
 {
     /**
      * Get HTTP response of either original image file or

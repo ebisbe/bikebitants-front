@@ -4,10 +4,10 @@ namespace App\Business\Traits;
 
 use App\Business\Scopes\PublishedProductScope;
 
-trait PublishedProducts
+trait PublishedProductsTrait
 {
 
-    public static function bootPublishedProducts()
+    public static function bootPublishedProductsTrait()
     {
         static::addGlobalScope(new PublishedProductScope());
     }
