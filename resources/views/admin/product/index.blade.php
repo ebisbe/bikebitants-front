@@ -19,6 +19,7 @@
                 <th>Name</th>
                 <th>Status</th>
                 <th>Featured</th>
+                <th>Discounted</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -34,12 +35,26 @@
                         ></product-status>
                     </td>
                     <td>
-                        <product-featured
-                                is_featured="{{ $product->featured }}"
+                        <product-boolean
+                                value="{{ $product->featured }}"
+                                name_value="featured"
                                 product_id="{{ $product->_id }}"
-                                token="{{ csrf_token() }}">
+                                token="{{ csrf_token() }}"
+                                true_class="glyphicon glyphicon-star"
+                                false_class="glyphicon glyphicon-star-empty">
 
-                        </product-featured>
+                        </product-boolean>
+                    </td>
+                    <td>
+                        <product-boolean
+                                value="{{ $product->discounted }}"
+                                name_value="discounted"
+                                product_id="{{ $product->_id }}"
+                                token="{{ csrf_token() }}"
+                                true_class="icon icon-price-tag"
+                                false_class="icon icon-price-tags">
+
+                        </product-boolean>
                     </td>
                     <td>
                         <div class="btn-group position-right">

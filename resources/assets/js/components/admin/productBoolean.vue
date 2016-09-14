@@ -3,8 +3,8 @@
         <a
            v-on:click="update()"
            v-if="!uploading">
-            <span v-if="!is_featured" class="glyphicon glyphicon-star-empty"></span>
-            <span v-else class="glyphicon glyphicon-star"></span>
+            <span v-if="value" class="{{ true_class }}"></span>
+            <span v-else class="{{ false_class }}"></span>
         </a>
         <a v-else><span class="fa fa-spinner fa-spin"></span></a>
     </div>
@@ -14,7 +14,7 @@
 
     export default {
 
-        props: ['is_featured', 'product_id', 'token'],
+        props: ['name_value', 'value', 'product_id', 'token', 'true_class', 'false_class'],
 
         data() {
             return {
@@ -26,13 +26,14 @@
             update: function (status) {
                 this.uploading = true;
                 var that = this;
-                this.is_featured = (this.is_featured === 1 || this.is_featured === '1') ? 0 : 1;
+                this.value = (this.value === 1 || this.value === '1') ? 0 : 1;
+                var data = {
+                    '_token': this.token
+                };
+                data[this.name_value] = this.value;
                 $.ajax({
                     url: 'product/' + this.product_id,
-                    data: {
-                        'featured': this.is_featured,
-                        '_token': this.token
-                    },
+                    data: data,
                     method: 'PATCH'
                 })
                 .done(function (data) {

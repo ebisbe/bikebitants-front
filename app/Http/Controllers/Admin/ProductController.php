@@ -70,6 +70,8 @@ class ProductController extends AdminController
             'status' => 'required',
             'introduction' => 'required',
             'description' => 'required',
+            'featured' => 'filled|boolean',
+            'discounted' => 'filled|boolean',
             'meta_title' => 'required',
             'meta_description' => 'required',
             'meta_slug' => 'required'
@@ -134,6 +136,7 @@ class ProductController extends AdminController
             'introduction' => 'filled',
             'description' => 'filled',
             'featured' => 'filled|boolean',
+            'discounted' => 'filled|boolean',
             'meta_title' => 'filled',
             'meta_description' => 'filled',
             'meta_slug' => 'filled'

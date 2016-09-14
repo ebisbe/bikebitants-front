@@ -54,6 +54,7 @@ $factory->define(Product::class, function (Generator $faker) {
         'description' => $faker->paragraphs(3, true),
         'price' => $faker->numberBetween(1, 10),
         'featured' => $faker->boolean(35),
+        'discounted' => $faker->boolean(35),
         'discount_price' => $faker->numberBetween(1, 10),
         //'discount_init' => $faker->date(),
         //'discount_end' => $faker->date(),
