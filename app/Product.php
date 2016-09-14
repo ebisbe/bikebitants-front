@@ -39,7 +39,8 @@ class Product extends Model
 
     protected $appends = ['range_price', 'tags_list', 'currency'];
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'price', 'discount_price', 'tags', 'meta_title', 'meta_description', 'meta_slug'];
+    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'featured', 'price', 'discount_price', 'tags', 'meta_title', 'meta_description', 'meta_slug'];
+    protected $casts = ['featured' => 'boolean'];
 
     /**
      * Get a single point to find a price. The product can be a variable or simple
@@ -80,6 +81,11 @@ class Product extends Model
     public function getTagsListAttribute()
     {
         return is_array($this->tags) ? implode(', ', $this->tags) : $this->tags;
+    }
+
+    public function setFeaturedAttribute($featured)
+    {
+        $this->attributes['featured'] = (bool)$featured;
     }
 
     /**

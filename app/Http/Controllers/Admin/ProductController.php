@@ -133,6 +133,7 @@ class ProductController extends AdminController
             'status' => 'filled',
             'introduction' => 'filled',
             'description' => 'filled',
+            'featured' => 'filled|boolean',
             'meta_title' => 'filled',
             'meta_description' => 'filled',
             'meta_slug' => 'filled'
@@ -140,11 +141,12 @@ class ProductController extends AdminController
         $product = Product::findOrFail($id);
         $product->update($request->all());
 
+        $message = "Product '{$product->name}' updated!";
         if ($request->ajax()) {
-            return ['message' => 'Product updated!'];
+            return ['message' => $message];
         }
 
-        Session::flash('flash_message', 'Product updated!');
+        Session::flash('flash_message', $message);
         return redirect('product');
     }
 

@@ -155,6 +155,9 @@ PRODUCTS - START
                                             <div class="product-body">
                                                 <h3>{{ $product->name }}</h3>
                                                 <div class="product-labels">
+                                                    @if($product->featured)
+                                                        <span class="label label-info"><span class="fa fa-star"></span> </span>
+                                                    @endif
                                                     @foreach($product->labels as $label)
                                                         <span class="label label-{{ $label->css }}">{{ $label->name }}</span>
                                                     @endforeach

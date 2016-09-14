@@ -2,7 +2,7 @@
 
 namespace App\Business\Search;
 
-use App\PublishedProduct;
+use App\Shop\PublishedProduct;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Jenssegers\Mongodb\Eloquent\Builder;

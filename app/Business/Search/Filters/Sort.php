@@ -25,6 +25,10 @@ class Sort implements Filter {
                 return $builder->orderBy('created_at', 'desc');
                 break;
 
+            case 'featured';
+                return $builder->orderBy('featured', 'desc');
+                break;
+
 //            case 'popularity';
 //                return $builder->orderBy('created_at', 'desc');
 //                break;

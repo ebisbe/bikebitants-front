@@ -16,23 +16,16 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
-                <th>Slug</th>
                 <th>Status</th>
-                <th>Introduction</th>
-                <th>Description</th>
-                <th>Meta Title</th>
-                <th>Meta Description</th>
-                <th>Meta Slug</th>
+                <th>Featured</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
             @foreach($products as $product)
                 <tr>
-                    <td>{{ $product->_id }}</td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->slug }}</td>
                     <td>
                         <product-status
                                 status_selected="{{ $product->status }}"
@@ -40,11 +33,40 @@
                                 token="{{ csrf_token() }}"
                         ></product-status>
                     </td>
-                    <td>{{ str_limit($product->introduction, 10) }}</td>
-                    <td>{{ str_limit($product->description, 10) }}</td>
-                    <td>{{ $product->meta_title }}</td>
-                    <td>{{ $product->meta_description }}</td>
-                    <td>{{ $product->meta_slug }}</td>
+                    <td>
+                        <product-featured
+                                is_featured="{{ $product->featured }}"
+                                product_id="{{ $product->_id }}"
+                                token="{{ csrf_token() }}">
+
+                        </product-featured>
+                    </td>
+                    <td>
+                        <div class="btn-group position-right">
+                            <button aria-expanded="false" type="button" class="btn btn-info btn-icon dropdown-toggle"
+                                    data-toggle="dropdown"><i class="icon-menu7"></i><span class="caret"></span>
+                            </button>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('product.edit', ['_id' => $product->_id]) }}"><i
+                                                class="icon-pencil7"></i>&nbsp;Edit</a></li>
+                                <li>
+                                    <form action="{{ route('product.destroy', ['_id' => $product->_id]) }}"
+                                          method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+
+                                        <button type="submit" id="delete-task-{{ $product->id }}"
+                                                class="btn btn-xs btn-link">
+                                            <i class="fa fa-trash"></i>&nbsp;Delete
+                                        </button>
+                                    </form>
+                                </li>
+                                <li><a href="{{ route('product.duplicate', ['_id' => $product->_id]) }}"><i
+                                                class="icon-copy4"></i>&nbsp;Duplicate</a></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

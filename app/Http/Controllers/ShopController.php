@@ -30,6 +30,7 @@ class ShopController extends Controller
     /**
      * @param Brand $brand
      * @param PublishedProduct $product
+     * @param Category $category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function home(Brand $brand, PublishedProduct $product, Category $category)
@@ -38,8 +39,8 @@ class ShopController extends Controller
         $layoutTopHeader = 'hidden';
 
         $brands = $brand->featured()->get();
-        $productsLeft = $product->take(2)->get();
-        $productsRight = $product->take(8)->get();
+        $productsLeft = $product->featured()->take(2)->get();
+        $productsRight = $product->featured()->take(8)->get();
         $categories = $category->take(3)->get();
 
         $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);
