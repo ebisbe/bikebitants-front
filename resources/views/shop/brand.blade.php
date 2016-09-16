@@ -57,18 +57,23 @@
     <section class="content featured-products">
         <div class="container">
 
-            <h2>Featured Products with this Brand</h2>
+            <h2>Products with this Brand</h2>
             <div class="row">
 
                 <!-- PRODUCT - START -->
-                @foreach($brand->products->take(4) as $product)
+                @foreach($brand->products()->get() as $product)
                     <div class="col-xs-6 col-sm-3">
                         <article class="product-item">
-                            <a href="{!! route('shop.product', ['slug' => $product->slug]) !!}">
-                                <img src="/images/products/product-3.jpg" class="img-responsive" alt="">
-                            </a>
+                            <div class="product-overlay">
+                                <a href="{!! route('shop.product', ['slug' => $product->slug]) !!}">
+                                    <div class="product-mask">
+                                        {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt) !!}
+                                    </div>
+                                    {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
+                                </a>
+                            </div>
                             <h3>
-                                <a href="{!! route('shop.product', ['slug' => $product->slug]) !!}">{{ $product->name }}</a>
+                                <a href="{!! route('shop.product', ['slug' => $product->slug]) !!}">{{ str_limit($product->name, 30) }}</a>
                             </h3>
                             @if(isset($product->rating))
                                 <div class="product-rating">
@@ -80,7 +85,7 @@
                                 </div>
                             @endif
                             <span class="price">
-                            <ins><span class="amount">{{ $product->price }} &euro;</span></ins>
+                            <ins><span class="amount">{{ $product->range_price }}</span></ins>
                         </span>
                         </article>
                     </div>
