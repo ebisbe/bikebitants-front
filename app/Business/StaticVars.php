@@ -26,10 +26,10 @@ class StaticVars
     protected $emptyCart = ['fa-shopping-basket', 'fa-shopping-bag', 'fa-shopping-cart'];
 
     /** Filters for product page */
-    protected $filterMinimumValue = 5;
+    protected $filterMinimumValue = 1;
     protected $filterMaximumValue = 500;
     protected $filterSortingType = [/*'popularity', 'average_rating',*/
-        'selected' => 'newness', 'low_to_high', 'high_to_low', 'featured'
+        'selected' => 'newness', 'low_to_high', 'high_to_low', 'featured', 'discounted'
     ];
     protected $filterShow = [8 => 8, 12 => 12, 18 => 18, 24 => 24, 'all' => 'all'];
     protected $filterPage = 1;

@@ -7,6 +7,7 @@ return [
         'newness' => 'Newness',
         'low_to_high' => 'Price: low to high',
         'high_to_low' => 'Price: high to low',
-        'featured' => 'Featured'
+        'featured' => 'Featured',
+        'discounted' => 'Discounted'
     ]
 ];

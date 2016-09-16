@@ -158,6 +158,9 @@ PRODUCTS - START
                                                     @if($product->featured)
                                                         <span class="label label-info"><span class="fa fa-star"></span> </span>
                                                     @endif
+                                                    @if($product->discounted)
+                                                        <span class="label label-info">Sale</span>
+                                                    @endif
                                                     @foreach($product->labels as $label)
                                                         <span class="label label-{{ $label->css }}">{{ $label->name }}</span>
                                                     @endforeach
