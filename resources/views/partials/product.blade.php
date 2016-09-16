@@ -87,11 +87,11 @@
                         </div>
                     </form>
                 </div>
-                <ul class="list-inline product-links">
+                {{--<ul class="list-inline product-links">
                     <li><a href="#"><i class="fa fa-heart"></i>Add to wishlist</a></li>
                     <li><a href="#"><i class="fa fa-exchange"></i>Compare</a></li>
                     <li><a href="#"><i class="fa fa-envelope"></i>Email to friend</a></li>
-                </ul>
+                </ul>--}}
             </div>
         </div>
     </div>

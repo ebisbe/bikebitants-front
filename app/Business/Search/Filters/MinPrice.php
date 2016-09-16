@@ -15,6 +15,6 @@ class MinPrice implements Filter
      */
     public static function apply(Builder $builder, $value)
     {
-        return $builder->where('price', '>=', (int)$value);
+        return $builder->where('max_price', '>=', (int)$value);
     }
 }

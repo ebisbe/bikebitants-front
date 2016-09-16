@@ -24,7 +24,8 @@
         "ignited/laravel-omnipay": "^2.1",
         "awjudd/feed-reader": "1.3.*",
         "darryldecode/cart": "dev-master",
-        "appzcoder/crud-generator": "^1.1"
+        "appzcoder/crud-generator": "^1.1",
+        "hoa/math": "1.16.08.29"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -46,15 +46,16 @@ $factory->define(User::class, function (Generator $faker) {
 $factory->define(Product::class, function (Generator $faker) {
     $name = $faker->words(3, true);
     return [
+        '_id' => strtoupper(str_slug($name)),
         'name' => $name,
-        'generic_name' => 'generic '.$name,
         'status' => Product::PUBLISHED,
         'slug' => str_slug($name),
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
-        'price' => $faker->numberBetween(1, 10),
         'featured' => $faker->boolean(35),
         'discounted' => $faker->boolean(35),
+        'min_price' => $faker->numberBetween(1, 10),
+        'max_price' => $faker->numberBetween(1, 10),
         'discount_price' => $faker->numberBetween(1, 10),
         //'discount_init' => $faker->date(),
         //'discount_end' => $faker->date(),
@@ -68,6 +69,7 @@ $factory->define(Product::class, function (Generator $faker) {
 
 $factory->define(Attribute::class, function (Generator $faker) {
     return [
+        '_id' => $faker->word,
         'name' => $faker->word,
         'order' => $faker->randomNumber()
     ];
@@ -130,7 +132,11 @@ $factory->define(BrandService::class, function (Generator $faker) {
 $factory->define(Variation::class, function (Generator $faker) {
     return [
         '_id' => $faker->slug(),
-        'price' => $faker->numberBetween(1, 10),
+        'sku' => $faker->slug(),
+        'price' => $faker->numberBetween( 10, 250),
+        'discount_price' => $faker->numberBetween(1, 10),
+        'discounted' => $faker->boolean(35),
+        'stock' => $faker->numberBetween(10, 25),
     ];
 });
 

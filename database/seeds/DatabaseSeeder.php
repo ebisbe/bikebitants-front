@@ -37,12 +37,6 @@ class DatabaseSeeder extends Seeder
         $this->brand->services()->save(factory(BrandService::class)->make());
         $this->brand->services()->save(factory(BrandService::class)->make());
 
-        $product = $this->product(false, ['slug' => 'simple']);
-        $this->brand->products()->save($product);
-
-        $product = $this->product(true, ['slug' => 'variable']);
-        $this->brand->products()->save($product);
-
         $this->categories();
         $this->discounts();
         $this->zones();
@@ -65,8 +59,9 @@ class DatabaseSeeder extends Seeder
         /** @var Product $product */
         $product = factory(Product::class)->create($type);
 
+        $sizes = collect();
+        $colours = collect();
         if ($variable) {
-
             /** @var Attribute $size */
             $size = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'size', 'order' => 1]));
 
@@ -90,31 +85,43 @@ class DatabaseSeeder extends Seeder
             $color = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'color', 'order' => 2]));
 
             $color->attribute_values()->save(factory(AttributeValue::class)->make([
-                '_id' => 'RED',
+                '_id' => 'R',
                 'name' => 'Red',
                 'complementary_text' => ''
             ]));
             $color->attribute_values()->save(factory(AttributeValue::class)->make([
-                '_id' => 'GREEN',
+                '_id' => 'GR',
                 'name' => 'Green',
                 'complementary_text' => ''
             ]));
             $color->attribute_values()->save(factory(AttributeValue::class)->make([
-                '_id' => 'GOLD',
+                '_id' => 'GO',
                 'name' => 'Gold',
                 'complementary_text' => ''
             ]));
 
             $colours = $color->attribute_values()->get();
             $sizes = $size->attribute_values()->get();
-            foreach ($sizes as $size) {
-                foreach ($colours as $color) {
-                    $product->variations()->save(factory(Variation::class)->make([
-                        '_id' => [$color->_id, $size->_id]
-                    ]));
-                }
-            }
+
+            $cartesian = new Hoa\Math\Combinatorics\Combination\CartesianProduct(
+                [$product->_id],
+                $colours->pluck('_id')->toArray(),
+                $sizes->pluck('_id')->toArray()
+            );
+        } else {
+            $cartesian = new Hoa\Math\Combinatorics\Combination\CartesianProduct([$product->_id]);
         }
+
+
+        foreach ($cartesian as $tuple) {
+            $product->variations()->save(factory(Variation::class)->make([
+                '_id' => $tuple,
+                'sku' => implode('-', $tuple)
+            ]));
+        }
+
+        $product->min_price = $product->variations()->min('price');
+        $product->max_price = $product->variations()->max('price');
 
         $product->images()->save(factory(Image::class)->make());
         $product->images()->save(factory(Image::class)->make());
@@ -182,7 +189,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $order = 1;
-        $categories->each(function ($item) use(&$order) {
+        $categories->each(function ($item) use (&$order) {
             /** @var Category $cat */
             $cat = factory(Category::class)->create([
                 'name' => $item['name'],

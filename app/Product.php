@@ -10,6 +10,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * Class Product
  * @package App
  *
+ * @property string $_id
  * @property string $name
  * @property string $description
  * @property string $currency
@@ -48,16 +49,12 @@ class Product extends Model
      */
     public function getRangePriceAttribute()
     {
-        $price = $this->price;
-        if (!empty($this->variations()->count())) {
-            $min = $this->variations->min('price');
-            $max = $this->variations->max('price');
-            if ($min != $max) {
-                return $min . $this->currency . ' - ' . $max . $this->currency;
-            }
-            $price = $min;
+        $min = $this->variations->min('price');
+        $max = $this->variations->max('price');
+        if ($min != $max) {
+            return $min . $this->currency . ' - ' . $max . $this->currency;
         }
-        return $price . $this->currency;
+        return $min . $this->currency;
     }
 
     public function getStatusTextAttribute()
@@ -185,7 +182,7 @@ class Product extends Model
     public function productVariation($attributes)
     {
         return $this
-            ->variation()
+            ->variations()
             ->first(function ($key, $value) use ($attributes) {
                 return array_diff($value->_id, array_values($attributes)) == [];
             });
@@ -198,11 +195,7 @@ class Product extends Model
      */
     public function finalPrice($attributes = [])
     {
-        if ($this->variation()->count()) {
-            $variation = $this->productVariation($attributes);
-            return $variation->price;
-        }
-
-        return $this->price;
+        $variation = $this->productVariation($attributes);
+        return $variation->price;
     }
 }

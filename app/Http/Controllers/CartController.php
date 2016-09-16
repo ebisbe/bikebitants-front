@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Product;
+use App\Variation;
 use Illuminate\Http\Request;
 use MetaTag;
 use Cart;
@@ -34,7 +35,7 @@ class CartController extends Controller
         $subtitle = 'Cart';
 
         $cartCollect = Cart::getContent();
-        if($cartCollect->isEmpty()) {
+        if ($cartCollect->isEmpty()) {
             return view('cart.empty', compact('title', 'subtitle'));
         }
         return view('cart.index', compact('cartCollect', 'title', 'subtitle'));
@@ -58,20 +59,17 @@ class CartController extends Controller
 
         $productId = $request->input('product_id');
         $attributes = $request->input('attributes', []);
+        $variationProperties = array_merge([$productId], $attributes);
 
         /** @var Product $product */
         $product = Product::find($productId);
-        if(!empty($attributes)) {
-            $variation = $product->productVariation($attributes);
-            $id = implode('_', $variation->_id);
-        } else {
-            $id = $product->_id;
-        }
+        /** @var Variation $variation */
+        $variation = $product->productVariation($variationProperties);
 
         Cart::add([
-            'id' => $id,
+            'id' => $variation->sku,
             'name' => $product->name,
-            'price' => $product->finalPrice($attributes),
+            'price' => $product->finalPrice($variationProperties),
             'quantity' => $request->input('quantity', 1),
             'attributes' => [
                 'product' => $product,
@@ -80,7 +78,7 @@ class CartController extends Controller
         ]);
 
         if ($request->ajax()) {
-            return Cart::get($id);
+            return Cart::get($variation->sku);
         } else {
             return redirect('cart');
         }

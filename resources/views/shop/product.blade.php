@@ -112,9 +112,9 @@ PRODUCTS - START
                                         </span>
                                         <p></p>
                                         <div class="buttons buttons-simple">
-                                            <a href=""><i class="fa fa-exchange"></i></a>
+                                            {{--<a href=""><i class="fa fa-exchange"></i></a>--}}
                                             <a href=""><i class="fa fa-shopping-cart"></i></a>
-                                            <a href=""><i class="fa fa-heart"></i></a>
+                                            {{--<a href=""><i class="fa fa-heart"></i></a>--}}
                                         </div>
                                     </div>
                                 </div>
