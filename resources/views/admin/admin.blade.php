@@ -233,13 +233,14 @@
                 decimals: 2
             });
         });
-
+        @if(Session::has('flash_message') )
         new PNotify({
             title: 'As you command!',
             text: '{{ session('flash_message') }}',
             addclass: 'alert-styled-right',
             type: 'success'
         });
+        @endif
     });
 
 </script>

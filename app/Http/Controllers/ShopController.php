@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Business\Search\ProductSearch;
 use App\Category;
+use App\Business\Repositories\ProductRepository;
 use App\Shop\PublishedProduct;
 use Illuminate\Http\Request;
 use MetaTag;
@@ -33,14 +34,14 @@ class ShopController extends Controller
      * @param Category $category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home(Brand $brand, PublishedProduct $product, Category $category)
+    public function home(Brand $brand, ProductRepository $product, Category $category)
     {
         $layoutHeader = 'navbar-transparent navbar-fixed-top';
         $layoutTopHeader = 'hidden';
 
         $brands = $brand->featured()->get();
-        $productsLeft = $product->featured()->take(2)->get();
-        $productsRight = $product->featured()->take(8)->get();
+        $productsLeft = $product->featured()->limit(2)->get();
+        $productsRight = $product->featured()->limit(8)->get();
         $categories = $category->take(3)->get();
 
         $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);

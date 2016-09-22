@@ -8,7 +8,14 @@ use Illuminate\Routing\Route;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use StaticVars;
 use Illuminate\Support\Collection;
-
+/**
+ * [
+ * {$project: {name:1, prices:1, status:1, featured:1}},
+ * {$unwind:'$prices'},
+ * {$match:{"$and":[{"prices":{"$lte":100}},{"prices":{"$gte":90}},{"status":2},{"deleted_at":null}]}},
+ * {$group: {_id:"$_id", name: {"$first": "$name"}, status:  {"$first": "$status"}, featured:  {"$first": "$featured"}}}
+ * ]
+ */
 class ProductSearch
 {
 

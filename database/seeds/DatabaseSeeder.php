@@ -120,9 +120,6 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-        $product->min_price = $product->variations()->min('price');
-        $product->max_price = $product->variations()->max('price');
-
         $product->images()->save(factory(Image::class)->make());
         $product->images()->save(factory(Image::class)->make());
         $product->images()->save(factory(Image::class)->make());
@@ -227,6 +224,9 @@ class DatabaseSeeder extends Seeder
         });
     }
 
+    /**
+     * Create discounts
+     */
     public function discounts()
     {
         factory(Coupon::class)->create(['name' => 'DISCOUNT10']);
@@ -234,6 +234,9 @@ class DatabaseSeeder extends Seeder
         factory(Coupon::class)->create(['name' => 'DISCOUNT30']);
     }
 
+    /**
+     * Create Zones
+     */
     public function zones()
     {
         $zonesCol = collect([
