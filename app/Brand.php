@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Business\MongoEloquentModel as Model;
+use App\Business\Traits\SluggableTrait;
 use Jenssegers\Mongodb\Eloquent\Builder;
 
 /**
@@ -16,6 +17,8 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  */
 class Brand extends Model
 {
+
+    use SluggableTrait;
     /**
      * Attributes that should be mass-assignable.
      *

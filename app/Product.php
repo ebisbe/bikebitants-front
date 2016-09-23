@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Business\MongoEloquentModel as Model;
+use App\Business\Traits\SluggableTrait;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
@@ -25,7 +26,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  */
 class Product extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, SluggableTrait;
 
     /** @var string $table Defined for inheritance in PublishedProduct */
     protected $table = 'products';

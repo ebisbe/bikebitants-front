@@ -49,7 +49,7 @@ $factory->define(Product::class, function (Generator $faker) {
         '_id' => strtoupper(str_slug($name)),
         'name' => $name,
         'status' => Product::PUBLISHED,
-        'slug' => str_slug($name),
+        //'slug' => str_slug($name),
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'featured' => $faker->boolean(35),
@@ -108,7 +108,7 @@ $factory->define(Brand::class, function (Generator $faker) {
     }
     return [
         'name' => $name,
-        'slug' => str_slug($name) ,
+        //'slug' => str_slug($name) ,
         'description' => $faker->paragraphs(3, true),
         'filename' => $files->random(),
         'featured' => true,
@@ -175,9 +175,10 @@ $factory->define(Category::class, function (Generator $faker) {
     }
     return [
         'name' => $name,
-        'slug' => str_slug($name),
+        //'slug' => str_slug($name)
         'filename' => $files->random(),
         'products' => 0,
+        'featured' => false,
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
         'meta_slug' => $faker->words(6, true)

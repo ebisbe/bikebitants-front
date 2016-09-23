@@ -3,14 +3,12 @@
 namespace App;
 
 use App\Business\MongoEloquentModel as Model;
+use App\Business\Traits\SluggableTrait;
 
 /**
  * Class Category
  * @package App
  *
- * @property string $name
- * [
-{
  * @property string $_id
  * @property $products
  * @property $name
@@ -22,14 +20,13 @@ use App\Business\MongoEloquentModel as Model;
  * @property $order
  * @property-read $updated_at
  * @property-read $created_at
-}
-]
-
  *
  * @method static Builder whereSlug($slug)
  */
 class Category extends Model
 {
+    use SluggableTrait;
+
     protected $attributes = array(
         'products' => 0
     );

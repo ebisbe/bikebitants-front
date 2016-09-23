@@ -3,7 +3,6 @@
 namespace App\Business\Traits;
 
 use Intervention\Image\ImageManager;
-use Session;
 use Illuminate\Http\Response as IlluminateResponse;
 use Config;
 use Storage;
