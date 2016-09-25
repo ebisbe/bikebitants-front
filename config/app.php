@@ -173,7 +173,7 @@ return [
         Darryldecode\Cart\CartServiceProvider::class,
         App\Providers\CustomValidationsProvider::class,
         Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
-
+        Rinvex\Repository\Providers\RepositoryServiceProvider::class,
     ],
 
     /*

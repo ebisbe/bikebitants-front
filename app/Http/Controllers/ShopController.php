@@ -40,8 +40,8 @@ class ShopController extends Controller
         $layoutTopHeader = 'hidden';
 
         $brands = $brand->featured()->get();
-        $productsLeft = $product->featured()->limit(2)->get();
-        $productsRight = $product->featured()->limit(8)->get();
+        $productsLeft = $product->where('featured', true)->limit(2)->findAll();
+        $productsRight = $product->where('featured', true)->limit(8)->findAll();
         $categories = $category->with('children')->orderBy('featured', 'asc')->limit(3)->get();
 
         $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);

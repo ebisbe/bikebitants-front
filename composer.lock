@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e03cda5ea185cab0f70b7a7193a24a60",
-    "content-hash": "dd564d02e162b1e8b15b902ecae05326",
+    "hash": "68f86daf5273e7e3eec7a3783b01349d",
+    "content-hash": "bb53b34db17572d2a500079b6228b61d",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appzcoder/crud-generator.git",
-                "reference": "24f741dfccec54963bee9c7453ef062576929eed"
+                "reference": "84e3a5071a04138f86ad0d21a5acc0b367027f5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appzcoder/crud-generator/zipball/24f741dfccec54963bee9c7453ef062576929eed",
-                "reference": "24f741dfccec54963bee9c7453ef062576929eed",
+                "url": "https://api.github.com/repos/appzcoder/crud-generator/zipball/84e3a5071a04138f86ad0d21a5acc0b367027f5c",
+                "reference": "84e3a5071a04138f86ad0d21a5acc0b367027f5c",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +52,7 @@
                 "laravel",
                 "laravel crud generator"
             ],
-            "time": "2016-08-29 12:57:39"
+            "time": "2016-09-17 04:59:18"
         },
         {
             "name": "awjudd/feed-reader",
@@ -414,17 +414,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/darryldecode/laravelshoppingcart.git",
-                "reference": "8fbc1601fddd1997fab55827a3a00c71ccfc4078"
+                "reference": "6cdff019ac3e9c0c1ade1538ab059ae36e1de5cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darryldecode/laravelshoppingcart/zipball/8fbc1601fddd1997fab55827a3a00c71ccfc4078",
-                "reference": "8fbc1601fddd1997fab55827a3a00c71ccfc4078",
+                "url": "https://api.github.com/repos/darryldecode/laravelshoppingcart/zipball/6cdff019ac3e9c0c1ade1538ab059ae36e1de5cd",
+                "reference": "6cdff019ac3e9c0c1ade1538ab059ae36e1de5cd",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.0.x|5.1.x|5.2.x",
-                "illuminate/validation": "5.0.x|5.1.x|5.2.x",
+                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*",
+                "illuminate/validation": "5.0.*|5.1.*|5.2.*|5.3.*",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -454,7 +454,7 @@
                 "laravel",
                 "shopping cart"
             ],
-            "time": "2016-07-03 12:12:30"
+            "time": "2016-09-14 12:38:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1859,16 +1859,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.45",
+            "version": "v5.2.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2a79f920d5584ec6df7cf996d922a742d11095d1"
+                "reference": "f688217113f70b01d0e127da9035195415812bef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2a79f920d5584ec6df7cf996d922a742d11095d1",
-                "reference": "2a79f920d5584ec6df7cf996d922a742d11095d1",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/f688217113f70b01d0e127da9035195415812bef",
+                "reference": "f688217113f70b01d0e127da9035195415812bef",
                 "shasum": ""
             },
             "require": {
@@ -1925,8 +1925,7 @@
                 "illuminate/support": "self.version",
                 "illuminate/translation": "self.version",
                 "illuminate/validation": "self.version",
-                "illuminate/view": "self.version",
-                "tightenco/collect": "self.version"
+                "illuminate/view": "self.version"
             },
             "require-dev": {
                 "aws/aws-sdk-php": "~3.0",
@@ -1949,7 +1948,7 @@
                 "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (~2.0).",
                 "symfony/css-selector": "Required to use some of the crawler integration testing tools (2.8.*|3.0.*).",
                 "symfony/dom-crawler": "Required to use most of the crawler integration testing tools (2.8.*|3.0.*).",
-                "symfony/psr-http-message-bridge": "Required to use psr7 bridging features (0.2.*)."
+                "symfony/psr-http-message-bridge": "Required to psr7 bridging features (0.2.*)."
             },
             "type": "library",
             "extra": {
@@ -1985,7 +1984,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-26 11:44:52"
+            "time": "2016-05-17 13:24:40"
         },
         {
             "name": "laravelcollective/html",
@@ -2458,16 +2457,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3"
+                "reference": "4dd659edadffdc2143e4753df655d866dbfeedf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
-                "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/4dd659edadffdc2143e4753df655d866dbfeedf0",
+                "reference": "4dd659edadffdc2143e4753df655d866dbfeedf0",
                 "shasum": ""
             },
             "require": {
@@ -2505,7 +2504,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2016-04-19 13:41:41"
+            "time": "2016-09-16 12:04:44"
         },
         {
             "name": "omnipay/common",
@@ -2607,16 +2606,16 @@
         },
         {
             "name": "omnipay/paypal",
-            "version": "v2.5.5",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/omnipay-paypal.git",
-                "reference": "ec7fc864ae0699dd832cd727da26286a5354a35e"
+                "reference": "592f1cca058200adc76ed9599b13f21e81e01dda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/omnipay-paypal/zipball/ec7fc864ae0699dd832cd727da26286a5354a35e",
-                "reference": "ec7fc864ae0699dd832cd727da26286a5354a35e",
+                "url": "https://api.github.com/repos/thephpleague/omnipay-paypal/zipball/592f1cca058200adc76ed9599b13f21e81e01dda",
+                "reference": "592f1cca058200adc76ed9599b13f21e81e01dda",
                 "shasum": ""
             },
             "require": {
@@ -2661,7 +2660,7 @@
                 "paypal",
                 "purchase"
             ],
-            "time": "2016-07-15 04:26:38"
+            "time": "2016-09-06 04:15:04"
         },
         {
             "name": "paragonie/random_compat",
@@ -2813,22 +2812,30 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+                "reference": "5277094ed527a1c4477177d102fe4c53551953e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
-                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/5277094ed527a1c4477177d102fe4c53551953e0",
+                "reference": "5277094ed527a1c4477177d102fe4c53551953e0",
                 "shasum": ""
             },
+            "require": {
+                "php": ">=5.3.0"
+            },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
-                "psr-0": {
-                    "Psr\\Log\\": ""
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2842,12 +2849,13 @@
                 }
             ],
             "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
             "keywords": [
                 "log",
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2016-09-19 16:02:08"
         },
         {
             "name": "psy/psysh",
@@ -2922,6 +2930,79 @@
             "time": "2016-03-09 05:03:14"
         },
         {
+            "name": "rinvex/repository",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rinvex/repository.git",
+                "reference": "32e808bc19d2ae322f62027a75e0f9cc1474ef2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rinvex/repository/zipball/32e808bc19d2ae322f62027a75e0f9cc1474ef2b",
+                "reference": "32e808bc19d2ae322f62027a75e0f9cc1474ef2b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "5.1.*|5.2.*|5.3.*",
+                "illuminate/contracts": "5.1.*|5.2.*|5.3.*",
+                "illuminate/database": "5.1.*|5.2.*|5.3.*",
+                "illuminate/events": "5.1.*|5.2.*|5.3.*",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*",
+                "php": ">=5.5.9"
+            },
+            "suggest": {
+                "illuminate/pagination": "Required to paginate the result set."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rinvex\\Repository\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rinvex LLC",
+                    "email": "help@rinvex.com",
+                    "homepage": "https://rinvex.com"
+                },
+                {
+                    "name": "Abdelrahman Omran",
+                    "email": "me@omranic.com",
+                    "homepage": "https://omranic.com",
+                    "role": "Project Lead"
+                },
+                {
+                    "name": "The Generous PHP Community",
+                    "homepage": "https://github.com/rinvex/repository/contributors"
+                }
+            ],
+            "description": "Rinvex Repository is a simple, intuitive, and smart implementation of Active Repository with extremely flexible & granular caching system for Laravel, used to abstract the data layer, making applications more flexible to maintain.",
+            "homepage": "https://rinvex.com/marketplace/rinvex-repository/",
+            "keywords": [
+                "cache",
+                "contract",
+                "eloquent",
+                "granular",
+                "interface",
+                "intuitive",
+                "laravel",
+                "pattern",
+                "repository",
+                "rinvex"
+            ],
+            "time": "2016-08-05 22:40:10"
+        },
+        {
             "name": "simplepie/simplepie",
             "version": "dev-master",
             "source": {
@@ -2980,27 +3061,26 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "1.2.3",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "9de4779024572aea88d7f405017fc5a152658e7e"
+                "reference": "88ece922554b2084c89c2c3d5fc6706342cb0b89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/9de4779024572aea88d7f405017fc5a152658e7e",
-                "reference": "9de4779024572aea88d7f405017fc5a152658e7e",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/88ece922554b2084c89c2c3d5fc6706342cb0b89",
+                "reference": "88ece922554b2084c89c2c3d5fc6706342cb0b89",
                 "shasum": ""
             },
             "require": {
                 "illuminate/cookie": "~5.1.0|~5.2.0|~5.3.0",
                 "illuminate/support": "~5.1.0|~5.2.0|~5.3.0",
                 "illuminate/view": "~5.1.0|~5.2.0|~5.3.0",
-                "php": "^5.5|^7.0"
+                "php": "^5.6|^7.0"
             },
             "require-dev": {
-                "orchestra/database": "3.3.x-dev",
-                "orchestra/testbench": "3.3.x-dev",
+                "orchestra/testbench": "3.1",
                 "phpunit/phpunit": "4.*"
             },
             "type": "library",
@@ -3037,7 +3117,7 @@
                 "law",
                 "spatie"
             ],
-            "time": "2016-08-23 16:01:06"
+            "time": "2016-09-07 15:06:47"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3267,7 +3347,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.8.10",
+            "version": "v2.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",

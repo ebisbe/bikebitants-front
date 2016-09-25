@@ -1,6 +1,8 @@
 <?php
 
 /** Admin */
+use Illuminate\Support\Facades\Route;
+
 Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
     Route::auth();
     Route::get('/', 'Admin\\AdminController@dashboard')->name('admin.dashboard');
@@ -45,6 +47,12 @@ Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancella
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 Route::resource('coupon', 'CouponController', ['only' => ['store']]);
 Route::resource('cart-conditions', 'CartConditionsController', ['only' => ['index', 'store']]);
+
+// Static pages
+
+Route::get('/quines-somos', 'StaticPagesController@whoWeAre');
+
+// End Static Pages
 
 Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
     ->where(array('filename' => '[ \w\\.\\/\\-\\@]+', 'filter' => 'original|download|[0-9]+\/[0-9]+|[0-9]+'))
