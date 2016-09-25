@@ -230,8 +230,30 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3 col-xs-6">
+                    <div class="footer-widget footer-widget-links">
+                        <h4>Empresa</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="/quines-somos">Quiénes somos</a></li>
+                            <li><a href="">Compromiso Bikebitants</a></li>
+                            <li><a href="">Incentivos para empresas</a></li>
+                            <li><a href="">Sala de prensa</a></li>
+                            <li><a href="">Contacto</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <div class="footer-widget footer-widget-links">
+                        <h4>Compra en bikebitants</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="">Condiciones generales</a></li>
+                            <li><a href="">Devoluciones y anulaciones</a></li>
+                            <li><a href="">Entrega y plazos</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6">
                     <div class="footer-widget footer-widget-contacts">
-                        <h4>Contacts</h4>
+                        <h4>Contactos</h4>
                         <ul class="list-unstyled">
                             <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
                             <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
@@ -246,38 +268,9 @@
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6">
-                    <div class="footer-widget footer-widget-links">
-                        <h4>Information</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="about-shop.html">About Shop</a></li>
-                            <li><a href="stores.html">Our Stores</a></li>
-                            <li><a href="terms-conditions.html">Terms & Conditions</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="my-account.html">My account</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6">
                     <div class="footer-widget footer-widget-twitter">
                         <h4>Recent tweets</h4>
                         <div id="twitter-wrapper"></div>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="footer-widget footer-widget-facebook">
-                        <h4>Facebook Page</h4>
-                        <ul class="list-unstyled row row-no-padding">
-                            <li class="col-xs-3"><a href="#"><img src="/images/avatar/avatar_01.jpg" class="img-responsive" alt=""></a></li>
-                            <li class="col-xs-3"><a href="#"><img src="/images/avatar/avatar_02.jpg" class="img-responsive" alt=""></a></li>
-                            <li class="col-xs-3"><a href="#"><img src="/images/avatar/avatar_03.jpg" class="img-responsive" alt=""></a></li>
-                            <li class="col-xs-3"><a href="#"><img src="/images/avatar/avatar_04.jpg" class="img-responsive" alt=""></a></li>
-                            <li class="col-xs-3"><a href="#"><img src="/images/avatar/avatar_01.jpg" class="img-responsive" alt=""></a></li>
-                            <li class="col-xs-3"><a href="#"><img src="/images/avatar/avatar_02.jpg" class="img-responsive" alt=""></a></li>
-                            <li class="col-xs-3"><a href="#"><img src="/images/avatar/avatar_03.jpg" class="img-responsive" alt=""></a></li>
-                            <li class="col-xs-3"><a href="#"><img src="/images/avatar/avatar_04.jpg" class="img-responsive" alt=""></a></li>
-                        </ul>
-                        <p>45,500 Likes  <a href="#" class="btn btn-default btn-sm"><i class="fa fa-thumbs-up"></i>Like</a></p>
                     </div>
                 </div>
             </div>

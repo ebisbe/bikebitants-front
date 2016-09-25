@@ -51,9 +51,9 @@
             <!-- SERVICE - START -->
             <div class="col-xs-12 col-sm-4">
                 <div class="service">
-                    <i class="fa fa-star"></i>
-                    <h3>FREE SHIPPING ON ALL ORDRES</h3>
-                    <p>Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue.</p>
+                    <i class="fa fa-dropbox"></i>
+                    <h3>ENVIO GRATUITO</h3>
+                    <p>Envio sin coste <br/>para pedidos superiores a 30&euro;</p>
                 </div>
             </div>
             <!-- SERVICE - END -->
@@ -61,9 +61,9 @@
             <!-- SERVICE - START -->
             <div class="col-xs-6 col-sm-4">
                 <div class="service">
-                    <i class="fa fa-heart"></i>
-                    <h3>AMAZING CUSTOMER SERVICE</h3>
-                    <p>Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue.</p>
+                    <i class="fa fa-bicycle"></i>
+                    <h3>ENTREGA SOSTENIBLE</h3>
+                    <p>Uso de transporte no contaminante <br/>en los destinos donde sea posible</p>
                 </div>
             </div>
             <!-- SERVICE - END -->
@@ -71,9 +71,9 @@
             <!-- SERVICE - START -->
             <div class="col-xs-6 col-sm-4">
                 <div class="service">
-                    <i class="fa fa-rocket"></i>
-                    <h3>NO CUSTOMS OR DUTY FEES!</h3>
-                    <p>Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue.</p>
+                    <i class="fa fa-refresh"></i>
+                    <h3>DEVOLUCION F&aacute;CIL</h3>
+                    <p>Aceptamos tu devoluci&oacute;n<br/> hasta 30 dias despues de la compra</p>
                 </div>
             </div>
             <!-- SERVICE - END -->

@@ -146,43 +146,39 @@ class DatabaseSeeder extends Seeder
     {
 
         $categories = collect([
-            ['name' => 'Electrónica bicicleta',
-                'subcategories' => collect([
-                    'Cargador móvil',
-                    'Navegadores',
-                    'Radar',
-                ])],
-            ['name' => 'Cascos', 'subcategories' => collect([
-                'Airbag',
-                'Cascos plegables',
-                'Cascos ventilados',
-                'Complementos para cascos'
-            ])],
             ['name' => 'Accesorios bicicleta',
                 'subcategories' => collect([
-                    'Candados',
-                    'Luces',
-                    'Intermitentes',
-                    'Reflectantes',
-                    'Timbres',
+                    'Antirrobo',
+                    'Electrónica',
                     'Guardabarros',
-                    'Soporte Móvil'
+                    'Soporte Móvil',
+                    ['name' =>'Timbres', 'featured' => 2],
                 ])],
-            ['name' => 'Ropa',
+            ['name' => 'Cascos bicicleta',
                 'subcategories' => collect([
-                    'Chaquetas',
-                    'Chubasqueros',
-                    'Complementos'
+                    'Casco Airbag',
+                    'Cascos plegables',
                 ])],
-            ['name' => 'Mochilas y bolsas'],
-            ['name' => 'Niños',
+            ['name' => 'Complementos ciclista',
                 'subcategories' => collect([
-                    'Bicis de aprendizaje',
-                    'Remolque para niños',
-                    'Sillas portabebes',
+                    'Mochilas y bolsas',
+                ])],
+            ['name' => 'Infantil',
+                'featured' => 3,
+                'subcategories' => collect([
+                    'Bicicletas sin pedales',
                     'Cascos para niños',
+                    'Remolque',
+                    'Silla portabebes',
                     'Timbres para niños'
-                ])]
+                ])],
+            ['name' => 'Luces bicicleta',
+                'featured' => 1,
+                'subcategories' => collect([
+                    'Intermitentes',
+                    'Luz delantera',
+                    'Luz trasera',
+                ])],
         ]);
 
         $order = 1;
@@ -190,25 +186,31 @@ class DatabaseSeeder extends Seeder
             /** @var Category $cat */
             $cat = factory(Category::class)->create([
                 'name' => $item['name'],
-                'slug' => str_slug($item['name']),
-                'order' => $order++
+                'order' => $order++,
+                'featured' => !empty($item['featured']) ? $item['featured'] : false,
             ]);
-            $catSlug = str_slug($item['name']);
             $total_products = 0;
             if (isset($item['subcategories'])) {
                 $subOrder = 1;
-                $item['subcategories']->each(function ($item) use ($cat, $catSlug, &$subOrder, &$total_products) {
+                $item['subcategories']->each(function ($item) use ($cat, &$subOrder, &$total_products) {
+                    if(is_array($item)) {
+                        $name = $item['name'];
+                        $featured = $item['featured'];
+                    } else {
+                        $name = $item;
+                        $featured = false;
+                    }
                     /** @var Category $child */
                     $child = factory(Category::class)->create([
-                        'name' => $item,
-                        'slug' => str_slug($item),
-                        'order' => $subOrder++
+                        'name' => $name,
+                        'order' => $subOrder++,
+                        'featured' => $featured,
                     ]);
                     $child->father()->associate($cat);
 
                     $cont = 0;
                     while ($cont++ < 5) {
-                        $product = $this->product(rand(0, 1), ['categories' => [$catSlug, str_slug($item)]]);
+                        $product = $this->product(rand(0, 1), ['categories' => [$cat->slug, $child->slug]]);
                         $this->brand->products()->save($product);
                         $child->products()->save($product);
                     }
