@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
+use App\Business\Models\Shop\Product;
 use App\Business\Repositories\BrandRepository;
 use App\Business\Repositories\CategoryRepository;
 use App\Business\Search\ProductSearch;
 use App\Category;
 use App\Business\Repositories\ProductRepository;
-use App\Business\Models\Shop\PublishedProduct;
 use Illuminate\Http\Request;
 use MetaTag;
 use Breadcrumbs;
@@ -51,14 +52,14 @@ class ShopController extends Controller
     }
 
     /**
-     * @param PublishedProduct $product
+     * @param ProductRepository $productRepository
      * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function product(PublishedProduct $product, $slug)
+    public function product(ProductRepository $productRepository, $slug)
     {
         /** @var Product $product */
-        $product = $product::with(['category.father', 'images', 'faqs'])->whereSlug($slug)->firstOrFail();
+        $product = $productRepository->with(['category.father', 'images', 'faqs', 'brand'])->findBy('slug', $slug);
 
         Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
         Breadcrumbs::addCrumb($product->category->father->name, route('shop.category', ['category' => $product->category->father->slug]));
@@ -72,29 +73,32 @@ class ShopController extends Controller
         $title = $product->category->name;
         $subtitle = $product->name;
 
-        $relatedProducts = PublishedProduct::with('brand')
-            ->whereBrandId($product->brand_id)
+        $relatedProducts = $productRepository
+            ->where('brand_id', $product->brand_id)
             ->where('_id', '!=', $product->_id)
-            ->get()
-            ->take(4);
+            ->limit(4)
+            ->findAll();
         return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle'));
     }
 
     /**
-     * @param Brand $brand
+     * @param BrandRepository $brandRepository
+     * @param ProductRepository $productRepository
      * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function brand(Brand $brand, $slug)
+    public function brand(BrandRepository $brandRepository, ProductRepository $productRepository, $slug)
     {
-        $brand = $brand::whereSlug($slug)->firstOrFail();
+        /** @var Brand $brand */
+        $brand = $brandRepository->findBy('slug', $slug);
+        $products = $productRepository->where('brand_id', $brand->_id)->findAll();
 
         MetaTag::set('title', $brand->meta_title);
         MetaTag::set('description', $brand->meta_description);
         MetaTag::set('slug', $brand->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
 
-        return view('shop.brand', compact('brand'));
+        return view('shop.brand', compact('brand', 'products'));
     }
 
     /**

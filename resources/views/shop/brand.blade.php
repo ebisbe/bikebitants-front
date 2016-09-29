@@ -61,7 +61,7 @@
             <div class="row">
 
                 <!-- PRODUCT - START -->
-                @foreach($brand->products()->get() as $product)
+                @foreach($products as $product)
                     <div class="col-xs-6 col-sm-3">
                         <article class="product-item">
                             <div class="product-overlay">

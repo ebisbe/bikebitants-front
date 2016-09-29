@@ -107,8 +107,8 @@ PRODUCTS - START
                                     <div class="product-body">
                                         <h3>{{ $relatedProduct->name }}</h3>
                                         <span class="price">
-                                            <del><span class="amount">{{ $relatedProduct->price }} &euro;</span></del>
-                                            <ins><span class="amount">{{ $relatedProduct->price }} &euro;</span></ins>
+                                            <del><span class="amount">{{ $relatedProduct->range_price }}</span></del>
+                                            <ins><span class="amount">{{ $relatedProduct->range_price }}</span></ins>
                                         </span>
                                         <p></p>
                                         <div class="buttons buttons-simple">

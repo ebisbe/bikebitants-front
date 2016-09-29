@@ -2,7 +2,7 @@
 
 namespace App\Business\Search;
 
-use App\Shop\PublishedProduct;
+use App\Business\Models\Shop\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Jenssegers\Mongodb\Eloquent\Builder;
@@ -26,7 +26,7 @@ class ProductSearch
      */
     public static function apply(Request $filters, Route $route)
     {
-        $query = (new PublishedProduct())->newQuery()->with('brand');
+        $query = (new Product())->newQuery()->with('brand');
         return static::applyDecoratorsFromRequest($filters, $query, $route);
     }
 

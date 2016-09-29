@@ -5,7 +5,7 @@ use Rinvex\Repository\Repositories\EloquentRepository;
 
 class ProductRepository extends EloquentRepository
 {
-    protected $repositoryId = 'rinvex.repository.published_product';
+    protected $repositoryId = 'rinvex.repository.shop.product';
 
-    protected $model = 'App\Shop\PublishedProduct';
+    protected $model = 'App\Business\Models\Shop\Product';
 }

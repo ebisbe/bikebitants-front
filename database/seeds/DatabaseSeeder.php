@@ -46,6 +46,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'enricu@gmail.com',
             'password' => bcrypt('123456'),
         ]);
+
+        Artisan::call('cache:clear');
+
     }
 
     /**
