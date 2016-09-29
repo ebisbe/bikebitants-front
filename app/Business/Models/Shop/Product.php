@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Shop;
+namespace App\Business\Models\Shop;
 
 use App\Business\Traits\PublishedProductsTrait;
-use App\Product;
 
 /**
  * Class PublishedProduct
@@ -11,7 +10,7 @@ use App\Product;
  *
  * @method featured($featured = true) Bool
  */
-class PublishedProduct extends Product
+class Product extends \App\Product
 {
     use PublishedProductsTrait;
 

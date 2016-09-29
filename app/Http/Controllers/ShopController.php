@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Brand;
+use App\Business\Repositories\BrandRepository;
+use App\Business\Repositories\CategoryRepository;
 use App\Business\Search\ProductSearch;
 use App\Category;
 use App\Business\Repositories\ProductRepository;
-use App\Shop\PublishedProduct;
+use App\Business\Models\Shop\PublishedProduct;
 use Illuminate\Http\Request;
 use MetaTag;
 use Breadcrumbs;
@@ -29,20 +30,20 @@ class ShopController extends Controller
     }
 
     /**
-     * @param Brand $brand
-     * @param PublishedProduct $product
-     * @param Category $category
+     * @param BrandRepository $brandRepository
+     * @param ProductRepository $productRepository
+     * @param CategoryRepository $categoryRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home(Brand $brand, ProductRepository $product, Category $category)
+    public function home(BrandRepository $brandRepository, ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
         $layoutHeader = 'navbar-transparent navbar-fixed-top';
         $layoutTopHeader = 'hidden';
 
-        $brands = $brand->featured()->get();
-        $productsLeft = $product->where('featured', true)->limit(2)->findAll();
-        $productsRight = $product->where('featured', true)->limit(8)->findAll();
-        $categories = $category->with('children')->orderBy('featured', 'asc')->limit(3)->get();
+        $brands = $brandRepository->where('featured', true)->limit(4)->findAll();
+        $productsLeft = $productRepository->where('featured', true)->limit(2)->findAll();
+        $productsRight = $productRepository->where('featured', true)->limit(8)->findAll();
+        $categories = $categoryRepository->with(['children'])->orderBy('featured', 'asc')->limit(3)->findAll();
 
         $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);
 
