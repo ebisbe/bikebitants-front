@@ -103,16 +103,17 @@ class DatabaseSeeder extends Seeder
             $colours = $color->attribute_values()->get();
             $sizes = $size->attribute_values()->get();
 
-            $cartesian = new Hoa\Math\Combinatorics\Combination\CartesianProduct(
+            $arguments = [
                 [$product->_id],
                 $colours->pluck('_id')->toArray(),
                 $sizes->pluck('_id')->toArray()
-            );
+            ];
         } else {
-            $cartesian = new Hoa\Math\Combinatorics\Combination\CartesianProduct([$product->_id]);
+            $arguments = [[$product->_id]];
         }
 
-
+        $reflectionClass = new ReflectionClass('\Hoa\Math\Combinatorics\Combination\CartesianProduct');
+        $cartesian = $reflectionClass->newInstanceArgs($arguments);
         foreach ($cartesian as $tuple) {
             $product->variations()->save(factory(Variation::class)->make([
                 '_id' => $tuple,
