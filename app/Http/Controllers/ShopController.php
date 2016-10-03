@@ -121,7 +121,7 @@ class ShopController extends Controller
         $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
 
         MetaTag::set('title', 'Bikebitants shop');
-        MetaTag::set('description', 'This is the metra description');
+        MetaTag::set('description', 'This is the meta description');
         MetaTag::set('slug', 'some meta tags here');
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));

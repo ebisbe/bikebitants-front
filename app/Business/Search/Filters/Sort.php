@@ -1,36 +1,34 @@
 <?php
 namespace App\Business\Search\Filters;
 
-use Jenssegers\Mongodb\Eloquent\Builder;
-
-class Sort implements Filter {
+class Sort implements Filter
+{
 
     /**
-     * @param Builder $builder
      * @param mixed $value
-     * @return Builder
+     * @return array
      */
-    public static function apply(Builder $builder, $value)
+    public static function apply($value)
     {
-        switch($value) {
+        switch ($value) {
             case 'low_to_high';
-                return $builder->orderBy('price', 'asc');
-            break;
+                return ['prices' => 1];
+                break;
 
             case 'high_to_low';
-                return $builder->orderBy('price', 'desc');
+                return ['prices' => -1];
                 break;
 
             case 'newness';
-                return $builder->orderBy('created_at', 'desc');
+                return ['created_at' => -1];
                 break;
 
             case 'featured';
-                return $builder->orderBy('featured', 'desc');
+                return ['featured' => 1];
                 break;
 
             case 'discounted';
-                return $builder->orderBy('discounted', 'desc');
+                return ['discounted' => -1];
                 break;
 
 //            case 'popularity';
@@ -42,7 +40,7 @@ class Sort implements Filter {
 //                break;
 
             default:
-                return $builder;
+                return [];
         }
 
     }

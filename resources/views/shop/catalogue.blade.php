@@ -92,14 +92,7 @@ PRODUCTS - START
                     <div class="products-header">
                         <div class="row">
                             <div class="col-xs-6 col-sm-4">
-                                <div class="form-inline products-per-page">
-                                    <div class="form-group">
-                                        <label>Show:</label>
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::select('show', StaticVars::filterShow(), $filters->get('show'), ['class' => 'form-control js-change']) !!}
-                                    </div>
-                                </div>
+
                             </div>
 
                             <div class="col-xs-6 col-sm-8">
@@ -180,7 +173,7 @@ PRODUCTS - START
                                                 <p>{{ $product->description }}</p>
                                                 <div class="buttons">
                                                     {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
-                                                    @if($product->variations->count())
+                                                    @if($product->variations->count() > 1)
                                                         <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                            class="btn btn-transparent btn-sm add-to-cart">
                                                             <i class="fa fa-plus"></i>Choose options
@@ -219,11 +212,11 @@ PRODUCTS - START
                                     <!-- PRODUCT - END -->
 
                     </div>
-                    @if($filters->get('show') != 'all' && $products->count() >= $products->perPage())
+                    {{--@if($filters->get('show') != 'all' && $products->count() >= $products->perPage())
                         <div class="pagination-wrapper">
                             {{ $products->appends($filters->all())->links() }}
                         </div>
-                    @endif
+                    @endif--}}
 
                 </div>
             </div>

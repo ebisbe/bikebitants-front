@@ -31,13 +31,13 @@ class ProductVariationsPrices extends Job implements ShouldQueue
      */
     public function handle()
     {
-        /*$prices = $this->product->variations->map(function($variation) {
+        $prices = $this->product->variations->map(function($variation) {
             //todo check if price is discounted and add that price instead
             return $variation->price;
         })->toArray();
-        $this->product->prices = $prices;*/
-        $this->product->min_price = $this->product->variations()->min('price');
-        $this->product->max_price = $this->product->variations()->max('price');
+        $this->product->prices = $prices;
+        //$this->product->min_price = $this->product->variations()->min('price');
+        //$this->product->max_price = $this->product->variations()->max('price');
 
         $this->product->save();
     }

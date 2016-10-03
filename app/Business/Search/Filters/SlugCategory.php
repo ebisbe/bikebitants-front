@@ -6,12 +6,11 @@ use Jenssegers\Mongodb\Eloquent\Builder;
 class SlugCategory implements Filter {
 
     /**
-     * @param Builder $builder
      * @param mixed $value
      * @return Builder
      */
-    public static function apply(Builder $builder, $value)
+    public static function apply($value)
     {
-        return $builder->whereIn('categories', [$value]);
+        return ['categories' => ['$in' => [$value]]];
     }
 }

@@ -8,11 +8,13 @@ use Illuminate\Routing\Route;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use StaticVars;
 use Illuminate\Support\Collection;
+
 /**
  * [
  * {$project: {name:1, prices:1, status:1, featured:1}},
  * {$unwind:'$prices'},
  * {$match:{"$and":[{"prices":{"$lte":100}},{"prices":{"$gte":90}},{"status":2},{"deleted_at":null}]}},
+ * {$sort:{age: -1,posts:1}},
  * {$group: {_id:"$_id", name: {"$first": "$name"}, status:  {"$first": "$status"}, featured:  {"$first": "$featured"}}}
  * ]
  */
@@ -26,8 +28,34 @@ class ProductSearch
      */
     public static function apply(Request $filters, Route $route)
     {
-        $query = (new Product())->newQuery()->with('brand');
-        return static::applyDecoratorsFromRequest($filters, $query, $route);
+        list($filters, $sort) = static::applyDecoratorsFromRequest($filters, [], $route);
+
+        $query = (new Product())->newQuery()
+            ->with('brand')
+            ->raw(function ($collection) use ($filters, $sort) {
+                return $collection->aggregate([
+                    //['$project' => ['name' => 1, 'prices' => 1, 'status' => 1, 'featured' => 1]],
+                    ['$unwind' => '$prices'],
+                    ['$match' =>
+                        ['$and' => $filters]
+                    ],
+                    ['$sort' => $sort],
+                    ['$group' => [
+                        '_id' => '$_id',
+                        'name' => ['$first' => '$name'],
+                        'status' => ['$first' => '$status'],
+                        'featured' => ['$first' => '$featured'],
+                        'images' => ['$first' => '$images'],
+                        'labels' => ['$first' => '$labels'],
+                        'discounted' => ['$first' => 'discounted'],
+                        'description' => ['$first' => '$description'],
+                        'slug' => ['$first' => '$slug'],
+                        'variations' => ['$first' => '$variations']
+                    ]]
+                ]);
+            });
+
+        return $query;
     }
 
     /**
@@ -37,33 +65,37 @@ class ProductSearch
     private static function getDefaultFilters()
     {
         return collect([
-            // Show must be alwasy the first item of the Collection because the filter has a paginate().
-            'show' => StaticVars::filterShowSelected(),
+            'sort' => StaticVars::filterSortingTypeSelected(),
             'min_price' => StaticVars::filterMinimumValue(),
             'max_price' => StaticVars::filterMaximumValue(),
-            'sort' => StaticVars::filterSortingTypeSelected(),
         ]);
     }
 
     /**
      * For each input received from the request apply it's own filter.
      * @param Request $filters
-     * @param Builder $query
+     * @param $query
      * @param Route $route
      * @return Builder
      */
-    private static function applyDecoratorsFromRequest(Request $filters, Builder $query, Route $route)
+    private static function applyDecoratorsFromRequest(Request $filters, $query, Route $route)
     {
         foreach (static::getFilters($filters, $route) as $filterName => $value) {
 
             $decorator = static::createFilterDecorator($filterName);
 
             if (static::isValidDecorator($decorator)) {
-                $query = $decorator::apply($query, $value);
+                array_push($query, $decorator::apply($value));
             }
 
         }
-        return $query;
+        $filters = array_merge($query, [
+            ['status' => 2],
+            ['deleted_at' => null]
+        ]);
+        $sort = array_shift($filters);
+
+        return [$filters, $sort];
     }
 
     /**
@@ -76,8 +108,7 @@ class ProductSearch
     {
         return static::getDefaultFilters()
             ->merge($filters->all())
-            ->merge($route->parameters())
-            ->reverse();
+            ->merge($route->parameters());
     }
 
     /**
