@@ -13,7 +13,7 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  * @property string name
  *
  * @method static Builder whereSlug($slug)
- * @method static Builder featured($featured = true)
+ * @method static Builder featured($is_featured = true)
  */
 class Brand extends Model
 {
@@ -24,7 +24,7 @@ class Brand extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'description', 'filename', 'featured', 'meta_title', 'meta_description', 'meta_slug'];
+    protected $fillable = ['name', 'slug', 'description', 'filename', 'is_featured', 'meta_title', 'meta_description', 'meta_slug'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -44,12 +44,12 @@ class Brand extends Model
 
     /**
      * @param $query
-     * @param bool $featured
+     * @param bool $is_featured
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeFeatured($query, $featured = true)
+    public function scopeFeatured($query, $is_featured = true)
     {
         /** @var Builder $query */
-        return $query->where('featured', $featured);
+        return $query->where('is_featured', $is_featured);
     }
 }

@@ -52,20 +52,20 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('featured') ? 'has-error' : ''}}">
-                {!! Form::label('featured', 'Featured', ['class' => 'col-sm-3 control-label']) !!}
+            <div class="form-group {{ $errors->has('is_featured') ? 'has-error' : ''}}">
+                {!! Form::label('is_featured', 'Featured', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-lg-6">
                     <label class="radio-inline">
-                        {!! Form::radio('featured', '1', null, ['class' => 'styled']) !!}
+                        {!! Form::radio('is_featured', '1', null, ['class' => 'styled']) !!}
                         Yes
                     </label>
 
                     <label class="radio-inline">
-                        {!! Form::radio('featured', '0', true, ['class' => 'styled']) !!}
+                        {!! Form::radio('is_featured', '0', true, ['class' => 'styled']) !!}
                         No
                     </label>
                 </div>
-                {!! $errors->first('featured', '<p class="help-block">:message</p>') !!}
+                {!! $errors->first('is_featured', '<p class="help-block">:message</p>') !!}
             </div>
             <div class="form-group {{ $errors->has('meta_title') ? 'has-error' : ''}}">
                 {!! Form::label('meta_title', 'Meta Title', ['class' => 'col-sm-3 control-label']) !!}

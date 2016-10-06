@@ -8,7 +8,7 @@ use App\Business\Traits\PublishedProductsTrait;
  * Class PublishedProduct
  * @package App\Shop
  *
- * @method featured($featured = true) Bool
+ * @method featured($is_featured = true) Bool
  */
 class Product extends \App\Product
 {
@@ -16,11 +16,11 @@ class Product extends \App\Product
 
     /**
      * @param $query
-     * @param bool $featured
+     * @param bool $is_featured
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeFeatured($query, $featured = true)
+    public function scopeFeatured($query, $is_featured = true)
     {
-        return $query->where('featured', (bool)$featured);
+        return $query->where('is_featured', (bool)$is_featured);
     }
 }

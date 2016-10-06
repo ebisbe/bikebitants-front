@@ -53,7 +53,7 @@ $factory->define(Product::class, function (Generator $faker) {
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'featured' => $faker->boolean(35),
-            //'discounted' => $faker->boolean(35),
+            //'is_discounted' => $faker->boolean(35),
             //'min_price' => $faker->numberBetween(1, 10),
             //'max_price' => $faker->numberBetween(1, 10),
         //'discount_init' => $faker->date(),
@@ -133,8 +133,8 @@ $factory->define(Variation::class, function (Generator $faker) {
         '_id' => $faker->slug(),
         'sku' => $faker->slug(),
         'price' => $faker->numberBetween( 10, 250),
-        'discount_price' => $faker->numberBetween(1, 10),
-        'discounted' => $faker->boolean(35),
+        'discounted_price' => $faker->numberBetween(1, 10),
+        'is_discounted' => $faker->boolean(35),
         'stock' => $faker->numberBetween(10, 25),
     ];
 });

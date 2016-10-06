@@ -24,11 +24,11 @@ class Sort implements Filter
                 break;
 
             case 'featured';
-                return ['featured' => 1];
+                return ['is_featured' => 1];
                 break;
 
             case 'discounted';
-                return ['discounted' => -1];
+                return ['is_discounted' => -1];
                 break;
 
 //            case 'popularity';

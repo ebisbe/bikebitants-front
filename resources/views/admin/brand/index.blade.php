@@ -55,7 +55,7 @@
                             return view_btn + '&nbsp;' + edit_btn + '&nbsp;' + delete_btn.replace('full_id', full._id);
                         }
                     },
-                    {'data': 'slug'}, {'data': 'description'}, {'data': 'featured'}, {'data': 'meta_title'}, {'data': 'meta_description'}, {'data': 'meta_slug'}
+                    {'data': 'slug'}, {'data': 'description'}, {'data': 'is_featured'}, {'data': 'meta_title'}, {'data': 'meta_description'}, {'data': 'meta_slug'}
                 ],
                 columnDefs: [
                     {
@@ -64,7 +64,7 @@
                     },
                     {
                         width: "23%",
-                        targets: ['slug', 'description', 'featured', 'meta_title', 'meta_description', 'meta_slug']
+                        targets: ['slug', 'description', 'is_featured', 'meta_title', 'meta_description', 'meta_slug']
                     }
                 ],
                 dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',

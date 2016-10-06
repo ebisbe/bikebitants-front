@@ -36,7 +36,7 @@
                             <label class="checkbox-inline">
                                 <div class="checker">
                                     <span class="checked">
-                                        {!! Form::checkbox('featured', $brand->featured, $brand->featured ? true : false, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
+                                        {!! Form::checkbox('is_featured', $brand->is_featured, $brand->is_featured ? true : false, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
                                     </span>
                                 </div>
                                 Featured

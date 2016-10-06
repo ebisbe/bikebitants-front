@@ -77,7 +77,7 @@ class BrandController extends AdminController
             'slug' => 'required|unique',
             'description' => 'required',
             'filename' => 'required|image',
-            'featured' => 'required',
+            'is_featured' => 'required',
             'meta_title' => 'required',
             'meta_description' => 'required',
             'meta_slug' => 'required'
@@ -141,7 +141,7 @@ class BrandController extends AdminController
             'slug' => 'required|unique',
             'description' => 'required',
             'filename' => 'required',
-            'featured' => 'required',
+            'is_featured' => 'required',
             'meta_title' => 'required',
             'meta_description' => 'required',
             'meta_slug' => 'required'

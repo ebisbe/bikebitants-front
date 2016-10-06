@@ -101,10 +101,11 @@ class SerializeUtil
     public static function unserializeArray(array $arrayData) {
         $arrayAfterUnserializing = [];
         foreach($arrayData as $key => $arrayElement) {
-            if($key === '_id' && ctype_xdigit(self::unserialize($arrayElement))) {
-                $arrayAfterUnserializing[$key] = new ObjectID(self::unserialize($arrayElement));
+            $unserializedElement = self::unserialize($arrayElement);
+            if($key === '_id' && ctype_xdigit($unserializedElement) /*&& strlen($unserializedElement) > 15*/) {
+                $arrayAfterUnserializing[$key] = new ObjectID($unserializedElement);
             } else {
-                $arrayAfterUnserializing[$key] = self::unserialize($arrayElement);
+                $arrayAfterUnserializing[$key] = $unserializedElement;
             }
         }
         return $arrayAfterUnserializing;

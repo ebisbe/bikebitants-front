@@ -31,7 +31,7 @@
                 <span class="price">
                     <span class="amount">{{ $product->range_price }}</span>
                     {{--<del><span class="amount">{{ $product->range_price }} &euro;</span></del>
-                    <ins><span class="amount">{{ $product->discount_price }} &euro;</span></ins>--}}
+                    <ins><span class="amount">{{ $product->discounted_price }} &euro;</span></ins>--}}
                 </span>
                 <ul class="list-unstyled product-info">
                     <li><span>ID</span>{{ $product->_id }}</li>

@@ -36,7 +36,7 @@
                     </td>
                     <td>
                         <product-boolean
-                                value="{{ $product->featured }}"
+                                value="{{ $product->is_featured }}"
                                 name_value="featured"
                                 product_id="{{ $product->_id }}"
                                 token="{{ csrf_token() }}"
@@ -47,7 +47,7 @@
                     </td>
                     <td>
                         <product-boolean
-                                value="{{ $product->discounted }}"
+                                value="{{ $product->is_discounted }}"
                                 name_value="discounted"
                                 product_id="{{ $product->_id }}"
                                 token="{{ csrf_token() }}"

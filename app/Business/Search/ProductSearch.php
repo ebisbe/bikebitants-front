@@ -11,11 +11,11 @@ use Illuminate\Support\Collection;
 
 /**
  * [
- * {$project: {name:1, prices:1, status:1, featured:1}},
+ * {$project: {name:1, prices:1, status:1, is_featured:1}},
  * {$unwind:'$prices'},
  * {$match:{"$and":[{"prices":{"$lte":100}},{"prices":{"$gte":90}},{"status":2},{"deleted_at":null}]}},
  * {$sort:{age: -1,posts:1}},
- * {$group: {_id:"$_id", name: {"$first": "$name"}, status:  {"$first": "$status"}, featured:  {"$first": "$featured"}}}
+ * {$group: {_id:"$_id", name: {"$first": "$name"}, status:  {"$first": "$status"}, is_featured:  {"$first": "$is_featured"}}}
  * ]
  */
 class ProductSearch
@@ -34,7 +34,7 @@ class ProductSearch
             ->with('brand')
             ->raw(function ($collection) use ($filters, $sort) {
                 return $collection->aggregate([
-                    //['$project' => ['name' => 1, 'prices' => 1, 'status' => 1, 'featured' => 1]],
+                    //['$project' => ['name' => 1, 'prices' => 1, 'status' => 1, 'is_featured' => 1]],
                     ['$unwind' => '$prices'],
                     ['$match' =>
                         ['$and' => $filters]
@@ -44,10 +44,10 @@ class ProductSearch
                         '_id' => '$_id',
                         'name' => ['$first' => '$name'],
                         'status' => ['$first' => '$status'],
-                        'featured' => ['$first' => '$featured'],
+                        'is_featured' => ['$first' => '$is_featured'],
                         'images' => ['$first' => '$images'],
                         'labels' => ['$first' => '$labels'],
-                        'discounted' => ['$first' => 'discounted'],
+                        'is_discounted' => ['$first' => 'is_discounted'],
                         'description' => ['$first' => '$description'],
                         'slug' => ['$first' => '$slug'],
                         'variations' => ['$first' => '$variations']
