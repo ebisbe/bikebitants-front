@@ -132,7 +132,9 @@ $factory->define(Variation::class, function (Generator $faker) {
     return [
         '_id' => $faker->slug(),
         'sku' => $faker->slug(),
-        'price' => $faker->numberBetween( 10, 250),
+        //Price is set up before saving
+        //'price' => $faker->numberBetween( 10, 250),
+        'real_price' => $faker->numberBetween(10, 250),
         'discounted_price' => $faker->numberBetween(1, 10),
         'is_discounted' => $faker->boolean(35),
         'stock' => $faker->numberBetween(10, 25),

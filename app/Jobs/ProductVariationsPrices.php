@@ -33,9 +33,6 @@ class ProductVariationsPrices extends Job implements ShouldQueue
     {
         $prices = $this->product->variations->map(function($variation) {
             /** @var Variation $variation */
-            if($variation->is_discounted) {
-                return $variation->discounted_price;
-            }
             return $variation->price;
         })->toArray();
         $this->product->prices = $prices;
