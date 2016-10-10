@@ -168,7 +168,10 @@ PRODUCTS - START
                                                     </div>
                                                 @endif
                                                 <span class="price">
-                                                    <span class="amount">{{ $product->range_price }}</span>
+                                                    @if($product->is_discounted)
+                                                        <del><span class="amount">{{ $product->range_real_price }}</span></del>
+                                                    @endif
+                                                    <ins><span class="amount">{{ $product->range_price }}</span></ins>
                                                 </span>
                                                 <p>{{ $product->description }}</p>
                                                 <div class="buttons">

@@ -31,11 +31,18 @@ class ProductVariationsPrices extends Job implements ShouldQueue
      */
     public function handle()
     {
-        $prices = $this->product->variations->map(function($variation) {
-            /** @var Variation $variation */
-            return $variation->price;
-        })->toArray();
-        $this->product->prices = $prices;
+        $this->product->prices = $this->product
+            ->variations
+            ->map(function ($variation) {
+                return $variation->price;
+            })->toArray();
+
+
+        $this->product->is_discounted = $this->product
+                ->variations
+                ->filter(function ($variation) {
+                    return $variation->is_discounted;
+                })->count() > 0;
 
         $this->product->save();
     }

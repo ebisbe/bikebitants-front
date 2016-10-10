@@ -2368,8 +2368,8 @@ article.product-item .price ins,
 	color:#333333;
 }
 
-article.product-item .price del + ins,
-.small-product li .price del + ins {
+article.product-item .price ins,
+.small-product li .price ins {
 	text-decoration:none;
 	font-size:22px;
 	margin-left:3px;

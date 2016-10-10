@@ -47,7 +47,7 @@ class ProductSearch
                         'is_featured' => ['$first' => '$is_featured'],
                         'images' => ['$first' => '$images'],
                         'labels' => ['$first' => '$labels'],
-                        'is_discounted' => ['$first' => 'is_discounted'],
+                        'is_discounted' => ['$first' => '$is_discounted'],
                         'description' => ['$first' => '$description'],
                         'slug' => ['$first' => '$slug'],
                         'variations' => ['$first' => '$variations']

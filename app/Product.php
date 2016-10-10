@@ -41,7 +41,7 @@ class Product extends Model
 
     protected $appends = ['range_price', 'tags_list', 'currency'];
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'is_discounted', 'price', 'discounted_price', 'tags', 'meta_title', 'meta_description', 'meta_slug'];
+    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'tags', 'meta_title', 'meta_description', 'meta_slug'];
     protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean'];
 
     /**
@@ -52,6 +52,20 @@ class Product extends Model
     {
         $min = $this->variations->min('price');
         $max = $this->variations->max('price');
+        if ($min != $max) {
+            return $min . $this->currency . ' - ' . $max . $this->currency;
+        }
+        return $min . $this->currency;
+    }
+
+    /**
+     * Get a single point to find a price. The product can be a variable or simple
+     * @return string
+     */
+    public function getRangeRealPriceAttribute()
+    {
+        $min = $this->variations->min('real_price');
+        $max = $this->variations->max('real_price');
         if ($min != $max) {
             return $min . $this->currency . ' - ' . $max . $this->currency;
         }
@@ -69,7 +83,7 @@ class Product extends Model
      */
     public function getCurrencyAttribute()
     {
-        return ' &euro;';
+        return '&euro;';
     }
 
     /**
@@ -81,12 +95,12 @@ class Product extends Model
         return is_array($this->tags) ? implode(', ', $this->tags) : $this->tags;
     }
 
-    public function setFeaturedAttribute($featured)
+    public function setIsFeaturedAttribute($featured)
     {
         $this->attributes['is_featured'] = (bool)$featured;
     }
 
-    public function setDiscountedAttribute($is_discounted)
+    public function setIsDiscountedAttribute($is_discounted)
     {
         $this->attributes['is_discounted'] = (bool)$is_discounted;
     }
