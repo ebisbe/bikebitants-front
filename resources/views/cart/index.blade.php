@@ -32,7 +32,7 @@ MY ACCOUNT - START
                                     @endphp
                                     <tr>
                                         <td class="col-xs-1">
-                                            <img src="/img/70/{{ $product->front_image->filename }}"
+                                            <img src="/img/70/{{ $item->attributes->filename }}"
                                                  alt="{{ $product->front_image->alt }}"
                                                  class="img-responsive">
                                         </td>

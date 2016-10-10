@@ -34,6 +34,12 @@ use Carbon\Carbon;
 use \Faker\Generator;
 use MongoDB\BSON\UTCDatetime;
 
+
+$files = collect(Storage::files());
+if($files->isEmpty()) {
+    $files->push($faker->image(storage_path('app'), 640, 480, null, false));
+}
+
 $factory->define(User::class, function (Generator $faker) {
     return [
         'name' => $faker->name,
@@ -68,7 +74,6 @@ $factory->define(Product::class, function (Generator $faker) {
 
 $factory->define(Attribute::class, function (Generator $faker) {
     return [
-        '_id' => $faker->word,
         'name' => $faker->word,
         'order' => $faker->randomNumber()
     ];
@@ -100,12 +105,8 @@ $factory->define(Label::class, function (Generator $faker) {
     ];
 });
 
-$factory->define(Brand::class, function (Generator $faker) {
+$factory->define(Brand::class, function (Generator $faker) use ($files) {
     $name = $faker->words(3, true);
-    $files = collect(Storage::files());
-    if($files->isEmpty()) {
-        $files->push($faker->image(storage_path('app'), 640, 480, null, false));
-    }
     return [
         'name' => $name,
         //'slug' => str_slug($name) ,
@@ -128,7 +129,7 @@ $factory->define(BrandService::class, function (Generator $faker) {
     ];
 });
 
-$factory->define(Variation::class, function (Generator $faker) {
+$factory->define(Variation::class, function (Generator $faker) use ($files) {
     return [
         '_id' => $faker->slug(),
         'sku' => $faker->slug(),
@@ -137,7 +138,8 @@ $factory->define(Variation::class, function (Generator $faker) {
         'real_price' => $faker->numberBetween(10, 250),
         'discounted_price' => $faker->numberBetween(1, 10),
         'is_discounted' => $faker->boolean(35),
-        'stock' => $faker->numberBetween(10, 25),
+        'stock' => 10,
+        'filename' => $files->random(),
     ];
 });
 
@@ -150,11 +152,7 @@ $factory->define(PaymentMethod::class, function (Generator $faker) {
     ];
 });
 
-$factory->define(Image::class, function (Generator $faker) {
-    $files = collect(Storage::files());
-    if($files->isEmpty()) {
-        $files->push($faker->image(storage_path('app'), 640, 480, null, false));
-    }
+$factory->define(Image::class, function (Generator $faker) use ($files) {
     return [
         'name' => $faker->words(3, true),
         'alt' => $faker->paragraphs(1, true),

@@ -35,6 +35,7 @@ class CartController extends Controller
         $subtitle = 'Cart';
 
         $cartCollect = Cart::getContent();
+
         if ($cartCollect->isEmpty()) {
             return view('cart.empty', compact('title', 'subtitle'));
         }
@@ -73,7 +74,8 @@ class CartController extends Controller
             'quantity' => $request->input('quantity', 1),
             'attributes' => [
                 'product' => $product,
-                'attributes' => $attributes
+                'attributes' => $attributes,
+                'filename' => $variation->filename
             ]
         ]);
 
