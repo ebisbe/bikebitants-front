@@ -29,14 +29,17 @@
                     </div>
                 @endif
                 <span class="price">
-                    <span class="amount">{{ $product->range_price }}</span>
-                    {{--<del><span class="amount">{{ $product->range_price }} &euro;</span></del>
-                    <ins><span class="amount">{{ $product->discounted_price }} &euro;</span></ins>--}}
+                    @if($product->is_discounted)
+                        <del><span class="amount">{{ $product->range_real_price }} &euro;</span></del>
+                    @endif
+                    <ins><span class="amount">{{ $product->range_price }} &euro;</span></ins>
                 </span>
                 <ul class="list-unstyled product-info">
                     <li><span>ID</span>{{ $product->_id }}</li>
                     <li><span>Availability</span>In Stock</li>
-                    <li><span>Brand</span><a href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a></li>
+                    <li><span>Brand</span><a
+                                href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
+                    </li>
                     <li><span>Tags</span>{{ $product->tags_list }}</li>
                 </ul>
                 <p>{{ $product->introduction }}</p>

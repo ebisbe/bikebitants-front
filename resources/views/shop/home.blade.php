@@ -139,8 +139,10 @@
                             <i class="fa fa-star"></i>
                         </div>--}}
                         <span class="price">
-                                <del><span class="amount"></span></del>
-                            	<ins><span class="amount">{{ $product->range_price }}</span></ins>
+                            @if($product->is_discounted)
+                                <del><span class="amount">{{ $product->range_real_price }}</span></del>
+                            @endif
+                            <ins><span class="amount">{{ $product->range_price }}</span></ins>
 
                             </span>
 
@@ -173,7 +175,9 @@
                                 <i class="fa fa-star"></i>
                             </div>--}}
                             <span class="price">
-                                <del><span class="amount"></span></del>
+                                @if($product->is_discounted)
+                                    <del><span class="amount">{{ $product->range_real_price }}</span></del>
+                                @endif
                             	<ins><span class="amount">{{ $product->range_price }}</span></ins>
 
                             </span>
@@ -228,12 +232,13 @@
             @foreach($feed as $post)
                 <div class="col-xs-6 col-sm-3">
                     <article class="post">
-                        <img src="{{ Form::postImage($post->get_description()) }}" class="img-responsive" alt="{{ $post->get_title() }}">
+                        <img src="{{ Form::postImage($post->get_description()) }}" class="img-responsive"
+                             alt="{{ $post->get_title() }}">
                         <h3><a href="{{ $post->get_permalink() }}">{{ $post->get_title() }}</a></h3>
                     </article>
                 </div>
-            @endforeach
-            <!-- BLOG POST - END -->
+                @endforeach
+                        <!-- BLOG POST - END -->
         </div>
     </div>
 </section>
