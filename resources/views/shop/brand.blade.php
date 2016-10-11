@@ -84,9 +84,7 @@
                                     <i class="fa fa-star"></i>
                                 </div>
                             @endif
-                            <span class="price">
-                            <ins><span class="amount">{{ $product->range_price }}</span></ins>
-                        </span>
+                            @include('partials.price')
                         </article>
                     </div>
                     @endforeach

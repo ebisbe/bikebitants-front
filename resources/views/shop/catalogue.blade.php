@@ -167,12 +167,7 @@ PRODUCTS - START
                                                         <i class="fa fa-star-o"></i>
                                                     </div>
                                                 @endif
-                                                <span class="price">
-                                                    @if($product->is_discounted)
-                                                        <del><span class="amount">{{ $product->range_real_price }}</span></del>
-                                                    @endif
-                                                    <ins><span class="amount">{{ $product->range_price }}</span></ins>
-                                                </span>
+                                                @include('partials.price')
                                                 <p>{{ $product->description }}</p>
                                                 <div class="buttons">
                                                     {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}

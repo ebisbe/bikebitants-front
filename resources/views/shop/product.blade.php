@@ -106,10 +106,7 @@ PRODUCTS - START
                                 <div class="col-sm-9">
                                     <div class="product-body">
                                         <h3>{{ $relatedProduct->name }}</h3>
-                                        <span class="price">
-                                            <del><span class="amount">{{ $relatedProduct->range_price }}</span></del>
-                                            <ins><span class="amount">{{ $relatedProduct->range_price }}</span></ins>
-                                        </span>
+                                        @include('partials.price', ['product' => $relatedProduct])
                                         <p></p>
                                         <div class="buttons buttons-simple">
                                             {{--<a href=""><i class="fa fa-exchange"></i></a>--}}

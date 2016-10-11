@@ -138,14 +138,7 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                         </div>--}}
-                        <span class="price">
-                            @if($product->is_discounted)
-                                <del><span class="amount">{{ $product->range_real_price }}</span></del>
-                            @endif
-                            <ins><span class="amount">{{ $product->range_price }}</span></ins>
-
-                            </span>
-
+                        @include('partials.price')
                     </article>
                 </div>
             @endforeach
@@ -174,13 +167,7 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>--}}
-                            <span class="price">
-                                @if($product->is_discounted)
-                                    <del><span class="amount">{{ $product->range_real_price }}</span></del>
-                                @endif
-                            	<ins><span class="amount">{{ $product->range_price }}</span></ins>
-
-                            </span>
+                            @include('partials.price')
                         </li>
                         <!-- PRODUCT - END -->
                         @endforeach
