@@ -48,6 +48,7 @@ class ProductSearch
                         'images' => ['$first' => '$images'],
                         'labels' => ['$first' => '$labels'],
                         'is_discounted' => ['$first' => '$is_discounted'],
+                        'stock' => ['$first' => '$stock'],
                         'description' => ['$first' => '$description'],
                         'slug' => ['$first' => '$slug'],
                         'variations' => ['$first' => '$variations']

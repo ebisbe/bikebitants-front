@@ -14,11 +14,7 @@
         <div class="col-{{ $col_size }}-8">
             <div class="product-body">
                 <h3>{{ $product->name }}</h3>
-                <div class="product-labels">
-                    @foreach($product->labels as $label)
-                        <span class="label label-{{ $label->css }}">{{ $label->name }}</span>
-                    @endforeach
-                </div>
+                @include('partials.labels')
                 @if(isset($product->rating))
                     <div class="product-rating">
                         <i class="fa fa-star"></i>
@@ -31,7 +27,7 @@
                 @include('partials.price')
                 <ul class="list-unstyled product-info">
                     <li><span>ID</span>{{ $product->_id }}</li>
-                    <li><span>Availability</span>In Stock</li>
+                    <li><span>Availability</span>{{ $product->stock != 0 ? 'In Stock' : 'Out of Stock'}}</li>
                     <li><span>Brand</span><a
                                 href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
                     </li>

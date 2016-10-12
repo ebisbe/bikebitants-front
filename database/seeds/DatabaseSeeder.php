@@ -62,8 +62,6 @@ class DatabaseSeeder extends Seeder
         /** @var Product $product */
         $product = factory(Product::class)->create($type);
 
-        $sizes = collect();
-        $colours = collect();
         if ($variable) {
             /** @var Attribute $size */
             $size = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'size', 'order' => 1]));
@@ -137,7 +135,7 @@ class DatabaseSeeder extends Seeder
 //        $product->reviews()->save(factory(Review::class)->make());
 //        $product->reviews()->save(factory(Review::class)->make());
 
-        $product->labels()->saveMany(factory(Label::class, 2)->make());
+        $product->labels()->save(factory(Label::class, 1)->make());
         $product->faqs()->saveMany(factory(Faq::class, 5)->make());
 
         return $product;

@@ -58,7 +58,7 @@ $factory->define(Product::class, function (Generator $faker) {
         //'slug' => str_slug($name),
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
-        'featured' => $faker->boolean(35),
+        'is_featured' => $faker->boolean(35),
             //'is_discounted' => $faker->boolean(35),
             //'min_price' => $faker->numberBetween(1, 10),
             //'max_price' => $faker->numberBetween(1, 10),
@@ -138,7 +138,7 @@ $factory->define(Variation::class, function (Generator $faker) use ($files) {
         'real_price' => $faker->numberBetween(10, 250),
         'discounted_price' => $faker->numberBetween(1, 10),
         'is_discounted' => $faker->boolean(35),
-        'stock' => 10,
+        'stock' => $faker->numberBetween(0,3),
         'filename' => $files->random(),
     ];
 });

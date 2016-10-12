@@ -9,7 +9,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ProductVariationsPrices extends Job implements ShouldQueue
+class ProductVariations extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
@@ -31,18 +31,15 @@ class ProductVariationsPrices extends Job implements ShouldQueue
      */
     public function handle()
     {
-        $this->product->prices = $this->product
-            ->variations
-            ->map(function ($variation) {
-                return $variation->price;
-            })->toArray();
+        $variations = $this->product->variations();
 
-
-        $this->product->is_discounted = $this->product
-                ->variations
+        $this->product->prices = $variations->pluck('price')->toArray();
+        $this->product->stock = $variations->sum('stock');
+        $this->product->is_discounted = $variations
                 ->filter(function ($variation) {
                     return $variation->is_discounted;
                 })->count() > 0;
+
 
         $this->product->save();
     }

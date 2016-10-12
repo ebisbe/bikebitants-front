@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Jobs\ProductVariationsPrices;
+use App\Jobs\ProductVariations;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 class Variation extends Model
@@ -23,7 +23,7 @@ class Variation extends Model
 
         static::saved(function ($model) {
             $product = Product::find($model->_id[0]);
-            dispatch(new ProductVariationsPrices($product));
+            dispatch(new ProductVariations($product));
         });
 
     }

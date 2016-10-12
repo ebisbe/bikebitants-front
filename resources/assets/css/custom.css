@@ -2404,14 +2404,11 @@ article.product-item .product-labels {
 }
 
 article.product-item .product-labels .label {
-	border-radius:50%;
-	width:36px;
-	height:36px;
-	padding:10px 0 0;
-	display:inline-block;
-	font-size:12px;
-	border:2px solid #FFFFFF;
-	text-transform:uppercase;
+	height: 25px;
+	display: inline-block;
+	font-size: 12px;
+	border: 2px solid #FFFFFF;
+	text-transform: uppercase;
 }
 
 article.product-item .product-labels .label.label-danger {
@@ -2474,6 +2471,7 @@ article.product-item .product-labels .label.label-info {
 #products.grid article.product-item .product-labels {
 	top:0;
 	left:0;
+	text-align: left;
 }
 
 /*------------------------------

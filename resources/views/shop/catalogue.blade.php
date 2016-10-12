@@ -147,17 +147,7 @@ PRODUCTS - START
                                         <div class="col-sm-9">
                                             <div class="product-body">
                                                 <h3>{{ $product->name }}</h3>
-                                                <div class="product-labels">
-                                                    @if($product->is_featured)
-                                                        <span class="label label-info"><span class="fa fa-star"></span> </span>
-                                                    @endif
-                                                    @if($product->is_discounted)
-                                                        <span class="label label-info">Sale</span>
-                                                    @endif
-                                                    @foreach($product->labels as $label)
-                                                        <span class="label label-{{ $label->css }}">{{ $label->name }}</span>
-                                                    @endforeach
-                                                </div>
+                                                @include('partials.labels')
                                                 @if(isset($product->rating))
                                                     <div class="product-rating">
                                                         <i class="fa fa-star"></i>
@@ -171,7 +161,12 @@ PRODUCTS - START
                                                 <p>{{ $product->description }}</p>
                                                 <div class="buttons">
                                                     {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
-                                                    @if($product->variations->count() > 1)
+                                                    @if($product->stock == 0)
+                                                        <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
+                                                           class="btn btn-transparent btn-sm add-to-cart">
+                                                            <i class="fa fa-plus"></i>Read more
+                                                        </a>
+                                                    @elseif($product->variations->count() > 1)
                                                         <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                            class="btn btn-transparent btn-sm add-to-cart">
                                                             <i class="fa fa-plus"></i>Choose options
