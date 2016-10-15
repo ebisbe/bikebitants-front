@@ -39,46 +39,11 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="product_id" value="{{ $product->_id }}">
 
-                        <div class="row row-no-padding">
+                        <product-form
+                                v-bind:attributes='{!! json_encode($product->attributes()->all()) !!}'
+                                v-bind:variations='{!! json_encode($product->variations()->all()) !!}'
+                        ></product-form>
 
-                            <div class="col-md-3 col-sm-4">
-                                <div class="product-quantity clearfix">
-                                    <a class="btn btn-default" id="qty-minus">-</a>
-                                    <input type="text" class="form-control" id="qty" name="quantity" value="1">
-                                    <a class="btn btn-default" id="qty-plus">+</a>
-                                </div>
-                            </div>
-
-                            @foreach($product->attributes()->all() as $attribute)
-                                <div class="col-md-3 col-sm-4">
-                                    <div class="product-size">
-                                        <div class="form-inline">
-                                            <div class="form-group">
-                                                <label>{{ $attribute->uc_name }}:</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <select name="attributes[{{ $attribute->name }}]" class="form-control">
-                                                    @foreach($attribute->attribute_values()->all() as $value)
-                                                        <option value="{{ $value->_id }}">
-                                                            {{ $value->name }}
-                                                            {!! !empty($value->complementary_text) ? '('.$value->complementary_text.')' : '' !!}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-
-                            <div class="col-md-2 col-sm-12">
-                                <button type="submit" class="btn btn-primary add-to-cart js-add-button">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    Add to cart
-                                </button>
-                            </div>
-
-                        </div>
                     </form>
                 </div>
                 {{--<ul class="list-inline product-links">

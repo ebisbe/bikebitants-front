@@ -100,14 +100,29 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Gold',
                 'complementary_text' => ''
             ]));
+            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+                '_id' => 'BR',
+                'name' => 'Brown',
+                'complementary_text' => ''
+            ]));
+            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+                '_id' => 'BL',
+                'name' => 'Blue',
+                'complementary_text' => ''
+            ]));
+            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+                '_id' => 'YL',
+                'name' => 'Yellow',
+                'complementary_text' => ''
+            ]));
 
-            $colours = $color->attribute_values()->get();
-            $sizes = $size->attribute_values()->get();
+            $sizes = $size->attribute_values()->get()->pluck('_id')->toArray();
+            $colours = $color->attribute_values()->get()->pluck('_id')->toArray();
 
             $arguments = [
                 [$product->_id],
-                $colours->pluck('_id')->toArray(),
-                $sizes->pluck('_id')->toArray()
+                $sizes,
+                $colours
             ];
         } else {
             $arguments = [[$product->_id]];
@@ -116,6 +131,10 @@ class DatabaseSeeder extends Seeder
         $reflectionClass = new ReflectionClass('\Hoa\Math\Combinatorics\Combination\CartesianProduct');
         $cartesian = $reflectionClass->newInstanceArgs($arguments);
         foreach ($cartesian as $tuple) {
+            if(rand(1,10) <= 3) {
+                continue;
+            }
+
             $product->variations()->save(factory(Variation::class)->make([
                 '_id' => $tuple,
                 'sku' => implode('-', $tuple)

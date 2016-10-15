@@ -145,7 +145,7 @@ PRODUCTS - START
                                 class="fa fa-times"></i></button>
                 </div>
                 <div class="modal-body">
-                    @include('partials.product', ['product' => $relatedProduct, 'col_size' => 'sm', 'hidden' => true, 'modal' => true])
+                    {{--@include('partials.product', ['product' => $relatedProduct, 'col_size' => 'sm', 'hidden' => true, 'modal' => true])--}}
                 </div>
             </div>
         </div>

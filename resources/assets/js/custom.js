@@ -312,18 +312,6 @@ $(document).ready(function () {
     /*------------------------------
      PRODUCT QUANTITY
      ------------------------------*/
-    $('#qty-plus').click(function (e) {
-        var temp = $('#qty').val();
-        $('#qty').attr("value", parseInt(temp) + 1);
-    });
-
-    $('#qty-minus').click(function (e) {
-        var temp = $('#qty').val();
-        if (parseInt(temp) > 0) {
-            $('#qty').attr("value", parseInt(temp) - 1);
-        }
-    });
-
     $('#modal-qty-plus').click(function (e) {
         var temp = $('#modal-qty').val();
         $('#modal-qty').attr("value", parseInt(temp) + 1);
