@@ -67,17 +67,28 @@ class CartController extends Controller
         /** @var Variation $variation */
         $variation = $product->productVariation($variationProperties);
 
-        Cart::add([
-            'id' => $variation->sku,
-            'name' => $product->name,
-            'price' => $product->finalPrice($variationProperties),
-            'quantity' => $request->input('quantity', 1),
-            'attributes' => [
-                'product' => $product,
-                'attributes' => $attributes,
-                'filename' => $variation->filename
-            ]
-        ]);
+        $item = Cart::get($variation->sku);
+        if (!is_null($item) && ($item->quantity + $request->input('quantity', 1)) >= $variation->stock) {
+            //TOD notify that this is already maximum stock
+            Cart::update($variation->sku, [
+                'quantity' => [
+                    'relative' => false,
+                    'value' => $variation->stock
+                ],
+            ]);
+        } else {
+            Cart::add([
+                'id' => $variation->sku,
+                'name' => $product->name,
+                'price' => $product->finalPrice($variationProperties),
+                'quantity' => $request->input('quantity', 1),
+                'attributes' => [
+                    'product' => $product,
+                    'attributes' => $attributes,
+                    'filename' => $variation->filename
+                ]
+            ]);
+        }
 
         if ($request->ajax()) {
             return Cart::get($variation->sku);

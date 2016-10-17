@@ -33,6 +33,7 @@
         data() {
             return {
                 firstSelected: '',
+                variationsFilter: [],
                 maxQuantity: -1
             }
         },
@@ -45,6 +46,7 @@
                 }
                 filter[variation._id[1]].push(variation._id[2]);
             });
+            this.variationsFilter = filter;
 
             if (this.attributes.length > 0) {
                 this.secondSetValues = this.attributes[1].attribute_values;
