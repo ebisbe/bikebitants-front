@@ -138,7 +138,7 @@ $factory->define(Variation::class, function (Generator $faker) use ($files) {
         'real_price' => $faker->numberBetween(10, 250),
         'discounted_price' => $faker->numberBetween(1, 10),
         'is_discounted' => $faker->boolean(35),
-        'stock' => $faker->numberBetween(0,3),
+        'stock' => /*$faker->numberBetween(0,3)*/ 10,
         'filename' => $files->random(),
     ];
 });

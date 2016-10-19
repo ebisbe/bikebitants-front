@@ -76,6 +76,6 @@ class CheckoutController extends Controller
     public function cancel(OrderService $orderService)
     {
         $orderService->cancel();
-        return redirect(route('checkout.index'));
+        return redirect(route('cart.index'));
     }
 }

@@ -131,7 +131,7 @@ class DatabaseSeeder extends Seeder
         $reflectionClass = new ReflectionClass('\Hoa\Math\Combinatorics\Combination\CartesianProduct');
         $cartesian = $reflectionClass->newInstanceArgs($arguments);
         foreach ($cartesian as $tuple) {
-            if(rand(1,10) <= 3) {
+            if(rand(1,10) <= 3 && count($cartesian) > 1) {
                 continue;
             }
 

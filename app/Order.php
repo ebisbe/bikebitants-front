@@ -19,6 +19,10 @@ class Order extends Model
         'billing_id', 'shipping_id', 'user_id', 'status', 'payment_method'
     ];
 
+    public $attributes = [
+        'status' => Order::New
+    ];
+
     /**
      * @return \Jenssegers\Mongodb\Relations\EmbedsOne
      */
@@ -59,6 +63,7 @@ class Order extends Model
         $order = self::currentOrder();
         return !$order->isEmpty() && $order->first()->status == self::Confirmed ? true : false;
     }
+
     /**
      * @return Order|null
      */

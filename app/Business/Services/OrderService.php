@@ -5,10 +5,12 @@ namespace App\Business\Services;
 use App\Billing;
 use App\Country;
 use App\Coupon;
+use App\Jobs\UpdateStockJob;
 use App\Order;
 use App\PaymentMethod;
 use App\Shipping;
 use App\Buyer;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Omnipay;
@@ -16,6 +18,7 @@ use Cart;
 
 class OrderService
 {
+    use DispatchesJobs;
     /** @var Request $request */
     protected $request;
     protected $cache;
@@ -106,11 +109,18 @@ class OrderService
         $this->checkoutOrder();
     }
 
+    /**
+     * Cancel the order
+     */
     public function cancel()
     {
         $this->getOrder();
         $this->order->status = Order::Cancelled;
         $this->order->save();
+
+        $job = (new UpdateStockJob($this->order));
+        $this->dispatch($job);
+        $this->request->session()->remove('order');
     }
 
     /**
@@ -206,7 +216,8 @@ class OrderService
      */
     private function getOrder($orderId = null)
     {
-        if(!is_null($orderId)) {
+        /** @var Order $order */
+        if (!is_null($orderId)) {
             $order = Order::where('_id', $orderId)->get();
         } else {
             $order = Order::currentOrder();
@@ -215,12 +226,25 @@ class OrderService
         if ($order->isEmpty()) {
             $order = new Order();
             $order->session_id = $this->request->session()->getId();
-            $order->status = Order::New;
+            $this->updateOrder($order);
+
+            $job = (new UpdateStockJob($order));
+            $this->dispatch($job);
         } else {
-            $order = $order->first();
+            $order = $this->updateOrder($order->first());
         }
 
-        if($order->status == Order::New) {
+        $this->request->session()->set('order', $order->_id);
+        $this->order = $order;
+    }
+
+    /**
+     * @param Order $order
+     * @return Order
+     */
+    protected function updateOrder(Order $order)
+    {
+        if ($order->status == Order::New) {
 
             $order->subtotal = Cart::getSubTotal();
             $order->total = Cart::getTotal();
@@ -241,24 +265,18 @@ class OrderService
             });
             $order->cart()->destroy($ids);
             Cart::getContent()->map(function ($item) use ($order) {
-                //dd($item);
                 $cart = new \App\Cart();
                 $cart->price = $item['price'];
                 $cart->quantity = $item['quantity'];
                 $cart->total = (int)$item['quantity'] * (int)$item['price'];
                 $cart->attributes = $item['attributes']['attributes'];
                 $cart->product()->associate($item['attributes']['product']);
-                //dd($cart);
                 $order->cart()->associate($cart);
             });
-        }
 
-        if ($order->save()) {
-            //Cart::empty();
-            $this->request->session()->set('order', $order->_id);
+            $order->save();
         }
-
-        $this->order = $order;
+        return $order;
     }
 
     public function orderError()

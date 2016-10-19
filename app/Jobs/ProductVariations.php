@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Business\Repositories\ProductRepository;
 use App\Jobs\Job;
 use App\Product;
 use App\Variation;
@@ -33,14 +34,13 @@ class ProductVariations extends Job implements ShouldQueue
     {
         $variations = $this->product->variations();
 
-        $this->product->prices = $variations->pluck('price')->toArray();
-        $this->product->stock = $variations->sum('stock');
-        $this->product->is_discounted = $variations
-                ->filter(function ($variation) {
-                    return $variation->is_discounted;
-                })->count() > 0;
-
-
-        $this->product->save();
+        (new ProductRepository())->update($this->product->_id, [
+            'prices' => $variations->pluck('price')->toArray(),
+            'stock' => $variations->sum('stock'),
+            'is_discounted' => $variations
+                    ->filter(function ($variation) {
+                        return $variation->is_discounted;
+                    })->count() > 0
+        ]);
     }
 }
