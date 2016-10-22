@@ -26,7 +26,8 @@
         "darryldecode/cart": "dev-master",
         "appzcoder/crud-generator": "^1.1",
         "hoa/math": "1.16.08.29",
-        "rinvex/repository": "^2.0"
+        "rinvex/repository": "^2.0",
+        "pixelpeter/laravel5-woocommerce-api-client": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

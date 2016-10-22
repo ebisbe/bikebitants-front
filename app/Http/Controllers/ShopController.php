@@ -62,8 +62,15 @@ class ShopController extends Controller
         $product = $productRepository->with(['category.father', 'images', 'faqs', 'brand'])->findBy('slug', $slug);
 
         Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
-        Breadcrumbs::addCrumb($product->category->father->name, route('shop.category', ['category' => $product->category->father->slug]));
-        Breadcrumbs::addCrumb($product->category->name, route('shop.subcategory', ['category' => $product->category->father->slug, 'subcategory' => $product->category->slug]));
+        /*if(!empty($product->category->father)) {
+            Breadcrumbs::addCrumb($product->category->father->name, route('shop.category', [
+                'category' => $product->category->father->slug
+            ]));
+        }
+        Breadcrumbs::addCrumb($product->category->name, route('shop.subcategory', [
+            'category' => $product->category->father->slug,
+            'subcategory' => $product->category->slug
+        ]));*/
         Breadcrumbs::addCrumb($product->name);
 
         MetaTag::set('title', $product->meta_title);

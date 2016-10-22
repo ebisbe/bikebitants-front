@@ -39,6 +39,8 @@ use Illuminate\Support\Collection;
  *
  * @method static string emailValidation()
  *
+ * @method static string wordpressDateTime()
+ *
  *
  */
 class StaticVars extends Facade

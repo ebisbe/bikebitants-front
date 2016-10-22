@@ -27,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
         Category::saving(function($category) {
             //Categories are created at parent level, never on child level
             if(empty($category->order)) {
-                $category->order = Category::where('father_id', 'exists', false)->orderBy('order', 'desc')->first()->order + 1;
+                $order = Category::where('father_id', 'exists', false)->orderBy('order', 'desc')->first();
+                $category->order = !is_null($order) ? $order->order + 1 : 1;
             }
         });
 

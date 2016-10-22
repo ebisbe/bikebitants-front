@@ -41,7 +41,7 @@ class Product extends Model
 
     protected $appends = ['range_price', 'tags_list', 'currency'];
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'tags', 'meta_title', 'meta_description', 'meta_slug'];
+    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'tags', 'meta_title', 'meta_description', 'meta_slug', 'external_id', 'prices', 'stock', 'is_discounted'];
     protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean'];
 
     /**

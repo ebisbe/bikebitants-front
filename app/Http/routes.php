@@ -47,6 +47,7 @@ Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store', 
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 Route::resource('coupon', 'CouponController', ['only' => ['store']]);
 Route::resource('cart-conditions', 'CartConditionsController', ['only' => ['index', 'store']]);
+Route::resource('wp', 'WordPressController', ['only' => ['index']]);
 
 // Static pages
 

@@ -31,7 +31,7 @@ class Category extends Model
         'products' => 0
     );
 
-    protected $fillable = ['name', 'slug', 'filename', 'products', 'meta_title', 'meta_description' , 'meta_slug'];
+    protected $fillable = ['name', 'slug', 'filename', 'products', 'meta_title', 'meta_description' , 'meta_slug', 'external_id'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
