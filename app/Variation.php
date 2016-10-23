@@ -7,7 +7,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
 
 class Variation extends Model
 {
-    protected $fillable = ['_id', 'real_price', 'discounted_price', 'is_discounted', 'stock'];
+    protected $fillable = ['_id', 'real_price', 'discounted_price', 'is_discounted', 'stock', 'external_id'];
 
     public static function boot()
     {

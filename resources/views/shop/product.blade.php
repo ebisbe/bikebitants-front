@@ -43,7 +43,7 @@ PRODUCTS - START
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active in " id="description">
-                    {{ $product->description }}
+                    {!! $product->description !!}
                 </div>
                 <div role="tabpanel" class="tab-pane " id="reviews">
 

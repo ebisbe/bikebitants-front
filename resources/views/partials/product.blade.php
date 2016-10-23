@@ -33,14 +33,13 @@
                     </li>
                     <li><span>Tags</span>{{ $product->tags_list }}</li>
                 </ul>
-                <p>{{ $product->introduction }}</p>
+                <p>{!! $product->introduction !!}</p>
                 <div class="product-form clearfix">
                     <form action="/cart" class="js-add-to-cart" method="POST">
                         {{ csrf_field() }}
                         <input type="hidden" name="product_id" value="{{ $product->_id }}">
-
                         <product-form
-                                v-bind:attributes='{!! json_encode($product->attributes()->all()) !!}'
+                                v-bind:attributes='{!! json_encode($product->attributes()->sortBy('order')->all()) !!}'
                                 v-bind:variations='{!! json_encode($product->variations()->all()) !!}'
                         ></product-form>
 

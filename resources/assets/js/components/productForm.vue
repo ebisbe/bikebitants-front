@@ -48,12 +48,19 @@
             });
             this.variationsFilter = filter;
 
-            if (this.attributes.length > 0) {
-                this.secondSetValues = this.attributes[1].attribute_values;
-                this.emitChangedValue(1, this.attributes[0].attribute_values[0]._id);
-                this.emitChangedValue(2, this.attributes[1].attribute_values[0]._id);
-            } else {
-                this.maxQuantity = this.variations[0].stock;
+            switch (this.attributes.length) {
+                case 2:
+                    this.secondSetValues = this.attributes[1].attribute_values;
+                    this.emitChangedValue(1, this.attributes[0].attribute_values[0]._id);
+                    this.emitChangedValue(2, this.attributes[1].attribute_values[0]._id);
+                    break;
+                case 1:
+                    this.emitChangedValue(2, this.attributes[0].attribute_values[0]._id);
+                    this.maxQuantity = this.variations[0].stock;
+                    break;
+                case 0:
+                    this.maxQuantity = this.variations[0].stock;
+                    break;
             }
         },
 

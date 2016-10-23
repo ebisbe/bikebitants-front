@@ -231,7 +231,7 @@ class DatabaseSeeder extends Seeder
 
                     $cont = 0;
                     while ($cont++ < 5) {
-                        $product = $this->product(rand(0, 1), ['categories' => [$cat->slug, $child->slug]]);
+                        $product = $this->product(rand(0, 1), ['category_id' => $child->_id]);
                         $this->brand->products()->save($product);
                         $child->products()->save($product);
                     }

@@ -30,19 +30,21 @@ class WordpressService
         $this->product->name = $wpProduct['name'];
         $this->product->status = $this->statusSyncro($wpProduct['status']);
         $this->product->slug = $wpProduct['slug'];
-        $this->product->description = $wpProduct['description'];
-        $this->product->short_description = $wpProduct['short_description'];
+        $this->product->description = $this->stripVCRow($wpProduct['description']);
+        $this->product->introduction = $wpProduct['short_description'];
         $this->product->tags = collect($wpProduct['tags'])
             ->map(function ($tag) {
                 return $tag['name'];
             })->toArray();
         $this->product->created_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpProduct['date_created']);
         $this->product->updated_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpProduct['date_modified']);
+        $this->product->save();
 
         $this->syncAttributes($wpProduct['attributes']);
         $this->syncCategories($wpProduct['categories']);
         $this->syncImages($wpProduct['images']);
-        $this->syncVariations($wpProduct['variations']);
+        $variations = !empty($wpProduct['variations']) ? $wpProduct['variations'] : [$wpProduct];
+        $this->syncVariations($variations);
 
         (new ProductRepository)->update($this->product->_id, $this->product->toArray());
     }
@@ -56,7 +58,7 @@ class WordpressService
             $variation = $this->product
                 ->variations()
                 ->filter(function ($variation) use ($wpVariation) {
-                    return $variation->sku == $wpVariation['sku'];
+                    return $variation->external_id == $wpVariation['id'];
             })->first();
 
             $new = false;
@@ -65,14 +67,15 @@ class WordpressService
                 $new = true;
             }
             $variation->_id = array_merge([$this->product->_id], collect($wpVariation['attributes'])->map(function($att) {
-                return str_slug(strtolower($att['option']));
+                return isset($att['option']) ? str_slug(strtolower($att['option'])) : '';
             })->toArray());
             $variation->sku = $wpVariation['sku'];
+            $variation->external_id = $wpVariation['id'];
             $variation->real_price = round((float)$wpVariation['regular_price'], 2);
             $variation->discounted_price = round((float)$wpVariation['sale_price'], 2);
             $variation->is_discounted = $wpVariation['on_sale'];
             $variation->stock = 10/*$wpVariation['stock']*/;
-            $variation->filename = $this->saveImage($wpVariation['image']);
+            $variation->filename = isset($wpVariation['image']) ? $this->saveImage($wpVariation['image']) : '';
 
             if($new) {
                 $this->product->variations()->save($variation);
@@ -146,12 +149,14 @@ class WordpressService
 
         collect($variation['options'])->each(function ($option) use ($attribute) {
             $value = new AttributeValue();
-            $value->_id = $option;
-            $value->sku = strtolower($option);
+            $value->_id = str_slug(strtolower($option));
+            $value->sku = str_slug(strtolower($option));
             $value->name = $option;
             $value->complementary_text = '';
             $attribute->attribute_values()->save($value);
         });
+
+        $attribute->save();
     }
 
     /**
@@ -270,5 +275,10 @@ class WordpressService
             'publish' => Product::PUBLISHED
         ];
         return isset($statusValues[$status]) ? $statusValues[$status] : -1;
+    }
+
+    public function stripVCRow($text)
+    {
+        return preg_replace('#\[(/)?vc_.+\]?#', '', $text);
     }
 }

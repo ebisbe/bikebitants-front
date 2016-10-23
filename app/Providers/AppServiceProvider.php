@@ -7,6 +7,8 @@ use App\Business\Admin\Title;
 use App\Business\StaticVars;
 use App\Category;
 use App\Coupon;
+use App\Jobs\UpdateCategories;
+use App\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +32,11 @@ class AppServiceProvider extends ServiceProvider
                 $order = Category::where('father_id', 'exists', false)->orderBy('order', 'desc')->first();
                 $category->order = !is_null($order) ? $order->order + 1 : 1;
             }
+        });
+
+        Product::saved(function($product) {
+            $job = (new UpdateCategories($product));
+            dispatch($job);
         });
 
         DB::connection('mongodb')->enableQueryLog();

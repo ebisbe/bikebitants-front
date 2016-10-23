@@ -146,7 +146,7 @@ PRODUCTS - START
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="product-body">
-                                                <h3>{{ str_limit($product->name, 30) }}</h3>
+                                                <h3>{{ str_limit($product->name, 29) }}</h3>
                                                 @include('partials.labels')
                                                 @if(isset($product->rating))
                                                     <div class="product-rating">

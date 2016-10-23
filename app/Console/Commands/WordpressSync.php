@@ -23,6 +23,7 @@ class WordpressSync extends Command
      */
     protected $description = 'Syncronize website with wordpress data.';
 
+    /** @var  WordpressService $wordpressService */
     protected $wordpressService;
     /**
      * Create a new command instance.

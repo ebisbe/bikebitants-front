@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Business\MongoEloquentModel as Model;
+use App\Business\Traits\Presenters\ProductPresenter;
 use App\Business\Traits\SluggableTrait;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
@@ -26,7 +27,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  */
 class Product extends Model
 {
-    use SoftDeletes, SluggableTrait;
+    use SoftDeletes, SluggableTrait, ProductPresenter;
 
     /** @var string $table Defined for inheritance in PublishedProduct */
     protected $table = 'products';
@@ -41,85 +42,10 @@ class Product extends Model
 
     protected $appends = ['range_price', 'tags_list', 'currency'];
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'tags', 'meta_title', 'meta_description', 'meta_slug', 'external_id', 'prices', 'stock', 'is_discounted'];
+    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'tags', 'meta_title', 'meta_description', 'meta_slug', 'external_id', 'prices', 'stock', 'is_discounted', 'categories'];
     protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean'];
 
-    /**
-     * Get a single point to find a price. The product can be a variable or simple
-     * @return string
-     */
-    public function getRangePriceAttribute()
-    {
-        $min = $this->variations->min('price');
-        $max = $this->variations->max('price');
-        if ($min != $max) {
-            return $min . $this->currency . ' - ' . $max . $this->currency;
-        }
-        return $min . $this->currency;
-    }
 
-    /**
-     * Get a single point to find a price. The product can be a variable or simple
-     * @return string
-     */
-    public function getRangeRealPriceAttribute()
-    {
-        $min = $this->variations->min('real_price');
-        $max = $this->variations->max('real_price');
-        if ($min != $max) {
-            return $min . $this->currency . ' - ' . $max . $this->currency;
-        }
-        return $min . $this->currency;
-    }
-
-    public function getStatusTextAttribute()
-    {
-        return trans('Product.' . $this->status);
-    }
-
-    /**
-     * While we have just one currency we set a default value.
-     * @return string
-     */
-    public function getCurrencyAttribute()
-    {
-        return '&euro;';
-    }
-
-    /**
-     * Convert tags array into a comma list.
-     * @return string
-     */
-    public function getTagsListAttribute()
-    {
-        return is_array($this->tags) ? implode(', ', $this->tags) : $this->tags;
-    }
-
-    public function setIsFeaturedAttribute($featured)
-    {
-        $this->attributes['is_featured'] = (bool)$featured;
-    }
-
-    public function setIsDiscountedAttribute($is_discounted)
-    {
-        $this->attributes['is_discounted'] = (bool)$is_discounted;
-    }
-
-    /**
-     * @return Image|null
-     */
-    public function getFrontImageAttribute()
-    {
-        return static::images()->first();
-    }
-
-    /**
-     * @return Image|null
-     */
-    public function getFrontImageHoverAttribute()
-    {
-        return static::images()->slice(1, 1)->first();
-    }
 
     /**
      * Colors defined for the product
