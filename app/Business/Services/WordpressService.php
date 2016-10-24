@@ -71,8 +71,8 @@ class WordpressService
             })->toArray());
             $variation->sku = $wpVariation['sku'];
             $variation->external_id = $wpVariation['id'];
-            $variation->real_price = round((float)$wpVariation['regular_price'], 2);
-            $variation->discounted_price = round((float)$wpVariation['sale_price'], 2);
+            $variation->real_price = (float)$wpVariation['regular_price'];
+            $variation->discounted_price = (float)$wpVariation['sale_price'];
             $variation->is_discounted = $wpVariation['on_sale'];
             $variation->stock = 10/*$wpVariation['stock']*/;
             $variation->filename = isset($wpVariation['image']) ? $this->saveImage($wpVariation['image']) : '';

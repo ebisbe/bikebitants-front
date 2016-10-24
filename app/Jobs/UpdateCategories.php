@@ -35,6 +35,10 @@ class UpdateCategories extends Job implements ShouldQueue
         /** @var Category $category */
         $category = $this->product->category()->first();
 
+        if(is_null($category)) {
+            return false;
+        }
+
         if(!empty($category->father->slug)) {
             $categories[] = $category->father->slug;
         }
@@ -43,5 +47,7 @@ class UpdateCategories extends Job implements ShouldQueue
         $this->product->categories = $categories;
 
         $productRepository->update($this->product->_id, $this->product->toArray());
+
+        return true;
     }
 }
