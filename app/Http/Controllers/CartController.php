@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Business\Services\ProductService;
 use App\Http\Middleware\CartMiddleware;
 use App\Product;
 use App\Variation;
@@ -44,9 +45,10 @@ class CartController extends Controller
 
     /**
      * @param Request $request
+     * @param ProductService $productService
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
      */
-    public function store(Request $request)
+    public function store(Request $request, ProductService $productService)
     {
 //        $order = Order::currentOrder();
 //        if($order->isEmpty() || $order->first()->status == Order::Confirmed) {
@@ -64,23 +66,23 @@ class CartController extends Controller
 
         /** @var Product $product */
         $product = Product::find($productId);
-        /** @var Variation $variation */
-        $variation = $product->productVariation($variationProperties);
+
+        $variation = $productService->productVariation($variationProperties);
 
         $item = Cart::get($variation->sku);
         if (!is_null($item) && ($item->quantity + $request->input('quantity', 1)) >= $variation->stock) {
-            //TOD notify that this is already maximum stock
+            //TODO notify that this is already maximum stock
             Cart::update($variation->sku, [
                 'quantity' => [
                     'relative' => false,
                     'value' => $variation->stock
-                ],
+                ]
             ]);
         } else {
             Cart::add([
                 'id' => $variation->sku,
                 'name' => $product->name,
-                'price' => $product->finalPrice($variationProperties),
+                'price' => $productService->finalPrice($variationProperties),
                 'quantity' => $request->input('quantity', 1),
                 'attributes' => [
                     'product' => $product,

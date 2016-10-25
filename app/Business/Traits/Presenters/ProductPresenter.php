@@ -1,7 +1,10 @@
 <?php
 namespace App\Business\Traits\Presenters;
 
-trait ProductPresenter {
+use App\Business\Services\TaxService;
+
+trait ProductPresenter
+{
 
     /**
      * Get a single point to find a price. The product can be a variable or simple
@@ -12,9 +15,9 @@ trait ProductPresenter {
         $min = $this->variations->min('price');
         $max = $this->variations->max('price');
         if ($min != $max) {
-            return $min . $this->currency . ' - ' . $max . $this->currency;
+            return TaxService::applyTax($min) . $this->currency . ' - ' . TaxService::applyTax($max) . $this->currency;
         }
-        return $min . $this->currency;
+        return TaxService::applyTax($min) . $this->currency;
     }
 
     /**
@@ -26,9 +29,9 @@ trait ProductPresenter {
         $min = $this->variations->min('real_price');
         $max = $this->variations->max('real_price');
         if ($min != $max) {
-            return $min . $this->currency . ' - ' . $max . $this->currency;
+            return TaxService::applyTax($min) . $this->currency . ' - ' . TaxService::applyTax($max) . $this->currency;
         }
-        return $min . $this->currency;
+        return TaxService::applyTax($min) . $this->currency;
     }
 
     public function getStatusTextAttribute()

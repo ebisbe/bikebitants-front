@@ -45,8 +45,6 @@ class Product extends Model
     protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'tags', 'meta_title', 'meta_description', 'meta_slug', 'external_id', 'prices', 'stock', 'is_discounted', 'categories'];
     protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean'];
 
-
-
     /**
      * Colors defined for the product
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
@@ -114,29 +112,5 @@ class Product extends Model
     public function faqs()
     {
         return $this->embedsMany(Faq::class);
-    }
-
-    /**
-     * @param $attributes
-     * @return Product
-     */
-    public function productVariation($attributes)
-    {
-        return $this
-            ->variations()
-            ->first(function ($key, $value) use ($attributes) {
-                return array_diff($value->_id, array_values($attributes)) == [];
-            });
-    }
-
-    /**
-     * Get the price of a product. If has multiple attributes with different prices should work too.
-     * @param array $attributes
-     * @return int
-     */
-    public function finalPrice($attributes = [])
-    {
-        $variation = $this->productVariation($attributes);
-        return $variation->price;
     }
 }
