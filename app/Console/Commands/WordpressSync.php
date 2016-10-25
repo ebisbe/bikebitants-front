@@ -54,6 +54,15 @@ class WordpressSync extends Command
         }, 'sync categories:');
 
         $this->inspector(function($page) {
+            $taxes = collect(Woocommerce::get('taxes', ['page' => $page]));
+            $taxes->each(function ($tax) {
+                $this->wordpressService->syncTax($tax);
+                echo('.');
+            });
+            return $taxes->count();
+        }, 'sync taxes:');
+
+        $this->inspector(function($page) {
             $products = collect(Woocommerce::get('products', ['page' => $page]));
             $products->each(function ($product) {
                 $this->wordpressService->importFromWordpress($product);

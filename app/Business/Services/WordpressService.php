@@ -9,6 +9,7 @@ use App\Business\Repositories\ProductRepository;
 use App\Category;
 use App\Image;
 use App\Product;
+use App\Tax;
 use App\Variation;
 use Carbon\Carbon;
 use StaticVars;
@@ -59,14 +60,14 @@ class WordpressService
                 ->variations()
                 ->filter(function ($variation) use ($wpVariation) {
                     return $variation->external_id == $wpVariation['id'];
-            })->first();
+                })->first();
 
             $new = false;
-            if(empty($variation)) {
+            if (empty($variation)) {
                 $variation = new Variation();
                 $new = true;
             }
-            $variation->_id = array_merge([$this->product->_id], collect($wpVariation['attributes'])->map(function($att) {
+            $variation->_id = array_merge([$this->product->_id], collect($wpVariation['attributes'])->map(function ($att) {
                 return isset($att['option']) ? str_slug(strtolower($att['option'])) : '';
             })->toArray());
             $variation->sku = $wpVariation['sku'];
@@ -74,10 +75,11 @@ class WordpressService
             $variation->real_price = (float)$wpVariation['regular_price'];
             $variation->discounted_price = (float)$wpVariation['sale_price'];
             $variation->is_discounted = $wpVariation['on_sale'];
-            $variation->stock = 10/*$wpVariation['stock']*/;
+            $variation->stock = 10/*$wpVariation['stock']*/
+            ;
             $variation->filename = isset($wpVariation['image']) ? $this->saveImage($wpVariation['image']) : '';
 
-            if($new) {
+            if ($new) {
                 $this->product->variations()->save($variation);
             } else {
                 $variation->save();
@@ -247,6 +249,32 @@ class WordpressService
             }
         }
         return $category;
+    }
+
+    /**
+     * @param $tax
+     */
+    public function syncTax($wpTax)
+    {
+        $tax = Tax::whereExternalId($wpTax['id'])->first();
+        if (empty($tax)) {
+            $tax = new Tax();
+        }
+
+        $tax->external_id = $wpTax['id'];
+        $tax->country = $wpTax['country'];
+        $tax->state = $wpTax['state'];
+        $tax->postcode = $wpTax['postcode'];
+        $tax->city = $wpTax['city'];
+        $tax->rate = (float)$wpTax['rate'];
+        $tax->name = $wpTax['name'];
+        //$tax->priority = $wpTax['priority'];
+        //$tax->compound = $wpTax['compound'];
+        //$tax->shipping = $wpTax['shipping'];
+        $tax->order = $wpTax['order'];
+        //$tax->class = $wpTax['class'];
+
+        $tax->save();
     }
 
     /**
