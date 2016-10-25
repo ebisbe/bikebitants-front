@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
+use App\Http\Middleware\CartMiddleware;
 use App\Product;
 use App\Variation;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class CartController extends Controller
 
     public function __construct()
     {
-        $this->middleware('cart');
+        $this->middleware(CartMiddleware::class);
     }
 
     /**

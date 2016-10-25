@@ -175,6 +175,7 @@ return [
         Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         Rinvex\Repository\Providers\RepositoryServiceProvider::class,
         Pixelpeter\Woocommerce\WoocommerceServiceProvider::class,
+        PulkitJalan\GeoIP\GeoIPServiceProvider::class
     ],
 
     /*
@@ -233,6 +234,7 @@ return [
         'FeedReader' => Awjudd\FeedReader\Facades::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Woocommerce' => Pixelpeter\Woocommerce\Facades\Woocommerce::class,
+        'GeoIP' => PulkitJalan\GeoIP\Facades\GeoIP::class
     ],
 
 ];

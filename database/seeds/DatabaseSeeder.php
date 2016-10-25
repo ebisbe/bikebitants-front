@@ -29,15 +29,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->brand = factory(Brand::class)->create([
-            'name' => 'cum-aliquid-enim'
-        ]);
-
-        $this->brand->services()->save(factory(BrandService::class)->make());
-        $this->brand->services()->save(factory(BrandService::class)->make());
-        $this->brand->services()->save(factory(BrandService::class)->make());
-
-        $this->categories();
+//        $this->brand = factory(Brand::class)->create([
+//            'name' => 'cum-aliquid-enim'
+//        ]);
+//
+//        $this->brand->services()->save(factory(BrandService::class)->make());
+//        $this->brand->services()->save(factory(BrandService::class)->make());
+//        $this->brand->services()->save(factory(BrandService::class)->make());
+//
+//        $this->categories();
         $this->discounts();
         $this->zones();
 
