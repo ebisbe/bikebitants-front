@@ -59,7 +59,7 @@ class ShopController extends Controller
     public function product(ProductRepository $productRepository, $slug)
     {
         /** @var Product $product */
-        $product = $productRepository->with(['category.father', 'images', 'faqs', 'brand'])->findBy('slug', $slug);
+        $product = $productRepository->with(['category.father', 'images', 'faqs', 'brand', 'reviews'])->findBy('slug', $slug);
 
         Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
         if(!empty($product->category->father)) {

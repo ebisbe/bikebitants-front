@@ -64,6 +64,11 @@ class WordpressSync extends Command
             $products = collect(Woocommerce::get('products', ['page' => $page]));
             $products->each(function ($product) {
                 $this->wordpressService->importFromWordpress($product);
+                $reviews = collect(Woocommerce::get("products/{$product['id']}/reviews"));
+                $reviews->each(function ($review) {
+                    $this->wordpressService->importReview($review);
+                    echo(',');
+                });
                 echo('.');
             });
             return $products->count();

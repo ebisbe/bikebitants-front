@@ -15,6 +15,15 @@ class Product extends \App\Product
     use PublishedProductsTrait;
 
     /**
+     * Reviews made by the users for the product
+     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
+     */
+    public function reviewsValidated()
+    {
+        return $this->embedsMany(Review::class);
+    }
+
+    /**
      * @param $query
      * @param bool $is_featured
      * @return \Illuminate\Database\Eloquent\Builder

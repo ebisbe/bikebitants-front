@@ -9,6 +9,7 @@ use App\Business\Repositories\ProductRepository;
 use App\Category;
 use App\Image;
 use App\Product;
+use App\Review;
 use App\Tax;
 use App\Variation;
 use Carbon\Carbon;
@@ -331,8 +332,39 @@ class WordpressService
         return isset($statusValues[$status]) ? $statusValues[$status] : -1;
     }
 
+    /**
+     * @param $text
+     * @return mixed
+     */
     public function stripVCRow($text)
     {
         return preg_replace('#\[(/)?vc_.+\]?#', '', $text);
+    }
+
+    public function importReview($wpReview)
+    {
+        $review = Review::whereExternalId($wpReview['id'])->first();
+        $new = false;
+        if (empty($review)) {
+            $review = new Review();
+            $new = true;
+        }
+
+        $review->external_id = $wpReview['id'];
+        $review->product_id = $this->product->_id;
+        $review->name = $wpReview['name'];
+        $review->email = $wpReview['email'];
+        $review->comment = $wpReview['review'];
+        $review->verified = $wpReview['verified'];
+        $review->rating = $wpReview['rating'];
+        $review->created_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpReview['date_created']);
+
+
+        if($new) {
+            $this->product->reviews()->save($review);
+            (new ProductRepository)->update($this->product->_id, $this->product->toArray());
+        } else {
+            $review->save();
+        }
     }
 }

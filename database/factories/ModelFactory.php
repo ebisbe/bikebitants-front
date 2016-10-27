@@ -65,6 +65,7 @@ $factory->define(Product::class, function (Generator $faker) {
         //'discount_init' => $faker->date(),
         //'discount_end' => $faker->date(),
         'tags' => $faker->words(),
+            //'rating' => $faker,
         //'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
@@ -91,7 +92,9 @@ $factory->define(Review::class, function (Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
-        'comment' => $faker->paragraphs(2, true)
+        'comment' => $faker->paragraphs(2, true),
+        'verified' => true,
+        'rating' => $faker->numberBetween(0,5)
     ];
 });
 

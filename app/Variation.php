@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Business\Repositories\ProductRepository;
 use App\Jobs\ProductVariations;
 use Jenssegers\Mongodb\Eloquent\Model;
 
@@ -22,7 +23,8 @@ class Variation extends Model
         });
 
         static::saved(function ($model) {
-            $product = Product::find($model->_id[0]);
+            /** @var Product $product */
+            $product = (new ProductRepository())->find($model->_id[0]);
             dispatch(new ProductVariations($product));
         });
 
