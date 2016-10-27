@@ -55,14 +55,21 @@ trait ImageTrait
                         $constraint->aspectRatio();
                     }
                 })*/
-                ->fit($width, (int)$width + 30)
-                ->text($width, 50, 10, function ($font) {
+                ->fit($width, (int)$width + 30);
+
+            if (env('APP_ENV') == 'local') {
+                $image->text($width, 50, 10, function ($font) {
                     $font->file(5);
                     $font->size(60);
                     $font->color('#fdf6e3');
                     $font->align('center');
                     $font->valign('top');
                 });
+            }
+
+            $dir = public_path("img/$filter/");
+            \File::makeDirectory($dir, 0777, true, true);
+            $image->save(public_path("img/$filter/$filename"));
 
         }, config('cache.image.lifetime'));
 
