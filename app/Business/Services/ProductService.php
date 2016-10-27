@@ -40,28 +40,4 @@ class ProductService
 
         return true;
     }
-
-    /**
-     * @param $attributes
-     * @return Variation
-     */
-    public function productVariation($attributes)
-    {
-        return $this
-            ->variations()
-            ->first(function ($key, $value) use ($attributes) {
-                return array_diff($value->_id, array_values($attributes)) == [];
-            });
-    }
-
-    /**
-     * Get the price of a product. If has multiple attributes with different prices should work too.
-     * @param array $attributes
-     * @return int
-     */
-    public function finalPrice($attributes = [])
-    {
-        $variation = $this->productVariation($attributes);
-        return $variation->price;
-    }
 }

@@ -13,6 +13,7 @@ use App\Tax;
 use App\Variation;
 use Carbon\Carbon;
 use StaticVars;
+use Storage;
 
 class WordpressService
 {
@@ -21,6 +22,10 @@ class WordpressService
 
     public function importFromWordpress($wpProduct)
     {
+        if ($this->statusSyncro($wpProduct['status']) == Product::DRAFT) {
+            return false;
+        }
+
         $this->product = Product::whereExternalId($wpProduct['id'])->first();
         if (empty($this->product)) {
             $this->product = new Product();
@@ -37,7 +42,11 @@ class WordpressService
             ->map(function ($tag) {
                 return $tag['name'];
             })->toArray();
-        $this->product->created_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpProduct['date_created']);
+        if (is_null($wpProduct['date_created'])) {
+            $this->product->created_at = Carbon::now();
+        } else {
+            $this->product->created_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpProduct['date_created']);
+        }
         $this->product->updated_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpProduct['date_modified']);
         $this->product->save();
 
@@ -48,6 +57,8 @@ class WordpressService
         $this->syncVariations($variations);
 
         (new ProductRepository)->update($this->product->_id, $this->product->toArray());
+
+        return true;
     }
 
     /**
@@ -67,9 +78,17 @@ class WordpressService
                 $variation = new Variation();
                 $new = true;
             }
-            $variation->_id = array_merge([$this->product->_id], collect($wpVariation['attributes'])->map(function ($att) {
-                return isset($att['option']) ? str_slug(strtolower($att['option'])) : '';
-            })->toArray());
+
+            $variationsAtt = collect($wpVariation['attributes'])
+                ->filter(function ($att) {
+                    return isset($att['option']);
+                })
+                ->map(function ($att) {
+                    return str_slug(strtolower($att['option']));
+                })
+                ->toArray();
+
+            $variation->_id = array_merge([$this->product->_id], $variationsAtt);
             $variation->sku = $wpVariation['sku'];
             $variation->external_id = $wpVariation['id'];
             $variation->real_price = (float)$wpVariation['regular_price'];
@@ -77,7 +96,7 @@ class WordpressService
             $variation->is_discounted = $wpVariation['on_sale'];
             $variation->stock = 10/*$wpVariation['stock']*/
             ;
-            $variation->filename = isset($wpVariation['image']) ? $this->saveImage($wpVariation['image']) : '';
+            $variation->filename = $this->saveImage($wpVariation[isset($wpVariation['image']) ? 'image' : 'images'][0]);
 
             if ($new) {
                 $this->product->variations()->save($variation);
@@ -92,13 +111,17 @@ class WordpressService
      */
     public function syncAttributes($attributes)
     {
-        collect($attributes)->each(function ($attribute) {
-            if ($attribute['variation']) {
-                $this->syncVariationAttributes($attribute);
-            } else {
-                $this->syncAttribute($attribute);
-            }
-        });
+        $order = 1;
+        collect($attributes)
+            ->sortBy('position')
+            ->each(function ($attribute) use (&$order) {
+                if ($attribute['variation']) {
+                    $this->syncVariationAttributes($attribute, $order);
+                    $order ++;
+                } else {
+                    $this->syncAttribute($attribute);
+                }
+            });
     }
 
     /**
@@ -125,7 +148,7 @@ class WordpressService
     /**
      * @param $variation
      */
-    public function syncVariationAttributes($variation)
+    public function syncVariationAttributes($variation, $order)
     {
         $attribute = $this->product
             ->attributes()
@@ -140,7 +163,7 @@ class WordpressService
         }
 
         $attribute->name = $variation['name'];
-        $attribute->order = $variation['position'];
+        $attribute->order = $order;
         $attribute->external_id = $variation['id'];
 
         if ($new) {
@@ -286,7 +309,9 @@ class WordpressService
     {
         if (!empty($image['src'])) {
             $name = basename($image['src']);
-            //\Storage::put($name, file_get_contents($image['src']));
+            if (!Storage::exists($name)) {
+                Storage::put($name, file_get_contents($image['src']));
+            }
             return $name;
         }
         return '';
@@ -300,6 +325,7 @@ class WordpressService
     public function statusSyncro($status)
     {
         $statusValues = [
+            'draft' => Product::DRAFT,
             'publish' => Product::PUBLISHED
         ];
         return isset($statusValues[$status]) ? $statusValues[$status] : -1;

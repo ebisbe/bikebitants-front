@@ -55,6 +55,7 @@
                     this.emitChangedValue(2, this.attributes[1].attribute_values[0]._id);
                     break;
                 case 1:
+                    this.firstSelected = this.attributes[0].attribute_values[0]._id;
                     this.emitChangedValue(2, this.attributes[0].attribute_values[0]._id);
                     this.maxQuantity = this.variations[0].stock;
                     break;
@@ -66,13 +67,21 @@
 
         methods: {
             emitChangedValue: function (order, selectedValue) {
-                switch (order) {
+                switch (this.attributes.length) {
                     case 1:
-                        this.firstOptionUpdated(selectedValue);
                         this.firstSelected = selectedValue;
+                        this.secondOptionUpdated(selectedValue);
                         break;
                     case 2:
-                        this.secondOptionUpdated(selectedValue);
+                        switch (order) {
+                            case 1:
+                                this.firstOptionUpdated(selectedValue);
+                                this.firstSelected = selectedValue;
+                                break;
+                            case 2:
+                                this.secondOptionUpdated(selectedValue);
+                                break;
+                        }
                         break;
                 }
             },

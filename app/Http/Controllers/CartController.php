@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Business\Services\ProductService;
+use App\Business\Repositories\ProductRepository;
+use App\Business\Services\TaxService;
 use App\Http\Middleware\CartMiddleware;
 use App\Product;
 use App\Variation;
@@ -16,7 +17,7 @@ class CartController extends Controller
 
     public function __construct()
     {
-        $this->middleware(CartMiddleware::class);
+        //$this->middleware(CartMiddleware::class);
     }
 
     /**
@@ -36,7 +37,6 @@ class CartController extends Controller
         $subtitle = 'Cart';
 
         $cartCollect = Cart::getContent();
-
         if ($cartCollect->isEmpty()) {
             return view('cart.empty', compact('title', 'subtitle'));
         }
@@ -45,10 +45,9 @@ class CartController extends Controller
 
     /**
      * @param Request $request
-     * @param ProductService $productService
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
      */
-    public function store(Request $request, ProductService $productService)
+    public function store(Request $request, TaxService $taxService, ProductRepository $productRepository)
     {
 //        $order = Order::currentOrder();
 //        if($order->isEmpty() || $order->first()->status == Order::Confirmed) {
@@ -65,9 +64,8 @@ class CartController extends Controller
         $variationProperties = array_merge([$productId], $attributes);
 
         /** @var Product $product */
-        $product = Product::find($productId);
-
-        $variation = $productService->productVariation($variationProperties);
+        $product = $productRepository->find($productId);
+        $variation = $product->productVariation($variationProperties);
 
         $item = Cart::get($variation->sku);
         if (!is_null($item) && ($item->quantity + $request->input('quantity', 1)) >= $variation->stock) {
@@ -76,14 +74,21 @@ class CartController extends Controller
                 'quantity' => [
                     'relative' => false,
                     'value' => $variation->stock
-                ]
+                ],
             ]);
         } else {
             Cart::add([
                 'id' => $variation->sku,
                 'name' => $product->name,
-                'price' => $productService->finalPrice($variationProperties),
+                'price' => $product->finalPrice($variationProperties),
                 'quantity' => $request->input('quantity', 1),
+                'conditions' => new \Darryldecode\Cart\CartCondition([
+                    'name' => '[21%] IVA',
+                    'type' => 'tax',
+                    'target' => 'item',
+                    'value' => '21%',
+                    'order' => 5
+                ]),
                 'attributes' => [
                     'product' => $product,
                     'attributes' => $attributes,

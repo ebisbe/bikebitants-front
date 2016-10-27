@@ -16,14 +16,8 @@ class CartMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $condition = new \Darryldecode\Cart\CartCondition([
-            'name' => '[21%] IVA',
-            'type' => 'tax',
-            'target' => 'subtotal',
-            'value' => '21%',
-            'order' => 5
-        ]);
-        Cart::condition($condition);
+
+        //Cart::condition($condition);
 
         return $next($request);
     }

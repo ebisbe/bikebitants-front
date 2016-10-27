@@ -47,7 +47,7 @@ MY ACCOUNT - START
                                             </h4>
                                         </td>
                                         <td class="col-xs-2 text-center">
-                                            <span>{{ $item->price }}&euro;</span></td>
+                                            <span>{{ $item->getPriceWithConditions() }}&euro;</span></td>
                                         <td class="col-xs-2 col-md-1">
                                             <div class="form-group">
                                                 <input type="text" class="form-control"
@@ -56,7 +56,7 @@ MY ACCOUNT - START
                                             </div>
                                         </td>
                                         <td class="col-xs-2 text-center">
-                                            <span><b>{{ $item->getPriceSum() }}{{ $product->currency }}</b></span>
+                                            <span><b>{{ $item->getPriceSumWithConditions() }}{{ $product->currency }}</b></span>
                                         </td>
                                         <td class="col-xs-1 text-center">
                                             <form method="POST" action="/cart/{{ $item->id }}">
@@ -98,11 +98,8 @@ MY ACCOUNT - START
                             </div>
                             <div class="col-sm-4 col-sm-offset-2">
                                 <ul class="list-unstyled order-total">
-                                    <li>Total products<span>{{ Cart::getSubTotal() }} &euro;</span></li>
-                                    @foreach(Cart::getConditions() as $condition)
-                                        <li>{{ $condition->getName() }}<span>{{ $condition->getValue() }}</span></li>
-                                    @endforeach
-                                    <li>Total<span class="total">{{ Cart::getTotal() }}&euro;</span></li>
+                                    <li>IVA<span>[21%]</span></li>
+                                    <li>Total<span>{{ Cart::getTotal() }}&euro;</span></li>
                                 </ul>
                             </div>
                         </div>

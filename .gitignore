@@ -11,3 +11,4 @@ _ide_helper.php
 .phpstorm.meta.php
 npm-debug.log
 database/geoip/*
+public/img/*

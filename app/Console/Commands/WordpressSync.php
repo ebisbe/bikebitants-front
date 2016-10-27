@@ -36,9 +36,7 @@ class WordpressSync extends Command
     }
 
     /**
-     * Execute the console command.
-     *
-     * @return mixed
+     * @param WordpressService $wordpressService
      */
     public function handle(WordpressService $wordpressService)
     {
@@ -72,12 +70,16 @@ class WordpressSync extends Command
         }, 'sync products:');
     }
 
+    /**
+     * @param $callback
+     * @param string $text
+     */
     public function inspector($callback, $text = '')
     {
         $this->info($text);
         $page = 1;
         do {
-            echo('-');
+            echo('+');
             $totalItems = $callback($page);
             $page ++;
         } while ($totalItems > 0);
