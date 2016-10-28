@@ -24,7 +24,7 @@ PRODUCTS - START
                        role="tab"
                        data-toggle="tab"
                        aria-controls="reviews"
-                       aria-expanded="true">Reviews ({!! count($product->reviewsVerified) !!})</a>
+                       aria-expanded="true">Reviews ({!! $product->reviewsVerified->count() !!})</a>
                 </li>
                 <li role="presentation">
                     <a href="#video"
@@ -71,9 +71,12 @@ PRODUCTS - START
                         {{--*/$x++/* --}}
                         <div class="panel panel-primary">
                             <div class="panel-heading" role="tab">
-                                <h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" href="#faq-{{ $x }}" aria-expanded="false" aria-controls="faq-{{ $x }}">{{ $faq->name }}</a></h4>
+                                <h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse"
+                                                           href="#faq-{{ $x }}" aria-expanded="false"
+                                                           aria-controls="faq-{{ $x }}">{{ $faq->name }}</a></h4>
                             </div>
-                            <div aria-expanded="false" id="faq-{{ $x }}" class="panel-collapse collapse" role="tabpanel">
+                            <div aria-expanded="false" id="faq-{{ $x }}" class="panel-collapse collapse"
+                                 role="tabpanel">
                                 <div class="panel-body">{{ $faq->answer }}</div>
                             </div>
                         </div>
@@ -86,7 +89,6 @@ PRODUCTS - START
             <h2>Related Products</h2>
             <div class="row grid" id="products">
                 <!-- PRODUCT - START -->
-
                 @foreach($relatedProducts as $relatedProduct)
                     <div class="col-sm-3 col-xs-6">
                         <article class="product-item">
@@ -118,11 +120,8 @@ PRODUCTS - START
                             </div>
                         </article>
                     </div>
-
-                    @endforeach
-                            <!-- PRODUCT - END -->
-
-
+                @endforeach
+                <!-- PRODUCT - END -->
             </div>
         </div>
 
@@ -154,5 +153,31 @@ PRODUCTS - START
         PRODUCT QUICKVIEW - END
     =========================== -->
 @endforeach
+
+
+<!-- ==========================
+   ADD REVIEW - START
+=========================== -->
+<div class="modal fade modal-add-review" id="add-review" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title">Add a review</h4>
+            </div>
+            <div class="modal-body">
+                <add-review
+                        product_id="{{ $product->_id }}"
+                        token="{{csrf_token()}}">
+                </add-review>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ==========================
+    ADD REVIEW - END
+=========================== -->
 
 @endsection

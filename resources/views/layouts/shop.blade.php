@@ -4,7 +4,7 @@
     <!-- ==========================
     	Meta Tags
     =========================== -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
@@ -56,12 +56,12 @@
                         <li><a href="compare.html">Compare (3)</a></li>
                         <li><a href="signin.html">Logout</a></li>
                     </ul>--}}
-                    {{--<ul class="list-inline languages hidden-sm">
-                        <li><a href="#"><img src="/images/flags/es.png" alt="cs_CZ"></a></li>
-                        <li><a href="#"><img src="/images/flags/us.png" alt="en_US"></a></li>
-                        <li><a href="#"><img src="/images/flags/de.png" alt="de_DE"></a></li>
-                    </ul>
-                </div>--}}
+                {{--<ul class="list-inline languages hidden-sm">
+                    <li><a href="#"><img src="/images/flags/es.png" alt="cs_CZ"></a></li>
+                    <li><a href="#"><img src="/images/flags/us.png" alt="en_US"></a></li>
+                    <li><a href="#"><img src="/images/flags/de.png" alt="de_DE"></a></li>
+                </ul>
+            </div>--}}
             </div>
         </div>
     </div>
@@ -69,7 +69,8 @@
         <div class="container">
             <div class="navbar-header">
                 <a href="{{ route('shop.home') }}" class="navbar-brand"><span>Bike</span>Bitants</a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i
+                            class="fa fa-bars"></i></button>
             </div>
             <div class="navbar-collapse collapse">
                 <p class="navbar-text hidden-xs hidden-sm">{{ StaticVars::slogan() }}</p>
@@ -149,43 +150,6 @@
     @yield('content')
 
     <!-- ==========================
-    	ADD REVIEW - START
-    =========================== -->
-    <div class="modal fade modal-add-review" id="add-review" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
-                    <h4 class="modal-title">Add a review</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="comment-form">
-                        <p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked<span class="required">*</span></p>
-                        <div class="row">
-                            <div class="form-group comment-form-author col-sm-6">
-                                <label for="author">Name<span class="required">*</span></label>
-                                <input class="form-control" id="author" name="author" type="text" required value="" placeholder="Enter your name">
-                            </div>
-                            <div class="form-group comment-form-email col-sm-6">
-                                <label for="email">Email<span class="required">*</span></label>
-                                <input class="form-control" id="email" name="email" type="email" required value="" placeholder="Enter your email">
-                            </div>
-                        </div>
-                        <div class="form-group comment-form-comment">
-                            <label for="comment">Comment<span class="required">*</span></label>
-                            <textarea class="form-control" id="comment" name="comment" required placeholder="Enter your message"></textarea>
-                        </div>
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i>Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ==========================
-    	ADD REVIEW - END
-    =========================== -->
-
-    <!-- ==========================
     	NEWSLETTER - START
     =========================== -->
     <section class="separator separator-newsletter">
@@ -202,7 +166,8 @@
                     <div class="col-sm-6">
                         <div class="newsletter-body">
                             <h3>Newsletter</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua.</p>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -259,10 +224,12 @@
                             <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
                             {{--<li><i class="fa fa-map-marker"></i> 40°44'00.9"N 73°59'43.4"W</li>--}}
                             <li class="social">
-                                <a target="_blank" href="{{ StaticVars::facebook() }}"><i class="fa fa-facebook"></i></a>
+                                <a target="_blank" href="{{ StaticVars::facebook() }}"><i
+                                            class="fa fa-facebook"></i></a>
                                 <a target="_blank" href="{{ StaticVars::twitter() }}"><i class="fa fa-twitter"></i></a>
                                 <a target="_blank" href="{{ StaticVars::instagram() }}"><i class="fa fa-instagram"></i></a>
-                                <a target="_blank" href="{{ StaticVars::linkedin() }}"><i class="fa fa-linkedin"></i></a>
+                                <a target="_blank" href="{{ StaticVars::linkedin() }}"><i
+                                            class="fa fa-linkedin"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -278,7 +245,8 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="copyright">© Umarket 2015 All right reserved.</p>
-                        <p class="copyright">Designed by <a href="http://www.pixelized.cz/" target="_blank">Pixelized Studio.</a></p>
+                        <p class="copyright">Designed by <a href="http://www.pixelized.cz/" target="_blank">Pixelized
+                                Studio.</a></p>
                     </div>
                     <div class="col-sm-6">
                         <ul class="list-inline payment-methods">
@@ -307,7 +275,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                                class="fa fa-times"></i></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -320,7 +289,8 @@
                                     <input type="email" name="email" class="form-control" placeholder="Email Address">
                                     <input type="hidden" name="type" value="popup">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary js-popup-send" type="submit"><i></i>Submit</button>
+                                        <button class="btn btn-primary js-popup-send" type="submit"><i></i>Submit
+                                        </button>
                                     </span>
                                 </div>
                                 <span class="js-popup-message"></span>
