@@ -35,8 +35,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Product::saved(function($product) {
-            $job = (new UpdateCategories($product));
-            dispatch($job);
+            dispatch(new UpdateCategories($product));
         });
 
         DB::connection('mongodb')->enableQueryLog();

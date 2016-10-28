@@ -15,9 +15,8 @@ class ReviewController extends Controller
      * @param ProductRepository $productRepository
      * @return array|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, ProductRepository $productRepository)
+    public function store(Request $request, ProductRepository $productRepository, Review $review)
     {
-
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email',
@@ -26,23 +25,13 @@ class ReviewController extends Controller
             'product_id' => 'required|exists:products,_id',
         ]);
 
-        $review = Review::create($request->all());
-
-        $product = $productRepository->find($request->input('product_id'));
-        $product->reviews()->save($review);
-
-        $productRepository->update($request->input('product_id'), $product->toArray());
-
-        /*\Mail::send('emails.new_lead', [], function ($m) use ($lead) {
-            $m->from(StaticVars::email(), StaticVars::company());
-
-            $m->to($lead->email)->subject('Your discount!');
-        });*/
+        $product = $productRepository->findBy('_id', $request->input('product_id'));
+        $product->reviews()->save($review->newInstance($request->all()));
 
         if ($request->ajax()) {
-            return ['response' => 'Your discount is on the way!'];
+            return ['response' => 'Thanks for reviewing our product!'];
         } else {
-            \Session::flash('flash_message', 'Your discount is on the way!');
+            \Session::flash('flash_message', 'Thanks for reviewing our product!');
             return redirect(URL::previous());
         }
     }

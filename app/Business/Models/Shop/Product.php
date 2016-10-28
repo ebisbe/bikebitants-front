@@ -23,15 +23,6 @@ class Product extends \App\Product
     const HIDDEN_CLASS = 'bg-info';
 
     /**
-     * Reviews made by the users for the product
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
-     */
-    public function reviews()
-    {
-        return $this->embedsMany(Review::class);
-    }
-
-    /**
      * @return mixed
      */
     public function getReviewsVerifiedAttribute()

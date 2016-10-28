@@ -46,7 +46,7 @@ class UpdateCategories extends Job implements ShouldQueue
         $categories[] = $category->slug;
         $this->product->categories = $categories;
 
-        $productRepository->update($this->product->_id, $this->product->toArray());
+        $productRepository->update($this->product, $this->product->toArray());
 
         return true;
     }

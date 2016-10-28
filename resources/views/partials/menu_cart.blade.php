@@ -22,7 +22,7 @@
                             <h4>
                                 <a href="{{ route('shop.product', ['slug' => $item->slug]) }}">{{ $item->name }}</a>
                             </h4>
-                            <p>{{ $cart->quantity }}x - {{ $cart->price }}{{ $item->currency }}</p>
+                            <p>{{ $cart->quantity }}x - {{ $cart->getPriceWithConditions() }}{{ $item->currency }}</p>
                             <form method="POST" action="/cart/{{ $item->_id }}">
                                 <input type="hidden" name="_method" value="DELETE"/>
                                 {{ csrf_field() }}
