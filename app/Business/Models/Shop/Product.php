@@ -2,6 +2,7 @@
 
 namespace App\Business\Models\Shop;
 
+use App\Business\Traits\Presenters\ProductPresenter;
 use App\Business\Traits\PublishedProductsTrait;
 use App\Review;
 
@@ -13,7 +14,11 @@ use App\Review;
  */
 class Product extends \App\Product
 {
-    use PublishedProductsTrait;
+    use PublishedProductsTrait, ProductPresenter;
+
+    const DRAFT_CLASS = 'bg-danger';
+    const PUBLISHED_CLASS = 'bg-primary';
+    const HIDDEN_CLASS = 'bg-info';
 
     /**
      * Reviews made by the users for the product
@@ -24,7 +29,10 @@ class Product extends \App\Product
         return $this->embedsMany(Review::class);
     }
 
-    public function reviewsVerified()
+    /**
+     * @return mixed
+     */
+    public function getReviewsVerifiedAttribute()
     {
         return $this->reviews()->filter(function($review) {
             return $review->verified;

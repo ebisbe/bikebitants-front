@@ -27,7 +27,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  */
 class Product extends Model
 {
-    use SoftDeletes, SluggableTrait, ProductPresenter;
+    use SoftDeletes, SluggableTrait;
 
     /** @var string $table Defined for inheritance in PublishedProduct */
     protected $table = 'products';
@@ -36,13 +36,16 @@ class Product extends Model
     const PUBLISHED = 2;
     const HIDDEN = 3;
 
-    const DRAFT_CLASS = 'bg-danger';
-    const PUBLISHED_CLASS = 'bg-primary';
-    const HIDDEN_CLASS = 'bg-info';
+    protected $appends = ['tags_list', 'currency'];
 
-    protected $appends = [ 'tags_list', 'currency'];
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'tags', 'meta_title', 'meta_description', 'meta_slug', 'external_id', 'prices', 'stock', 'is_discounted', 'categories', 'rating'];
+
+    protected $fillable = [
+        'name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'tags',
+        'meta_title', 'meta_description', 'meta_slug', 'external_id', 'prices', 'stock', 'is_discounted',
+        'categories', 'rating'
+    ];
+
     protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean'];
 
     /**

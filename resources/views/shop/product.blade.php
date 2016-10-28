@@ -24,7 +24,7 @@ PRODUCTS - START
                        role="tab"
                        data-toggle="tab"
                        aria-controls="reviews"
-                       aria-expanded="true">Reviews ({!! count($product->reviewsVerified()) !!})</a>
+                       aria-expanded="true">Reviews ({!! count($product->reviewsVerified) !!})</a>
                 </li>
                 <li role="presentation">
                     <a href="#video"
@@ -49,7 +49,7 @@ PRODUCTS - START
 
                     <div class="comments">
 
-                        @foreach($product->reviewsVerified() as $review)
+                        @foreach($product->reviewsVerified as $review)
                             @include('partials.review', ['review' => $review, 'reply' => true])
                         @endforeach
 

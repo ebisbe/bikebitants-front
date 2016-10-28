@@ -10,6 +10,6 @@ class WordPressController extends Controller
 {
     public function index()
     {
-        dd(\Woocommerce::get('products'));
+        dd(\Woocommerce::get('', ['page' => 1]));
     }
 }
