@@ -36,8 +36,6 @@ class Product extends Model
     const PUBLISHED = 2;
     const HIDDEN = 3;
 
-    protected $appends = ['tags_list', 'currency'];
-
     protected $dates = ['deleted_at'];
 
     protected $fillable = [

@@ -16,6 +16,8 @@ class Product extends \App\Product
 {
     use PublishedProductsTrait, ProductPresenter;
 
+    protected $appends = ['range_price', 'tags_list', 'currency'];
+
     const DRAFT_CLASS = 'bg-danger';
     const PUBLISHED_CLASS = 'bg-primary';
     const HIDDEN_CLASS = 'bg-info';

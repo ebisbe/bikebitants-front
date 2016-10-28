@@ -343,7 +343,13 @@ class WordpressService
 
     public function importReview($wpReview)
     {
-        $review = Review::whereExternalId($wpReview['id'])->first();
+
+        $review = $this->product
+            ->reviews()
+            ->filter(function ($review) use ($wpReview) {
+                return $review->external_id == $wpReview['id'];
+            })
+            ->first();
         $new = false;
         if (empty($review)) {
             $review = new Review();
@@ -358,7 +364,6 @@ class WordpressService
         $review->verified = $wpReview['verified'];
         $review->rating = $wpReview['rating'];
         $review->created_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpReview['date_created']);
-
 
         if($new) {
             $this->product->reviews()->save($review);
