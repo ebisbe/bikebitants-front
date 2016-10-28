@@ -40,7 +40,7 @@ class ProductReviewRating extends Job implements ShouldQueue
         $totalReviews = $ratings->count();
 
         if ($totalReviews > 0) {
-            $productRepository->find($this->product->_id, [
+            $productRepository->update($this->product->_id, [
                 'rating' => $totalRating / $totalReviews
             ]);
         }

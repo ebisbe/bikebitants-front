@@ -3,6 +3,7 @@
 namespace App\Business\Models\Shop;
 
 use App\Business\Traits\PublishedProductsTrait;
+use App\Review;
 
 /**
  * Class PublishedProduct
@@ -18,9 +19,16 @@ class Product extends \App\Product
      * Reviews made by the users for the product
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
-    public function reviewsValidated()
+    public function reviews()
     {
         return $this->embedsMany(Review::class);
+    }
+
+    public function reviewsVerified()
+    {
+        return $this->reviews()->filter(function($review) {
+            return $review->verified;
+        });
     }
 
     /**

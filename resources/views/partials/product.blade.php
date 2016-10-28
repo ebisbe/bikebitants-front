@@ -15,15 +15,7 @@
             <div class="product-body">
                 <h3>{{ $product->name }}</h3>
                 @include('partials.labels')
-                @if(isset($product->rating))
-                    <div class="product-rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                @endif
+                @include('partials.rating', ['rating' => $product->rating])
                 @include('partials.price')
                 <ul class="list-unstyled product-info">
                     <li><span>ID</span>{{ $product->_id }}</li>
