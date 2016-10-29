@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Scope;
 
-class PublishedProductScope implements Scope
+class ShopProductScope implements Scope
 {
     /**
      * @param Builder $builder
@@ -16,6 +16,6 @@ class PublishedProductScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        return $builder->whereStatus(Product::PUBLISHED);
+        return $builder->whereIn('status', [Product::PUBLISHED, Product::HIDDEN]);
     }
 }

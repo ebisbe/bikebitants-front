@@ -3,8 +3,7 @@
 namespace App\Business\Models\Shop;
 
 use App\Business\Traits\Presenters\ProductPresenter;
-use App\Business\Traits\PublishedProductsTrait;
-use App\Review;
+use App\Business\Traits\ProductsTrait;
 
 /**
  * Class PublishedProduct
@@ -14,7 +13,7 @@ use App\Review;
  */
 class Product extends \App\Product
 {
-    use PublishedProductsTrait, ProductPresenter;
+    use ProductsTrait, ProductPresenter;
 
     protected $appends = ['range_price', 'tags_list', 'currency'];
 

@@ -34,10 +34,6 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        Product::saved(function($product) {
-            dispatch(new UpdateCategories($product));
-        });
-
         DB::connection('mongodb')->enableQueryLog();
     }
 

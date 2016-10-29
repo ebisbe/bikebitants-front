@@ -23,7 +23,8 @@ class WordpressService
 
     public function importFromWordpress($wpProduct)
     {
-        if ($this->statusSyncro($wpProduct['status']) == Product::DRAFT) {
+        $status = $this->statusSyncro($wpProduct['status'], $wpProduct['catalog_visibility']);
+        if ($status == Product::DRAFT) {
             return false;
         }
 
@@ -35,7 +36,7 @@ class WordpressService
         $this->product->_id = $wpProduct['sku'];
         $this->product->external_id = $wpProduct['id'];
         $this->product->name = $wpProduct['name'];
-        $this->product->status = $this->statusSyncro($wpProduct['status']);
+        $this->product->status = $status;
         $this->product->slug = $wpProduct['slug'];
         $this->product->description = $this->stripVCRow($wpProduct['description']);
         $this->product->introduction = $wpProduct['short_description'];
@@ -118,7 +119,7 @@ class WordpressService
             ->each(function ($attribute) use (&$order) {
                 if ($attribute['variation']) {
                     $this->syncVariationAttributes($attribute, $order);
-                    $order ++;
+                    $order++;
                 } else {
                     $this->syncAttribute($attribute);
                 }
@@ -319,17 +320,27 @@ class WordpressService
     }
 
     /**
-     * Return status from Product or -1 in case of unkown.
+     * Return status from Product or -1 in case of unknown.
      * @param $status
+     * @param $catalog_visibility
      * @return int
      */
-    public function statusSyncro($status)
+    public function statusSyncro($status, $catalog_visibility)
     {
         $statusValues = [
             'draft' => Product::DRAFT,
-            'publish' => Product::PUBLISHED
+            'publish' => Product::PUBLISHED,
+            'hidden' => Product::HIDDEN
         ];
-        return isset($statusValues[$status]) ? $statusValues[$status] : -1;
+
+        if (!isset($statusValues[$status])) {
+            return -1;
+        }
+
+        return $statusValues[$status] == Product::PUBLISHED
+        && $catalog_visibility == 'hidden'
+            ? Product::HIDDEN
+            : $statusValues[$status];
     }
 
     /**
@@ -365,7 +376,7 @@ class WordpressService
         $review->rating = $wpReview['rating'];
         $review->created_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpReview['date_created']);
 
-        if($new) {
+        if ($new) {
             $this->product->reviews()->save($review);
             (new ProductRepository)->update($this->product->_id, $this->product->toArray());
         } else {
