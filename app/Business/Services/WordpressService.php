@@ -7,6 +7,7 @@ use App\AttributeValue;
 use App\Brand;
 use App\Business\Repositories\ProductRepository;
 use App\Category;
+use App\Coupon;
 use App\Image;
 use App\Product;
 use App\Review;
@@ -47,9 +48,9 @@ class WordpressService
         if (is_null($wpProduct['date_created'])) {
             $this->product->created_at = Carbon::now();
         } else {
-            $this->product->created_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpProduct['date_created']);
+            $this->product->created_at = $this->convertDate($wpProduct['date_created']);
         }
-        $this->product->updated_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpProduct['date_modified']);
+        $this->product->updated_at = $this->convertDate($wpProduct['date_modified']);
         $this->product->save();
 
         $this->syncAttributes($wpProduct['attributes']);
@@ -352,6 +353,9 @@ class WordpressService
         return preg_replace('#\[(/)?vc_.+\]?#', '', $text);
     }
 
+    /**
+     * @param $wpReview
+     */
     public function importReview($wpReview)
     {
 
@@ -374,7 +378,7 @@ class WordpressService
         $review->comment = $wpReview['review'];
         $review->verified = $wpReview['verified'];
         $review->rating = $wpReview['rating'];
-        $review->created_at = Carbon::createFromFormat(StaticVars::wordpressDateTime(), $wpReview['date_created']);
+        $review->created_at = $this->convertDate($wpReview['date_created']);
 
         if ($new) {
             $this->product->reviews()->save($review);
@@ -382,5 +386,60 @@ class WordpressService
         } else {
             $review->save();
         }
+    }
+
+    /**
+     * Convert WP date format to a Carbon
+     * @param $date
+     * @return Carbon|null
+     */
+    protected function convertDate($date)
+    {
+        if(is_null($date)) {
+            return null;
+        }
+        return Carbon::createFromFormat(StaticVars::wordpressDateTime(), $date);
+    }
+
+    /**
+     * @param $wpCoupon
+     */
+    public function syncCoupon($wpCoupon)
+    {
+        $coupon = Coupon::whereExternalId($wpCoupon['id'])->first();
+        if (empty($coupon)) {
+            $coupon = new Coupon();
+        }
+
+        $coupon->external_id = $wpCoupon['id'];
+        $coupon->name = $wpCoupon['code'];
+        $coupon->magnitude = (float)$wpCoupon['amount'];
+        $coupon->type = $this->couponStatus($wpCoupon['discount_type']);
+        $coupon->description = $wpCoupon['description'];
+        $coupon->expired_at = $this->convertDate($wpCoupon['expiry_date']);
+        $coupon->minimum_cart = (float)$wpCoupon['minimum_amount'];
+        $coupon->maximum_cart = (float)$wpCoupon['maximum_amount'];
+
+        //$coupon->limit_usage_by_coupon = 3;
+        //$coupon->limit_usage_by_user = 1;
+        //$coupon->single_use = 1;
+        //$coupon->emails = $faker->email.','.$faker->email.','.$faker->emai;
+        $coupon->save();
+    }
+
+    /**
+     * @param $status
+     * @return mixed
+     */
+    protected function couponStatus($status)
+    {
+        $statusTypes = [
+            'fixed_cart' => Coupon::DIRECT,
+            'fixed_product' => Coupon::DIRECT,
+            'percent' => Coupon::PERCENTAGE,
+            'percent_product' => Coupon::PERCENTAGE,
+        ];
+
+        return $statusTypes[$status];
     }
 }

@@ -21,14 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Coupon::saving(function ($coupon) {
-            $coupon->emails = explode(',', $coupon->emails);
-            return $coupon;
-        });
-
-        Category::saving(function($category) {
+        Category::saving(function ($category) {
             //Categories are created at parent level, never on child level
-            if(empty($category->order)) {
+            if (empty($category->order)) {
                 $order = Category::where('father_id', 'exists', false)->orderBy('order', 'desc')->first();
                 $category->order = !is_null($order) ? $order->order + 1 : 1;
             }
