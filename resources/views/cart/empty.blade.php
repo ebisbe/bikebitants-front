@@ -13,14 +13,14 @@
                     <div class="error-text">
                         <h1>Your cart is empty</h1>
                         <p>Better go buy something. Go back to <a href="{{ route('shop.catalogue') }}">Shopping</a></p>
-                        <form>
+                        {{--<form>
                             <div class="input-group input-group-lg">
                                 <input type="email" class="form-control" placeholder="Search ...">
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="button">Search</button>
                                     </span>
                             </div>
-                        </form>
+                        </form>--}}
                     </div>
                 </div>
             </div>

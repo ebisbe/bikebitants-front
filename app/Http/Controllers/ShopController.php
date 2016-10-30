@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Business\Models\Shop\Category;
 use App\Business\Models\Shop\Product;
 use App\Business\Repositories\BrandRepository;
 use App\Business\Repositories\CategoryRepository;
 use App\Business\Search\ProductSearch;
-use App\Category;
 use App\Business\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use MetaTag;
@@ -59,7 +59,7 @@ class ShopController extends Controller
     public function product(ProductRepository $productRepository, $slug)
     {
         /** @var Product $product */
-        $product = $productRepository->with(['category.father', 'images', 'faqs', 'brand', 'reviews'])->findBy('slug', $slug);
+        $product = $productRepository->with(['category.father', 'brand'])->findBy('slug', $slug);
 
         Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
         if(!empty($product->category->father)) {
