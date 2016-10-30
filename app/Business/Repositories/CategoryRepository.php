@@ -7,5 +7,5 @@ class CategoryRepository extends EloquentRepository
 {
     protected $repositoryId = 'rinvex.repository.shop.category';
 
-    protected $model = 'App\Category';
+    protected $model = 'App\Business\Models\Shop\Category';
 }

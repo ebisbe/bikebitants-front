@@ -413,7 +413,7 @@ class WordpressService
 
         $coupon->external_id = $wpCoupon['id'];
         $coupon->name = $wpCoupon['code'];
-        $coupon->magnitude = (float)$wpCoupon['amount'];
+        $coupon->magnitude = -(float)$wpCoupon['amount'];
         $coupon->type = $this->couponStatus($wpCoupon['discount_type']);
         $coupon->description = $wpCoupon['description'];
         $coupon->expired_at = $this->convertDate($wpCoupon['expiry_date']);

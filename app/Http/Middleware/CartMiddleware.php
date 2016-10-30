@@ -16,8 +16,9 @@ class CartMiddleware
      */
     public function handle($request, Closure $next)
     {
-
-        //Cart::condition($condition);
+        if(Cart::isEmpty()) {
+            Cart::clearCartConditions();
+        }
 
         return $next($request);
     }

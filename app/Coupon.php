@@ -21,7 +21,7 @@ class Coupon extends Model
     const CART_CONDITION_TYPE = 'coupon';
     const CART_CONDITION_TARGET = 'subtotal';
 
-    const PERCENTAGE = '&#37;';
+    const PERCENTAGE = '%';
     const DIRECT = '&euro;';
 
     protected $fillable = ['name', 'value', 'magnitude', 'type', 'expired_at', 'minimum_cart', 'maximum_cart', 'limit_usage_by_coupon', 'limit_usage_by_user', 'single_use', 'emails', 'external_id'];

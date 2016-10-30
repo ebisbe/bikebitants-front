@@ -32,6 +32,10 @@ class CouponValidator
     public function not_expired($attribute, $value, $parameters, $validator)
     {
         $coupon = $this->getCoupon($attribute, $validator);
+        if(is_null($coupon->expired_at)) {
+            return true;
+        }
+
         $expiryDate = Carbon::createFromFormat('Y-m-d H:i:s',$coupon->expired_at);
         return Carbon::now()->diffInSeconds($expiryDate, false) > 0 ? true : false;
     }
@@ -59,7 +63,7 @@ class CouponValidator
     public function maximum_cart($attribute, $value, $parameters, $validator)
     {
         $coupon = $this->getCoupon($attribute, $validator);
-        if(is_null($coupon->maximum_cart)) {
+        if(is_null($coupon->maximum_cart) || $coupon->maximum_cart == 0) {
             return true;
         }
         return Cart::getSubTotal() <= $coupon->maximum_cart;

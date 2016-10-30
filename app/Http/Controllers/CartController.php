@@ -17,7 +17,7 @@ class CartController extends Controller
 
     public function __construct()
     {
-        //$this->middleware(CartMiddleware::class);
+        $this->middleware(CartMiddleware::class);
     }
 
     /**
