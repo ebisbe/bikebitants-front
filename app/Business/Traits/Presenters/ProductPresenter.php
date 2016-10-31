@@ -72,7 +72,7 @@ trait ProductPresenter
      */
     public function getFrontImageAttribute()
     {
-        return static::images()->first();
+        return $this->images()->first();
     }
 
     /**
@@ -80,7 +80,11 @@ trait ProductPresenter
      */
     public function getFrontImageHoverAttribute()
     {
-        return static::images()->slice(1, 1)->first();
+        $hover = $this->images()->slice(1, 1)->first();
+        if (is_null($hover)) {
+            return $this->getFrontImageAttribute();
+        }
+        return $hover;
     }
 
 }

@@ -41,10 +41,11 @@ class ShopController extends Controller
         $layoutHeader = 'navbar-transparent navbar-fixed-top';
         $layoutTopHeader = 'hidden';
 
-        $brands = $brandRepository->where('is_featured', true)->limit(4)->findAll();
-        $productsLeft = $productRepository->where('is_featured', true)->limit(2)->findAll();
-        $productsRight = $productRepository->where('is_featured', true)->limit(8)->findAll();
-        $categories = $categoryRepository->with(['children'])->orderBy('is_featured', 'asc')->limit(3)->findAll();
+        $brands = $brandRepository->findAll();
+        $featuredProducts = $productRepository->where('is_featured', true)->limit(10)->findAll();
+        $productsLeft = $featuredProducts->splice(0,2);
+        $productsRight = $featuredProducts;
+        $categories = $categoryRepository->with(['children'])->where('filename', 'exists', true)->orderBy('is_featured', 'asc')->limit(3)->findAll();
 
         $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);
 

@@ -5,6 +5,7 @@ namespace App\Business\Services;
 use App\Attribute;
 use App\AttributeValue;
 use App\Brand;
+use App\Business\Repositories\CategoryRepository;
 use App\Business\Repositories\ProductRepository;
 use App\Category;
 use App\Coupon;
@@ -38,6 +39,7 @@ class WordpressService
         $this->product->external_id = $wpProduct['id'];
         $this->product->name = $wpProduct['name'];
         $this->product->status = $status;
+        $this->product->is_featured = $wpProduct['featured'];
         $this->product->slug = $wpProduct['slug'];
         $this->product->description = $this->stripVCRow($wpProduct['description']);
         $this->product->introduction = $wpProduct['short_description'];
@@ -261,11 +263,11 @@ class WordpressService
             $category->description = $wpCategory['description'];
         }
         $category->external_id = $wpCategory['id'];
-        if (isset($wpCategory['image'])) {
-            $category->filename = $this->saveImage($wpCategory);
+        if (!empty($wpCategory['image'])) {
+            $category->filename = $this->saveImage($wpCategory['image']);
         }
 
-        $category->save();
+        (new CategoryRepository())->update($category, $category->toArray());
 
         if (!empty($wpCategory['parent'])) {
             /** @var Category $father */
