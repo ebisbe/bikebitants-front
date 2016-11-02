@@ -10,6 +10,7 @@
     "bootstrap-sass": "^3.0.0"
   },
   "dependencies": {
-    "laravel-elixir-vueify": "^2.0.0"
+    "laravel-elixir-vueify": "^2.0.0",
+    "vue-i18n": "4.7.1"
   }
 }

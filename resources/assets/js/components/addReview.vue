@@ -1,22 +1,19 @@
 <template>
     <form class="comment-form">
-        <p class="comment-notes">
-            <span id="email-notes">Your email address will not be published.</span>
-            Required fields are marked<span class="required">*</span>
-        </p>
+        <p class="comment-notes" v-html="$t('catalogue.email_not_published')"></p>
         <div class="row">
             <div class="form-group comment-form-author col-sm-6 {{ validation_name ? 'has-error' : '' }}">
-                <label for="name">Name<span class="required">*</span></label>
+                <label for="name" v-html="$t('catalogue.name')"></label>
                 <input class="form-control" id="name" name="name" type="text" required value=""
-                       placeholder="Enter your name" v-model="name">
+                       placeholder="{{ $t('catalogue.name_placeholder') }}" v-model="name">
                 <span v-show="validation_name" class="help-block">
                     <strong>{{ validation_name }}</strong>
                 </span>
             </div>
             <div class="form-group comment-form-email col-sm-6 {{ validation_email ? 'has-error' : '' }}">
-                <label for="email">Email<span class="required">*</span></label>
+                <label for="email" v-html="$t('catalogue.email')"></label>
                 <input class="form-control" id="email" name="email" type="email" required value=""
-                       placeholder="Enter your email" v-model="email">
+                       placeholder="{{ $t('catalogue.email_placeholder') }}" v-model="email">
                 <span v-show="validation_email" class="help-block">
                     <strong>{{ validation_email }}</strong>
                 </span>
@@ -24,7 +21,7 @@
         </div>
         <div class="row">
             <div class="form-group col-sm-6 {{ validation_rating ? 'has-error' : '' }}">
-                <label for="rating">Rating <span class="required">*</span></label>
+                <label for="rating" v-html="$t('catalogue.rating')"></label>
                 <select v-model.number="rating" name="rating" id="rating" class="form-control" required>
                     <option v-for="option in rating_options" value="{{ option }}">
                         {{ option }}
@@ -36,15 +33,15 @@
             </div>
         </div>
         <div class="form-group comment-form-comment {{ validation_comment ? 'has-error' : '' }}">
-            <label for="comment">Comment<span class="required">*</span></label>
+            <label for="comment" v-html="$t('catalogue.comment')"></label>
             <textarea class="form-control" id="comment" name="comment" required
-                      placeholder="Enter your message" v-model="comment"></textarea>
+                      placeholder="{{ $t.('catalogue.comment_placeholder') }}" v-model="comment"></textarea>
             <span v-show="validation_name" class="help-block">
                     <strong>{{ validation_comment }}</strong>
                 </span>
         </div>
-        <button class="btn btn-primary" type="button" v-on:click="submit()">
-            <i class="fa fa-check"></i>Submit
+        <button class="btn btn-primary" type="button" v-on:click="submit()"
+                v-html="$t('catalogue.submit')">
         </button>
     </form>
 </template>

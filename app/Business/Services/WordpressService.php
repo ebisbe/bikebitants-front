@@ -23,7 +23,7 @@ class WordpressService
     /** @var  Product $product */
     protected $product;
 
-    public function importFromWordpress($wpProduct)
+    public function importProduct($wpProduct)
     {
         $status = $this->statusSyncro($wpProduct['status'], $wpProduct['catalog_visibility']);
         if ($status == Product::DRAFT) {
@@ -99,8 +99,7 @@ class WordpressService
             $variation->real_price = (float)$wpVariation['regular_price'];
             $variation->discounted_price = (float)$wpVariation['sale_price'];
             $variation->is_discounted = $wpVariation['on_sale'];
-            $variation->stock = 10/*$wpVariation['stock']*/
-            ;
+            $variation->stock = is_null($wpVariation['stock_quantity']) ? 25 : $wpVariation['stock_quantity'];
             $variation->filename = $this->saveImage($wpVariation[isset($wpVariation['image']) ? 'image' : 'images'][0]);
 
             if ($new) {

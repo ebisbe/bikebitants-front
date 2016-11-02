@@ -11,3 +11,4 @@ _ide_helper.php
 .phpstorm.meta.php
 npm-debug.log
 vue.js
+resources/assets/js/vue-i18n-locales.generated.js

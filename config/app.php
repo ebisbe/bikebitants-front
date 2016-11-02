@@ -175,7 +175,8 @@ return [
         Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         Rinvex\Repository\Providers\RepositoryServiceProvider::class,
         Pixelpeter\Woocommerce\WoocommerceServiceProvider::class,
-        PulkitJalan\GeoIP\GeoIPServiceProvider::class
+        PulkitJalan\GeoIP\GeoIPServiceProvider::class,
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
     ],
 
     /*

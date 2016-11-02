@@ -29,6 +29,6 @@
     "jGrowl": "jgrowl#^1.4.5",
     "underscore": "^1.8.3",
     "pnotify": "^3.0.0",
-    "vue": "^1.0.26"
+    "vue": "^2.0.3"
   }
 }

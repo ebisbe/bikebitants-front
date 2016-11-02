@@ -28,7 +28,8 @@
         "hoa/math": "1.16.08.29",
         "rinvex/repository": "^2.0",
         "pixelpeter/laravel5-woocommerce-api-client": "^2.0",
-        "pulkitjalan/geoip": "2.*"
+        "pulkitjalan/geoip": "2.*",
+        "martinlindhe/laravel-vue-i18n-generator": "^0.1.7"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -59,6 +60,7 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan vue-i18n:generate",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta",
             "php artisan optimize"
