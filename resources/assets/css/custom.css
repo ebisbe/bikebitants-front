@@ -2429,7 +2429,7 @@ article.product-item .product-labels .label.label-info {
 	padding-right:15px;
 }
 
-#products.list article.product-item p {
+#products.list article.product-item div.p {
 	font-size:15px;
 	color:#888888;
 	margin:10px 0 0;
@@ -2464,7 +2464,7 @@ article.product-item .product-labels .label.label-info {
 	padding:0 10px;
 }
 
-#products.grid article.product-item p {
+#products.grid article.product-item div.p {
 	display:none;
 }
 
@@ -4030,6 +4030,7 @@ footer.navbar a:hover {
 	margin:15px 0 10px;
 	font-size:20px;
 	transition:all 0.3s ease-in;
+	text-transform: uppercase;
 }
 
 .services .service p {

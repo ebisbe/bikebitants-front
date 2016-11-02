@@ -51,7 +51,9 @@ class ProductSearch
                         'stock' => ['$first' => '$stock'],
                         'description' => ['$first' => '$description'],
                         'slug' => ['$first' => '$slug'],
-                        'variations' => ['$first' => '$variations']
+                        'variations' => ['$first' => '$variations'],
+                        'introduction' => ['$first' => '$introduction'],
+                        'rating' => ['$first' => '$rating'],
                     ]]
                 ]);
             });

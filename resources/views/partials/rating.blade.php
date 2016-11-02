@@ -14,7 +14,7 @@
         @endphp
     </div>
 @else
-    <div class="product-rating">
-        No rating available. Be the first to rate this product.
+    <div class="product-rating text-muted">
+        @lang('catalogue.no_rating')
     </div>
 @endif

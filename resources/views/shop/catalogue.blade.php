@@ -17,7 +17,7 @@ PRODUCTS - START
                         <!-- WIDGET:CATEGORIES - START -->
                         <div class="widget widget-categories">
                             <h3><a role="button" data-toggle="collapse" href="#widget-categories-collapse"
-                                   aria-expanded="true" aria-controls="widget-categories-collapse">Categories</a></h3>
+                                   aria-expanded="true" aria-controls="widget-categories-collapse">@lang('catalogue.categories')</a></h3>
                             <div class="collapse in" id="widget-categories-collapse" aria-expanded="true"
                                  role="tabpanel">
                                 <div class="widget-body">
@@ -60,7 +60,7 @@ PRODUCTS - START
                                    data-toggle="collapse"
                                    href="#widget-price-collapse"
                                    aria-expanded="true"
-                                   aria-controls="widget-price-collapse">Filter by price</a>
+                                   aria-controls="widget-price-collapse">@lang('catalogue.price_filter')</a>
                             </h3>
                             <div class="collapse in" id="widget-price-collapse" aria-expanded="true" role="tabpanel">
                                 <div class="widget-body">
@@ -106,7 +106,7 @@ PRODUCTS - START
                                 </div>
                                 <div class="form-inline order-by">
                                     <div class="form-group">
-                                        <label>Sort by:</label>
+                                        <label>@lang('catalogue.sort_by')</label>
                                     </div>
                                     <div class="form-group">
                                         <select class="form-control js-change" name="sort">
@@ -148,28 +148,20 @@ PRODUCTS - START
                                             <div class="product-body">
                                                 <h3>{{ str_limit($product->name, 29) }}</h3>
                                                 @include('partials.labels')
-                                                @if(isset($product->rating))
-                                                    <div class="product-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </div>
-                                                @endif
-                                                @include('partials.price')
-                                                <p>{{ $product->description }}</p>
+                                                @include('partials.rating', ['rating' => $product->rating])
+                                                @include('partials.price', ['style' => 'display: block; height: 50px;'])
+                                                <div class="p">{!! $product->introduction !!}</div>
                                                 <div class="buttons">
                                                     {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
                                                     @if($product->stock == 0)
                                                         <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                            class="btn btn-transparent btn-sm add-to-cart">
-                                                            <i class="fa fa-plus"></i>Read more
+                                                            @lang('catalogue.read_more')
                                                         </a>
                                                     @elseif($product->variations->count() > 1)
                                                         <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                            class="btn btn-transparent btn-sm add-to-cart">
-                                                            <i class="fa fa-plus"></i>Choose options
+                                                            @lang('catalogue.choose_options')
                                                         </a>
                                                     @else
                                                         <button class="btn btn-transparent btn-sm js-shop-add-button"
@@ -178,7 +170,7 @@ PRODUCTS - START
                                                                 data-product_name="{{ $product->name }}"
                                                                 data-action="{{ route('cart.store') }}"
                                                                 data-token="{{ csrf_token() }}">
-                                                            <i class="fa fa-shopping-cart"></i>&nbsp;Add
+                                                            @lang('catalogue.add')
                                                         </button>
                                                         <button class="btn btn-transparent btn-sm js-shop-add-button"
                                                                 data-quantity="1"
@@ -186,7 +178,7 @@ PRODUCTS - START
                                                                 data-product_name="{{ $product->name }}"
                                                                 data-action="{{ route('cart.store') }}"
                                                                 data-token="{{ csrf_token() }}">
-                                                            <i class=""></i>&nbsp;Add & Buy
+                                                            @lang('catalogue.add_and_buy')
                                                         </button>
                                                     @endif
                                                     {{--<button type="submit" class="btn btn-primary add-to-cart js-add-button">--}}

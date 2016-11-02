@@ -51,9 +51,9 @@
             <!-- SERVICE - START -->
             <div class="col-xs-12 col-sm-4">
                 <div class="service">
-                    <i class="fa fa-dropbox"></i>
-                    <h3>ENVIO GRATUITO</h3>
-                    <p>Envio sin coste <br/>para pedidos superiores a 30&euro;</p>
+                    <i class="@lang('home.first_box_i')"></i>
+                    <h3>@lang('home.first_box_h3')</h3>
+                    <p>@lang('home.first_box_p')</p>
                 </div>
             </div>
             <!-- SERVICE - END -->
@@ -61,9 +61,9 @@
             <!-- SERVICE - START -->
             <div class="col-xs-6 col-sm-4">
                 <div class="service">
-                    <i class="fa fa-bicycle"></i>
-                    <h3>ENTREGA SOSTENIBLE</h3>
-                    <p>Uso de transporte no contaminante <br/>en los destinos donde sea posible</p>
+                    <i class="@lang('home.second_box_i')"></i>
+                    <h3>@lang('home.second_box_h3')</h3>
+                    <p>@lang('home.second_box_p')</p>
                 </div>
             </div>
             <!-- SERVICE - END -->
@@ -71,9 +71,9 @@
             <!-- SERVICE - START -->
             <div class="col-xs-6 col-sm-4">
                 <div class="service">
-                    <i class="fa fa-refresh"></i>
-                    <h3>DEVOLUCION F&aacute;CIL</h3>
-                    <p>Aceptamos tu devoluci&oacute;n<br/> hasta 30 dias despues de la compra</p>
+                    <i class="@lang('home.third_box_i')"></i>
+                    <h3>@lang('home.third_box_h3')</h3>
+                    <p>@lang('home.third_box_p')</p>
                 </div>
             </div>
             <!-- SERVICE - END -->
@@ -131,13 +131,7 @@
                         <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
                             <h3>{{ $product->name }}</h3>
                         </a>
-                        {{--<div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>--}}
+                        @include('partials.rating', ['rating' => $product->rating])
                         @include('partials.price')
                     </article>
                 </div>
@@ -152,7 +146,7 @@
                             <div class="product-overlay">
                                 <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
                                     <div class="product-mask">
-                                        {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt) !!}
+                                        {!! Form::img($product->front_image_hover->filename, StaticVars::homeLeft(), $product->front_image_hover->alt) !!}
                                     </div>
                                     {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
                                 </a>
@@ -160,13 +154,7 @@
                             <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
                                 <h3>{{ $product->name }}</h3>
                             </a>
-                            {{--<div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>--}}
+                            @include('partials.rating', ['rating' => $product->rating])
                             @include('partials.price')
                         </li>
                         <!-- PRODUCT - END -->
@@ -211,8 +199,8 @@
 <section class="content recent-blog-posts">
     <div class="container">
         <div class="section-title">
-            <h2>Latest from blog</h2>
-            <p>Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue.</p>
+            <h2>@lang('home.blog_h2')</h2>
+            <p>@lang('home.blog_p')</p>
         </div>
         <div class="row">
             <!-- BLOG POST - START -->
