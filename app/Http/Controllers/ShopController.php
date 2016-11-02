@@ -27,7 +27,7 @@ class ShopController extends Controller
         Breadcrumbs::setCssClasses('breadcrumb');
         Breadcrumbs::setListElement('ol');
         Breadcrumbs::setDivider('');
-        Breadcrumbs::addCrumb('Home', route('shop.home'));
+        Breadcrumbs::addCrumb(trans('layout.home'), route('shop.home'));
     }
 
     /**
@@ -62,7 +62,7 @@ class ShopController extends Controller
         /** @var Product $product */
         $product = $productRepository->with(['category.father', 'brand'])->findBy('slug', $slug);
 
-        Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
+        Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         if(!empty($product->category->father)) {
             Breadcrumbs::addCrumb($product->category->father->name, route('shop.category', [
                 'category' => $product->category->father->slug
@@ -125,10 +125,10 @@ class ShopController extends Controller
      */
     public function shop(Request $request, ProductSearch $productSearch, Route $route, Category $category)
     {
-        Breadcrumbs::addCrumb('Shop');
+        Breadcrumbs::addCrumb(trans('layout.shop'));
 
-        $title = 'Home';
-        $subtitle = 'Shop';
+        $title = trans('layout.home');
+        $subtitle = trans('layout.shop');
         $selectedCat = '';
 
         $products = $productSearch::apply($request, $route);
@@ -154,7 +154,7 @@ class ShopController extends Controller
     {
         /** @var Category $cat */
         $cat = Category::whereSlug($slugCategory)->first();
-        Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
+        Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb($cat->name, route('shop.category', ['category' => $cat->slug]));
 
         MetaTag::set('title', $cat->meta_title);
@@ -162,7 +162,7 @@ class ShopController extends Controller
         MetaTag::set('slug', $cat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->filename]));
 
-        $title = 'Shop';
+        $title = trans('layout.shop');
         $subtitle = $cat->name;
         $selectedCat = $cat->_id;
 
@@ -188,7 +188,7 @@ class ShopController extends Controller
         $cat = Category::whereSlug($slugCategory)->first();
         $subCat = Category::whereSlug($slugSubCategory)->first();
 
-        Breadcrumbs::addCrumb('Shop', route('shop.catalogue'));
+        Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb($cat->name, route('shop.category', ['category' => $cat->slug]));
         Breadcrumbs::addCrumb($subCat->name);
 

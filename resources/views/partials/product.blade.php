@@ -18,12 +18,12 @@
                 @include('partials.rating', ['rating' => $product->rating])
                 @include('partials.price')
                 <ul class="list-unstyled product-info">
-                    <li><span>ID</span>{{ $product->_id }}</li>
-                    <li><span>Availability</span>{{ $product->stock != 0 ? 'In Stock' : 'Out of Stock'}}</li>
-                    <li><span>Brand</span><a
+                    <li><span>@lang('catalogue.id')</span>{{ $product->_id }}</li>
+                    <li><span>@lang('catalogue.availability')</span>{{ $product->stock != 0 ? 'In Stock' : 'Out of Stock'}}</li>
+                    <li><span>@lang('catalogue.brand')</span><a
                                 href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
                     </li>
-                    <li><span>Tags</span>{{ $product->tags_list }}</li>
+                    <li><span>@lang('catalogue.tags')</span>{{ $product->tags_list }}</li>
                 </ul>
                 <p>{!! $product->introduction !!}</p>
                 <div class="product-form clearfix">
