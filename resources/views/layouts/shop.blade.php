@@ -76,10 +76,10 @@
                 <p class="navbar-text hidden-xs hidden-sm">{{ StaticVars::slogan() }}</p>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="{{ route('shop.home') }}">Home</a>
+                        <a href="{{ route('shop.home') }}">@lang('layout.home')</a>
                     </li>
                     <li class="dropdown">
-                        <a href="{{ route('shop.catalogue') }}">Shop</a>
+                        <a href="{{ route('shop.catalogue') }}">@lang('layout.shop')</a>
                     </li>
                     {{--<li class="dropdown megamenu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true">Eshop</a>
@@ -196,47 +196,53 @@
             <div class="row">
                 <div class="col-sm-3 col-xs-6">
                     <div class="footer-widget footer-widget-links">
-                        <h4>Empresa</h4>
+                        <h4>@lang('layout.enterprise')</h4>
                         <ul class="list-unstyled">
-                            <li><a href="/quines-somos">Quiénes somos</a></li>
-                            <li><a href="">Compromiso Bikebitants</a></li>
-                            <li><a href="">Incentivos para empresas</a></li>
-                            <li><a href="">Sala de prensa</a></li>
-                            <li><a href="">Contacto</a></li>
+                            <li><a href="/quines-somos">@lang('layout.whoweare')</a></li>
+                            <li><a href="">@lang('layout.compromise')</a></li>
+                            <li><a href="">@lang('layout.incentives')</a></li>
+                            <li><a href="">@lang('layout.press')</a></li>
+                            <li><a href="">@lang('layout.contact')</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6">
                     <div class="footer-widget footer-widget-links">
-                        <h4>Compra en bikebitants</h4>
+                        <h4>@lang('layout.buyonus')</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Condiciones generales</a></li>
-                            <li><a href="">Devoluciones y anulaciones</a></li>
-                            <li><a href="">Entrega y plazos</a></li>
+                            <li><a href="">@lang('layout.general_conditions')</a></li>
+                            <li><a href="">@lang('layout.returns')</a></li>
+                            <li><a href="">@lang('layout.delivery')</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6">
                     <div class="footer-widget footer-widget-contacts">
-                        <h4>Contactos</h4>
+                        <h4>@lang('layout.contacts')</h4>
                         <ul class="list-unstyled">
                             <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
                             <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
                             {{--<li><i class="fa fa-map-marker"></i> 40°44'00.9"N 73°59'43.4"W</li>--}}
                             <li class="social">
-                                <a target="_blank" href="{{ StaticVars::facebook() }}"><i
-                                            class="fa fa-facebook"></i></a>
-                                <a target="_blank" href="{{ StaticVars::twitter() }}"><i class="fa fa-twitter"></i></a>
-                                <a target="_blank" href="{{ StaticVars::instagram() }}"><i class="fa fa-instagram"></i></a>
-                                <a target="_blank" href="{{ StaticVars::linkedin() }}"><i
-                                            class="fa fa-linkedin"></i></a>
+                                <a target="_blank" href="{{ StaticVars::facebook() }}">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a target="_blank" href="{{ StaticVars::twitter() }}">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a target="_blank" href="{{ StaticVars::instagram() }}">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                                <a target="_blank" href="{{ StaticVars::linkedin() }}">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6">
                     <div class="footer-widget footer-widget-twitter">
-                        <h4>Recent tweets</h4>
+                        <h4>@lang('layout.recent_tweets')</h4>
                         <div id="twitter-wrapper"></div>
                     </div>
                 </div>
@@ -244,9 +250,10 @@
             <div class="footer-bottom footer-line">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p class="copyright">© Umarket 2015 All right reserved.</p>
-                        <p class="copyright">Designed by <a href="http://www.pixelized.cz/" target="_blank">Pixelized
-                                Studio.</a></p>
+                        <p class="copyright">Bikebitants SL All right reserved.</p>
+                        <p class="copyright">
+                            Designed by <a href="http://www.pixelized.cz/" target="_blank">Pixelized Studio.</a>
+                        </p>
                     </div>
                     <div class="col-sm-6">
                         <ul class="list-inline payment-methods">
@@ -268,49 +275,7 @@
     	FOOTER - END
     =========================== -->
 
-    <!-- ==========================
-    	MODAL ADVERTISING  - START
-    =========================== -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalAdvertising">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
-                                class="fa fa-times"></i></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <h3>Dicount 10%</h3>
-                            <p>Enter your email address and get 10% discount for your first purchase.</p>
-                            <form method="POST" action="/lead/" id="js-popup">
-                                <div class="input-group">
-                                    {{ csrf_field() }}
-                                    <input type="email" name="email" class="form-control" placeholder="Email Address">
-                                    <input type="hidden" name="type" value="popup">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary js-popup-send" type="submit"><i></i>Submit
-                                        </button>
-                                    </span>
-                                </div>
-                                <span class="js-popup-message"></span>
-                            </form>
-                            <div class="checkbox">
-                                <input id="modal-hide" type="checkbox" value="hidden">
-                                <label for="modal-hide">Don't show this popup again</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 hidden-xs">
-                            <img src="/images/lookbook-1.png" class="img-responsive" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ==========================
-        MODAL ADVERTISING - END
-    =========================== -->
+    @include('partials.discount_popup')
     @include('partials.product_popup')
     @include('cookieConsent::index')
 </div> <!-- PAGE - END -->
