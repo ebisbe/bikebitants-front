@@ -145,5 +145,5 @@ $(document).ready(function () {
         $('#vue-country').val(country).trigger('change');
         $('#vue-region').val(region).trigger('change');
     });
-
+    $('#js-shipping .js-change').trigger('change');
 });

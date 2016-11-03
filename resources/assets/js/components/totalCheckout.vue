@@ -25,8 +25,8 @@
             }.bind(this));
         },
 
-        watch: {
-            'region': function () {
+        methods: {
+            updateShipping: function() {
                 $.ajax({
                             url: 'cart-conditions',
                             data: {
@@ -45,6 +45,12 @@
                         .always(function () {
 
                         });
+            }
+        },
+
+        watch: {
+            'region': function () {
+                this.updateShipping();
             },
             'token': function (value) {},
             'country': function (value) {}
