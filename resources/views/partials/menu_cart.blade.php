@@ -39,10 +39,10 @@
                 <li>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="{{ route('cart.index') }}" class="btn btn-primary btn-block">View Cart</a>
+                            <a href="{{ route('cart.index') }}" class="btn btn-primary btn-block">@lang('cart.view_cart')</a>
                         </div>
                         <div class="col-sm-6">
-                            <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-block">Checkout</a>
+                            <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-block">@lang('cart.checkout')</a>
                         </div>
                     </div>
                 </li>
@@ -55,7 +55,7 @@
             <li>
                 <div class="row">
                     <div class="col-sm-12">
-                        <a href="{{ route('shop.catalogue') }}" class="btn btn-primary btn-block">Go Shopping!</a>
+                        <a href="{{ route('shop.catalogue') }}" class="btn btn-primary btn-block">@lang('cart.empty_cart')</a>
                     </div>
                 </div>
             </li>

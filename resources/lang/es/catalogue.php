@@ -31,4 +31,8 @@ return [
     'rating' => 'Valoración <span class="required">*</span>',
     'comment' => 'Commentario <span class="required">*</span>',
     'submit' => '<i class="fa fa-check"></i>Envia',
+
+    //lost things
+    'max_stock' => 'Cantidad de stock',
+    'add_to_stock' => '<i class="fa fa-shopping-cart"></i> Añadir'
 ];

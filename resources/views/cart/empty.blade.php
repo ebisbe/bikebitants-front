@@ -11,8 +11,8 @@
                 <div class="error-wrapper">
                     <div class="error-number"><i class="fa {{ StaticVars::emptyCart()->random() }}"></i></div>
                     <div class="error-text">
-                        <h1>Your cart is empty</h1>
-                        <p>Better go buy something. Go back to <a href="{{ route('shop.catalogue') }}">Shopping</a></p>
+                        <h1>@lang('cart.empty_cart_h1')</h1>
+                        <p>@lang('cart.empty_cart_message', ['route' => route('shop.catalogue')])</p>
                         {{--<form>
                             <div class="input-group input-group-lg">
                                 <input type="email" class="form-control" placeholder="Search ...">

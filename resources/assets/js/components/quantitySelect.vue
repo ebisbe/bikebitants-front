@@ -5,7 +5,7 @@
             <input class="form-control" id="qty" name="quantity" v-model="quantity" type="text">
             <a class="btn btn-default" @click="increment">+</a>
         </div>
-        Max stock: {{ maxQuantity }}
+        {{ $t('catalogue.max_stock') }}: {{ maxQuantity }}
     </div>
 </template>
 

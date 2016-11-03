@@ -68,9 +68,9 @@ class CartConditionsController extends Controller
             })->values();
 
         return array_merge(
-            [['name' => 'Total products', 'value' => Cart::getSubTotal() . ' &euro;']],
+            [['name' => trans('checkout.total_products'), 'value' => Cart::getSubTotal() . ' &euro;']],
             $conditions->toArray(),
-            [['name' => 'Total', 'value' => Cart::getTotal() . ' &euro;']]
+            [['name' => trans('checkout.total'), 'value' => Cart::getTotal() . ' &euro;']]
         );
     }
 }

@@ -12,19 +12,19 @@
                             <div class="col-xs-6 col-sm-4">
                                 <div class="checkout-step active">
                                     <div class="number">1</div>
-                                    <div class="title">Billing & Shipping Address</div>
+                                    <div class="title">@lang('checkout.step1')</div>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-4">
                                 <div class="checkout-step">
                                     <div class="number">2</div>
-                                    <div class="title">Payment</div>
+                                    <div class="title">@lang('checkout.step2')</div>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-4">
                                 <div class="checkout-step">
                                     <div class="number">3</div>
-                                    <div class="title">Confirmation</div>
+                                    <div class="title">@lang('checkout.step3')</div>
                                 </div>
                             </div>
                         </div>
@@ -36,9 +36,9 @@
 
                         <div class="row">
                             <div id="js-shipping" class="col-sm-8 ">
-                                <h3>Billing Information</h3>
+                                <h3>@lang('checkout.billing_information')</h3>
                                 <div class="products-order checkout billing-information">
-                                    <button class="btn btn-primary addresses-toggle" type="button"
+                                    {{--<button class="btn btn-primary addresses-toggle" type="button"
                                             data-toggle="collapse"
                                             data-target="#my-addresses-billing" aria-expanded="false"
                                             aria-controls="my-addresses-billing">My Saved Addresses
@@ -72,31 +72,31 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                    </div>
+                                    </div>--}}
 
                                     <div class="row">
                                         <div class="form-group col-sm-6 {{ $errors->has('billing.first_name') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[first_name]', 'First name <span class="required">*</span>', [], false) }}
+                                            {{ Form::label('billing[first_name]', trans('checkout.first_name').' <span class="required">*</span>', [], false) }}
                                             {{ Form::text('billing[first_name]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('billing.first_name', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-6 {{ $errors->has('billing.last_name') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[last_name]', 'Last name <span class="required">*</span>', [], false) }}
+                                            {{ Form::label('billing[last_name]', trans('checkout.last_name').' <span class="required">*</span>', [], false) }}
                                             {{ Form::text('billing[last_name]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('billing.last_name', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-6 {{ $errors->has('billing.email') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[email]', 'Email address <span class="required">*</span>', [], false) }}
+                                            {{ Form::label('billing[email]', trans('checkout.email_address').' <span class="required">*</span>', [], false) }}
                                             {{ Form::text('billing[email]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('billing.email', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-6 {{ $errors->has('billing.phone') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[phone]', 'Phone <span class="required">*</span>', [], false) }}
+                                            {{ Form::label('billing[phone]', trans('checkout.phone').' <span class="required">*</span>', [], false) }}
                                             {{ Form::text('billing[phone]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('billing.phone', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-12 {{ $errors->has('billing.address') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[address]', 'Address <span class="required">*</span>', [], false) }}
+                                            {{ Form::label('billing[address]', trans('checkout.address').' <span class="required">*</span>', [], false) }}
                                             {{ Form::text('billing[address]', null, ['class' => 'form-control']) }}
                                         </div>
                                         <div class="form-group col-sm-12 {{ $errors->has('billing.address') ? 'has-error' : ''}}">
@@ -104,33 +104,33 @@
                                             {!! $errors->first('billing.address', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-6 {{ $errors->has('billing.city') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[city]', 'City <span class="required">*</span>', [], false) }}
+                                            {{ Form::label('billing[city]', trans('checkout.city').' <span class="required">*</span>', [], false) }}
                                             {{ Form::text('billing[city]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('billing.city', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-6 {{ $errors->has('billing.postal_code') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[postal_code]', 'ZIP / Postal Code <span class="required">*</span>', [], false) }}
+                                            {{ Form::label('billing[postal_code]', trans('checkout.zip').' <span class="required">*</span>', [], false) }}
                                             {{ Form::text('billing[postal_code]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('billing.postal_code', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-6 {{ $errors->has('billing.country') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[country]', 'Country <span class="required">*</span>', [], false) }}
+                                            {{ Form::label('billing[country]', trans('checkout.country').' <span class="required">*</span>', [], false) }}
                                             {{ Form::select('billing[country]', $countries, 'ES', ['class' => 'form-control js-country']) }}
                                             {!! $errors->first('billing.country', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-6  {{ $errors->has('billing.province') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[province]', 'Province <span class="required">*</span>', [], false) }}
+                                            {{ Form::label('billing[province]', trans('checkout.province').' <span class="required">*</span>', [], false) }}
                                             {{ Form::select('billing[province]', $provinces, 'B', ['class' => 'form-control js-change', 'data-token' => csrf_token()]) }}
                                             {!! $errors->first('billing.province', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                 </div>
 
-                                <h3>Shipping Information</h3>
+                                <h3>@lang('checkout.shipping_information')</h3>
                                 <div class="products-order checkout shipping-information">
                                     <div class="checkbox">
                                         {!! Form::checkbox('check_shipping', 'true', true, ['id' => 'check_shipping']) !!}
-                                        {{ Form::label('check_shipping', 'My delivery and billing addresses are the same.', [
+                                        {{ Form::label('check_shipping', trans('checkout.same_billing_address'), [
                                             'data-target' => "#shipping-address-collapse",
                                             'aria-controls' => "shipping-address-collapse",
                                             'aria-expanded' => "false",
@@ -148,7 +148,7 @@
                                     @endpush
                                     <div id="shipping-address-collapse" class="collapse">
 
-                                        <button class="btn btn-primary addresses-toggle" type="button"
+                                        {{--<button class="btn btn-primary addresses-toggle" type="button"
                                                 data-toggle="collapse" data-target="#my-addresses-shipping"
                                                 aria-expanded="false" aria-controls="my-addresses-shipping">My Saved
                                             Addresses
@@ -182,31 +182,31 @@
                                                     </tr>
                                                 </table>
                                             </div>
-                                        </div>
+                                        </div>--}}
 
                                         <div class="row">
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.first_name') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[first_name]', 'First name <span class="required">*</span>', [], false) }}
+                                                {{ Form::label('shipping[first_name]', trans('checkout.first_name').' name <span class="required">*</span>', [], false) }}
                                                 {{ Form::text('shipping[first_name]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.first_name', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.last_name') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[last_name]', 'Last name <span class="required">*</span>', [], false) }}
+                                                {{ Form::label('shipping[last_name]', trans('checkout.last_name').' <span class="required">*</span>', [], false) }}
                                                 {{ Form::text('shipping[last_name]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.last_name', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.email') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[email]', 'Email address <span class="required">*</span>', [], false) }}
+                                                {{ Form::label('shipping[email]', trans('checkout.email_address').' <span class="required">*</span>', [], false) }}
                                                 {{ Form::text('shipping[email]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.email', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.company') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[company]', 'Company', []) }}
+                                                {{ Form::label('shipping[company]', trans('checkout.company'), []) }}
                                                 {{ Form::text('shipping[company]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.company', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-12 {{ $errors->has('shipping.address') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[address]', 'Address <span class="required">*</span>', [], false) }}
+                                                {{ Form::label('shipping[address]', trans('checkout.phone').' <span class="required">*</span>', [], false) }}
                                                 {{ Form::text('shipping[address]', null, ['class' => 'form-control']) }}
                                             </div>
                                             <div class="form-group col-sm-12 {{ $errors->has('shipping.address') ? 'has-error' : ''}}">
@@ -214,32 +214,32 @@
                                                 {!! $errors->first('shipping.address', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.city') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[city]', 'City <span class="required">*</span>', [], false) }}
+                                                {{ Form::label('shipping[city]', trans('checkout.address').' <span class="required">*</span>', [], false) }}
                                                 {{ Form::text('shipping[city]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.city', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.postal_code') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[postal_code]', 'ZIP / Postal Code <span class="required">*</span>', [], false) }}
+                                                {{ Form::label('shipping[postal_code]', trans('checkout.city').'e <span class="required">*</span>', [], false) }}
                                                 {{ Form::text('shipping[postal_code]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.postal_code', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.phone') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[phone]', 'Phone <span class="required">*</span>', [], false) }}
+                                                {{ Form::label('shipping[phone]', trans('checkout.zip').' <span class="required">*</span>', [], false) }}
                                                 {{ Form::text('shipping[phone]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.phone', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.fax') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[fax]', 'Fax', [], false) }}
+                                                {{ Form::label('shipping[fax]', trans('checkout.fax'), [], false) }}
                                                 {{ Form::text('shipping[fax]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.fax', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.country') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[country]', 'Country <span class="required">*</span>', [], false) }}
+                                                {{ Form::label('shipping[country]', trans('checkout.country').' <span class="required">*</span>', [], false) }}
                                                 {{ Form::select('shipping[country]', $countries, 'ES', ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.country', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('billing.province') ? 'has-error' : ''}}">
-                                                {{ Form::label('billing[province]', 'Province <span class="required">*</span>', [], false) }}
+                                                {{ Form::label('billing[province]', trans('checkout.province').' <span class="required">*</span>', [], false) }}
                                                 {{ Form::select('billing[province]', $provinces, 'B', ['class' => 'form-control']) }}
                                                 {!! $errors->first('billing.province', '<p class="help-block">:message</p>') !!}
                                             </div>
@@ -250,14 +250,14 @@
                             </div>
 
                             <div class="col-sm-4">
-                                <h3>Tu pedido</h3>
+                                <h3>@lang('checkout.cart')</h3>
                                 <div class="products-order shopping-cart ">
                                     <div class="table-responsive">
                                         <table class="table table-products">
                                             <thead>
                                             <tr>
-                                                <th>Product</th>
-                                                <th>Subtotal</th>
+                                                <th>@lang('cart.product')</th>
+                                                <th>@lang('cart.subtotal')</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -277,9 +277,9 @@
                                                     </td>
                                                     <td class="col-xs-2 text-center">
                                                         <small>
-                                                            {{ $item->price }}{{ $product->currency }} x {{ $item->quantity }}</small>
+                                                            {{ $item->getPriceWithConditions() }}{{ $product->currency }} x {{ $item->quantity }}</small>
                                                         <span>
-                                                            <b>{{ $item->getPriceSum() }}{{ $product->currency }}</b>
+                                                            <b>{{ $item->getPriceSumWithConditions() }}{{ $product->currency }}</b>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -292,16 +292,16 @@
                                     </div>
                                 </div>
 
-                                <h3>Coupon Code</h3>
+                                <h3>@lang('cart.discount_code')</h3>
                                 <div class="products-order checkout payment-method">
                                     <div class="payment-methods {{ $errors->has('coupon') ? 'has-error' : ''}}">
-                                        {{ Form::label('coupon', 'Apply coupon code', [], false) }}
+                                        {{ Form::label('coupon', trans('cart.enter_coupon_code'), [], false) }}
                                         {{ Form::text('coupon', null, ['class' => 'form-control']) }}
                                         {!! $errors->first('coupon', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
 
-                                <h3>Payment Method</h3>
+                                <h3>@lang('checkout.payment_methods')</h3>
                                 <div class="products-order checkout payment-method">
                                     <div id="payment-methods" class="{{ $errors->has('payment') ? 'has-error' : ''}}">
                                         @foreach($paymentMethods as $payment)
@@ -317,10 +317,10 @@
                                 <div class="clearfix">
                                     <div class="checkbox pull-left {{ $errors->has('checkout-terms-conditions') ? 'has-error' : ''}}">
                                         {{ Form::checkbox('checkout-terms-conditions', null, false, ['id' => 'checkout-terms-conditions']) }}
-                                        {{ Form::label('checkout-terms-conditions', 'I have read and agree to the <a href="terms-conditions.html" target="_blank">Terms & Conditions</a>', [], false) }}
+                                        {{ Form::label('checkout-terms-conditions', trans('checkout.read_and_aggree_terms', ['route' => 'terms-conditions.html']), [], false) }}
                                         {!! $errors->first('checkout-terms-conditions', '<p class="help-block">:message</p>') !!}
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-lg pull-right">Confirm order</button>
+                                    <button type="submit" class="btn btn-primary btn-lg pull-right">@lang('checkout.confirm_order')</button>
                                 </div>
                             </div>
                         </div>

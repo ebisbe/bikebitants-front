@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
 //        $this->brand->services()->save(factory(BrandService::class)->make());
 //
 //        $this->categories();
-        $this->discounts();
+        //$this->discounts();
         $this->zones();
 
         factory(User::class)->create([

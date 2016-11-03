@@ -18,10 +18,10 @@ MY ACCOUNT - START
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Product</th>
-                                    <th>Unit Price</th>
-                                    <th>Quantity</th>
-                                    <th>Subtotal</th>
+                                    <th>@lang('cart.product')</th>
+                                    <th>@lang('cart.unity_price')</th>
+                                    <th>@lang('cart.quantity')</th>
+                                    <th>@lang('cart.subtotal')</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -72,23 +72,23 @@ MY ACCOUNT - START
                                 </tbody>
                             </table>
                         </div>
-                        <a href="{{ route('shop.catalogue') }}" class="btn btn-inverse">Continue Shopping</a>
-                        <a href="" class="btn btn-inverse update-cart">Update Shopping Cart</a>
+                        <a href="{{ route('shop.catalogue') }}" class="btn btn-inverse">@lang('cart.continue_shopping')</a>
+                        {{--<a href="" class="btn btn-inverse update-cart">Update Shopping Cart</a>--}}
                     </div>
 
                     <div class="box">
                         <div class="row">
                             <div class="col-sm-6">
-                                <h5>Enter your coupon code if you have one.</h5>
+                                <h5>@lang('cart.enter_coupon_code')</h5>
                                 {{ Form::open([
                                     'method' => 'POST',
                                     'url' => route('coupon.store')
                                 ]) }}
                                 {{ csrf_field() }}
                                 <div class="input-group {{ $errors->has('coupon') ? 'has-error' : ''}}">
-                                    {{ Form::text('coupon', null, [ 'class' => 'form-control', 'placeholder' => 'Discount code'] ) }}
+                                    {{ Form::text('coupon', null, [ 'class' => 'form-control', 'placeholder' => trans('cart.discount_code')] ) }}
                                     <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="submit">Apply Coupon</button>
+                                            <button class="btn btn-primary" type="submit">@lang('cart.apply_coupon')</button>
                                         </span>
                                 </div>
                                 <div class="input-group {{ $errors->has('coupon') ? 'has-error' : ''}}">
@@ -108,7 +108,7 @@ MY ACCOUNT - START
                         </div>
                     </div>
                     <div class="clearfix">
-                        <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-lg pull-right ">Checkout</a>
+                        <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-lg pull-right ">@lang('cart.checkout')</a>
                     </div>
 
 

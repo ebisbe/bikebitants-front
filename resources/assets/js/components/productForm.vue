@@ -14,9 +14,10 @@
         </quantity-select>
 
         <div class="col-md-2 col-sm-12">
-            <button type="submit" class="btn btn-primary add-to-cart js-add-button">
-                <i class="fa fa-shopping-cart"></i>
-                Add to cart
+            <button type="submit"
+                    class="btn btn-primary add-to-cart js-add-button"
+                    v-html="$t('catalogue.add_to_stock')">
+
             </button>
         </div>
 

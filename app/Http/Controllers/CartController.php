@@ -27,14 +27,14 @@ class CartController extends Controller
     {
         BreadCrumbLinks::set(['value' => 'Home', 'href' => route('shop.home')]);
         BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
-        BreadCrumbLinks::set(['value' => 'Cart']);
+        BreadCrumbLinks::set(['value' => trans('cart.cart')]);
 
-        MetaTag::set('title', 'Cart');
-        MetaTag::set('description', 'cart');
-        MetaTag::set('slug', 'cart');
+        MetaTag::set('title', trans('cart.cart'));
+        MetaTag::set('description', trans('cart.cart'));
+        MetaTag::set('slug', trans('cart.cart'));
 
-        $title = 'Shop';
-        $subtitle = 'Cart';
+        $title = trans('layout.shop');
+        $subtitle = trans('cart.cart');
 
         $cartCollect = Cart::getContent();
         if ($cartCollect->isEmpty()) {

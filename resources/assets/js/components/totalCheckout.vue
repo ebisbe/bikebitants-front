@@ -1,4 +1,4 @@
-<template >
+<template>
     <ul id="totalCheckout" class="list-unstyled order-total">
         <li v-for="condition in list">{{ condition.name }}<span>{{{ condition.value }}}</span></li>
     </ul>
@@ -19,39 +19,35 @@
             }
         },
 
-        created: function() {
-            $.getJSON('cart-conditions', function(data) {
+        created: function () {
+            $.getJSON('cart-conditions', function (data) {
                 this.list = data;
             }.bind(this));
         },
 
         watch: {
-            'region': function(value) {
+            'region': function () {
                 $.ajax({
-                    url: 'cart-conditions',
-                    data: {
-                        'country': this.country,
-                        'region': this.region,
-                        '_token': this.token
-                    },
-                    method: 'post'
-                })
-                .done(function (jqXHR) {
-                    this.list = jqXHR;
-                }.bind(this))
-                .fail(function (jqXHR) {
+                            url: 'cart-conditions',
+                            data: {
+                                'country': this.country,
+                                'region': this.region,
+                                '_token': this.token
+                            },
+                            method: 'post'
+                        })
+                        .done(function (jqXHR) {
+                            this.list = jqXHR;
+                        }.bind(this))
+                        .fail(function (jqXHR) {
 
-                })
-                .always(function () {
+                        })
+                        .always(function () {
 
-                });
+                        });
             },
-            'token': function(value) {
-                //console.log(this.token + ' token - ' + this.country + ' - ' + this.region);
-            },
-            'country': function(value) {
-                //console.log(this.token + ' country - ' + this.country + ' - ' + this.region);
-            }
+            'token': function (value) {},
+            'country': function (value) {}
         }
     };
 
