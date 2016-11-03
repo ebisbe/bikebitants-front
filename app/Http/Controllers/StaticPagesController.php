@@ -28,4 +28,14 @@ class StaticPagesController extends Controller
 
         return view('staticPages.who_we_are', compact('title', 'subtitle'));
     }
+
+    public function termsAndConditions()
+    {
+        $title = 'Bikebitants';
+        $subtitle = 'Terminos y Condiciones';
+
+        Breadcrumbs::addCrumb('Terminos y Condiciones');
+
+        return view('staticPages.terms_conditions', compact('title', 'subtitle'));
+    }
 }

@@ -52,7 +52,8 @@ Route::resource('review', 'ReviewController', ['only' => ['store']]);
 
 // Static pages
 
-Route::get('/quines-somos', 'StaticPagesController@whoWeAre');
+Route::get('/quines-somos', 'StaticPagesController@whoWeAre')->name('who_we_are');
+Route::get('/condiciones-generales', 'StaticPagesController@termsAndConditions')->name('terms_conditions');
 
 // End Static Pages
 

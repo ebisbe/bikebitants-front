@@ -317,7 +317,7 @@
                                 <div class="clearfix">
                                     <div class="checkbox pull-left {{ $errors->has('checkout-terms-conditions') ? 'has-error' : ''}}">
                                         {{ Form::checkbox('checkout-terms-conditions', null, false, ['id' => 'checkout-terms-conditions']) }}
-                                        {{ Form::label('checkout-terms-conditions', trans('checkout.read_and_aggree_terms', ['route' => 'terms-conditions.html']), [], false) }}
+                                        {{ Form::label('checkout-terms-conditions', trans('checkout.read_and_aggree_terms', ['route' => route('terms_conditions')]), [], false) }}
                                         {!! $errors->first('checkout-terms-conditions', '<p class="help-block">:message</p>') !!}
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-lg pull-right">@lang('checkout.confirm_order')</button>
