@@ -38,19 +38,19 @@
                         <div class="col-xs-6 col-sm-4">
                             <div class="checkout-step active">
                                 <div class="number">1</div>
-                                <div class="title">Billing & Shipping Address</div>
+                                <div class="title">@lang('checkout.step1')</div>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-4">
                             <div class="checkout-step active">
                                 <div class="number">2</div>
-                                <div class="title">Payment</div>
+                                <div class="title">@lang('checkout.step2')</div>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-4">
                             <div class="checkout-step active<">
                                 <div class="number">3</div>
-                                <div class="title">Confirmation</div>
+                                <div class="title">@lang('checkout.step3')</div>
                             </div>
                         </div>
                     </div>
