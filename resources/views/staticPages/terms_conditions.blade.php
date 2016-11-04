@@ -15,15 +15,24 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#faq-1" role="tab" data-toggle="tab"
-                                                                      aria-controls="faq-1" aria-expanded="true">Condiciones
-                                    Legales</a></li>
-                            <li role="presentation" class=""><a href="#faq-2" role="tab" data-toggle="tab"
-                                                                aria-controls="faq-2" aria-expanded="false">Condiciones
-                                    de entrega</a></li>
-                            <li role="presentation" class=""><a href="#faq-3" role="tab" data-toggle="tab"
-                                                                aria-controls="faq-3" aria-expanded="false">Devoluciones,
-                                    anulacines y cambios</a></li>
+                            <li role="presentation" class="">
+                                <a href="#faq-1" role="tab" data-toggle="tab"
+                                   aria-controls="faq-1" aria-expanded="false">
+                                    Condiciones Legales
+                                </a>
+                            </li>
+                            <li role="presentation" class="">
+                                <a href="#faq-2" role="tab" data-toggle="tab"
+                                   aria-controls="faq-2" aria-expanded="false">
+                                    Condiciones de entrega
+                                </a>
+                            </li>
+                            <li role="presentation" class="">
+                                <a href="#faq-3" role="tab" data-toggle="tab"
+                                   aria-controls="faq-3" aria-expanded="false">
+                                    Devoluciones, anulacines y cambios
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-sm-9">
@@ -596,7 +605,9 @@
                                                    data-toggle="collapse"
                                                    data-parent="#faq-2-accordion" href="#faq-2-q-2"
                                                    aria-expanded="false" aria-controls="faq-2-q-2">
-                                                    Plazo de Entrega</a></h4>
+                                                    Plazo de Entrega
+                                                </a>
+                                            </h4>
                                         </div>
                                         <div id="faq-2-q-2" class="panel-collapse collapse" role="tabpanel">
                                             <div class="panel-body">
@@ -692,7 +703,6 @@
                                                 Bikebitants vía email en el menor plazo de tiempo posible y en un máximo
                                                 de 7 hábiles desde la entrega. Se entiende por entrega el momento en que
                                                 Bikebitants entrega al cliente el producto comprado.
-
                                             </div>
                                         </div>
                                     </div>
@@ -758,11 +768,14 @@
                                     <!-- QUESTION - START -->
                                     <div class="panel panel-primary">
                                         <div class="panel-heading" role="tab">
-                                            <h4 class="panel-title"><a class="collapsed" role="button"
-                                                                       data-toggle="collapse"
-                                                                       data-parent="#faq-3-accordion" href="#faq-3-q-2"
-                                                                       aria-expanded="false" aria-controls="faq-3-q-2">Devolución
-                                                    voluntaria</a></h4>
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button"
+                                                   data-toggle="collapse"
+                                                   data-parent="#faq-3-accordion" href="#faq-3-q-2"
+                                                   aria-expanded="false" aria-controls="faq-3-q-2">
+                                                    Devolución voluntaria
+                                                </a>
+                                            </h4>
                                         </div>
                                         <div id="faq-3-q-2" class="panel-collapse collapse" role="tabpanel">
                                             <div class="panel-body">
@@ -803,14 +816,20 @@
                                     <!-- QUESTION - START -->
                                     <div class="panel panel-primary">
                                         <div class="panel-heading" role="tab">
-                                            <h4 class="panel-title"><a class="collapsed" role="button"
-                                                                       data-toggle="collapse"
-                                                                       data-parent="#faq-3-accordion" href="#faq-3-q-3"
-                                                                       aria-expanded="false" aria-controls="faq-3-q-3">Anulación de pedidos</a></h4>
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button"
+                                                   data-toggle="collapse"
+                                                   data-parent="#faq-3-accordion" href="#faq-3-q-3"
+                                                   aria-expanded="false" aria-controls="faq-3-q-3">
+                                                    Anulación de pedidos
+                                                </a>
+                                            </h4>
                                         </div>
                                         <div id="faq-3-q-3" class="panel-collapse collapse" role="tabpanel">
                                             <div class="panel-body">
-                                                Bikebitants no aceptará anulaciones si el producto ya se encuentra en la fase de logística y por motivos operativos no es posible detener el proceso de entrega.
+                                                Bikebitants no aceptará anulaciones si el producto ya se encuentra en la
+                                                fase de logística y por motivos operativos no es posible detener el
+                                                proceso de entrega.
                                             </div>
                                         </div>
                                     </div>
@@ -819,23 +838,45 @@
                                     <!-- QUESTION - START -->
                                     <div class="panel panel-primary">
                                         <div class="panel-heading" role="tab">
-                                            <h4 class="panel-title"><a class="collapsed" role="button"
-                                                                       data-toggle="collapse"
-                                                                       data-parent="#faq-3-accordion" href="#faq-3-q-4"
-                                                                       aria-expanded="false" aria-controls="faq-3-q-4">Cambios</a></h4>
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button"
+                                                   data-toggle="collapse"
+                                                   data-parent="#faq-3-accordion" href="#faq-3-q-4"
+                                                   aria-expanded="false" aria-controls="faq-3-q-4">
+                                                    Cambios
+                                                </a>
+                                            </h4>
                                         </div>
                                         <div id="faq-3-q-4" class="panel-collapse collapse" role="tabpanel">
                                             <div class="panel-body">
-                                                Una cambio es aquel en que simplemente el producto recibido no te gusta o no te convence y necesitas cambiarlo por otro de mismo importe pero diferente talla, color o otra característica. Las condiciones para cambiar un producto son las siguientes:
-                                                <br /><br />
-                                                1) El cambio solo será aceptado en los 30 días posteriores a la entrega del producto.<br />
-                                                2) El producto debe estar en el mismo estado en que se entregó y deberá conservar, en la medida de lo posible, su embalaje y etiquetado original. En ningún caso aceptaremos un producto que haya sido usado por el cliente.<br />
-                                                3) El envío debe hacerse usando la misma caja o sobre que te hemos enviado, o en su defecto en algún formato similar que garantice la devolución en perfecto estado.<br />
-                                                4) Debe incluirse una copia del albarán de entrega dentro del paquete, en donde se indiquen los productos devueltos y el motivo de la devolución.<br />
-                                                <br /><br />
-                                                Una vez cumplidas estas condiciones tienes que enviar un email a hola@bikebitants.com indicando, número de albarán, motivos del cambio y producto a cambiar.<br />
-                                                Desde Bikebitants, nos pondremos en contacto contigo para que acuerdes una hora con nuestro distribuidor logístico para que venga a recogerte el producto a cambiar.<br />
-                                                Una vez devuelto el producto, cuando llegue a Bikebitants, examinaremos que cumple las condiciones de devolución arriba detalladas y si todo es correcto procederemos a tramitar el nuevo pedido con el producto solicitado para el cambio.
+                                                Una cambio es aquel en que simplemente el producto recibido no te gusta
+                                                o no te convence y necesitas cambiarlo por otro de mismo importe pero
+                                                diferente talla, color o otra característica. Las condiciones para
+                                                cambiar un producto son las siguientes:
+                                                <br/><br/>
+                                                1) El cambio solo será aceptado en los 30 días posteriores a la entrega
+                                                del producto.<br/>
+                                                2) El producto debe estar en el mismo estado en que se entregó y deberá
+                                                conservar, en la medida de lo posible, su embalaje y etiquetado
+                                                original. En ningún caso aceptaremos un producto que haya sido usado por
+                                                el cliente.<br/>
+                                                3) El envío debe hacerse usando la misma caja o sobre que te hemos
+                                                enviado, o en su defecto en algún formato similar que garantice la
+                                                devolución en perfecto estado.<br/>
+                                                4) Debe incluirse una copia del albarán de entrega dentro del paquete,
+                                                en donde se indiquen los productos devueltos y el motivo de la
+                                                devolución.<br/>
+                                                <br/><br/>
+                                                Una vez cumplidas estas condiciones tienes que enviar un email a
+                                                hola@bikebitants.com indicando, número de albarán, motivos del cambio y
+                                                producto a cambiar.<br/>
+                                                Desde Bikebitants, nos pondremos en contacto contigo para que acuerdes
+                                                una hora con nuestro distribuidor logístico para que venga a recogerte
+                                                el producto a cambiar.<br/>
+                                                Una vez devuelto el producto, cuando llegue a Bikebitants, examinaremos
+                                                que cumple las condiciones de devolución arriba detalladas y si todo es
+                                                correcto procederemos a tramitar el nuevo pedido con el producto
+                                                solicitado para el cambio.
 
                                             </div>
                                         </div>

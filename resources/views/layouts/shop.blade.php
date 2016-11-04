@@ -210,9 +210,9 @@
                     <div class="footer-widget footer-widget-links">
                         <h4>@lang('layout.buyonus')</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">@lang('layout.general_conditions')</a></li>
-                            <li><a href="">@lang('layout.returns')</a></li>
-                            <li><a href="">@lang('layout.delivery')</a></li>
+                            <li><a href="{{ route('terms_conditions') }}">@lang('layout.general_conditions')</a></li>
+                            <li><a href="{{ route('terms_conditions') }}#faq-2-q-2">@lang('layout.returns')</a></li>
+                            <li><a href="{{ route('terms_conditions') }}#faq-3-q-1">@lang('layout.delivery')</a></li>
                         </ul>
                     </div>
                 </div>
