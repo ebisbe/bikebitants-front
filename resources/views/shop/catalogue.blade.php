@@ -35,7 +35,7 @@ PRODUCTS - START
                                                    aria-expanded="true"
                                                    aria-controls="parent-{{ $x }}"--}}
                                                    href="{{ route('shop.category', ['category' => $category->slug]) }}">{{ $category->name }}
-                                                    <span>[{{ $category->products }}]</span>
+                                                    <span>[{{ $category->products_count }}]</span>
                                                 </a>
                                                 <ul id="parent-{{ $x }}"
                                                     class="list-unstyled panel-collapse collapse {{ $category->_id == $selectedCat ? 'in' : '' }}"

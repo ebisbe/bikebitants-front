@@ -15,6 +15,6 @@ class HasProductsScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        return $builder->where('products', '>', 0);
+        return $builder->where('products_count', '>', 0);
     }
 }

@@ -256,7 +256,7 @@ class WordpressService
             $category->order = $wpCategory['menu_order'];
         }
         if (!empty($wpCategory['count'])) {
-            $category->products = $wpCategory['count'];
+            $category->products_count = $wpCategory['count'];
         }
         if (!empty($wpCategory['description'])) {
             $category->description = $wpCategory['description'];

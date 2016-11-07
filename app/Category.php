@@ -10,7 +10,7 @@ use App\Business\Traits\SluggableTrait;
  * @package App
  *
  * @property string $_id
- * @property $products
+ * @property $products_count
  * @property $name
  * @property $slug
  * @property $filename
@@ -31,7 +31,7 @@ class Category extends Model
         'products' => 0
     );
 
-    protected $fillable = ['name', 'slug', 'filename', 'products', 'meta_title', 'meta_description' , 'meta_slug', 'external_id'];
+    protected $fillable = ['name', 'slug', 'filename', 'products_count', 'meta_title', 'meta_description' , 'meta_slug', 'external_id'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -69,7 +69,7 @@ class Category extends Model
                 return [
                     '_id' => $child->_id,
                     'title' => $child->name,
-                    'products' => $child->products,
+                    'products_count' => $child->products_count,
                     'actionButtons' => Category::actionButtons($child->_id),
                 ];
             })
