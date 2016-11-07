@@ -63,13 +63,14 @@ class CartConditionsController extends Controller
                 /** @var CartCondition $item */
                 return [
                     'name' => $item->getName(),
-                    'value' => round($item->getValue(), 2)
+                    'value' => round($item->getValue(), 2).' &euro;'
                 ];
             })->values();
 
         return array_merge(
             [['name' => trans('checkout.total_products'), 'value' => Cart::getSubTotal() . ' &euro;']],
             $conditions->toArray(),
+            [['name' => 'IVA', 'value' => '[21%]']],
             [['name' => trans('checkout.total'), 'value' => Cart::getTotal() . ' &euro;']]
         );
     }
