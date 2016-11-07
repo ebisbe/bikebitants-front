@@ -102,7 +102,7 @@ class SerializeUtil
         $arrayAfterUnserializing = [];
         foreach($arrayData as $key => $arrayElement) {
             $unserializedElement = self::unserialize($arrayElement);
-            if($key === '_id' && ctype_xdigit($unserializedElement) /*&& strlen($unserializedElement) > 15*/) {
+            if($key === '_id' && ctype_xdigit($unserializedElement) && strlen($unserializedElement) == 24) {
                 $arrayAfterUnserializing[$key] = new ObjectID($unserializedElement);
             } else {
                 $arrayAfterUnserializing[$key] = $unserializedElement;
