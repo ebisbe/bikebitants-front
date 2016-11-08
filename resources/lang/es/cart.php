@@ -13,6 +13,7 @@ return [
     'unity_price' => 'Precio unitario',
     'quantity' => 'Cantidad',
     'subtotal' => 'Subtotal',
+    'item' => 'producto',
 
     'enter_coupon_code' => 'Introduce tu código de descuento.',
     'apply_coupon' => 'Aplicar descuento',

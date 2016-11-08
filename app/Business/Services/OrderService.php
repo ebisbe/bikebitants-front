@@ -10,6 +10,8 @@ use App\Order;
 use App\PaymentMethod;
 use App\Shipping;
 use App\Buyer;
+use Carbon\Carbon;
+use Darryldecode\Cart\ItemCollection;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -85,6 +87,36 @@ class OrderService
 
     /**
      * @param
+     */
+    private function confirmPayment()
+    {
+        Omnipay::setGateway($this->request->session()->get('payment'));
+
+        if(method_exists('Omnipay', 'completePurchase')) {
+            $params = collect($this->request->all())->merge($this->request->session()->get('params', []));
+            $this->response = Omnipay::completePurchase($params->toArray())->send();
+            $this->validateResponse();
+        }
+
+        $this->orderConfirmed();
+    }
+
+    /**
+     * Redsys callback based on symphony components
+     */
+    public function checkoutCallback()
+    {
+        Omnipay::setGateway('redsys');
+        $this->response = Omnipay::checkCallbackResponse($this->request, true);
+        $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+        $params = Omnipay::decodeCallbackResponse($request);
+
+        $this->validateResponse($params['Ds_Order']);
+        $this->orderConfirmed();
+    }
+
+    /**
+     * @param
      * @return mixed
      */
     public function pay()
@@ -94,10 +126,12 @@ class OrderService
         Omnipay::setGateway($this->request->input('payment'));
         $gateway = Omnipay::gateway();
         $params = [
-            'amount' => number_format($this->order->total, 2), // Add shipping amount
-            'currency' => 'EUR',
+            //'amount' => number_format($this->order->total, 2), // Add shipping amount
+            'amount' => $this->order->total*100, // Add shipping amount
             'returnUrl' => route('checkout.index'),
             'cancelUrl' => route('shop.cancellation'),
+            'token' => $this->order->token,
+            'description' => 'Compra bikebitants.com',
             //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
         ];
         $this->request->session()->put('payment', $this->request->input('payment'));
@@ -123,37 +157,26 @@ class OrderService
         $this->request->session()->remove('order');
     }
 
-    /**
-     * @param
-     */
-    private function confirmPayment()
-    {
-        Omnipay::setGateway($this->request->session()->get('payment'));
-        $params = collect($this->request->all())->merge($this->request->session()->get('params', []));
-        $this->response = Omnipay::completePurchase($params->toArray())->send();
-
-        $this->validateResponse();
-        $this->orderConfirmed();
-    }
-
     private function orderConfirmed()
     {
-        $items = $this->getCart()->get();
+        $items = $this->getCart();
         $order = $this->order;
+
+        Cart::clear();
+        Cart::clearCartConditions();
 
         $this->setView('checkout.confirmation');
         $this->setViewVars(compact('items', 'order'));
     }
 
     /**
+     * @param null $orderId
      */
-    private function validateResponse()
+    private function validateResponse($orderId = null)
     {
-        $this->getOrder();
+        $this->getOrder($orderId);
         if ($this->response->isSuccessful()) {
             $this->order->status = Order::Confirmed;
-            Cart::clear();
-            Cart::clearCartConditions();
             // TODO send email
         } elseif ($this->response->isRedirect()) {
             $this->order->status = Order::ToRedirect;
@@ -180,16 +203,18 @@ class OrderService
         $this->order->billing()->save($this->billing);
         $this->order->shipping()->save($this->shipping);
 
+        $paymentMethod = PaymentMethod::whereCode($this->request->input('payment'))->first();
+        $this->order->payment_method()->associate($paymentMethod);
+
         $this->order->buyer_id = $this->buyer->id;
-        $this->order->billing_id = $this->billing->_id;
-        $this->order->shipping_id = $this->shipping->_id;
-        $this->order->payment_method = $this->request->input('payment');
+        //$this->order->billing_id = $this->billing->_id;
+        //$this->order->shipping_id = $this->shipping->_id;
 
         $this->order->save();
     }
 
     /**
-     *
+     * TODO Create Repositories
      */
     private function orderNew()
     {
@@ -213,18 +238,20 @@ class OrderService
     /**
      * Creates a new order for the current session if not exists. Relates all the products
      * from that session to the order.
+     * @param null $orderId
      */
     private function getOrder($orderId = null)
     {
         /** @var Order $order */
         if (!is_null($orderId)) {
-            $order = Order::where('_id', $orderId)->get();
+            $order = Order::whereToken((int)$orderId)->get();
         } else {
             $order = Order::currentOrder();
         }
 
         if ($order->isEmpty()) {
             $order = new Order();
+            $order->token = Carbon::now()->timestamp;
             $order->session_id = $this->request->session()->getId();
             $this->updateOrder($order);
 
@@ -234,7 +261,7 @@ class OrderService
             $order = $this->updateOrder($order->first());
         }
 
-        $this->request->session()->set('order', $order->_id);
+        $this->request->session()->set('order', $order->token);
         $this->order = $order;
     }
 
@@ -258,17 +285,18 @@ class OrderService
                     'type' => $item->getType(),
                 ];
             })->values()->toArray();
-
             $order->conditions = $conditions;
+
             $ids = $order->cart()->get()->map(function ($item) {
                 return $item->_id;
             });
             $order->cart()->destroy($ids);
             Cart::getContent()->map(function ($item) use ($order) {
+                /** @var ItemCollection $item */
                 $cart = new \App\Cart();
-                $cart->price = $item['price'];
+                $cart->price = $item->getPriceWithConditions();
                 $cart->quantity = $item['quantity'];
-                $cart->total = (int)$item['quantity'] * (int)$item['price'];
+                $cart->total = $item->getPriceSumWithConditions();
                 $cart->attributes = $item['attributes']['attributes'];
                 $cart->product()->associate($item['attributes']['product']);
                 $order->cart()->associate($cart);
@@ -346,7 +374,7 @@ class OrderService
             $this->getOrder();
         }
 
-        return $this->order->cart();
+        return $this->order->cart;
     }
 
     /**

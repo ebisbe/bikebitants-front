@@ -21,7 +21,10 @@ return [
     'shipping_information' => 'Información de envio',
 
     'cart' => 'Tu pedido',
+    'shipping_method' => 'Método de envio',
+    'payment_method' => 'Método de pago',
     'payment_methods' => 'Métodos de pago',
+    'order_details' => 'Detalles del pedido',
 
     'read_and_aggree_terms' => 'He leído y acepto los <a href=":route" target="_blank">Terminos y Condiciones</a>',
     'confirm_order' => 'Confirmar pedido',

@@ -48,11 +48,19 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function buyer()
     {
         return $this->belongsTo(Buyer::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payment_method()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 
     /**
@@ -68,6 +76,6 @@ class Order extends Model
      * @return Order|null
      */
     public static function currentOrder() {
-        return self::where('_id', \Request::session()->get('order'))->get();
+        return self::where('token', \Request::session()->get('order'))->get();
     }
 }

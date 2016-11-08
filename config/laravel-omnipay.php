@@ -20,21 +20,22 @@ return [
 				'headerImageUrl' => '',
 				"logoImageUrl" => "",
 				"borderColor" => "",
+				'currency' => 'EUR',
 			]
 		],
 		'redsys' => [
 			'driver' => 'Sermepa',
 			'options' => [
-				'titular' => '336022801',
-				'consumerLanguage' => '001',
 				'currency' => '978',
 				'terminal' => '001',
-				'merchantURL' => 'https://sis.redsys.es/sis/realizarPago',
-				'merchantName' => '336022801',
-				'merchantKey' => 'qwertyasdf0123456789',//'Hz08jlJIWV5+36GUXRjgMZcCWIgM/GqW',
+				'merchantKey' => 'sq7HjrUOBfKmC576ILgskD5srU870gJ7',//'Hz08jlJIWV5+36GUXRjgMZcCWIgM/GqW',
 				'transactionType' => '0',
 				'signatureMode' => 'simple',
-				'testMode' => true
+				'consumerLanguage' => '001',
+				'merchantName' => 'Bikebitants. Tu bici, tu ciudad.',
+				'merchantCode' => '336022801',
+				'merchantURL' => 'http://www.bikebitants.dev/checkout',
+				'testMode' => true,
 			]
 		]
 	]

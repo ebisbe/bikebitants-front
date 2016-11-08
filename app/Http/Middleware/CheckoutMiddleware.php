@@ -37,9 +37,9 @@ class CheckoutMiddleware
             return true;
         }
         //
-        if (!Cart::isEmpty() && Order::isCurrentOrderConfirmed()) {
+        /*if (!Cart::isEmpty() && Order::isCurrentOrderConfirmed()) {
             return true;
-        }
+        }*/
         return false;
     }
 }

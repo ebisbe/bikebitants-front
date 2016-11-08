@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Business\Repositories\ProductRepository;
 use App\Business\Services\TaxService;
 use App\Http\Middleware\CartMiddleware;
+use App\Order;
 use App\Product;
 use App\Variation;
 use Illuminate\Http\Request;
@@ -45,9 +46,10 @@ class CartController extends Controller
 
     /**
      * @param Request $request
+     * @param ProductRepository $productRepository
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
      */
-    public function store(Request $request, TaxService $taxService, ProductRepository $productRepository)
+    public function store(Request $request, ProductRepository $productRepository)
     {
 //        $order = Order::currentOrder();
 //        if($order->isEmpty() || $order->first()->status == Order::Confirmed) {

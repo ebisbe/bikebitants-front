@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Business\Models\Shop\Product as ProductShop;
 use App\Business\MongoEloquentModel as Model;
 use Illuminate\Database\Eloquent\Builder;
 use \Request;
@@ -14,7 +15,8 @@ class Cart extends Model
      */
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        //TODO not sure we have to use here ProductShop
+        return $this->belongsTo(ProductShop::class);
     }
 
     /**

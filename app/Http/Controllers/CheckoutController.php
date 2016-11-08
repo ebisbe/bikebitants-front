@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Business\Services\OrderService;
+use App\Http\Middleware\CartMiddleware;
+use App\Http\Middleware\CheckoutMiddleware;
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use \Omnipay;
 
 class CheckoutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['checkout', 'cart']);
+        $this->middleware([CheckoutMiddleware::class, CartMiddleware::class]);
     }
 
     /**

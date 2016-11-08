@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "663fa66e77d0170a8929f874a825ff6c",
-    "content-hash": "c73682d0112405c9df913cbd2950bcb0",
+    "hash": "aecb1f94b3de69cd5976edd8c0c8301a",
+    "content-hash": "3b114e3ccd112889a654d5f4da755275",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
-            "version": "v1.2.2",
+            "version": "v1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appzcoder/crud-generator.git",
-                "reference": "9dbb84c96a9642b17532c5fd263bdee2433c0adf"
+                "reference": "ab6805c276ab79d139dda24dcf58802b50fd00ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appzcoder/crud-generator/zipball/9dbb84c96a9642b17532c5fd263bdee2433c0adf",
-                "reference": "9dbb84c96a9642b17532c5fd263bdee2433c0adf",
+                "url": "https://api.github.com/repos/appzcoder/crud-generator/zipball/ab6805c276ab79d139dda24dcf58802b50fd00ae",
+                "reference": "ab6805c276ab79d139dda24dcf58802b50fd00ae",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "laravel",
                 "laravel crud generator"
             ],
-            "time": "2016-09-27 15:20:36"
+            "time": "2016-09-28 18:05:53"
         },
         {
             "name": "automattic/woocommerce",
@@ -361,16 +361,16 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.0.4",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "ec21a59414b99501e723b63fd664aa8ead9c5680"
+                "reference": "a795611394b3c05164fd0eb291b492b39339cba4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/ec21a59414b99501e723b63fd664aa8ead9c5680",
-                "reference": "ec21a59414b99501e723b63fd664aa8ead9c5680",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/a795611394b3c05164fd0eb291b492b39339cba4",
+                "reference": "a795611394b3c05164fd0eb291b492b39339cba4",
                 "shasum": ""
             },
             "require": {
@@ -415,7 +415,7 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2016-09-04 19:00:06"
+            "time": "2016-11-02 18:11:27"
         },
         {
             "name": "creitive/breadcrumbs",
@@ -978,16 +978,16 @@
         },
         {
             "name": "hoa/compiler",
-            "version": "3.16.08.15",
+            "version": "3.16.10.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hoaproject/Compiler.git",
-                "reference": "774f04e6ab1580392b35cae7d6f8dda165810c19"
+                "reference": "4d67607432dc29c09abf17d5b69ccbe7f236961f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Compiler/zipball/774f04e6ab1580392b35cae7d6f8dda165810c19",
-                "reference": "774f04e6ab1580392b35cae7d6f8dda165810c19",
+                "url": "https://api.github.com/repos/hoaproject/Compiler/zipball/4d67607432dc29c09abf17d5b69ccbe7f236961f",
+                "reference": "4d67607432dc29c09abf17d5b69ccbe7f236961f",
                 "shasum": ""
             },
             "require": {
@@ -1026,11 +1026,11 @@
                 },
                 {
                     "name": "Hoa community",
-                    "homepage": "http://hoa-project.net/"
+                    "homepage": "https://hoa-project.net/"
                 }
             ],
             "description": "The Hoa\\Compiler library.",
-            "homepage": "http://hoa-project.net/",
+            "homepage": "https://hoa-project.net/",
             "keywords": [
                 "algebraic",
                 "ast",
@@ -1056,7 +1056,7 @@
                 "trace",
                 "uniform"
             ],
-            "time": "2016-08-15 09:25:24"
+            "time": "2016-10-24 13:59:13"
         },
         {
             "name": "hoa/consistency",
@@ -2006,16 +2006,16 @@
         },
         {
             "name": "jenssegers/mongodb",
-            "version": "v3.0.2",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jenssegers/laravel-mongodb.git",
-                "reference": "e1c12ac063eb0d5f4f10cc91f6e269b67cae4e80"
+                "reference": "d25ea54d8272f84d4c0d20fe8cad0226dc85a1cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/laravel-mongodb/zipball/e1c12ac063eb0d5f4f10cc91f6e269b67cae4e80",
-                "reference": "e1c12ac063eb0d5f4f10cc91f6e269b67cae4e80",
+                "url": "https://api.github.com/repos/jenssegers/laravel-mongodb/zipball/d25ea54d8272f84d4c0d20fe8cad0226dc85a1cd",
+                "reference": "d25ea54d8272f84d4c0d20fe8cad0226dc85a1cd",
                 "shasum": ""
             },
             "require": {
@@ -2063,7 +2063,7 @@
                 "mongo",
                 "mongodb"
             ],
-            "time": "2016-03-04 21:34:41"
+            "time": "2016-10-31 13:53:27"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -2122,6 +2122,48 @@
                 "tokenizer"
             ],
             "time": "2015-12-05 17:17:57"
+        },
+        {
+            "name": "jordisala1991/sermepa-omnipay",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jordisala1991/sermepa-omnipay.git",
+                "reference": "6a2fc18872fa88d7af867de6b8e840c17f418e02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jordisala1991/sermepa-omnipay/zipball/6a2fc18872fa88d7af867de6b8e840c17f418e02",
+                "reference": "6a2fc18872fa88d7af867de6b8e840c17f418e02",
+                "shasum": ""
+            },
+            "require": {
+                "omnipay/common": "2.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Omnipay\\Sermepa\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Sala",
+                    "email": "jordism91@gmail.com",
+                    "homepage": "http://github.com/jordisala1991"
+                }
+            ],
+            "description": "Sermepa (now Redsys) payment gateway implementation with omnipay",
+            "time": "2016-10-18 09:40:58"
         },
         {
             "name": "laravel/framework",
@@ -2308,20 +2350,20 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.27",
+            "version": "1.0.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "50e2045ed70a7e75a5e30bc3662904f3b67af8a9"
+                "reference": "1b5c4a0031697f46e779a9d1b309c2e1b24daeab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/50e2045ed70a7e75a5e30bc3662904f3b67af8a9",
-                "reference": "50e2045ed70a7e75a5e30bc3662904f3b67af8a9",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/1b5c4a0031697f46e779a9d1b309c2e1b24daeab",
+                "reference": "1b5c4a0031697f46e779a9d1b309c2e1b24daeab",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.5.9"
             },
             "conflict": {
                 "league/flysystem-sftp": "<1.0.6"
@@ -2387,7 +2429,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-08-10 08:55:11"
+            "time": "2016-10-19 20:38:46"
         },
         {
             "name": "martinlindhe/laravel-vue-i18n-generator",
@@ -2767,53 +2809,6 @@
             "time": "2016-01-26 21:23:30"
         },
         {
-            "name": "nazka/sermepa-omnipay",
-            "version": "v0.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jsampedro77/sermepa-omnipay.git",
-                "reference": "fba4f937a323162be24fdbb32aae99f4c555afc5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jsampedro77/sermepa-omnipay/zipball/fba4f937a323162be24fdbb32aae99f4c555afc5",
-                "reference": "fba4f937a323162be24fdbb32aae99f4c555afc5",
-                "shasum": ""
-            },
-            "require": {
-                "omnipay/common": "2.*"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Omnipay\\Sermepa\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPLv2"
-            ],
-            "authors": [
-                {
-                    "name": "Javier Sampedro",
-                    "email": "jsampedro77@gmail.com",
-                    "homepage": "http://github.com/jsampedro77"
-                },
-                {
-                    "name": "NitsNets Studio",
-                    "email": "github@nitsnets.com",
-                    "homepage": "http://www.nitsnets.com"
-                }
-            ],
-            "description": "Sermepa (now Redsys) payment gateway implementation with omnipay",
-            "time": "2016-06-14 10:45:03"
-        },
-        {
             "name": "nesbot/carbon",
             "version": "1.21.0",
             "source": {
@@ -3011,16 +3006,16 @@
         },
         {
             "name": "omnipay/paypal",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/omnipay-paypal.git",
-                "reference": "592f1cca058200adc76ed9599b13f21e81e01dda"
+                "reference": "942d616e87578330a4f48feab56430527889c07e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/omnipay-paypal/zipball/592f1cca058200adc76ed9599b13f21e81e01dda",
-                "reference": "592f1cca058200adc76ed9599b13f21e81e01dda",
+                "url": "https://api.github.com/repos/thephpleague/omnipay-paypal/zipball/942d616e87578330a4f48feab56430527889c07e",
+                "reference": "942d616e87578330a4f48feab56430527889c07e",
                 "shasum": ""
             },
             "require": {
@@ -3065,7 +3060,7 @@
                 "paypal",
                 "purchase"
             ],
-            "time": "2016-09-06 04:15:04"
+            "time": "2016-10-11 09:33:49"
         },
         {
             "name": "paragonie/random_compat",
@@ -3269,16 +3264,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0"
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/5277094ed527a1c4477177d102fe4c53551953e0",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
                 "shasum": ""
             },
             "require": {
@@ -3312,7 +3307,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-09-19 16:02:08"
+            "time": "2016-10-10 12:19:37"
         },
         {
             "name": "psy/psysh",
@@ -3524,12 +3519,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplepie/simplepie.git",
-                "reference": "a93fb64517b7b7a4a13df481a436d06c53b33428"
+                "reference": "c7e49662665c878bdc2e2d4320e445eaa725e34e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/a93fb64517b7b7a4a13df481a436d06c53b33428",
-                "reference": "a93fb64517b7b7a4a13df481a436d06c53b33428",
+                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/c7e49662665c878bdc2e2d4320e445eaa725e34e",
+                "reference": "c7e49662665c878bdc2e2d4320e445eaa725e34e",
                 "shasum": ""
             },
             "require": {
@@ -3573,20 +3568,20 @@
                 "feeds",
                 "rss"
             ],
-            "time": "2016-08-31 01:21:39"
+            "time": "2016-10-04 08:15:50"
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "1.4.1",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "f0ff9a9bbfef4c62fd27532418372d10974de405"
+                "reference": "c97188f11c8b02e1239302d3fbb06cb8f36b33c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/f0ff9a9bbfef4c62fd27532418372d10974de405",
-                "reference": "f0ff9a9bbfef4c62fd27532418372d10974de405",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/c97188f11c8b02e1239302d3fbb06cb8f36b33c2",
+                "reference": "c97188f11c8b02e1239302d3fbb06cb8f36b33c2",
                 "shasum": ""
             },
             "require": {
@@ -3634,7 +3629,7 @@
                 "law",
                 "spatie"
             ],
-            "time": "2016-09-23 12:55:56"
+            "time": "2016-10-30 17:57:52"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3691,16 +3686,16 @@
         },
         {
             "name": "symfony/class-loader",
-            "version": "v3.1.4",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/class-loader.git",
-                "reference": "2d0ba77c46ecc96a6641009a98f72632216811ba"
+                "reference": "bcb072aba46ddf3b1a496438c63be6be647739aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/class-loader/zipball/2d0ba77c46ecc96a6641009a98f72632216811ba",
-                "reference": "2d0ba77c46ecc96a6641009a98f72632216811ba",
+                "url": "https://api.github.com/repos/symfony/class-loader/zipball/bcb072aba46ddf3b1a496438c63be6be647739aa",
+                "reference": "bcb072aba46ddf3b1a496438c63be6be647739aa",
                 "shasum": ""
             },
             "require": {
@@ -3743,7 +3738,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
-            "time": "2016-08-23 13:39:15"
+            "time": "2016-09-06 23:30:54"
         },
         {
             "name": "symfony/console",
@@ -3864,16 +3859,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.8.11",
+            "version": "v2.8.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "889983a79a043dfda68f38c38b6dba092dd49cd8"
+                "reference": "25c576abd4e0f212e678fe8b2bd9a9a98c7ea934"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/889983a79a043dfda68f38c38b6dba092dd49cd8",
-                "reference": "889983a79a043dfda68f38c38b6dba092dd49cd8",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/25c576abd4e0f212e678fe8b2bd9a9a98c7ea934",
+                "reference": "25c576abd4e0f212e678fe8b2bd9a9a98c7ea934",
                 "shasum": ""
             },
             "require": {
@@ -3920,7 +3915,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-28 16:56:28"
+            "time": "2016-10-13 01:43:15"
         },
         {
             "name": "symfony/finder",
@@ -4896,16 +4891,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "9270140b940ff02e58ec577c237274e92cd40cdd"
+                "reference": "8331b5efe816ae05461b7ca1e721c01b46bafb3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/9270140b940ff02e58ec577c237274e92cd40cdd",
-                "reference": "9270140b940ff02e58ec577c237274e92cd40cdd",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/8331b5efe816ae05461b7ca1e721c01b46bafb3e",
+                "reference": "8331b5efe816ae05461b7ca1e721c01b46bafb3e",
                 "shasum": ""
             },
             "require": {
@@ -4937,7 +4932,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2016-06-10 09:48:41"
+            "time": "2016-09-30 07:12:33"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -5902,16 +5897,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.1.4",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "f291ed25eb1435bddbe8a96caaef16469c2a092d"
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/f291ed25eb1435bddbe8a96caaef16469c2a092d",
-                "reference": "f291ed25eb1435bddbe8a96caaef16469c2a092d",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/7ff51b06c6c3d5cc6686df69004a42c69df09e27",
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27",
                 "shasum": ""
             },
             "require": {
@@ -5947,7 +5942,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-02 02:12:52"
+            "time": "2016-10-24 18:41:13"
         },
         {
             "name": "webmozart/assert",
@@ -6004,6 +5999,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "laravelcollective/html": 20,
+        "jordisala1991/sermepa-omnipay": 20,
         "darryldecode/cart": 20
     },
     "prefer-stable": true,
