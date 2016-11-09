@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "71d1d2586cb7fbacdd73a033a680ebef",
-    "content-hash": "1d6e68e0b28db6eca842b9e5f3a23909",
+    "hash": "b703f5370b03646cedbc77a09a339d10",
+    "content-hash": "cfe030a6dffd8c3d698954d81d936fb6",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
@@ -516,12 +516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/darryldecode/laravelshoppingcart.git",
-                "reference": "bbfe8d8add2b5a53d3d45367c21c7d60bf8427dd"
+                "reference": "9643f4a6b4a64e22cb43ecb8f0d1a070da843895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darryldecode/laravelshoppingcart/zipball/bbfe8d8add2b5a53d3d45367c21c7d60bf8427dd",
-                "reference": "bbfe8d8add2b5a53d3d45367c21c7d60bf8427dd",
+                "url": "https://api.github.com/repos/darryldecode/laravelshoppingcart/zipball/9643f4a6b4a64e22cb43ecb8f0d1a070da843895",
+                "reference": "9643f4a6b4a64e22cb43ecb8f0d1a070da843895",
                 "shasum": ""
             },
             "require": {
@@ -557,7 +557,7 @@
                 "laravel",
                 "shopping cart"
             ],
-            "time": "2016-11-08 01:48:48"
+            "time": "2016-11-09 12:02:48"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2772,13 +2772,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ebisbe/sermepa-omnipay.git",
-                "reference": "6d9074aeb35bf8749eb60d02b743659ea333b4e1"
+                "url": "https://github.com/jsampedro77/sermepa-omnipay.git",
+                "reference": "0031742b50347960cab5e6bfb2efa4f34a3954e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ebisbe/sermepa-omnipay/zipball/6d9074aeb35bf8749eb60d02b743659ea333b4e1",
-                "reference": "6d9074aeb35bf8749eb60d02b743659ea333b4e1",
+                "url": "https://api.github.com/repos/jsampedro77/sermepa-omnipay/zipball/0031742b50347960cab5e6bfb2efa4f34a3954e0",
+                "reference": "0031742b50347960cab5e6bfb2efa4f34a3954e0",
                 "shasum": ""
             },
             "require": {
@@ -2795,6 +2795,7 @@
                     "Omnipay\\Sermepa\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPLv2"
             ],
@@ -2811,10 +2812,7 @@
                 }
             ],
             "description": "Sermepa (now Redsys) payment gateway implementation with omnipay",
-            "support": {
-                "source": "https://github.com/ebisbe/sermepa-omnipay/tree/master"
-            },
-            "time": "2016-11-09 10:18:24"
+            "time": "2016-11-09 17:33:03"
         },
         {
             "name": "nesbot/carbon",

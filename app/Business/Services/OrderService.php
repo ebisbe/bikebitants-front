@@ -126,8 +126,8 @@ class OrderService
         Omnipay::setGateway($this->request->input('payment'));
         $gateway = Omnipay::gateway();
         $params = [
-            //'amount' => number_format($this->order->total, 2), // Add shipping amount
-            'amount' => $this->order->total*100, // Add shipping amount
+            'amount' => $this->order->total,
+            'multiply' => true,
             'returnUrl' => route('checkout.index'),
             'cancelUrl' => route('shop.cancellation'),
             'token' => $this->order->token,
