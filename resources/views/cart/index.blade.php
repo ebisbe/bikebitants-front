@@ -98,8 +98,9 @@ MY ACCOUNT - START
                             </div>
                             <div class="col-sm-4 col-sm-offset-2">
                                 <ul class="list-unstyled order-total">
+                                    <li>@lang('checkout.total_products')<span>{{ Cart::getSubTotal() }}&euro;</span></li>
                                     @foreach(Cart::getConditions() as $condition)
-                                        <li>{{ $condition->getName() }}<span>{{ round($condition->getValue(), 2) }} &euro;</span></li>
+                                        <li>{{ $condition->getName() }}<span>{{ $condition->getValue() }}</span></li>
                                     @endforeach
                                     <li>IVA<span>[21%]</span></li>
                                     <li>Total<span>{{ Cart::getTotal() }}&euro;</span></li>

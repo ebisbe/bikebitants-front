@@ -45,7 +45,7 @@ class CartConditionsController extends Controller
             'name' => $shippingMethod->name,
             'type' => 'shipping',
             'target' => 'subtotal',
-            'value' => $shippingMethod->cost,
+            'value' => number_format($shippingMethod->cost, 2).' &euro;',
             'order' => 4
         ]);
         Cart::condition($condition);
@@ -63,7 +63,7 @@ class CartConditionsController extends Controller
                 /** @var CartCondition $item */
                 return [
                     'name' => $item->getName(),
-                    'value' => round($item->getValue(), 2).' &euro;'
+                    'value' => $item->getValue()
                 ];
             })->values();
 
