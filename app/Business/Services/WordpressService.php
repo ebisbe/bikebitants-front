@@ -53,15 +53,13 @@ class WordpressService
             $this->product->created_at = $this->convertDate($wpProduct['date_created']);
         }
         $this->product->updated_at = $this->convertDate($wpProduct['date_modified']);
-        $this->product->save();
+        (new ProductRepository)->update($this->product->_id, $this->product->toArray());
 
         $this->syncAttributes($wpProduct['attributes']);
         $this->syncCategories($wpProduct['categories']);
         $this->syncImages($wpProduct['images']);
         $variations = !empty($wpProduct['variations']) ? $wpProduct['variations'] : [$wpProduct];
         $this->syncVariations($variations);
-
-        (new ProductRepository)->update($this->product->_id, $this->product->toArray());
 
         return true;
     }

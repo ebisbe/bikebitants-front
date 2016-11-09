@@ -28,14 +28,14 @@ return [
 			'options' => [
 				'currency' => '978',
 				'terminal' => '001',
-				'merchantKey' => 'sq7HjrUOBfKmC576ILgskD5srU870gJ7',//'Hz08jlJIWV5+36GUXRjgMZcCWIgM/GqW',
+				'merchantKey' => env('OMNIPAY_REDSYS_MERCHANT_KEY'),
 				'transactionType' => '0',
 				'signatureMode' => 'simple',
 				'consumerLanguage' => '001',
 				'merchantName' => 'Bikebitants. Tu bici, tu ciudad.',
 				'merchantCode' => '336022801',
-				'merchantURL' => 'http://www.bikebitants.dev/checkout',
-				'testMode' => true,
+				'merchantURL' => env('OMNIPAY_REDSYS_MERCHANT_URL'),
+				'testMode' => env('OMNIPAY_REDSYS_TESTMODE'),
 			]
 		]
 	]
