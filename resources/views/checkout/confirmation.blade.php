@@ -57,7 +57,7 @@
 
                     <div class="progress checkout-progress hidden-xs"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;"></div></div>
 
-                        <h3>@lang('checkout.cart') {{ $order->_id }}</h3>
+                        <h3>@lang('checkout.cart') {{ $order->token }}</h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="box">
