@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aecb1f94b3de69cd5976edd8c0c8301a",
-    "content-hash": "3b114e3ccd112889a654d5f4da755275",
+    "hash": "71d1d2586cb7fbacdd73a033a680ebef",
+    "content-hash": "1d6e68e0b28db6eca842b9e5f3a23909",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
@@ -1180,16 +1180,16 @@
         },
         {
             "name": "hoa/exception",
-            "version": "1.16.01.11",
+            "version": "1.16.11.08",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hoaproject/Exception.git",
-                "reference": "fa4a9648aef2c8ca8f4cd543429b24dc8feaa366"
+                "reference": "8c961c0e50b57ae6696ef2aea2b161b18f13b201"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Exception/zipball/fa4a9648aef2c8ca8f4cd543429b24dc8feaa366",
-                "reference": "fa4a9648aef2c8ca8f4cd543429b24dc8feaa366",
+                "url": "https://api.github.com/repos/hoaproject/Exception/zipball/8c961c0e50b57ae6696ef2aea2b161b18f13b201",
+                "reference": "8c961c0e50b57ae6696ef2aea2b161b18f13b201",
                 "shasum": ""
             },
             "require": {
@@ -1221,16 +1221,16 @@
                 },
                 {
                     "name": "Hoa community",
-                    "homepage": "http://hoa-project.net/"
+                    "homepage": "https://hoa-project.net/"
                 }
             ],
             "description": "The Hoa\\Exception library.",
-            "homepage": "http://hoa-project.net/",
+            "homepage": "https://hoa-project.net/",
             "keywords": [
                 "exception",
                 "library"
             ],
-            "time": "2016-01-11 08:38:17"
+            "time": "2016-11-08 13:18:12"
         },
         {
             "name": "hoa/file",
@@ -1531,16 +1531,16 @@
         },
         {
             "name": "hoa/stream",
-            "version": "1.16.09.06",
+            "version": "1.16.11.08",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hoaproject/Stream.git",
-                "reference": "f8dec80b6ff3b7898a5604d304ecb73f53d04901"
+                "reference": "3c29ffee2cf70b6f219c29ee6ed676a1b06c1308"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hoaproject/Stream/zipball/f8dec80b6ff3b7898a5604d304ecb73f53d04901",
-                "reference": "f8dec80b6ff3b7898a5604d304ecb73f53d04901",
+                "url": "https://api.github.com/repos/hoaproject/Stream/zipball/3c29ffee2cf70b6f219c29ee6ed676a1b06c1308",
+                "reference": "3c29ffee2cf70b6f219c29ee6ed676a1b06c1308",
                 "shasum": ""
             },
             "require": {
@@ -1571,11 +1571,11 @@
                 },
                 {
                     "name": "Hoa community",
-                    "homepage": "http://hoa-project.net/"
+                    "homepage": "https://hoa-project.net/"
                 }
             ],
             "description": "The Hoa\\Stream library.",
-            "homepage": "http://hoa-project.net/",
+            "homepage": "https://hoa-project.net/",
             "keywords": [
                 "Context",
                 "bucket",
@@ -1588,7 +1588,7 @@
                 "stream",
                 "wrapper"
             ],
-            "time": "2016-09-06 11:14:23"
+            "time": "2016-11-08 13:09:12"
         },
         {
             "name": "hoa/ustring",
@@ -2123,48 +2123,6 @@
                 "tokenizer"
             ],
             "time": "2015-12-05 17:17:57"
-        },
-        {
-            "name": "jordisala1991/sermepa-omnipay",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jordisala1991/sermepa-omnipay.git",
-                "reference": "6a2fc18872fa88d7af867de6b8e840c17f418e02"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jordisala1991/sermepa-omnipay/zipball/6a2fc18872fa88d7af867de6b8e840c17f418e02",
-                "reference": "6a2fc18872fa88d7af867de6b8e840c17f418e02",
-                "shasum": ""
-            },
-            "require": {
-                "omnipay/common": "2.*"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Omnipay\\Sermepa\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPLv2"
-            ],
-            "authors": [
-                {
-                    "name": "Jordi Sala",
-                    "email": "jordism91@gmail.com",
-                    "homepage": "http://github.com/jordisala1991"
-                }
-            ],
-            "description": "Sermepa (now Redsys) payment gateway implementation with omnipay",
-            "time": "2016-10-18 09:40:58"
         },
         {
             "name": "laravel/framework",
@@ -2808,6 +2766,55 @@
                 "schedule"
             ],
             "time": "2016-01-26 21:23:30"
+        },
+        {
+            "name": "nazka/sermepa-omnipay",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ebisbe/sermepa-omnipay.git",
+                "reference": "6d9074aeb35bf8749eb60d02b743659ea333b4e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ebisbe/sermepa-omnipay/zipball/6d9074aeb35bf8749eb60d02b743659ea333b4e1",
+                "reference": "6d9074aeb35bf8749eb60d02b743659ea333b4e1",
+                "shasum": ""
+            },
+            "require": {
+                "omnipay/common": "2.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Omnipay\\Sermepa\\": "src/"
+                }
+            },
+            "license": [
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Javier Sampedro",
+                    "email": "jsampedro77@gmail.com",
+                    "homepage": "http://github.com/jsampedro77"
+                },
+                {
+                    "name": "NitsNets Studio",
+                    "email": "github@nitsnets.com",
+                    "homepage": "http://www.nitsnets.com"
+                }
+            ],
+            "description": "Sermepa (now Redsys) payment gateway implementation with omnipay",
+            "support": {
+                "source": "https://github.com/ebisbe/sermepa-omnipay/tree/master"
+            },
+            "time": "2016-11-09 10:18:24"
         },
         {
             "name": "nesbot/carbon",
@@ -6000,7 +6007,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "laravelcollective/html": 20,
-        "jordisala1991/sermepa-omnipay": 20,
+        "nazka/sermepa-omnipay": 20,
         "darryldecode/cart": 20
     },
     "prefer-stable": true,

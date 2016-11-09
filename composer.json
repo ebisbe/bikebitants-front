@@ -14,7 +14,7 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "laravelcollective/html": "5.2.x-dev",
         "omnipay/paypal": "*",
-        "jordisala1991/sermepa-omnipay": "dev-master",
+        "nazka/sermepa-omnipay": "dev-master",
         "creitive/laravel5-breadcrumbs": "^2.0",
         "intervention/image": "^2.3",
         "intervention/imageCache": "^2.3",
@@ -72,5 +72,11 @@
     },
     "config": {
         "preferred-install": "dist"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ebisbe/sermepa-omnipay"
+        }
+    ]
 }
