@@ -16,11 +16,21 @@ class CheckoutController extends Controller
 
     /**
      * @param OrderService $orderService
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(OrderService $orderService)
+    public function index(OrderService $orderService, Request $request)
     {
+        $paymentType = $request->input('payment', $request->session()->get('payment', ''));
+        $orderService->setPaymentType($paymentType);
+        $orderService->setSessionId($request->session()->getId());
+        $orderService->setPaymentParams($request->session()->get('params', ''));
         $orderService->checkoutOrder();
+
+        $request->session()->set('order', $orderService->getToken());
+        $request->session()->put('payment', $paymentType);
+        $request->session()->save();
+
         return view($orderService->getView(), $orderService->getViewVars());
     }
 
@@ -68,14 +78,22 @@ class CheckoutController extends Controller
             'coupon' => 'bail|present|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
         ]);
 
-        $orderService->pay();
+        $paymentType = $request->input('payment', $request->session()->get('payment', ''));
+        $orderService->setPaymentType($paymentType);
+        $orderService->setFormParams($request->all());
+        $orderService->setCoupon($request->input('coupon', ''));
+
+        $params = $orderService->pay();
+        $request->session()->put('params', $params);
+        $request->session()->save();
 
         return redirect(route('checkout.index'));
     }
 
-    public function cancel(OrderService $orderService)
+    public function cancel(OrderService $orderService, Request $request)
     {
         $orderService->cancel();
+        $request->session()->remove('order');
         return redirect(route('cart.index'));
     }
 }

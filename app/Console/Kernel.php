@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\CrudViewCommandCustom::class,
         Commands\CrudCommandCustom::class,
-        Commands\WordpressSync::class
+        Commands\WordpressSync::class,
+        Commands\ExpireOrder::class
     ];
 
     /**

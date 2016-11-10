@@ -15,6 +15,7 @@ class Variation extends Model
         parent::boot();
 
         static::saving(function($variation) {
+            //TODO check for stock lower than 0 and deny it
             if($variation->is_discounted) {
                 $variation->price = $variation->discounted_price;
             } else {

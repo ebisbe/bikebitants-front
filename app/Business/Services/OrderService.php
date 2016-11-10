@@ -5,7 +5,9 @@ namespace App\Business\Services;
 use App\Billing;
 use App\Country;
 use App\Coupon;
-use App\Jobs\UpdateStockJob;
+use App\Events\CancelOrder;
+use App\Events\NewOrder;
+use App\Listeners\CreateOrder;
 use App\Order;
 use App\PaymentMethod;
 use App\Shipping;
@@ -13,16 +15,15 @@ use App\Buyer;
 use Carbon\Carbon;
 use Darryldecode\Cart\ItemCollection;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Omnipay;
 use Cart;
+use Event;
 
 class OrderService
 {
     use DispatchesJobs;
-    /** @var Request $request */
-    protected $request;
+
     protected $cache;
 
     /** @var  Buyer $buyer */
@@ -41,16 +42,23 @@ class OrderService
 
     protected $response;
 
+    protected $country;
+    protected $paymentMethod;
+
+    protected $payment_type;
+    protected $coupon;
+    protected $session_id;
+    protected $form_params;
+    protected $payment_params;
+
     /**
      * OrderService constructor.
-     * @param Request $request
      * @param Cache $cache
      * @param Country $country
      * @param PaymentMethod $paymentMethod
      */
-    public function __construct(Request $request, Cache $cache, Country $country, PaymentMethod $paymentMethod)
+    public function __construct(Cache $cache, Country $country, PaymentMethod $paymentMethod)
     {
-        $this->request = $request;
         $this->cache = $cache;
         $this->country = $country;
         $this->paymentMethod = $paymentMethod;
@@ -64,9 +72,9 @@ class OrderService
                 $this->orderNew();
                 break;
             case Order::ToRedirect :
-                //$this->pay();
                 $this->order->status = Order::Redirected;
                 $this->order->save();
+                Event::fire('order.redirected', [$this->order]);
                 $this->response->redirect();
                 break;
             case Order::Redirected :
@@ -90,9 +98,9 @@ class OrderService
      */
     private function confirmPayment()
     {
-        Omnipay::setGateway($this->request->session()->get('payment'));
+        Omnipay::setGateway($this->getPaymentType());
 
-        if(method_exists('Omnipay', 'completePurchase')) {
+        if (method_exists('Omnipay', 'completePurchase')) {
             $params = collect($this->request->all())->merge($this->request->session()->get('params', []));
             $this->response = Omnipay::completePurchase($params->toArray())->send();
             $this->validateResponse();
@@ -106,9 +114,9 @@ class OrderService
      */
     public function checkoutCallback()
     {
-        Omnipay::setGateway('redsys');
-        $this->response = Omnipay::checkCallbackResponse($this->request, true);
+        Omnipay::setGateway($this->getPaymentType());
         $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+        $this->response = Omnipay::checkCallbackResponse($request, true);
         $params = Omnipay::decodeCallbackResponse($request);
 
         $this->validateResponse($params['Ds_Order']);
@@ -123,7 +131,7 @@ class OrderService
     {
         $this->placeOrder();
 
-        Omnipay::setGateway($this->request->input('payment'));
+        Omnipay::setGateway($this->getPaymentType());
         $gateway = Omnipay::gateway();
         $params = [
             'amount' => $this->order->total,
@@ -134,27 +142,27 @@ class OrderService
             'description' => 'Compra bikebitants.com',
             //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
         ];
-        $this->request->session()->put('payment', $this->request->input('payment'));
-        $this->request->session()->put('params', $params);
-        $this->request->session()->save();
 
         $this->response = $gateway->purchase($params)->send();
         $this->validateResponse();
         $this->checkoutOrder();
+
+        return $params;
     }
 
     /**
      * Cancel the order
      */
-    public function cancel()
+    public function cancel(Order $order = null)
     {
-        $this->getOrder();
-        $this->order->status = Order::Cancelled;
-        $this->order->save();
-
-        $job = (new UpdateStockJob($this->order));
-        $this->dispatch($job);
-        $this->request->session()->remove('order');
+        $this->getOrder($order);
+        if ($this->order->status > Order::Cancelled) {
+            $this->order->status = Order::Cancelled;
+            $this->order->save();
+            Event::fire(new CancelOrder($this->order));
+        } else {
+            //TODO throw OrderServiceException with order already Cancelled
+        }
     }
 
     private function orderConfirmed()
@@ -177,15 +185,19 @@ class OrderService
         $this->getOrder($orderId);
         if ($this->response->isSuccessful()) {
             $this->order->status = Order::Confirmed;
+            $this->order->save();
             // TODO send email
+            Event::fire(new CreateOrder($this->order));
         } elseif ($this->response->isRedirect()) {
             $this->order->status = Order::ToRedirect;
+            $this->order->save();
+            //Event::fire('order.to_redirect', [$this->order]);
         } else {
             $this->order->status = Order::Error;
             $this->order->error_message = $this->response->getMessage();
+            $this->order->save();
+            //Event::fire('order.error', [$this->order]);
         }
-
-        $this->order->save();
     }
 
     /**
@@ -196,19 +208,17 @@ class OrderService
         $this->getBuyer();
         $this->getOrder();
 
-        Coupon::addToCart($this->request->input('coupon', ''));
+        Coupon::addToCart($this->getCoupon());
 
         $this->order->status = Order::ValidData;
         $this->order->buyer()->associate($this->buyer);
         $this->order->billing()->save($this->billing);
         $this->order->shipping()->save($this->shipping);
 
-        $paymentMethod = PaymentMethod::whereCode($this->request->input('payment'))->first();
+        $paymentMethod = PaymentMethod::whereCode($this->getPaymentType())->first();
         $this->order->payment_method()->associate($paymentMethod);
 
         $this->order->buyer_id = $this->buyer->id;
-        //$this->order->billing_id = $this->billing->_id;
-        //$this->order->shipping_id = $this->shipping->_id;
 
         $this->order->save();
     }
@@ -240,28 +250,28 @@ class OrderService
      * from that session to the order.
      * @param null $orderId
      */
-    private function getOrder($orderId = null)
+    private function getOrder($order = null)
     {
-        /** @var Order $order */
-        if (!is_null($orderId)) {
-            $order = Order::whereToken((int)$orderId)->get();
-        } else {
-            $order = Order::currentOrder();
+        if (!$order instanceof Order) {
+            /** @var Order $order */
+            if (!is_null($order)) {
+                $order = Order::whereToken((int)$order)->get();
+            } else {
+                $order = Order::currentOrder();
+            }
+
+            if ($order->isEmpty()) {
+                $order = new Order();
+                $order->token = Carbon::now()->timestamp;
+                $order->session_id = $this->getSessionId();
+                $this->updateOrder($order);
+
+                Event::fire(new NewOrder($order));
+            } else {
+                $order = $this->updateOrder($order->first());
+            }
         }
 
-        if ($order->isEmpty()) {
-            $order = new Order();
-            $order->token = Carbon::now()->timestamp;
-            $order->session_id = $this->request->session()->getId();
-            $this->updateOrder($order);
-
-            $job = (new UpdateStockJob($order));
-            $this->dispatch($job);
-        } else {
-            $order = $this->updateOrder($order->first());
-        }
-
-        $this->request->session()->set('order', $order->token);
         $this->order = $order;
     }
 
@@ -320,43 +330,26 @@ class OrderService
     private function getBuyer()
     {
         //If not logged search buyer by billing.email
-        $buyer = Buyer::whereEmail($this->request->input('billing.email'))->get();
+        $buyer = Buyer::whereEmail($this->form_params['billing']['email'])->get();
 
         if ($buyer->isEmpty()) {
             $buyer = new Buyer();
-            $buyer->name = $this->request->input('billing.first_name');
-            $buyer->email = $this->request->input('billing.email');
+            $buyer->fill($this->form_params['billing']);
         } else {
             $buyer = $buyer->first();
         }
 
         $billing = new Billing();
-        $billing->first_name = $this->request->billing['first_name'];
-        $billing->last_name = $this->request->billing['last_name'];
-        $billing->email = $this->request->billing['email'];
-        $billing->address = $this->request->billing['address'];
-        $billing->city = $this->request->billing['city'];
-        $billing->postal_code = $this->request->billing['postal_code'];
-        $billing->phone = $this->request->billing['phone'];
-        $billing->country = $this->request->billing['country'];
-        $billing->province = $this->request->billing['province'];
+        $billing->fill($this->form_params['billing']);
         $this->billing = $billing;
         $buyer->billing()->associate($billing);
 
-        $data = $this->request->shipping;
-        if ($this->request->check_shipping == 'true') {
-            $data = $this->request->billing;
+        $data = $this->form_params['shipping'];
+        if ($this->form_params['check_shipping'] == 'true') {
+            $data = $this->form_params['billing'];
         }
         $shipping = new Shipping();
-        $shipping->first_name = $data['first_name'];
-        $shipping->last_name = $data['last_name'];
-        $shipping->email = $data['email'];
-        $shipping->address = $data['address'];
-        $shipping->city = $data['city'];
-        $shipping->postal_code = $data['postal_code'];
-        $shipping->phone = $data['phone'];
-        $shipping->country = $data['country'];
-        $shipping->province = $data['province'];
+        $shipping->fill($data);
         $this->shipping = $shipping;
         $buyer->shipping()->associate($shipping);
 
@@ -407,5 +400,60 @@ class OrderService
     public function getViewVars()
     {
         return $this->viewVars;
+    }
+
+    public function setPaymentType($paymentType)
+    {
+        $this->payment_type = $paymentType;
+    }
+
+    public function getPaymentType()
+    {
+        return $this->payment_type;
+    }
+
+    public function setCoupon($coupon)
+    {
+        $this->coupon = $coupon;
+    }
+
+    public function getCoupon()
+    {
+        return $this->coupon;
+    }
+
+    public function setSessionId($session_id)
+    {
+        $this->session_id = $session_id;
+    }
+
+    public function getSessionId()
+    {
+        return $this->session_id;
+    }
+
+    public function setFormParams($form_params)
+    {
+        $this->form_params = $form_params;
+    }
+
+    public function getFormParams()
+    {
+        return $this->form_params;
+    }
+
+    public function setPaymentParams($payment_params)
+    {
+        $this->payment_params = $payment_params;
+    }
+
+    public function getPaymentParams()
+    {
+        return $this->payment_params;
+    }
+
+    public function getToken()
+    {
+        return $this->order->token;
     }
 }

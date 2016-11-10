@@ -12,6 +12,7 @@ class CheckoutCallbackController extends Controller
       */
     public function store(OrderService $orderService)
     {
+        $orderService->setPaymentType('redsys');
         $orderService->checkoutCallback();
         return 'true';
     }

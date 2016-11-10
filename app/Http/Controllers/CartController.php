@@ -52,9 +52,13 @@ class CartController extends Controller
     public function store(Request $request, ProductRepository $productRepository)
     {
         $order = Order::currentOrder();
-        if($order->isEmpty() || $order->first()->status == Order::Confirmed) {
+        if($order->isEmpty()
+            || $order->first()->status == Order::Confirmed
+            || $order->first()->status == Order::Error
+            || $order->first()->status == Order::Cancelled
+        ) {
             $request->session()->forget('order');
-        }elseif(!$order->isEmpty() && $order->first()->status != Order::New) {
+        }elseif(!$order->isEmpty() && $order->first()->status > Order::New) {
             //TODO throw response in json form  if it is an ajax request
             abort(402, 'Unable to add more products while checking out the cart.');
         }
