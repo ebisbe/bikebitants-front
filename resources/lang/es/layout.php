@@ -14,4 +14,5 @@ return [
     'returns' => 'Devoluciones y anulaciones',
     'delivery' => 'Entrega y plazos',
     'recent_tweets' => 'Ultimos tweets',
+    'go_back' => 'Volver a'
 ];

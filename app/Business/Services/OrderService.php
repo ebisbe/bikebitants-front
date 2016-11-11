@@ -6,6 +6,7 @@ use App\Billing;
 use App\Country;
 use App\Coupon;
 use App\Events\CancelOrder;
+use App\Events\ConfirmedOrder;
 use App\Events\NewOrder;
 use App\Listeners\CreateOrder;
 use App\Order;
@@ -84,7 +85,7 @@ class OrderService
                 $this->orderConfirmed();
                 break;
             case Order::Cancelled :
-                $this->setView('checkout.cancel');
+                $this->orderCancelled();
                 break;
             case Order::Error :
             default:
@@ -158,8 +159,12 @@ class OrderService
         $this->getOrder($order);
         if ($this->order->status > Order::Cancelled) {
             $this->order->status = Order::Cancelled;
-            $this->order->save();
-            Event::fire(new CancelOrder($this->order));
+            if($this->order->save()){
+                Event::fire(new CancelOrder($this->order));
+                return true;
+            } else {
+                // TODO throw some shit
+            }
         } else {
             //TODO throw OrderServiceException with order already Cancelled
         }
@@ -177,6 +182,14 @@ class OrderService
         $this->setViewVars(compact('items', 'order'));
     }
 
+    private function orderCancelled()
+    {
+        $message = $this->order->error_message ? $this->order->error_message : trans('checkout.order_cancelled');
+
+        $this->setView('checkout.cancel');
+        $this->setViewVars(compact('message'));
+    }
+
     /**
      * @param null $orderId
      */
@@ -187,7 +200,7 @@ class OrderService
             $this->order->status = Order::Confirmed;
             $this->order->save();
             // TODO send email
-            Event::fire(new CreateOrder($this->order));
+            Event::fire(new ConfirmedOrder($this->order));
         } elseif ($this->response->isRedirect()) {
             $this->order->status = Order::ToRedirect;
             $this->order->save();

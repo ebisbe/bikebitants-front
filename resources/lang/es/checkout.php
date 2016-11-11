@@ -30,5 +30,8 @@ return [
     'confirm_order' => 'Confirmar pedido',
 
     'total_products' => 'Total productos',
-    'total' => 'Total'
+    'total' => 'Total',
+
+    'order_cancelled' => 'Your order has been cancelled',
+    'order_cancelled_inactivity' => 'Your order has been cancelled due to inactivity'
 ];

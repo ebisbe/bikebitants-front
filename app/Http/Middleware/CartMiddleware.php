@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Order;
 use Cart;
 use Closure;
 
@@ -18,6 +19,14 @@ class CartMiddleware
     {
         if(Cart::isEmpty()) {
             Cart::clearCartConditions();
+        }
+
+        $order = Order::currentOrder();
+        if($order->isEmpty()
+            || $order->first()->status == Order::Confirmed
+            || $order->first()->status < Order::New
+        ) {
+            $request->session()->forget('order');
         }
 
         return $next($request);

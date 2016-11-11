@@ -516,12 +516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/darryldecode/laravelshoppingcart.git",
-                "reference": "9643f4a6b4a64e22cb43ecb8f0d1a070da843895"
+                "reference": "a262cd443a3a8e13757cc7bccace41a2b44396db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darryldecode/laravelshoppingcart/zipball/9643f4a6b4a64e22cb43ecb8f0d1a070da843895",
-                "reference": "9643f4a6b4a64e22cb43ecb8f0d1a070da843895",
+                "url": "https://api.github.com/repos/darryldecode/laravelshoppingcart/zipball/a262cd443a3a8e13757cc7bccace41a2b44396db",
+                "reference": "a262cd443a3a8e13757cc7bccace41a2b44396db",
                 "shasum": ""
             },
             "require": {
@@ -557,7 +557,7 @@
                 "laravel",
                 "shopping cart"
             ],
-            "time": "2016-11-09 12:02:48"
+            "time": "2016-11-11 00:47:21"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

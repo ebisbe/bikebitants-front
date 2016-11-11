@@ -13,14 +13,16 @@
                     <div class="error-text">
                         <h1>Error on the payment</h1>
                         <p>{{ $message }}</p>
-                        <form>
+                        <p> @lang('layout.go_back') <a
+                                    href="{{ route('shop.catalogue') }}">@lang('layout.shop')</a></p>
+                        {{--<form>
                             <div class="input-group input-group-lg">
                                 <input type="email" class="form-control" placeholder="Search ...">
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="button">Search</button>
                                     </span>
                             </div>
-                        </form>
+                        </form>--}}
                     </div>
                 </div>
             </div>

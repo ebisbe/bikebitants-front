@@ -11,7 +11,7 @@ class CheckoutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware([CheckoutMiddleware::class, CartMiddleware::class]);
+        $this->middleware([CheckoutMiddleware::class]);
     }
 
     /**
@@ -25,6 +25,7 @@ class CheckoutController extends Controller
         $orderService->setPaymentType($paymentType);
         $orderService->setSessionId($request->session()->getId());
         $orderService->setPaymentParams($request->session()->get('params', ''));
+
         $orderService->checkoutOrder();
 
         $request->session()->set('order', $orderService->getToken());

@@ -46,8 +46,15 @@ class ExpireOrder extends Command
         $orders = Order::where('created_at', '<', $breakPoint)
             ->where('status', '>', Order::Cancelled)
             ->get();
+        $bar = $this->output->createProgressBar($orders->count());
+
         foreach($orders as $order){
             $this->orderService->cancel($order);
+            $order->error_message = trans('checkout.order_cancelled_inactivity');
+            $order->save();
+            $bar->advance();
         }
+
+        $bar->finish();
     }
 }
