@@ -2,18 +2,20 @@
 
 namespace App\Listeners;
 
+use App\Business\Services\WordpressService;
 use App\Events\ConfirmedOrder;
 
 class CreateOrder
 {
+    protected $wordpressService;
+
     /**
-     * Create the event listener.
-     *
-     * @return void
+     * CreateOrder constructor.
+     * @param WordpressService $wordpressService
      */
-    public function __construct()
+    public function __construct(WordpressService $wordpressService)
     {
-        //
+        $this->wordpressService = $wordpressService;
     }
 
     /**
@@ -24,6 +26,6 @@ class CreateOrder
      */
     public function handle(ConfirmedOrder $event)
     {
-        //
+        $this->wordpressService->createOrder($event->order);
     }
 }

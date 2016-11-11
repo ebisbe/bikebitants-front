@@ -80,6 +80,7 @@ class CartController extends Controller
                 'name' => $product->name,
                 'price' => $product->finalPrice($variationProperties),
                 'quantity' => $request->input('quantity', 1),
+                // TODO change tax depending IP
                 'conditions' => new \Darryldecode\Cart\CartCondition([
                     'name' => '[21%] IVA',
                     'type' => 'tax',
@@ -89,6 +90,7 @@ class CartController extends Controller
                 ]),
                 'attributes' => [
                     'product' => $product,
+                    'variation_id' => $variation->external_id,
                     'attributes' => $attributes,
                     'filename' => $variation->filename
                 ]

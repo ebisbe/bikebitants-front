@@ -16,7 +16,7 @@ class Order extends Model
     const Error = -2;
 
     protected $fillable = [
-        'billing_id', 'shipping_id', 'user_id', 'status', 'payment_method'
+        'billing_id', 'shipping_id', 'user_id', 'status', 'payment_method', 'external_id'
     ];
 
     public $attributes = [
@@ -77,5 +77,13 @@ class Order extends Model
      */
     public static function currentOrder() {
         return self::where('token', \Request::session()->get('order'))->get();
+    }
+
+    public function shipping_conditions()
+    {
+        return collect($this->conditions)
+            ->filter(function($conditions) {
+                return $conditions['type'] == 'shipping';
+            })->first();
     }
 }

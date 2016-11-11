@@ -321,6 +321,8 @@ class OrderService
                 $cart->quantity = $item['quantity'];
                 $cart->total = $item->getPriceSumWithConditions();
                 $cart->attributes = $item['attributes']['attributes'];
+                $cart->variation_id = $item['attributes']['variation_id'];
+                $cart->product_id = $item['attributes']['product']->external_id;
                 $cart->product()->associate($item['attributes']['product']);
                 $order->cart()->associate($cart);
             });

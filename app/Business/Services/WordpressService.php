@@ -23,6 +23,11 @@ class WordpressService
     /** @var  Product $product */
     protected $product;
 
+    /**
+     * Import product from WooCommerce
+     * @param $wpProduct
+     * @return bool
+     */
     public function importProduct($wpProduct)
     {
         $status = $this->statusSyncro($wpProduct['status'], $wpProduct['catalog_visibility']);
@@ -65,6 +70,7 @@ class WordpressService
     }
 
     /**
+     * Import Variations from WooCommerce
      * @param $variations
      */
     public function syncVariations($variations)
@@ -109,6 +115,7 @@ class WordpressService
     }
 
     /**
+     * Import Attributes from products if they have. Attributes can be from variations or product attributes
      * @param $attributes
      */
     public function syncAttributes($attributes)
@@ -127,6 +134,7 @@ class WordpressService
     }
 
     /**
+     * Import Attribute for a product
      * @param $attribute
      */
     public function syncAttribute($attribute)
@@ -148,6 +156,7 @@ class WordpressService
     }
 
     /**
+     * Import variations from product. They are used to handle modifications of the same product
      * @param $variation
      */
     public function syncVariationAttributes($variation, $order)
@@ -187,6 +196,7 @@ class WordpressService
     }
 
     /**
+     * Import Images
      * @param $images
      */
     public function syncImages($images)
@@ -229,6 +239,10 @@ class WordpressService
         return $image;
     }
 
+    /**
+     * Import all categories and relate them to the products
+     * @param $categories
+     */
     public function syncCategories($categories)
     {
         collect($categories)->each(function ($category) {
@@ -238,6 +252,7 @@ class WordpressService
     }
 
     /**
+     * Create a category or update it if it already exists
      * @param $wpCategory
      * @return Category
      */
@@ -277,7 +292,8 @@ class WordpressService
     }
 
     /**
-     * @param $tax
+     * Import tax
+     * @param $wpTax
      */
     public function syncTax($wpTax)
     {
@@ -303,7 +319,6 @@ class WordpressService
     }
 
     /**
-     * TODO avoid redownloading non modified images
      * @param $image
      * @return string
      */
@@ -344,6 +359,7 @@ class WordpressService
     }
 
     /**
+     * Filter non-desired text from wordpress itself
      * @param $text
      * @return mixed
      */
@@ -353,6 +369,7 @@ class WordpressService
     }
 
     /**
+     * Import the review and relate it to the product
      * @param $wpReview
      */
     public function importReview($wpReview)
@@ -394,13 +411,15 @@ class WordpressService
      */
     protected function convertDate($date)
     {
-        if(is_null($date)) {
+        if (is_null($date)) {
             return null;
         }
         return Carbon::createFromFormat(StaticVars::wordpressDateTime(), $date);
     }
 
     /**
+     * Import coupons from wp
+     * TODO still some options have to be implemented
      * @param $wpCoupon
      */
     public function syncCoupon($wpCoupon)
@@ -427,6 +446,7 @@ class WordpressService
     }
 
     /**
+     * Status mirrorring from wp to laravel
      * @param $status
      * @return mixed
      */
@@ -440,5 +460,67 @@ class WordpressService
         ];
 
         return $statusTypes[$status];
+    }
+
+    /**
+     * Create order in WooCommerce
+     * @param $order
+     */
+    public function createOrder($order)
+    {
+        $items = collect();
+        foreach($order->cart as $cart) {
+            $item = [];
+            $item['product_id'] = $cart->product_id;
+            $item['quantity'] = $cart->quantity;
+            if(!empty($cart->product->attributes)) {
+                $item['variation_id'] = $cart->variation_id;
+            }
+            $items->push($item);
+        }
+
+        $data = [
+            'payment_method' => 'bacs',
+            'payment_method_title' => 'Direct Bank Transfer',
+            'set_paid' => false,
+            'billing' => [
+                'first_name' => $order->billing->first_name,
+                'last_name' => $order->billing->last_name,
+                'address_1' => $order->billing->address,
+                'address_2' => $order->billing->address_2,
+                'city' => $order->billing->city,
+                'state' => $order->billing->province,
+                'postcode' => $order->billing->postal_code,
+                'country' => $order->billing->country,
+                'email' => $order->billing->email,
+                'phone' => $order->billing->phone,
+            ],
+            'shipping' => [
+                'first_name' => $order->shipping->first_name,
+                'last_name' => $order->shipping->last_name,
+                'address_1' => $order->shipping->address,
+                'address_2' => $order->shipping->address_2,
+                'city' => $order->shipping->city,
+                'state' => $order->shipping->province,
+                'postcode' => $order->shipping->postal_code,
+                'country' => $order->shipping->country,
+            ],
+            'line_items' => $items->toArray(),
+            'shipping_lines' => [
+                [
+                    'method_id' => 'flat_rate',
+                    'method_title' => $order->shipping_conditions()['name'],
+                    'total' => $order->shipping_conditions()['value']
+                ]
+            ]
+        ];
+
+        // todo add coupons
+
+        $response = \Woocommerce::post('orders', $data);
+
+        $order->external_id = $response['id'];
+        $order->response = $response;
+        $order->save();
     }
 }

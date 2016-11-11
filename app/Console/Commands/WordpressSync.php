@@ -42,32 +42,9 @@ class WordpressSync extends Command
     {
         $this->wordpressService = $wordpressService;
 
-        $this->inspector(function($page) {
-            $categories = collect(Woocommerce::get('products/categories', ['page' => $page]));
-            $categories->each(function ($category) {
-                $this->wordpressService->syncCategory($category);
-                echo('.');
-            });
-            return $categories->count();
-        }, 'sync categories:');
-
-        $this->inspector(function($page) {
-            $taxes = collect(Woocommerce::get('taxes', ['page' => $page]));
-            $taxes->each(function ($tax) {
-                $this->wordpressService->syncTax($tax);
-                echo('.');
-            });
-            return $taxes->count();
-        }, 'sync taxes:');
-
-        $this->inspector(function($page) {
-            $coupons = collect(Woocommerce::get('coupons', ['page' => $page]));
-            $coupons->each(function ($coupon) {
-                $this->wordpressService->syncCoupon($coupon);
-                echo('.');
-            });
-            return $coupons->count();
-        }, 'sync coupons:');
+        $this->import('products/categories', 'syncCategory');
+        $this->import('taxes', 'syncTax');
+        $this->import('coupons', 'syncCoupon');
 
         $this->inspector(function($page) {
             $products = collect(Woocommerce::get('products', ['page' => $page]));
@@ -82,6 +59,19 @@ class WordpressSync extends Command
             });
             return $products->count();
         }, 'sync products:');
+    }
+
+    public function import($wooCommerceCallback, $wordpressServiceCallback) {
+        $this->inspector(function($page) use ($wooCommerceCallback, $wordpressServiceCallback) {
+            $categories = collect(Woocommerce::get($wooCommerceCallback, ['page' => $page]));
+            $categories->each(function ($category) use ($wordpressServiceCallback) {
+                if(method_exists($this->wordpressService, $wordpressServiceCallback)) {
+                    $this->wordpressService->$wordpressServiceCallback($category);
+                }
+                echo('.');
+            });
+            return $categories->count();
+        }, $wordpressServiceCallback);
     }
 
     /**
