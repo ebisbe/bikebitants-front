@@ -40,16 +40,16 @@ class Cart extends Model
     }
 
     /**
-     * Find a product by it's attributes if has some
+     * Find a product by it's properties if has some
      * @param $query
-     * @param $attributes
+     * @param $properties
      * @return mixed
      */
-    public function scopeWithAttributes($query, $attributes)
+    public function scopeWithProperties($query, $properties)
     {
-        return $query->when($attributes, function ($query) use ($attributes) {
-            foreach ($attributes as $attribute => $value) {
-                $query->where($attribute, '=', $value);
+        return $query->when($properties, function ($query) use ($properties) {
+            foreach ($properties as $property => $value) {
+                $query->where($property, '=', $value);
             }
             return $query;
         });

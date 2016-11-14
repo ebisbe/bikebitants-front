@@ -269,7 +269,7 @@
                                                     <td class="col-xs-4 col-md-5">
                                                         <h4>{{ $product->name }}
                                                             <small> {{ $product->brand->name }}
-                                                                @foreach($item->attributes->attributes as $attribute)
+                                                                @foreach($item->attributes->properties as $attribute)
                                                                     , {{ $attribute }}
                                                                 @endforeach
                                                             </small>

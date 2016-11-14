@@ -40,8 +40,8 @@ MY ACCOUNT - START
                                             <h4>
                                                 <a href="{!! url('product', ['slug' => $product->slug]) !!}"> {{ $product->name }}</a>
                                                 <small> {{ $product->brand->name }}
-                                                    @foreach($item->attributes->attributes as $attribute)
-                                                        , {{ $attribute }}
+                                                    @foreach($item->attributes->properties as $property)
+                                                        , {{ $property }}
                                                     @endforeach
                                                 </small>
                                             </h4>

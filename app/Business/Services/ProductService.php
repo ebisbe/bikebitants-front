@@ -18,13 +18,13 @@ class ProductService
         /** @var Product $product */
         $dupProduct = Product::create($product->toArray());
 
-        $product->attributes->each(function ($attribute) use ($dupProduct) {
+        $product->properties->each(function ($property) use ($dupProduct) {
             /** @var Attribute $attribute */
-            $dupAtt = $dupProduct->attributes()->create($attribute->toArray());
-            $dupAtt->attribute_values()->createMany($attribute->attribute_values);
+            $dupAtt = $dupProduct->properties()->create($property->toArray());
+            $dupAtt->property_values()->createMany($property->property_values);
         });
 
-        $dupProduct->attributes()->createMany($product->attributes->toArray());
+        $dupProduct->properties()->createMany($product->property->toArray());
         $dupProduct->variations()->createMany($product->variations->toArray());
         $dupProduct->reviews()->createMany($product->reviews->toArray());
         $dupProduct->labels()->createMany($product->labels->toArray());

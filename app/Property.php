@@ -4,7 +4,7 @@ namespace App;
 
 use App\Business\MongoEloquentModel as Model;
 
-class Attribute extends Model
+class Property extends Model
 {
 
     protected $fillable = ['name', 'order', 'external_id'];
@@ -19,9 +19,9 @@ class Attribute extends Model
     /**
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
-    public function attribute_values()
+    public function properties_values()
     {
-        return $this->embedsMany(AttributeValue::class);
+        return $this->embedsMany(PropertyValue::class);
     }
 
     /**

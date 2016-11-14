@@ -2,8 +2,6 @@
 
 namespace App\Business\Services;
 
-use App\Attribute;
-use App\AttributeValue;
 use App\Brand;
 use App\Business\Repositories\CategoryRepository;
 use App\Business\Repositories\ProductRepository;
@@ -11,6 +9,8 @@ use App\Category;
 use App\Coupon;
 use App\Image;
 use App\Product;
+use App\Property;
+use App\PropertyValue;
 use App\Review;
 use App\Tax;
 use App\Variation;
@@ -60,7 +60,7 @@ class WordpressService
         $this->product->updated_at = $this->convertDate($wpProduct['date_modified']);
         (new ProductRepository)->update($this->product->_id, $this->product->toArray());
 
-        $this->syncAttributes($wpProduct['attributes']);
+        $this->syncProperties($wpProduct['attributes']);
         $this->syncCategories($wpProduct['categories']);
         $this->syncImages($wpProduct['images']);
         $variations = !empty($wpProduct['variations']) ? $wpProduct['variations'] : [$wpProduct];
@@ -115,17 +115,17 @@ class WordpressService
     }
 
     /**
-     * Import Attributes from products if they have. Attributes can be from variations or product attributes
-     * @param $attributes
+     * Import Properties from products if they have. Properties can be from variations or product properties
+     * @param $properties
      */
-    public function syncAttributes($attributes)
+    public function syncProperties($properties)
     {
         $order = 1;
-        collect($attributes)
+        collect($properties)
             ->sortBy('position')
             ->each(function ($attribute) use (&$order) {
                 if ($attribute['variation']) {
-                    $this->syncVariationAttributes($attribute, $order);
+                    $this->syncVariationProperties($attribute, $order);
                     $order++;
                 } else {
                     $this->syncAttribute($attribute);
@@ -159,17 +159,17 @@ class WordpressService
      * Import variations from product. They are used to handle modifications of the same product
      * @param $variation
      */
-    public function syncVariationAttributes($variation, $order)
+    public function syncVariationProperties($variation, $order)
     {
         $attribute = $this->product
-            ->attributes()
+            ->properties()
             ->filter(function ($attribute) use ($variation) {
                 return $attribute->external_id == $variation['id'];
             })
             ->first();
         $new = false;
         if (empty($attribute)) {
-            $attribute = new Attribute();
+            $attribute = new Property();
             $new = true;
         }
 
@@ -178,18 +178,18 @@ class WordpressService
         $attribute->external_id = $variation['id'];
 
         if ($new) {
-            $this->product->attributes()->save($attribute);
+            $this->product->properties()->save($attribute);
         } else {
             $attribute->save();
         }
 
         collect($variation['options'])->each(function ($option) use ($attribute) {
-            $value = new AttributeValue();
+            $value = new PropertyValue();
             $value->_id = str_slug(strtolower($option));
             $value->sku = str_slug(strtolower($option));
             $value->name = $option;
             $value->complementary_text = '';
-            $attribute->attribute_values()->save($value);
+            $attribute->properties_values()->save($value);
         });
 
         $attribute->save();
@@ -473,7 +473,7 @@ class WordpressService
             $item = [];
             $item['product_id'] = $cart->product_id;
             $item['quantity'] = $cart->quantity;
-            if(!empty($cart->product->attributes)) {
+            if(!empty($cart->product->properties)) {
                 $item['variation_id'] = $cart->variation_id;
             }
             $items->push($item);

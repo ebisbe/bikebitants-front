@@ -58,8 +58,8 @@ class CartController extends Controller
         }
 
         $productId = $request->input('product_id');
-        $attributes = $request->input('attributes', []);
-        $variationProperties = array_merge([$productId], $attributes);
+        $properties = $request->input('attributes', []);
+        $variationProperties = array_merge([$productId], $properties);
 
         /** @var Product $product */
         $product = $productRepository->find($productId);
@@ -91,7 +91,7 @@ class CartController extends Controller
                 'attributes' => [
                     'product' => $product,
                     'variation_id' => $variation->external_id,
-                    'attributes' => $attributes,
+                    'properties' => $properties,
                     'filename' => $variation->filename
                 ]
             ]);

@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Business\MongoEloquentModel as Model;
-use App\Business\Traits\Presenters\ProductPresenter;
 use App\Business\Traits\SluggableTrait;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
@@ -60,9 +59,9 @@ class Product extends Model
      * Colors defined for the product
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
-    public function attributes()
+    public function properties()
     {
-        return $this->embedsMany(Attribute::class);
+        return $this->embedsMany(Property::class);
     }
 
     /**
@@ -126,26 +125,26 @@ class Product extends Model
     }
 
     /**
-     * @param $attributes
+     * @param $properties
      * @return Variation
      */
-    public function productVariation($attributes)
+    public function productVariation($properties)
     {
         return $this
             ->variations()
-            ->first(function ($key, $value) use ($attributes) {
-                return array_diff($value->_id, array_values($attributes)) == [];
+            ->first(function ($key, $value) use ($properties) {
+                return array_diff($value->_id, array_values($properties)) == [];
             });
     }
 
     /**
      * Get the price of a product. If has multiple attributes with different prices should work too.
-     * @param array $attributes
+     * @param array $properties
      * @return int
      */
-    public function finalPrice($attributes = [])
+    public function finalPrice($properties = [])
     {
-        $variation = $this->productVariation($attributes);
+        $variation = $this->productVariation($properties);
         return $variation->price;
     }
 

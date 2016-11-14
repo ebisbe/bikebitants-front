@@ -20,7 +20,7 @@ return [
 				'headerImageUrl' => '',
 				"logoImageUrl" => "",
 				"borderColor" => "",
-				'currency' => 'EUR',
+
 			]
 		],
 		'redsys' => [

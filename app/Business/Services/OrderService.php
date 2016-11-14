@@ -8,6 +8,7 @@ use App\Coupon;
 use App\Events\CancelOrder;
 use App\Events\ConfirmedOrder;
 use App\Events\NewOrder;
+use App\Exceptions\OutOfStockException;
 use App\Listeners\CreateOrder;
 use App\Order;
 use App\PaymentMethod;
@@ -139,8 +140,11 @@ class OrderService
             'multiply' => true,
             'returnUrl' => route('checkout.index'),
             'cancelUrl' => route('shop.cancellation'),
+            'transactionId' => $this->order->token,
             'token' => $this->order->token,
             'description' => 'Compra bikebitants.com',
+            'testMode' => true,
+            'currency' => 'EUR',
             //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
         ];
 
@@ -159,7 +163,7 @@ class OrderService
         $this->getOrder($order);
         if ($this->order->status > Order::Cancelled) {
             $this->order->status = Order::Cancelled;
-            if($this->order->save()){
+            if ($this->order->save()) {
                 Event::fire(new CancelOrder($this->order));
                 return true;
             } else {
@@ -320,7 +324,7 @@ class OrderService
                 $cart->price = $item->getPriceWithConditions();
                 $cart->quantity = $item['quantity'];
                 $cart->total = $item->getPriceSumWithConditions();
-                $cart->attributes = $item['attributes']['attributes'];
+                $cart->properties = $item['attributes']['properties'];
                 $cart->variation_id = $item['attributes']['variation_id'];
                 $cart->product_id = $item['attributes']['product']->external_id;
                 $cart->product()->associate($item['attributes']['product']);
