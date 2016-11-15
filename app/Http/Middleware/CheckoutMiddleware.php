@@ -36,10 +36,6 @@ class CheckoutMiddleware
         if (Cart::isEmpty() && !Order::isCurrentOrderConfirmed()) {
             return true;
         }
-        //
-        /*if (!Cart::isEmpty() && Order::isCurrentOrderConfirmed()) {
-            return true;
-        }*/
         return false;
     }
 }

@@ -12,15 +12,15 @@ return [
 			'options' => [
 				'solutionType'   => '',
 				'landingPage'    => '',
-				'username' => env('PAYPAL_USERNAME'),
-				'password' => env('PAYPAL_PASSWORD'),
-				'signature' => env('PAYPAL_SIGNATURE'),
-				"testMode" => env('PAYPAL_TESTMODE'),
+				'username' => env('OMNIPAY_PAYPAL_USERNAME'),
+				'password' => env('OMNIPAY_PAYPAL_PASSWORD'),
+				'signature' => env('OMNIPAY_PAYPAL_SIGNATURE'),
+				"testMode" => env('OMNIPAY_PAYPAL_TESTMODE'),
 				"brandName" => "Bikebitants",
 				'headerImageUrl' => '',
 				"logoImageUrl" => "",
 				"borderColor" => "",
-
+				"currency" => "EUR",
 			]
 		],
 		'redsys' => [

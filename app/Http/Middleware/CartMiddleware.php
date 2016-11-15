@@ -23,7 +23,7 @@ class CartMiddleware
 
         $order = Order::currentOrder();
         if($order->isEmpty()
-            || $order->first()->status == Order::Confirmed
+            || $order->first()->status >= Order::Redirected
             || $order->first()->status < Order::New
         ) {
             $request->session()->forget('order');

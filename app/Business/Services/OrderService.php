@@ -8,8 +8,6 @@ use App\Coupon;
 use App\Events\CancelOrder;
 use App\Events\ConfirmedOrder;
 use App\Events\NewOrder;
-use App\Exceptions\OutOfStockException;
-use App\Listeners\CreateOrder;
 use App\Order;
 use App\PaymentMethod;
 use App\Shipping;
@@ -17,10 +15,12 @@ use App\Buyer;
 use Carbon\Carbon;
 use Darryldecode\Cart\ItemCollection;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Omnipay;
 use Cart;
 use Event;
+use Symfony\Component\HttpFoundation\Request;
 
 class OrderService
 {
@@ -51,7 +51,6 @@ class OrderService
     protected $coupon;
     protected $session_id;
     protected $form_params;
-    protected $payment_params;
 
     /**
      * OrderService constructor.
@@ -66,9 +65,9 @@ class OrderService
         $this->paymentMethod = $paymentMethod;
     }
 
-    public function checkoutOrder($orderId = null)
+    public function checkoutOrder($avoidLoop = false)
     {
-        $this->getOrder($orderId);
+        $this->getOrder();
         switch ($this->order->status) {
             case Order::New :
                 $this->orderNew();
@@ -76,10 +75,10 @@ class OrderService
             case Order::ToRedirect :
                 $this->order->status = Order::Redirected;
                 $this->order->save();
-                Event::fire('order.redirected', [$this->order]);
+                //Event::fire('order.redirected', [$this->order]);
                 $this->response->redirect();
                 break;
-            case Order::Redirected :
+            case Order::Redirected && !$avoidLoop :
                 $this->confirmPayment();
                 break;
             case Order::Confirmed :
@@ -101,33 +100,50 @@ class OrderService
     private function confirmPayment()
     {
         Omnipay::setGateway($this->getPaymentType());
-
-        if (method_exists('Omnipay', 'completePurchase')) {
-            $params = collect($this->request->all())->merge($this->request->session()->get('params', []));
-            $this->response = Omnipay::completePurchase($params->toArray())->send();
+        $gateway = Omnipay::gateway();
+        if ($gateway->supportsCompleteAuthorize()) {
+            $this->response = Omnipay::completePurchase($this->getPurchaseParams())->send();
             $this->validateResponse();
         }
 
-        $this->orderConfirmed();
+        $this->checkoutOrder(true);
     }
 
     /**
-     * Redsys callback based on symphony components
+     * Redsys callback based on symphony components. All params are received as string. Type cast to INT if needed.
+     * Array
+     * (
+     * [Ds_Date] => 15/11/2016
+     * [Ds_Hour] => 13:33
+     * [Ds_SecurePayment] => 1
+     * [Ds_Card_Country] => 724
+     * [Ds_Amount] => 11990
+     * [Ds_Currency] => 978
+     * [Ds_Order] => 1479213208
+     * [Ds_MerchantCode] => 336022801
+     * [Ds_Terminal] => 001
+     * [Ds_Response] => 0000
+     * [Ds_MerchantData] =>
+     * [Ds_TransactionType] => 0
+     * [Ds_ConsumerLanguage] => 1
+     * [Ds_AuthorisationCode] => 622880
+     * )
      */
     public function checkoutCallback()
     {
         Omnipay::setGateway($this->getPaymentType());
-        $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+        $request = Request::createFromGlobals();
         $this->response = Omnipay::checkCallbackResponse($request, true);
         $params = Omnipay::decodeCallbackResponse($request);
 
-        $this->validateResponse($params['Ds_Order']);
-        $this->orderConfirmed();
+        $order = Order::whereToken((int)$params['Ds_Order'])->first();
+        $this->setOrder($order);
+        $this->validateResponse();
     }
 
     /**
      * @param
-     * @return mixed
+     * @return void
      */
     public function pay()
     {
@@ -135,32 +151,18 @@ class OrderService
 
         Omnipay::setGateway($this->getPaymentType());
         $gateway = Omnipay::gateway();
-        $params = [
-            'amount' => $this->order->total,
-            'multiply' => true,
-            'returnUrl' => route('checkout.index'),
-            'cancelUrl' => route('shop.cancellation'),
-            'transactionId' => $this->order->token,
-            'token' => $this->order->token,
-            'description' => 'Compra bikebitants.com',
-            'testMode' => true,
-            'currency' => 'EUR',
-            //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
-        ];
 
-        $this->response = $gateway->purchase($params)->send();
+        $this->response = $gateway->purchase($this->getPurchaseParams())->send();
         $this->validateResponse();
         $this->checkoutOrder();
-
-        return $params;
     }
 
     /**
      * Cancel the order
      */
-    public function cancel(Order $order = null)
+    public function cancel()
     {
-        $this->getOrder($order);
+        $this->getOrder();
         if ($this->order->status > Order::Cancelled) {
             $this->order->status = Order::Cancelled;
             if ($this->order->save()) {
@@ -197,9 +199,9 @@ class OrderService
     /**
      * @param null $orderId
      */
-    private function validateResponse($orderId = null)
+    private function validateResponse()
     {
-        $this->getOrder($orderId);
+        $this->getOrder();
         if ($this->response->isSuccessful()) {
             $this->order->status = Order::Confirmed;
             $this->order->save();
@@ -265,31 +267,27 @@ class OrderService
     /**
      * Creates a new order for the current session if not exists. Relates all the products
      * from that session to the order.
-     * @param null $orderId
      */
-    private function getOrder($order = null)
+    private function getOrder()
     {
-        if (!$order instanceof Order) {
+        if (!$this->order instanceof Order) {
             /** @var Order $order */
-            if (!is_null($order)) {
-                $order = Order::whereToken((int)$order)->get();
-            } else {
-                $order = Order::currentOrder();
-            }
+            $order = new Order();
+            $order->token = Carbon::now()->timestamp;
+            $order->session_id = $this->getSessionId();
+            $this->updateOrder($order);
 
-            if ($order->isEmpty()) {
-                $order = new Order();
-                $order->token = Carbon::now()->timestamp;
-                $order->session_id = $this->getSessionId();
-                $this->updateOrder($order);
-
-                Event::fire(new NewOrder($order));
-            } else {
-                $order = $this->updateOrder($order->first());
-            }
+            Event::fire(new NewOrder($order));
+            $this->order = $order;
         }
+    }
 
-        $this->order = $order;
+    /**
+     * @param Order $order
+     */
+    public function setOrder(Order $order)
+    {
+        $this->order = $this->updateOrder($order);
     }
 
     /**
@@ -343,29 +341,43 @@ class OrderService
         $this->setViewVars(compact('message'));
     }
 
+    protected function getPurchaseParams()
+    {
+        return [
+            'amount' => $this->order->total,
+            'multiply' => true,
+            'returnUrl' => route('checkout.index'),
+            'cancelUrl' => route('shop.cancellation'),
+            'transactionId' => $this->order->token,
+            'description' => env('OMNIPAY_DESCRIPTION'),
+            'testMode' => true,
+            //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
+        ];
+    }
+
     /**
      *
      */
     private function getBuyer()
     {
         //If not logged search buyer by billing.email
-        $buyer = Buyer::whereEmail($this->form_params['billing']['email'])->get();
+        $buyer = Buyer::whereEmail($this->getFormParams('billing.email'))->get();
 
         if ($buyer->isEmpty()) {
             $buyer = new Buyer();
-            $buyer->fill($this->form_params['billing']);
+            $buyer->fill($this->getFormParams('billing'));
         } else {
             $buyer = $buyer->first();
         }
 
         $billing = new Billing();
-        $billing->fill($this->form_params['billing']);
+        $billing->fill($this->getFormParams('billing'));
         $this->billing = $billing;
         $buyer->billing()->associate($billing);
 
-        $data = $this->form_params['shipping'];
-        if ($this->form_params['check_shipping'] == 'true') {
-            $data = $this->form_params['billing'];
+        $data = $this->getFormParams('shipping');
+        if ($this->getFormParams('check_shipping') == 'true') {
+            $data = $this->getFormParams('billing');
         }
         $shipping = new Shipping();
         $shipping->fill($data);
@@ -456,19 +468,9 @@ class OrderService
         $this->form_params = $form_params;
     }
 
-    public function getFormParams()
+    public function getFormParams($route = null)
     {
-        return $this->form_params;
-    }
-
-    public function setPaymentParams($payment_params)
-    {
-        $this->payment_params = $payment_params;
-    }
-
-    public function getPaymentParams()
-    {
-        return $this->payment_params;
+        return Arr::get($this->form_params, $route);
     }
 
     public function getToken()

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Business\Services\OrderService;
-use App\Http\Middleware\CartMiddleware;
 use App\Http\Middleware\CheckoutMiddleware;
+use App\Order;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -21,15 +21,18 @@ class CheckoutController extends Controller
      */
     public function index(OrderService $orderService, Request $request)
     {
-        $paymentType = $request->input('payment', $request->session()->get('payment', ''));
-        $orderService->setPaymentType($paymentType);
+        if(!Order::currentOrder()->isEmpty()) {
+            $order = Order::currentOrder()->first();
+            $orderService->setOrder($order);
+            if(!empty($order->payment_method)) {
+                $orderService->setPaymentType($order->payment_method->code);
+            }
+        }
         $orderService->setSessionId($request->session()->getId());
-        $orderService->setPaymentParams($request->session()->get('params', ''));
 
         $orderService->checkoutOrder();
 
         $request->session()->set('order', $orderService->getToken());
-        $request->session()->put('payment', $paymentType);
         $request->session()->save();
 
         return view($orderService->getView(), $orderService->getViewVars());
@@ -40,10 +43,12 @@ class CheckoutController extends Controller
      * @param OrderService $orderService
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($oderId, OrderService $orderService) {
-        $orderService->checkoutOrder($oderId);
+    /*public function show($oderId, OrderService $orderService)
+    {
+        //setOrder()
+        $orderService->checkoutOrder();
         return view($orderService->getView(), $orderService->getViewVars());
-    }
+    }*/
 
     /**
      * @param Request $request
@@ -79,20 +84,26 @@ class CheckoutController extends Controller
             'coupon' => 'bail|present|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
         ]);
 
-        $paymentType = $request->input('payment', $request->session()->get('payment', ''));
-        $orderService->setPaymentType($paymentType);
+        if(!Order::currentOrder()->isEmpty()) {
+            $orderService->setOrder(Order::currentOrder()->first());
+        }
+
+        $orderService->setPaymentType($request->input('payment'));
         $orderService->setFormParams($request->all());
         $orderService->setCoupon($request->input('coupon', ''));
 
-        $params = $orderService->pay();
-        $request->session()->put('params', $params);
-        $request->session()->save();
+        /** Posible redirection inside pay() method. It depends on the gateway used. */
+        $orderService->pay();
 
         return redirect(route('checkout.index'));
     }
 
     public function cancel(OrderService $orderService, Request $request)
     {
+        if(!Order::currentOrder()->isEmpty()) {
+            $orderService->setOrder(Order::currentOrder()->first());
+        }
+
         $orderService->cancel();
         $request->session()->remove('order');
         return redirect(route('cart.index'));
