@@ -2,10 +2,10 @@
     <div class="row row-no-padding">
 
         <attribute-select
-                v-for="attribute in attributes"
-                v-bind:order="attribute.order"
-                v-bind:name="attribute.name"
-                v-bind:options="attribute.attribute_values"
+                v-for="property in properties"
+                v-bind:order="property.order"
+                v-bind:name="property.name"
+                v-bind:options="property.properties_values"
                 v-on:changed="emitChangedValue">
         </attribute-select>
 
@@ -29,7 +29,7 @@
     import quantitySelect from './quantitySelect.vue';
 
     export default {
-        props: ['attributes', 'variations'],
+        props: ['properties', 'variations'],
 
         data() {
             return {
@@ -49,15 +49,15 @@
             });
             this.variationsFilter = filter;
 
-            switch (this.attributes.length) {
+            switch (this.properties.length) {
                 case 2:
-                    this.secondSetValues = this.attributes[1].attribute_values;
-                    this.emitChangedValue(1, this.attributes[0].attribute_values[0]._id);
-                    this.emitChangedValue(2, this.attributes[1].attribute_values[0]._id);
+                    this.secondSetValues = this.properties[1].properties_values;
+                    this.emitChangedValue(1, this.properties[0].properties_values[0]._id);
+                    this.emitChangedValue(2, this.properties[1].properties_values[0]._id);
                     break;
                 case 1:
-                    this.firstSelected = this.attributes[0].attribute_values[0]._id;
-                    this.emitChangedValue(2, this.attributes[0].attribute_values[0]._id);
+                    this.firstSelected = this.properties[0].properties_values[0]._id;
+                    this.emitChangedValue(2, this.properties[0].properties_values[0]._id);
                     this.maxQuantity = this.variations[0].stock;
                     break;
                 case 0:
@@ -68,7 +68,7 @@
 
         methods: {
             emitChangedValue: function (order, selectedValue) {
-                switch (this.attributes.length) {
+                switch (this.properties.length) {
                     case 1:
                         this.firstSelected = selectedValue;
                         this.secondOptionUpdated(selectedValue);
@@ -89,7 +89,7 @@
 
             firstOptionUpdated: function (selectedValue) {
                 var filters = this.variationsFilter;
-                this.attributes[1].attribute_values
+                this.properties[1].properties_values
                         = this.secondSetValues.filter(
                         function (attribute) {
                             return filters[selectedValue].indexOf(attribute._id) >= 0

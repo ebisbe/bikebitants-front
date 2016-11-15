@@ -6,7 +6,7 @@
                     <label>{{ name }}:</label>
                 </div>
                 <div class="form-group">
-                    <select name="attributes[{{ name }}]"
+                    <select name="properties[{{ name }}]"
                             v-model="selectedElement"
                             class="form-control"
                             v-on:change="changed">

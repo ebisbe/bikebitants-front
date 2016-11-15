@@ -58,7 +58,7 @@ class CartController extends Controller
         }
 
         $productId = $request->input('product_id');
-        $properties = $request->input('attributes', []);
+        $properties = $request->input('properties', []);
         $variationProperties = array_merge([$productId], $properties);
 
         /** @var Product $product */

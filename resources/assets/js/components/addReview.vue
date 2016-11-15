@@ -35,7 +35,7 @@
         <div class="form-group comment-form-comment {{ validation_comment ? 'has-error' : '' }}">
             <label for="comment" v-html="$t('catalogue.comment')"></label>
             <textarea class="form-control" id="comment" name="comment" required
-                      placeholder="{{ $t.('catalogue.comment_placeholder') }}" v-model="comment"></textarea>
+                      placeholder="{{ $t('catalogue.comment_placeholder') }}" v-model="comment"></textarea>
             <span v-show="validation_name" class="help-block">
                     <strong>{{ validation_comment }}</strong>
                 </span>

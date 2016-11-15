@@ -31,7 +31,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="product_id" value="{{ $product->_id }}">
                         <product-form
-                                v-bind:attributes='{!! json_encode($product->properties()->sortBy('order')->all()) !!}'
+                                v-bind:properties='{!! json_encode($product->properties()->sortBy('order')->all()) !!}'
                                 v-bind:variations='{!! json_encode($product->variations()->all()) !!}'
                         ></product-form>
 

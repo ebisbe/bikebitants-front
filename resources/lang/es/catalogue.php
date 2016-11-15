@@ -25,7 +25,7 @@ return [
     'email_not_published' => 'Tu correo electrónico no será publicado. Los campos obligatorios estan marcados con <span class="required">*</span>',
     'name_placeholder' => 'Introduce tu nombre',
     'email_placeholder' => 'Introduce tu correo electrónico',
-    'comment_placeholder' => 'Introduce tu correo electrónico',
+    'comment_placeholder' => 'Introduce tu comentario',
     'name' => 'Nombre <span class="required">*</span>',
     'email' => 'Correo electrónico <span class="required">*</span>',
     'rating' => 'Valoración <span class="required">*</span>',
