@@ -198,10 +198,10 @@
                     <div class="footer-widget footer-widget-links">
                         <h4>@lang('layout.enterprise')</h4>
                         <ul class="list-unstyled">
-                            <li><a href="/quines-somos">@lang('layout.whoweare')</a></li>
-                            <li><a href="">@lang('layout.compromise')</a></li>
-                            <li><a href="">@lang('layout.incentives')</a></li>
-                            <li><a href="">@lang('layout.press')</a></li>
+                            <li><a href="{{ route('who_we_are') }}">@lang('layout.whoweare')</a></li>
+                            <li><a href="{{ route('social_commitment') }}">@lang('layout.commitment')</a></li>
+                            <li><a href="{{ route('incentives') }}">@lang('layout.incentives')</a></li>
+                            <li><a href="{{ route('press') }}">@lang('layout.press')</a></li>
                             <li><a href="">@lang('layout.contact')</a></li>
                         </ul>
                     </div>

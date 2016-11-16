@@ -4,7 +4,7 @@ return [
     'shop' => 'Tienda',
     'enterprise' => 'Empresa',
     'whoweare' => 'Quiénes somos',
-    'compromise' => 'Compromiso Bikebitants',
+    'commitment' => 'Compromiso Bikebitants',
     'incentives' => 'Incentivos para empresas',
     'press' => 'Sala de prensa',
     'contact' => 'Contacto',
@@ -14,5 +14,6 @@ return [
     'returns' => 'Devoluciones y anulaciones',
     'delivery' => 'Entrega y plazos',
     'recent_tweets' => 'Ultimos tweets',
-    'go_back' => 'Volver a'
+    'go_back' => 'Volver a',
+    'see' => 'Ver'
 ];

@@ -56,6 +56,9 @@ Route::group(['middleware' => 'token'], function () {
 
     Route::get('/quines-somos', 'StaticPagesController@whoWeAre')->name('who_we_are');
     Route::get('/condiciones-generales', 'StaticPagesController@termsAndConditions')->name('terms_conditions');
+    Route::get('/compromiso-bikebitants', 'StaticPagesController@socialCommitment')->name('social_commitment');
+    Route::get('/incentivos-empresas', 'StaticPagesController@incentives')->name('incentives');
+    Route::get('/prensa', 'StaticPagesController@press')->name('press');
 
 // End Static Pages
 

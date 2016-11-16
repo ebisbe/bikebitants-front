@@ -472,7 +472,7 @@
                                                 formularios de alta, tendrá pleno derecho a ejercitar sus derechos de
                                                 acceso, rectificación y cancelación en cualquier momento solicitándolo a
                                                 hola@bikebitants.com o por correo ordinario a Bikebitants, S.L. , c/
-                                                Primer de Maig 7 , 2º2ª, 08242 Manresa (Barcelona) incluyendo en ambos
+                                                Doctor Trueta 112, Bajos 17 08005 Barcelona incluyendo en ambos
                                                 casos copia del DNI u otro documento identificativo, del titular de los
                                                 datos. Bikebitants reitera que se compromete al respeto y
                                                 confidencialidad absoluta en la recogida y tratamiento de los datos

@@ -38,4 +38,34 @@ class StaticPagesController extends Controller
 
         return view('staticPages.terms_conditions', compact('title', 'subtitle'));
     }
+
+    public function socialCommitment()
+    {
+        $title = 'Bikebitants';
+        $subtitle = 'Compromiso Social';
+
+        Breadcrumbs::addCrumb('Compromiso Social');
+
+        return view('staticPages.social_commitment', compact('title', 'subtitle'));
+    }
+
+    public function incentives()
+    {
+        $title = 'Bikebitants';
+        $subtitle = 'Incentivos para empresas';
+
+        Breadcrumbs::addCrumb('Incentivos para empresas');
+
+        return view('staticPages.incentives', compact('title', 'subtitle'));
+    }
+
+    public function press()
+    {
+        $title = 'Bikebitants';
+        $subtitle = 'Prensa';
+
+        Breadcrumbs::addCrumb('Prensa');
+
+        return view('staticPages.press', compact('title', 'subtitle'));
+    }
 }
