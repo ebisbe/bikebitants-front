@@ -64,9 +64,9 @@ class WordpressSync extends Command
     public function import($wooCommerceCallback, $wordpressServiceCallback) {
         $this->inspector(function($page) use ($wooCommerceCallback, $wordpressServiceCallback) {
             $categories = collect(Woocommerce::get($wooCommerceCallback, ['page' => $page]));
-            $categories->each(function ($category) use ($wordpressServiceCallback) {
+            $categories->each(function ($element) use ($wordpressServiceCallback) {
                 if(method_exists($this->wordpressService, $wordpressServiceCallback)) {
-                    $this->wordpressService->$wordpressServiceCallback($category);
+                    $this->wordpressService->$wordpressServiceCallback($element);
                 }
                 echo('.');
             });
