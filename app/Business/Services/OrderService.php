@@ -15,7 +15,6 @@ use App\Buyer;
 use Carbon\Carbon;
 use Darryldecode\Cart\CartCondition;
 use Darryldecode\Cart\ItemCollection;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Omnipay;
@@ -25,8 +24,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OrderService
 {
-    protected $cache;
-
     /** @var  Order $order */
     protected $order;
 
@@ -51,9 +48,8 @@ class OrderService
      * @param Country $country
      * @param PaymentMethod $paymentMethod
      */
-    public function __construct(Cache $cache, Country $country, PaymentMethod $paymentMethod)
+    public function __construct(Country $country, PaymentMethod $paymentMethod)
     {
-        $this->cache = $cache;
         $this->country = $country;
         $this->paymentMethod = $paymentMethod;
     }

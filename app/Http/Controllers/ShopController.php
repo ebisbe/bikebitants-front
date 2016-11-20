@@ -10,6 +10,7 @@ use App\Business\Repositories\CategoryRepository;
 use App\Business\Search\ProductSearch;
 use App\Business\Repositories\ProductRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use MetaTag;
 use Breadcrumbs;
 use App\Http\Requests;
@@ -131,8 +132,10 @@ class ShopController extends Controller
         $subtitle = trans('layout.shop');
         $selectedCat = '';
 
-        $products = $productSearch::apply($request, $route);
-        $filters = $productSearch::getFilters($request, $route);
+        $productSearch->setFilters($request);
+        $productSearch->setRoute($route);
+        $products = $productSearch->apply();
+        $filters = $productSearch->getFilters();
         $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
 
         MetaTag::set('title', 'Bikebitants shop');
@@ -166,8 +169,10 @@ class ShopController extends Controller
         $subtitle = $cat->name;
         $selectedCat = $cat->_id;
 
-        $products = $productSearch::apply($request, $route);
-        $filters = $productSearch::getFilters($request, $route);
+        $productSearch->setFilters($request);
+        $productSearch->setRoute($route);
+        $products = $productSearch->apply();
+        $filters = $productSearch->getFilters();
         $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
@@ -201,8 +206,10 @@ class ShopController extends Controller
         $subtitle = $subCat->name;
         $selectedCat = $cat->_id;
 
-        $products = $productSearch::apply($request, $route);
-        $filters = $productSearch::getFilters($request, $route);
+        $productSearch->setFilters($request);
+        $productSearch->setRoute($route);
+        $products = $productSearch->apply();
+        $filters = $productSearch->getFilters();
         $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));

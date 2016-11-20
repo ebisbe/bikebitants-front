@@ -8,6 +8,7 @@ use Illuminate\Routing\Route;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use StaticVars;
 use Illuminate\Support\Collection;
+use Cache;
 
 /**
  * [
@@ -20,17 +21,50 @@ use Illuminate\Support\Collection;
  */
 class ProductSearch
 {
+    /** @var  Request $filters */
+    protected $filters;
+
+    /** @var  Route $route */
+    protected $route;
 
     /**
      * @param Request $filters
+     */
+    public function setFilters(Request $filters)
+    {
+        $this->filters = $filters;
+    }
+
+    /**
      * @param Route $route
+     */
+    public function setRoute(Route $route)
+    {
+        $this->route = $route;
+    }
+
+    /**
+     * Check if query already saved to cache and if not generate a new one
      * @return Builder
      */
-    public static function apply(Request $filters, Route $route)
+    public function apply()
     {
-        list($filters, $sort) = static::applyDecoratorsFromRequest($filters, [], $route);
+        return Cache::rememberForever($this->getCacheKey(), function () {
+            list($filters, $sort) = $this->applyDecoratorsFromRequest([]);
+            return $this->query($filters, $sort);
+        });
+    }
 
-        $query = (new Product())->newQuery()
+    /**
+     * Base query
+     *
+     * @param $filters
+     * @param $sort
+     * @return mixed
+     */
+    protected function query($filters, $sort)
+    {
+        return (new Product())->newQuery()
             ->with('brand')
             ->raw(function ($collection) use ($filters, $sort) {
                 return $collection->aggregate([
@@ -57,15 +91,22 @@ class ProductSearch
                     ]]
                 ]);
             });
+    }
 
-        return $query;
+    /**
+     * Generate Cache Key
+     * @return string
+     */
+    public function getCacheKey()
+    {
+        return serialize(array_merge($this->filters->all(), $this->route->parameters()));
     }
 
     /**
      * Get default filtering values
      * @return Collection
      */
-    private static function getDefaultFilters()
+    private function getDefaultFilters()
     {
         return collect([
             'sort' => StaticVars::filterSortingTypeSelected(),
@@ -81,13 +122,13 @@ class ProductSearch
      * @param Route $route
      * @return Builder
      */
-    private static function applyDecoratorsFromRequest(Request $filters, $query, Route $route)
+    private function applyDecoratorsFromRequest($query)
     {
-        foreach (static::getFilters($filters, $route) as $filterName => $value) {
+        foreach ($this->getFilters() as $filterName => $value) {
 
-            $decorator = static::createFilterDecorator($filterName);
+            $decorator = $this->createFilterDecorator($filterName);
 
-            if (static::isValidDecorator($decorator)) {
+            if ($this->isValidDecorator($decorator)) {
                 array_push($query, $decorator::apply($value));
             }
 
@@ -103,15 +144,13 @@ class ProductSearch
 
     /**
      * Return applied filters. Whether are the default or the requested.
-     * @param Request $filters
-     * @param Route $route
      * @return static
      */
-    public static function getFilters(Request $filters, Route $route)
+    public function getFilters()
     {
-        return static::getDefaultFilters()
-            ->merge($filters->all())
-            ->merge($route->parameters());
+        return $this->getDefaultFilters()
+            ->merge($this->filters->all())
+            ->merge($this->route->parameters());
     }
 
     /**
@@ -119,7 +158,7 @@ class ProductSearch
      * @param $name
      * @return string
      */
-    private static function createFilterDecorator($name)
+    private function createFilterDecorator($name)
     {
         return __NAMESPACE__ . '\\Filters\\' . studly_case($name);
     }
@@ -129,7 +168,7 @@ class ProductSearch
      * @param $decorator
      * @return bool
      */
-    private static function isValidDecorator($decorator)
+    private function isValidDecorator($decorator)
     {
         return class_exists($decorator);
     }

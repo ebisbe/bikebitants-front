@@ -3,6 +3,8 @@ namespace App\Business;
 
 use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\UTCDatetime;
+use MongoDB\Model\BSONArray;
+use MongoDB\Model\BSONDocument;
 
 class SerializeUtil
 {
@@ -65,6 +67,9 @@ class SerializeUtil
             }
             else if($value instanceof ObjectID) {
                 $dataToSerialize[$key] = (string) $value;
+            }
+            else if($value instanceof BSONArray || $value instanceof BSONDocument) {
+                $dataToSerialize[$key] = self::serializeArray($value->bsonSerialize());
             }
             else {
                 $dataToSerialize[$key] = $value;
