@@ -14,7 +14,7 @@ class Buyer extends Model
      */
     public function billing()
     {
-        return $this->embedsMany(Billing::class);
+        return $this->embedsOne(Billing::class);
     }
 
     /**
@@ -22,6 +22,6 @@ class Buyer extends Model
      */
     public function shipping()
     {
-        return $this->embedsMany(Shipping::class);
+        return $this->embedsOne(Shipping::class);
     }
 }

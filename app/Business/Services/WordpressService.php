@@ -8,10 +8,12 @@ use App\Business\Repositories\ProductRepository;
 use App\Category;
 use App\Coupon;
 use App\Image;
+use App\Order;
 use App\Product;
 use App\Property;
 use App\PropertyValue;
 use App\Review;
+use App\Shipping;
 use App\Tax;
 use App\Variation;
 use Carbon\Carbon;
@@ -466,22 +468,37 @@ class WordpressService
      * Create order in WooCommerce
      * @param $order
      */
-    public function createOrder($order)
+    public function createOrder(Order $order)
     {
-        $items = collect();
-        foreach($order->cart as $cart) {
-            $item = [];
-            $item['product_id'] = $cart->product_id;
-            $item['quantity'] = $cart->quantity;
-            if(!empty($cart->product->properties)) {
-                $item['variation_id'] = $cart->variation_id;
-            }
-            $items->push($item);
+
+        $coupon = [];
+        $couponCondition = $order->conditionsFilter(Coupon::CART_CONDITION_TYPE);
+        if (!empty($couponCondition)) {
+            $couponRaw = Coupon::whereName($couponCondition['name'])->first();
+
+            $coupon = [[
+                'code' => $couponRaw->name,
+                'id' => $couponRaw->external_id,
+                'discount' => 0
+            ]];
         }
 
+        $items = $order->cart->map(function ($cart) {
+            $item = [];
+            $item['product_id'] = $cart->product_id;
+            $item['total'] = $cart->total;
+            $item['quantity'] = $cart->quantity;
+            if (!empty($cart->product->properties)) {
+                $item['variation_id'] = $cart->variation_id;
+            }
+            return $item;
+        });
+
+        $shipping = $order->conditionsFilter(Shipping::CART_CONDITION_TYPE);
+
         $data = [
-            'payment_method' => 'bacs',
-            'payment_method_title' => 'Direct Bank Transfer',
+            'payment_method' => $order->payment_method->code,
+            'payment_method_title' => $order->payment_method->name,
             'set_paid' => false,
             'billing' => [
                 'first_name' => $order->billing->first_name,
@@ -509,10 +526,12 @@ class WordpressService
             'shipping_lines' => [
                 [
                     'method_id' => 'flat_rate',
-                    'method_title' => $order->shipping_conditions()['name'],
-                    'total' => $order->shipping_conditions()['value']
+                    'method_title' => $shipping['name'],
+                    'total' => $shipping['value'],
+                    'total_taxes' => $shipping['value'] * 0.21
                 ]
-            ]
+            ],
+            "coupon_lines" => $coupon
         ];
 
         // todo add coupons

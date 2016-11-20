@@ -13,6 +13,7 @@ use App\PaymentMethod;
 use App\Shipping;
 use App\Buyer;
 use Carbon\Carbon;
+use Darryldecode\Cart\CartCondition;
 use Darryldecode\Cart\ItemCollection;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Arr;
@@ -24,18 +25,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OrderService
 {
-    use DispatchesJobs;
-
     protected $cache;
 
-    /** @var  Buyer $buyer */
-    protected $buyer;
     /** @var  Order $order */
     protected $order;
-    /** @var  Billing $billing */
-    protected $billing;
-    /** @var  Shipping $shipping */
-    protected $shipping;
 
     /** @var  String $view */
     protected $view;
@@ -68,26 +61,26 @@ class OrderService
     public function checkoutOrder($avoidLoop = false)
     {
         $this->getOrder();
-        switch ($this->order->status) {
-            case Order::New :
+        switch (true) {
+            case $this->order->status == Order::New :
                 $this->orderNew();
                 break;
-            case Order::ToRedirect :
+            case $this->order->status == Order::ToRedirect :
                 $this->order->status = Order::Redirected;
                 $this->order->save();
                 //Event::fire('order.redirected', [$this->order]);
                 $this->response->redirect();
                 break;
-            case Order::Redirected && !$avoidLoop :
+            case $this->order->status == Order::Redirected && !$avoidLoop :
                 $this->confirmPayment();
                 break;
-            case Order::Confirmed :
+            case $this->order->status == Order::Confirmed :
                 $this->orderConfirmed();
                 break;
-            case Order::Cancelled :
+            case $this->order->status == Order::Cancelled :
                 $this->orderCancelled();
                 break;
-            case Order::Error :
+            case $this->order->status == Order::Error :
             default:
                 $this->orderError();
                 break;
@@ -224,20 +217,26 @@ class OrderService
      */
     private function placeOrder()
     {
-        $this->getBuyer();
         $this->getOrder();
 
-        Coupon::addToCart($this->getCoupon());
+        $coupon = Coupon::addToCart($this->getCoupon());
+        if(!empty($coupon)) {
+            $condition = new CartCondition($coupon);
+            Cart::condition($condition);
+            $this->order->conditions = $this->updateOrderConditions();
+        }
 
         $this->order->status = Order::ValidData;
-        $this->order->buyer()->associate($this->buyer);
-        $this->order->billing()->save($this->billing);
-        $this->order->shipping()->save($this->shipping);
+
+        $buyer = $this->getBuyer();
+        $this->order->buyer()->associate($buyer);
+        $this->order->billing()->associate($buyer->billing);
+        $this->order->shipping()->associate($buyer->shipping);
 
         $paymentMethod = PaymentMethod::whereCode($this->getPaymentType())->first();
         $this->order->payment_method()->associate($paymentMethod);
 
-        $this->order->buyer_id = $this->buyer->id;
+        $this->order->buyer_id = $buyer->id;
 
         $this->order->save();
     }
@@ -301,16 +300,7 @@ class OrderService
             $order->subtotal = Cart::getSubTotal();
             $order->total = Cart::getTotal();
             $order->total_items = Cart::getTotalQuantity();
-
-            $conditions = Cart::getConditions()->map(function ($item) {
-                return [
-                    'target' => $item->getTarget(),
-                    'value' => $item->getValue(),
-                    'name' => $item->getName(),
-                    'type' => $item->getType(),
-                ];
-            })->values()->toArray();
-            $order->conditions = $conditions;
+            $order->conditions = $this->updateOrderConditions();
 
             $ids = $order->cart()->get()->map(function ($item) {
                 return $item->_id;
@@ -332,6 +322,21 @@ class OrderService
             $order->save();
         }
         return $order;
+    }
+
+    public function updateOrderConditions()
+    {
+        return Cart::getConditions()
+            ->map(function ($item) {
+                return [
+                    'target' => $item->getTarget(),
+                    'value' => $item->getValue(),
+                    'name' => $item->getName(),
+                    'type' => $item->getType(),
+                ];
+            })
+            ->values()
+            ->toArray();
     }
 
     public function orderError()
@@ -372,7 +377,6 @@ class OrderService
 
         $billing = new Billing();
         $billing->fill($this->getFormParams('billing'));
-        $this->billing = $billing;
         $buyer->billing()->associate($billing);
 
         $data = $this->getFormParams('shipping');
@@ -381,12 +385,11 @@ class OrderService
         }
         $shipping = new Shipping();
         $shipping->fill($data);
-        $this->shipping = $shipping;
         $buyer->shipping()->associate($shipping);
 
         $buyer->save();
 
-        $this->buyer = $buyer;
+        return $buyer;
     }
 
     /**

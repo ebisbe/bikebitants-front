@@ -17,13 +17,13 @@ class AddPaymentMethods extends Migration
 
         DB::collection('payment_methods')->insert([
             [
-                'name' => 'Pay via Credit Card',
+                'name' => 'Pago mediante tarjeta de crédito',
                 'short_description' => '',
                 'description' => '',
                 'code' => 'redsys',
             ],
             [
-                'name' => 'PayPal',
+                'name' => 'Pago mediante PayPal',
                 'short_description' => '',
                 'description' => '',
                 'code' => 'paypal',

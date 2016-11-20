@@ -31,6 +31,7 @@ class CouponValidator
      */
     public function not_expired($attribute, $value, $parameters, $validator)
     {
+        return true;
         $coupon = $this->getCoupon($attribute, $validator);
         if(is_null($coupon->expired_at)) {
             return true;
@@ -54,13 +55,29 @@ class CouponValidator
     }
 
     /**
+ * @param $attribute
+ * @param $value
+ * @param $parameters
+ * @param $validator
+ * @return bool
+ */
+    public function maximum_cart($attribute, $value, $parameters, $validator)
+    {
+        $coupon = $this->getCoupon($attribute, $validator);
+        if(is_null($coupon->maximum_cart) || $coupon->maximum_cart == 0) {
+            return true;
+        }
+        return Cart::getSubTotal() <= $coupon->maximum_cart;
+    }
+
+    /**
      * @param $attribute
      * @param $value
      * @param $parameters
      * @param $validator
      * @return bool
      */
-    public function maximum_cart($attribute, $value, $parameters, $validator)
+    public function not_repeated($attribute, $value, $parameters, $validator)
     {
         $coupon = $this->getCoupon($attribute, $validator);
         if(is_null($coupon->maximum_cart) || $coupon->maximum_cart == 0) {

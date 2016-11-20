@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Business\MongoEloquentModel as Model;
-use Darryldecode\Cart\CartCondition;
 use MongoDB\BSON\UTCDatetime;
 
 /**
@@ -19,7 +18,6 @@ use MongoDB\BSON\UTCDatetime;
 class Coupon extends Model
 {
     const CART_CONDITION_TYPE = 'coupon';
-    const CART_CONDITION_TARGET = 'subtotal';
 
     const PERCENTAGE = '%';
     const DIRECT = '&euro;';
@@ -65,26 +63,23 @@ class Coupon extends Model
     /**
      * Add to cart conditions a valid couponName
      * @param $couponName
-     * @return bool
+     * @return array
      */
     public static function addToCart($couponName)
     {
         if (empty($couponName)) {
-            return false;
+            return [];
         }
 
         $coupon = Coupon::whereName($couponName)->first();
 
-        $condition = new CartCondition([
+        return [
             'name' => $coupon->name,
             'type' => Coupon::CART_CONDITION_TYPE,
-            'target' => Coupon::CART_CONDITION_TARGET,
+            'target' => Cart::CART_CONDITION_TARGET_ITEM,
             'value' => $coupon->value,
             'order' => 1
-        ]);
-        \Cart::condition($condition);
-
-        return true;
+        ];
     }
 
     /**

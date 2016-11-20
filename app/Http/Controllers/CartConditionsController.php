@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Shipping;
 use App\Zone;
 use Darryldecode\Cart\CartCondition;
 use Illuminate\Http\Request;
 use Cart;
+use App\Cart as CartModel;
 
 use App\Http\Requests;
 
@@ -43,9 +45,9 @@ class CartConditionsController extends Controller
 
         $condition = new CartCondition([
             'name' => $shippingMethod->name,
-            'type' => 'shipping',
-            'target' => 'subtotal',
-            'value' => number_format($shippingMethod->cost, 2).' &euro;',
+            'type' => Shipping::CART_CONDITION_TYPE,
+            'target' => CartModel::CART_CONDITION_TARGET_SUBTOTAL,
+            'value' => number_format($shippingMethod->cost, 2) . ' &euro;',
             'order' => 4
         ]);
         Cart::condition($condition);
@@ -70,7 +72,6 @@ class CartConditionsController extends Controller
         return array_merge(
             [['name' => trans('checkout.total_products'), 'value' => Cart::getSubTotal() . ' &euro;']],
             $conditions->toArray(),
-            [['name' => 'IVA', 'value' => '[21%]']],
             [['name' => trans('checkout.total'), 'value' => Cart::getTotal() . ' &euro;']]
         );
     }

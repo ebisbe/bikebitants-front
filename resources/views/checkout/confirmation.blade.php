@@ -154,7 +154,6 @@
                                 @foreach($order->conditions as $condition)
                                     <li>{{ $condition['name'] }}<span>{{ round($condition['value'], 2) }}</span></li>
                                 @endforeach
-                                <li>IVA<span>[21%]</span></li>
                                 <li>Total<span class="total">{{ $order->total }} &euro;</span></li>
                             </ul>
                         </div>

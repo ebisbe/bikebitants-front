@@ -9,6 +9,9 @@ use \Request;
 
 class Cart extends Model
 {
+    const CART_CONDITION_TARGET_ITEM = 'item';
+    const CART_CONDITION_TARGET_SUBTOTAL = 'subtotal';
+
     /**
      * Each cart has one product
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

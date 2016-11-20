@@ -102,7 +102,6 @@ MY ACCOUNT - START
                                     @foreach(Cart::getConditions() as $condition)
                                         <li>{{ $condition->getName() }}<span>{{ $condition->getValue() }}</span></li>
                                     @endforeach
-                                    <li>IVA<span>[21%]</span></li>
                                     <li>Total<span>{{ Cart::getTotal() }}&euro;</span></li>
                                 </ul>
                             </div>

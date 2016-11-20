@@ -41,6 +41,7 @@ class CartController extends Controller
         if ($cartCollect->isEmpty()) {
             return view('cart.empty', compact('title', 'subtitle'));
         }
+
         return view('cart.index', compact('cartCollect', 'title', 'subtitle'));
     }
 
@@ -81,13 +82,13 @@ class CartController extends Controller
                 'price' => $product->finalPrice($variationProperties),
                 'quantity' => $request->input('quantity', 1),
                 // TODO change tax depending IP
-                'conditions' => new \Darryldecode\Cart\CartCondition([
+                /*'conditions' => new \Darryldecode\Cart\CartCondition([
                     'name' => '[21%] IVA',
                     'type' => 'tax',
                     'target' => 'item',
                     'value' => '21%',
                     'order' => 5
-                ]),
+                ]),*/
                 'attributes' => [
                     'product' => $product,
                     'variation_id' => $variation->external_id,
@@ -111,9 +112,8 @@ class CartController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if (Cart::isEmpty()) {
-            $response = trans('cart.no_items_to_delete');
-        } else {
+        $response = trans('cart.no_items_to_delete');
+        if (!Cart::isEmpty()) {
             Cart::remove($id);
             $response = true;
         }

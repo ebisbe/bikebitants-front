@@ -99,11 +99,11 @@ class Order extends Model
         return self::where('token', \Request::session()->get('order'))->get();
     }
 
-    public function shipping_conditions()
+    public function conditionsFilter($condition)
     {
         return collect($this->conditions)
-            ->filter(function($conditions) {
-                return $conditions['type'] == 'shipping';
+            ->filter(function($conditions) use ($condition) {
+                return $conditions['type'] == $condition;
             })->first();
     }
 }
