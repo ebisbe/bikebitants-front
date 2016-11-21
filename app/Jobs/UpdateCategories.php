@@ -28,6 +28,7 @@ class UpdateCategories extends Job implements ShouldQueue
 
     /**
      * @param ProductRepository $productRepository
+     * @return bool
      */
     public function handle(ProductRepository $productRepository)
     {

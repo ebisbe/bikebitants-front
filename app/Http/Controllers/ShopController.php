@@ -44,7 +44,7 @@ class ShopController extends Controller
 
         $brands = $brandRepository->findAll();
         $featuredProducts = $productRepository->where('is_featured', true)->limit(10)->findAll();
-        $productsLeft = $featuredProducts->splice(0,2);
+        $productsLeft = $featuredProducts->splice(0, 2);
         $productsRight = $featuredProducts;
         $categories = $categoryRepository->with(['children'])->where('filename', 'exists', true)->orderBy('is_featured', 'asc')->limit(3)->findAll();
 
@@ -64,7 +64,7 @@ class ShopController extends Controller
         $product = $productRepository->with(['category.father', 'brand'])->findBy('slug', $slug);
 
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
-        if(!empty($product->category->father)) {
+        if (!empty($product->category->father)) {
             Breadcrumbs::addCrumb($product->category->father->name, route('shop.category', [
                 'category' => $product->category->father->slug
             ]));
@@ -121,10 +121,10 @@ class ShopController extends Controller
      * @param Request $request
      * @param ProductSearch $productSearch
      * @param Route $route
-     * @param Category $category
+     * @param Category $categoryRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function shop(Request $request, ProductSearch $productSearch, Route $route, Category $category)
+    public function shop(Request $request, ProductSearch $productSearch, Route $route, CategoryRepository $categoryRepository)
     {
         Breadcrumbs::addCrumb(trans('layout.shop'));
 
@@ -136,7 +136,8 @@ class ShopController extends Controller
         $productSearch->setRoute($route);
         $products = $productSearch->apply();
         $filters = $productSearch->getFilters();
-        $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
+        $categories = $categoryRepository->with(['children'])->where('father_id', null)->orderBy('name', 'asc')->findAll();
+
 
         MetaTag::set('title', 'Bikebitants shop');
         MetaTag::set('description', 'This is the meta description');
@@ -149,14 +150,14 @@ class ShopController extends Controller
      * @param Request $request
      * @param ProductSearch $productSearch
      * @param Route $route
-     * @param Category $category
+     * @param Category $categoryRepository
      * @param string $slugCategory
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function category(Request $request, ProductSearch $productSearch, Route $route, Category $category, $slugCategory)
+    public function category(Request $request, ProductSearch $productSearch, Route $route, CategoryRepository $categoryRepository, $slugCategory)
     {
         /** @var Category $cat */
-        $cat = Category::whereSlug($slugCategory)->first();
+        $cat = $categoryRepository->findBy('slug', $slugCategory);
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb($cat->name, route('shop.category', ['category' => $cat->slug]));
 
@@ -173,7 +174,7 @@ class ShopController extends Controller
         $productSearch->setRoute($route);
         $products = $productSearch->apply();
         $filters = $productSearch->getFilters();
-        $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
+        $categories = $categoryRepository->with(['children'])->where('father_id', null)->orderBy('name', 'asc')->findAll();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
@@ -182,16 +183,16 @@ class ShopController extends Controller
      * @param Request $request
      * @param ProductSearch $productSearch
      * @param Route $route
-     * @param Category $category
+     * @param Category $categoryRepository
      * @param string $slugCategory
      * @param string $slugSubCategory
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function subcategory(Request $request, ProductSearch $productSearch, Route $route, Category $category, $slugCategory, $slugSubCategory)
+    public function subcategory(Request $request, ProductSearch $productSearch, Route $route, CategoryRepository $categoryRepository, $slugCategory, $slugSubCategory)
     {
         /** @var Category $cat */
-        $cat = Category::whereSlug($slugCategory)->first();
-        $subCat = Category::whereSlug($slugSubCategory)->first();
+        $cat = $categoryRepository->findBy('slug', $slugCategory);
+        $subCat = $categoryRepository->findBy('slug', $slugSubCategory);
 
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb($cat->name, route('shop.category', ['category' => $cat->slug]));
@@ -210,7 +211,7 @@ class ShopController extends Controller
         $productSearch->setRoute($route);
         $products = $productSearch->apply();
         $filters = $productSearch->getFilters();
-        $categories = $category->with('children')->whereNull('father_id')->orderBy('name', 'asc')->get();
+        $categories = $categoryRepository->with(['children'])->where('father_id', null)->orderBy('name', 'asc')->findAll();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }

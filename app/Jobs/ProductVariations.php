@@ -26,9 +26,7 @@ class ProductVariations extends Job implements ShouldQueue
     }
 
     /**
-     * Execute the job.
-     *
-     * @return void
+     * @param ProductRepository $productRepository
      */
     public function handle(ProductRepository $productRepository)
     {

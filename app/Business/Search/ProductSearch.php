@@ -49,7 +49,7 @@ class ProductSearch
      */
     public function apply()
     {
-        return Cache::rememberForever($this->getCacheKey(), function () {
+        return Cache::tags($this->getCacheTags())->rememberForever($this->getCacheKey(), function () {
             list($filters, $sort) = $this->applyDecoratorsFromRequest([]);
             return $this->query($filters, $sort);
         });
@@ -62,7 +62,7 @@ class ProductSearch
      * @param $sort
      * @return mixed
      */
-    protected function query($filters, $sort)
+    private function query($filters, $sort)
     {
         return (new Product())->newQuery()
             ->with('brand')
@@ -94,12 +94,20 @@ class ProductSearch
     }
 
     /**
+     * @return array
+     */
+    private function getCacheTags()
+    {
+        return array_values($this->route->parameters());
+    }
+
+    /**
      * Generate Cache Key
      * @return string
      */
-    public function getCacheKey()
+    private function getCacheKey()
     {
-        return serialize(array_merge($this->filters->all(), $this->route->parameters()));
+        return md5(json_encode($this->filters->all() + $this->route->parameters()));
     }
 
     /**
