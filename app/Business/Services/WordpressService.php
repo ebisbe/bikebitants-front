@@ -19,18 +19,48 @@ use App\Variation;
 use Carbon\Carbon;
 use StaticVars;
 use Storage;
+use Pixelpeter\Woocommerce\Facades\Woocommerce;
+
 
 class WordpressService
 {
     /** @var  Product $product */
     protected $product;
 
+    public function import($wooCommerceCallback, $wordpressServiceCallback)
+    {
+        $this->inspector(function ($page) use ($wooCommerceCallback, $wordpressServiceCallback) {
+            $categories = collect(Woocommerce::get($wooCommerceCallback, ['page' => $page]));
+            $categories->each(function ($element) use ($wordpressServiceCallback) {
+                if (method_exists($this, $wordpressServiceCallback)) {
+                    $this->$wordpressServiceCallback($element);
+                }
+                echo '.';
+            });
+            return $categories->count();
+        });
+    }
+
+    /**
+     * @param $callback
+     * @param string $text
+     */
+    public function inspector($callback)
+    {
+        $page = 1;
+        do {
+            echo '+';
+            $totalItems = $callback($page);
+            $page++;
+        } while ($totalItems > 0);
+    }
+
     /**
      * Import product from WooCommerce
      * @param $wpProduct
      * @return bool
      */
-    public function importProduct($wpProduct)
+    public function syncProduct($wpProduct)
     {
         $status = $this->statusSyncro($wpProduct['status'], $wpProduct['catalog_visibility']);
         if ($status == Product::DRAFT) {
@@ -38,6 +68,7 @@ class WordpressService
         }
 
         $this->product = Product::whereExternalId($wpProduct['id'])->first();
+       // $this->product->timestamps = false;
         if (empty($this->product)) {
             $this->product = new Product();
         }
@@ -54,13 +85,10 @@ class WordpressService
             ->map(function ($tag) {
                 return $tag['name'];
             })->toArray();
-        if (is_null($wpProduct['date_created'])) {
-            $this->product->created_at = Carbon::now();
-        } else {
-            $this->product->created_at = $this->convertDate($wpProduct['date_created']);
-        }
-        $this->product->updated_at = $this->convertDate($wpProduct['date_modified']);
-        (new ProductRepository)->update($this->product->_id, $this->product->toArray());
+
+        //$this->product->created_at = $this->convertDate($wpProduct['date_created']);
+        //$this->product->updated_at = $this->convertDate($wpProduct['date_modified']);
+        (new ProductRepository)->update($this->product, $this->product->toArray());
 
         $this->syncProperties($wpProduct['attributes']);
         $this->syncCategories($wpProduct['categories']);
@@ -374,7 +402,7 @@ class WordpressService
      * Import the review and relate it to the product
      * @param $wpReview
      */
-    public function importReview($wpReview)
+    public function syncReview($wpReview)
     {
 
         $review = $this->product
@@ -409,12 +437,12 @@ class WordpressService
     /**
      * Convert WP date format to a Carbon
      * @param $date
-     * @return Carbon|null
+     * @return Carbon
      */
     protected function convertDate($date)
     {
         if (is_null($date)) {
-            return null;
+            return Carbon::now();
         }
         return Carbon::createFromFormat(StaticVars::wordpressDateTime(), $date);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Business\Models\Shop\Product;
 use Request;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -54,6 +55,10 @@ class EventServiceProvider extends ServiceProvider
             ) {
                 return false;
             }
+        });
+
+        Product::updated(function($product) {
+            \Cache::tags($product->categories)->flush();
         });
 
     }

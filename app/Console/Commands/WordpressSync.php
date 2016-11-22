@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Business\Services\WordpressService;
 use Illuminate\Console\Command;
 use Pixelpeter\Woocommerce\Facades\Woocommerce;
-use Psy\Exception\ErrorException;
 
 class WordpressSync extends Command
 {
@@ -42,51 +41,33 @@ class WordpressSync extends Command
     {
         $this->wordpressService = $wordpressService;
 
-        $this->import('products/categories', 'syncCategory');
-        $this->import('taxes', 'syncTax');
-        $this->import('coupons', 'syncCoupon');
+        $this->info('sync Category:');
+        $this->wordpressService->import('products/categories', 'syncCategory');
+        $this->info('');
 
-        $this->inspector(function($page) {
+        $this->info('sync Tax:');
+        $this->wordpressService->import('taxes', 'syncTax');
+        $this->info('');
+
+        $this->info('sync Coupon:');
+        $this->wordpressService->import('coupons', 'syncCoupon');
+        $this->info('');
+
+        $this->info('sync products:');
+        $this->wordpressService->inspector(function($page) {
             $products = collect(Woocommerce::get('products', ['page' => $page]));
             $products->each(function ($product) {
-                $this->wordpressService->importProduct($product);
+                $this->wordpressService->syncProduct($product);
                 $reviews = collect(Woocommerce::get("products/{$product['id']}/reviews"));
                 $reviews->each(function ($review) {
-                    $this->wordpressService->importReview($review);
+                    $this->wordpressService->syncReview($review);
                     echo(',');
                 });
                 echo('.');
             });
             return $products->count();
-        }, 'sync products:');
+        });
     }
 
-    public function import($wooCommerceCallback, $wordpressServiceCallback) {
-        $this->inspector(function($page) use ($wooCommerceCallback, $wordpressServiceCallback) {
-            $categories = collect(Woocommerce::get($wooCommerceCallback, ['page' => $page]));
-            $categories->each(function ($element) use ($wordpressServiceCallback) {
-                if(method_exists($this->wordpressService, $wordpressServiceCallback)) {
-                    $this->wordpressService->$wordpressServiceCallback($element);
-                }
-                echo('.');
-            });
-            return $categories->count();
-        }, $wordpressServiceCallback);
-    }
 
-    /**
-     * @param $callback
-     * @param string $text
-     */
-    public function inspector($callback, $text = '')
-    {
-        $this->info($text);
-        $page = 1;
-        do {
-            echo('+');
-            $totalItems = $callback($page);
-            $page ++;
-        } while ($totalItems > 0);
-        $this->info('');
-    }
 }

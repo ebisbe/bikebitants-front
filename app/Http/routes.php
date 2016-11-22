@@ -49,7 +49,7 @@ Route::group(['middleware' => 'token'], function () {
     Route::resource('lead', 'LeadsController', ['only' => ['store']]);
     Route::resource('coupon', 'CouponController', ['only' => ['store']]);
     Route::resource('cart-conditions', 'CartConditionsController', ['only' => ['index', 'store']]);
-    Route::resource('wp', 'WordPressController', ['only' => ['show']]);
+    Route::resource('wp', 'WordPressController', ['only' => ['index', 'show']]);
     Route::resource('review', 'ReviewController', ['only' => ['store']]);
 
 // Static pages
