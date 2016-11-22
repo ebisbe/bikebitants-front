@@ -53,7 +53,7 @@ class CartController extends Controller
     public function store(Request $request, ProductRepository $productRepository)
     {
         $order = Order::currentOrder();
-        if(!$order->isEmpty() && $order->first()->status > Order::New) {
+        if (!$order->isEmpty() && $order->first()->status > Order::New) {
             //TODO throw response in json form  if it is an ajax request
             abort(402, 'Unable to add more products while checking out the cart.');
         }
@@ -98,11 +98,7 @@ class CartController extends Controller
             ]);
         }
 
-        if ($request->ajax()) {
-            return Cart::get($variation->sku);
-        } else {
-            return redirect('cart');
-        }
+        return redirect('cart');
     }
 
     /**
@@ -121,7 +117,7 @@ class CartController extends Controller
         if ($request->ajax()) {
             return ['response' => $response];
         } else {
-            return redirect('cart');
+            return redirect()->back();
         }
     }
 }

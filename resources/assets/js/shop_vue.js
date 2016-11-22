@@ -6,6 +6,7 @@ import productStatus from './components/admin/productStatus.vue';
 import productBoolean from './components/admin/productBoolean.vue';
 import productForm from './components/productForm.vue';
 import addReview from './components/addReview.vue';
+import menuCart from './components/menuCart.vue';
 
 import Locales from './vue-i18n-locales.generated.js';
 
@@ -20,6 +21,6 @@ Object.keys(Locales).forEach(function (lang) {
 new Vue({
     el: 'body',
 
-    components: { totalCheckout, productStatus, productBoolean, productForm, addReview }
+    components: { totalCheckout, productStatus, productBoolean, productForm, addReview, menuCart }
 
 });

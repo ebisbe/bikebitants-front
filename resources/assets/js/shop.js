@@ -53,20 +53,12 @@ $(document).ready(function () {
                 method: 'post'
             })
             .done(function () {
-                var text = 'Added ' + quantity + ' ' + product_name;
-                new PNotify({
-                    title: 'Watch out!',
-                    text: text
-                });
+
             })
             .fail(function () {
-                new PNotify({
-                    title: 'Watch out!',
-                    text: 'Product could not be added'
-                });
+
             })
             .always(function () {
-                //console.log("complete");
                 that.prop("disabled", false)
                     .find('i')
                     .toggleClass('fa-spinner fa-shopping-cart fa-spin');
