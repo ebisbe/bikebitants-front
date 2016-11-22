@@ -87,4 +87,14 @@ trait ProductPresenter
         return $hover;
     }
 
+
+    public function getStockLabelAttribute()
+    {
+        $add = '';
+        if($this->stock <= 10) {
+            $add = " ( $this->stock )";
+        }
+
+        return $this->stock != 0 ? trans('catalogue.in_stock').$add : trans('catalogue.out_of_stock');
+    }
 }

@@ -81,6 +81,7 @@ class WordpressService
         $this->product->slug = $wpProduct['slug'];
         $this->product->description = $this->stripVCRow($wpProduct['description']);
         $this->product->introduction = $wpProduct['short_description'];
+        $this->product->reviews_allowed = $wpProduct['reviews_allowed'];
         $this->product->tags = collect($wpProduct['tags'])
             ->map(function ($tag) {
                 return $tag['name'];

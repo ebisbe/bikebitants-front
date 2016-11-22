@@ -43,7 +43,7 @@ class Product extends Model
         'categories', 'rating'
     ];
 
-    protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean'];
+    protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean', 'review_allowed' => 'boolean'];
 
     public static function boot()
     {

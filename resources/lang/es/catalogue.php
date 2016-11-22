@@ -34,5 +34,7 @@ return [
 
     //lost things
     'max_stock' => 'Cantidad de stock',
-    'add_to_stock' => '<i class="fa fa-shopping-cart"></i> Añadir'
+    'add_to_stock' => '<i class="fa fa-shopping-cart"></i> Añadir',
+    'in_stock' => 'In Stock',
+    'out_of_stock' => 'Out of Stock'
 ];

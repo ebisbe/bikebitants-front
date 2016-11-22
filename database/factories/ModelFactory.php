@@ -65,6 +65,7 @@ $factory->define(Product::class, function (Generator $faker) {
         //'discount_init' => $faker->date(),
         //'discount_end' => $faker->date(),
         'tags' => $faker->words(),
+        'reviews_allowed' => $faker->boolean(),
             //'rating' => $faker,
         //'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
         'meta_title' => $name,

@@ -59,9 +59,10 @@ PRODUCTS - START
 
                     </div>
 
-                    <a class="btn btn-primary btn-lg" data-toggle="modal"
-                       data-target="#add-review">@lang('catalogue.add_review')</a>
-
+                    @if($product->reviews_allowed)
+                        <a class="btn btn-primary btn-lg" data-toggle="modal"
+                           data-target="#add-review">@lang('catalogue.add_review')</a>
+                    @endif
                 </div>
                 @if(!empty($product->video))
                     <div role="tabpanel" class="tab-pane" id="video">

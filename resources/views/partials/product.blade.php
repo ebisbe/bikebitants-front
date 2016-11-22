@@ -19,7 +19,7 @@
                 @include('partials.price')
                 <ul class="list-unstyled product-info">
                     <li><span>@lang('catalogue.id')</span>{{ $product->_id }}</li>
-                    <li><span>@lang('catalogue.availability')</span>{{ $product->stock != 0 ? 'In Stock' : 'Out of Stock'}}</li>
+                    <li><span>@lang('catalogue.availability')</span>{{ $product->stock_label }}</li>
                     <li><span>@lang('catalogue.brand')</span><a
                                 href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
                     </li>
