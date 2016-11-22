@@ -68,7 +68,7 @@ class WordpressService
         }
 
         $this->product = Product::whereExternalId($wpProduct['id'])->first();
-       // $this->product->timestamps = false;
+        // $this->product->timestamps = false;
         if (empty($this->product)) {
             $this->product = new Product();
         }
@@ -87,15 +87,12 @@ class WordpressService
                 return $tag['name'];
             })->toArray();
 
-        //$this->product->created_at = $this->convertDate($wpProduct['date_created']);
-        //$this->product->updated_at = $this->convertDate($wpProduct['date_modified']);
-        (new ProductRepository)->update($this->product, $this->product->toArray());
-
         $this->syncProperties($wpProduct['attributes']);
         $this->syncCategories($wpProduct['categories']);
         $this->syncImages($wpProduct['images']);
         $variations = !empty($wpProduct['variations']) ? $wpProduct['variations'] : [$wpProduct];
         $this->syncVariations($variations);
+        (new ProductRepository)->update($this->product, $this->product->toArray());
 
         return true;
     }
@@ -152,16 +149,28 @@ class WordpressService
     public function syncProperties($properties)
     {
         $order = 1;
+        $ids = [];
         collect($properties)
             ->sortBy('position')
-            ->each(function ($attribute) use (&$order) {
+            ->each(function ($attribute) use (&$order, &$ids) {
                 if ($attribute['variation']) {
-                    $this->syncVariationProperties($attribute, $order);
+                    $ids[] = $this->syncVariationProperties($attribute, $order);
                     $order++;
                 } else {
                     $this->syncAttribute($attribute);
                 }
             });
+
+        //Find deleted attributes
+        $propertiesToDelete = $this->product
+            ->properties()
+            ->filter(function ($attribute) use ($ids) {
+                return !in_array($attribute['external_id'], $ids);
+            });
+        //Delete attributes
+        $propertiesToDelete->each(function ($attribute) {
+            $this->product->properties()->destroy($attribute);
+        });
     }
 
     /**
@@ -170,19 +179,16 @@ class WordpressService
      */
     public function syncAttribute($attribute)
     {
-        switch ($attribute['name']) {
-            case 'brand':
-                $brand = Brand::whereName($attribute['options'][0])->first();
-                if (empty($brand)) {
-                    $brand = new Brand();
-                }
-                $brand->name = $attribute['options'][0];
-                $brand->save();
-                $brand->products()->save($this->product);
-                break;
-            default:
-                $this->{$attribute['name']} = $attribute['options'][0];
-                break;
+        if ($attribute['name'] == 'brand') {
+            $brand = Brand::whereName($attribute['options'][0])->first();
+            if (empty($brand)) {
+                $brand = new Brand();
+            }
+            $brand->name = $attribute['options'][0];
+            $brand->save();
+            $brand->products()->save($this->product);
+        } else {
+            $this->product->{$attribute['name']} = $attribute['options'][0];
         }
     }
 
@@ -224,6 +230,7 @@ class WordpressService
         });
 
         $attribute->save();
+        return $variation['id'];
     }
 
     /**
