@@ -26,7 +26,7 @@
         },
 
         methods: {
-            updateShipping: function() {
+            updateShipping: function () {
                 $.ajax({
                             url: 'cart-conditions',
                             data: {
@@ -52,8 +52,10 @@
             'region': function () {
                 this.updateShipping();
             },
-            'token': function (value) {},
-            'country': function (value) {}
+            'token': function () {
+            },
+            'country': function () {
+            }
         }
     };
 

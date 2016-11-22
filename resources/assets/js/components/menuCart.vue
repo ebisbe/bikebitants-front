@@ -12,13 +12,9 @@
                         <a href="{{ product.route }}">{{ product.name }}</a>
                     </h4>
                     <p>{{ product.quantity }}x - {{ product.price }}{{{ product.currency }}}</p>
-                    <form method="POST" action="/cart/{{ product._id }}">
-                        <input type="hidden" name="_method" value="DELETE"/>
-                        <input type="hidden" name="_token" value="{{ _token }}">
-                        <button class="btn btn-link remove no-padding" type="submit">
-                            <i class="fa fa-times-circle"></i>
-                        </button>
-                    </form>
+                    <button @click="delete(product._id)" class="btn btn-link remove no-padding" type="button">
+                        <i class="fa fa-times-circle"></i>
+                    </button>
                 </div>
             </div>
         </li>
@@ -49,13 +45,13 @@
             </div>
         </li>
     </ul>
+    <input type="hidden" id="vue-cart-update" v-model="resync">
+
 </template>
 
 <script>
 
     export default {
-
-        props: [],
 
         data() {
             return {
@@ -63,50 +59,51 @@
                 _token: '',
                 cart: '',
                 checkout: '',
-                shop: ''
+                shop: '',
+                resync: ''
             }
         },
 
         created: function () {
-            $.getJSON('/cart', function (data) {
-                this.products = data.products;
-                this._token = data._token;
-                this.cart = data.cart;
-                this.checkout = data.checkout;
-                this.shop = data.shop;
-            }.bind(this));
+            this.sync();
         },
 
         methods: {
-            updateShipping: function () {
+            sync: function () {
+                $.getJSON('/cart', function (data) {
+                    this.products = data.products;
+                    this._token = data._token;
+                    this.cart = data.cart;
+                    this.checkout = data.checkout;
+                    this.shop = data.shop;
+
+                    $('#js-cart').mouseover();
+                }.bind(this));
+            },
+
+            delete: function (id) {
                 $.ajax({
-                            url: 'cart-conditions',
+                            url: '/cart/' + id,
                             data: {
-                                'country': this.country,
-                                'region': this.region,
-                                '_token': this.token
+                                '_method': 'DELETE',
+                                '_token': this._token
                             },
                             method: 'post'
                         })
                         .done(function (jqXHR) {
-                            this.list = jqXHR;
                         }.bind(this))
                         .fail(function (jqXHR) {
 
                         })
                         .always(function () {
-
-                        });
+                            this.sync();
+                        }.bind(this));
             }
         },
 
         watch: {
-            'region': function () {
-                this.updateShipping();
-            },
-            'token': function (value) {
-            },
-            'country': function (value) {
+            'resync': function () {
+                this.sync();
             }
         }
     };

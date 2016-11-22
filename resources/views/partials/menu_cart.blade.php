@@ -1,5 +1,5 @@
 <li class="dropdown navbar-cart hidden-xs">
-    <a href="#" class="dropdown-toggle"
+    <a href="#" id="js-cart" class="dropdown-toggle"
        data-toggle="dropdown"
        data-hover="dropdown"
        data-delay="300"

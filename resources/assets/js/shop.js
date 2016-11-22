@@ -53,7 +53,7 @@ $(document).ready(function () {
                 method: 'post'
             })
             .done(function () {
-
+                $('#vue-cart-update').val(Math.random()).trigger('change');
             })
             .fail(function () {
 
