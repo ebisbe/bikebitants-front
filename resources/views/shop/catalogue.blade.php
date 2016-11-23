@@ -124,7 +124,7 @@ PRODUCTS - START
 
                         <!-- PRODUCT - START -->
                         @foreach($products as $product)
-                            <div class="col-sm-3 col-xs-4">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
                                 <article class="product-item">
                                     <div class="row">
                                         <div class="col-sm-3">
