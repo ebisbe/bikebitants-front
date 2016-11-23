@@ -1,6 +1,5 @@
 <template>
-    <div class="row row-no-padding">
-
+    <form class="form-inline">
         <attribute-select
                 v-for="property in properties"
                 v-bind:order="property.order"
@@ -13,15 +12,14 @@
                 v-bind:max-quantity="maxQuantity">
         </quantity-select>
 
-        <div class="col-md-2 col-sm-12">
-            <button type="submit"
-                    class="btn btn-primary add-to-cart js-add-button"
-                    v-html="$t('catalogue.add_to_stock')">
+        <button type="submit"
+                class="btn btn-primary add-to-cart js-add-button"
+                v-html="$t('catalogue.add_to_stock')">
 
-            </button>
-        </div>
+        </button>
 
-    </div>
+        <span class="help-block" id="helpBlock2">{{ $t('catalogue.max_stock') }}: {{ maxQuantity }}</span>
+    </form>
 </template>
 
 <script>

@@ -8,14 +8,14 @@ foreach($cartCollect as $item) {
     $product = $item->attributes['product'];
 
     $productArr = [
-        'filename' => $product->front_image->filename,
-        'alt' => $product->front_image->alt,
-        'name' => $product->name,
+        'filename' => $item->attributes->filename,
+        'alt' => $item->name,
+        'name' => $item->name,
         'route' => route('shop.product', ['slug' => $product->slug]),
         'quantity' => $item->quantity,
         'price' =>  $item->getPriceWithConditions(),
         'currency' => $product->currency,
-        '_id' => $product->_id
+        '_id' => $item->id
     ];
     $products->push($productArr);
 }

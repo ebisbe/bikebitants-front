@@ -108,10 +108,10 @@ PRODUCTS - START
                                             <a href="{{ route('shop.product', $relatedProduct->slug) }}"
                                                class="product-permalink"></a>
                                             {!! Form::img($relatedProduct->front_image->filename, StaticVars::productRelated(), $relatedProduct->front_image->filename) !!}
-                                            {{--<div class="product-quickview">
+                                            <div class="product-quickview">
                                                 <a class="btn btn-quickview" data-toggle="modal"
                                                    data-target="#product-{{ $relatedProduct->slug }}">Quick View</a>
-                                            </div>--}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-9">
@@ -153,7 +153,7 @@ PRODUCTS - START
                                 class="fa fa-times"></i></button>
                 </div>
                 <div class="modal-body">
-                    {{--@include('partials.product', ['product' => $relatedProduct, 'col_size' => 'sm', 'hidden' => true, 'modal' => true])--}}
+                    @include('partials.product', ['product' => $relatedProduct, 'col_size' => 'sm', 'hidden' => true, 'modal' => true])
                 </div>
             </div>
         </div>

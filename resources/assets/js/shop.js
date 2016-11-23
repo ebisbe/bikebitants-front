@@ -16,10 +16,10 @@ $(document).ready(function () {
                 method: 'post'
             })
             .done(function () {
-                //console.log("success");
+                $('#vue-cart-update').val(Math.random()).trigger('change');
             })
             .fail(function () {
-                //console.log("error");
+
             })
             .always(function () {
                 //console.log("complete");
