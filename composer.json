@@ -29,7 +29,8 @@
         "rinvex/repository": "^2.0",
         "pixelpeter/laravel5-woocommerce-api-client": "^2.0",
         "pulkitjalan/geoip": "2.*",
-        "martinlindhe/laravel-vue-i18n-generator": "^0.1.7"
+        "martinlindhe/laravel-vue-i18n-generator": "^0.1.7",
+        "thujohn/twitter": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

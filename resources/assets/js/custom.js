@@ -358,35 +358,6 @@ $(document).ready(function () {
     $(".player").YTPlayer();
 
     /*------------------------------
-     TWITTER QUERY
-     ------------------------------*/
-    var twitterOptions = {
-        "id": '748542100900220928',
-        "domId": '',
-        "customCallback": handleTweets,
-        "maxTweets": 2,
-        "enableLinks": true,
-        "showUser": false,
-        "showImages": false,
-        "showInteraction": false
-    };
-
-    function handleTweets(tweets) {
-        var n = tweets.length;
-        var i = 0;
-        var element = document.getElementById('twitter-wrapper');
-        var html = '<ul class="list-unstyled">';
-        while (i < n) {
-            html += '<li>' + tweets[i] + '</li>';
-            i++;
-        }
-        html += '</ul>';
-        element.innerHTML = html;
-    }
-
-    twitterFetcher.fetch(twitterOptions);
-
-    /*------------------------------
      GOOGLE MAP
      ------------------------------*/
     var regions = [

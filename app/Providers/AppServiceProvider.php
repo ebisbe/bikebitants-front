@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Business\Admin\BreadCrumbLinks;
 use App\Business\Admin\Title;
+use App\Business\Services\TwitterService;
 use App\Business\StaticVars;
 use App\Category;
 use App\Coupon;
@@ -49,6 +50,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app['staticvars'] = $this->app->share(function ($app) {
             return new StaticVars();
+        });
+
+        $this->app->bind('App\Business\Services\TwitterService', function ($app) {
+            return new TwitterService();
         });
     }
 }

@@ -25,7 +25,6 @@ elixir(function (mix) {
         .copy('vendor/bower_components/dragtable/jquery.dragtable.js', 'resources/assets/js/bower/jquery.dragtable.js')
         .copy('vendor/bower_components/owl.carousel/dist/owl.carousel.js', 'resources/assets/js/bower/owl.carousel.js')
         .copy('vendor/bower_components/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js', 'resources/assets/js/bower/jquery.mb.YTPlayer.js')
-        .copy('vendor/bower_components/twitter-fetcher/js/twitterFetcher.js', 'resources/assets/js/bower/twitterFetcher.js')
         .copy('vendor/bower_components/underscore/underscore.js', 'resources/assets/js/bower/underscore.js')
         .copy('vendor/bower_components/pnotify/dist/pnotify.js', 'resources/assets/js/bower/pnotify.js')
 
@@ -59,7 +58,6 @@ elixir(function (mix) {
             'bower/jquery.dragtable.js',
             'jquery.card.js',
             'bower/owl.carousel.js',
-            'bower/twitterFetcher.js',
             'bower/jquery.mb.YTPlayer.js',
             'bower/underscore.js',
             'bower/pnotify.js',

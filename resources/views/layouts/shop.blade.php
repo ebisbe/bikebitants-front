@@ -240,12 +240,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="footer-widget footer-widget-twitter">
-                        <h4>@lang('layout.recent_tweets')</h4>
-                        <div id="twitter-wrapper"></div>
-                    </div>
-                </div>
+                @include('partials.twitter')
             </div>
             <div class="footer-bottom footer-line">
                 <div class="row">
