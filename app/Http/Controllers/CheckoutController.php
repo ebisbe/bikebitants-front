@@ -33,22 +33,9 @@ class CheckoutController extends Controller
         $orderService->checkoutOrder();
 
         $request->session()->set('order', $orderService->getToken());
-        $request->session()->save();
 
         return view($orderService->getView(), $orderService->getViewVars());
     }
-
-    /**
-     * @param $oderId
-     * @param OrderService $orderService
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    /*public function show($oderId, OrderService $orderService)
-    {
-        //setOrder()
-        $orderService->checkoutOrder();
-        return view($orderService->getView(), $orderService->getViewVars());
-    }*/
 
     /**
      * @param Request $request
