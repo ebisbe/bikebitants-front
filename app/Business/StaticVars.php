@@ -45,7 +45,7 @@ class StaticVars
      */
     public function filterSortingTypeSelected()
     {
-        return self::filterSortingType()->first(function ($key, $value) {
+        return self::filterSortingType()->first(function ($value, $key) {
             return $key === 'selected';
         });
     }

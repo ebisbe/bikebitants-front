@@ -1,5 +1,5 @@
 <template>
-    <form class="form-inline">
+    <div class="form-inline">
         <attribute-select
                 v-for="property in properties"
                 v-bind:order="property.order"
@@ -19,7 +19,7 @@
         </button>
 
         <span class="help-block" id="helpBlock2">{{ $t('catalogue.max_stock') }}: {{ maxQuantity }}</span>
-    </form>
+    </div>
 </template>
 
 <script>

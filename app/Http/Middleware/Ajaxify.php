@@ -41,7 +41,8 @@ class Ajaxify
             return $response;
         }
         // Return all the flash data as JSON
-        return response()->json($flashData, $response->getStatusCode());
+        //return response()->json($flashData, $response->getStatusCode());
+        return $response;
     }
 
     protected function shouldAjaxify($request, $response)

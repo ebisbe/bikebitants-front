@@ -71,14 +71,18 @@
         methods: {
             sync: function () {
                 $.getJSON('/cart', function (data) {
-                    this.products = data.products;
-                    this._token = data._token;
-                    this.cart = data.cart;
-                    this.checkout = data.checkout;
-                    this.shop = data.shop;
-
-                    $('#js-cart').mouseover();
+                    this.update(data);
                 }.bind(this));
+            },
+
+            update: function (data) {
+                console.log(data);
+                this.products = data.products;
+                this._token = data._token;
+                this.cart = data.cart;
+                this.checkout = data.checkout;
+                this.shop = data.shop;
+                $('#js-cart').mouseover();
             },
 
             delete: function (id) {
@@ -91,19 +95,20 @@
                             method: 'post'
                         })
                         .done(function (jqXHR) {
+                            this.update(jQuery.parseJSON(jqXHR));
                         }.bind(this))
                         .fail(function (jqXHR) {
 
                         })
                         .always(function () {
-                            this.sync();
+
                         }.bind(this));
             }
         },
 
         watch: {
             'resync': function () {
-                this.sync();
+                this.update(jQuery.parseJSON(this.resync));
             }
         }
     };

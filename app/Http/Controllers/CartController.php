@@ -37,12 +37,7 @@ class CartController extends Controller
         $title = trans('layout.shop');
         $subtitle = trans('cart.cart');
 
-        $cartCollect = Cart::getContent();
-        if ($cartCollect->isEmpty()) {
-            return view('cart.empty', compact('title', 'subtitle'));
-        }
-
-        return view('cart.index', compact('cartCollect', 'title', 'subtitle'));
+        return $this->response($title, $subtitle);
     }
 
     /**
@@ -98,26 +93,30 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect('cart');
+        return $this->response();
     }
 
     /**
-     * @param Request $request
      * @param $id
      * @return array|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        $response = trans('cart.no_items_to_delete');
         if (!Cart::isEmpty()) {
             Cart::remove($id);
-            $response = true;
         }
 
-        if ($request->ajax()) {
-            return ['response' => $response];
-        } else {
-            return redirect()->back();
+        return $this->response();
+    }
+
+
+    protected function response($title = '', $subtitle = '')
+    {
+        $cartCollect = Cart::getContent();
+        if ($cartCollect->isEmpty()) {
+            return view('cart.empty', compact('title', 'subtitle'));
         }
+
+        return view('cart.index', compact('cartCollect', 'title', 'subtitle'));
     }
 }

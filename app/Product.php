@@ -132,7 +132,7 @@ class Product extends Model
     {
         return $this
             ->variations()
-            ->first(function ($key, $value) use ($properties) {
+            ->first(function ($value) use ($properties) {
                 return array_diff($value->_id, array_values($properties)) == [];
             });
     }

@@ -12,23 +12,23 @@ class Sort implements Filter
     {
         switch ($value) {
             case 'low_to_high';
-                return ['prices' => 1];
+                $sort = ['prices' => 1];
                 break;
 
             case 'high_to_low';
-                return ['prices' => -1];
+                $sort = ['prices' => -1];
                 break;
 
             case 'newness';
-                return ['created_at' => -1];
+                $sort = ['created_at' => -1];
                 break;
 
             case 'featured';
-                return ['is_featured' => 1];
+                $sort = ['is_featured' => 1];
                 break;
 
             case 'discounted';
-                return ['is_discounted' => -1];
+                $sort = ['is_discounted' => -1];
                 break;
 
 //            case 'popularity';
@@ -40,8 +40,8 @@ class Sort implements Filter
 //                break;
 
             default:
-                return [];
+                throw new \Exception('No sorting option found for ['.$value.']');
         }
-
+        return $sort;
     }
 }

@@ -15,8 +15,8 @@ $(document).ready(function () {
                 data: form.serialize(),
                 method: 'post'
             })
-            .done(function () {
-                $('#vue-cart-update').val(Math.random()).trigger('change');
+            .done(function (jqXHR) {
+                $('#vue-cart-update').val(jqXHR).trigger('change');
             })
             .fail(function () {
 
@@ -52,8 +52,8 @@ $(document).ready(function () {
                 },
                 method: 'post'
             })
-            .done(function () {
-                $('#vue-cart-update').val(Math.random()).trigger('change');
+            .done(function (jqXHR) {
+                $('#vue-cart-update').val(jqXHR).trigger('change');
             })
             .fail(function () {
 

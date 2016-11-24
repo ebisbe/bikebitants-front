@@ -177,7 +177,8 @@ return [
         Pixelpeter\Woocommerce\WoocommerceServiceProvider::class,
         PulkitJalan\GeoIP\GeoIPServiceProvider::class,
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
-        Thujohn\Twitter\TwitterServiceProvider::class
+        Thujohn\Twitter\TwitterServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class
     ],
 
     /*
@@ -223,6 +224,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
