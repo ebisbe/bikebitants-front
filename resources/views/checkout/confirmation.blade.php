@@ -66,7 +66,7 @@
                                         <li><b>{{ $order->billing->first_name }} {{ $order->billing->last_name }}</b></li>
                                         <li>{{ $order->billing->address }}</li>
                                         <li>{{ $order->billing->postal_code }} {{ $order->billing->city }}</li>
-                                        <li>{{ $order->billing->country }} ({{ $order->billing->province }})</li>
+                                        <li>{{ $order->billing->country->name }} ({{ $order->billing->provinces()->name }})</li>
                                     </ul>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                         <li><b>{{ $order->shipping->first_name }} {{ $order->shipping->last_name }}</b></li>
                                         <li>{{ $order->shipping->address }}</li>
                                         <li>{{ $order->shipping->postal_code }} {{ $order->shipping->city }}</li>
-                                        <li>{{ $order->shipping->country }} ({{ $order->shipping->province }})</li>
+                                        <li>{{ $order->shipping->country->name }} ({{ $order->shipping->provinces()->name }})</li>
                                     </ul>
                                 </div>
                             </div>

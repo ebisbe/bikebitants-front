@@ -12,6 +12,13 @@ class Billing extends Model
 
     public function country()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class, '_id', 'country');
+    }
+
+    public function provinces()
+    {
+        return $this->country->provinces->first(function($province) {
+            return $province->_id == $this->province;
+        });
     }
 }
