@@ -41,19 +41,28 @@ class WordpressSync extends Command
     {
         $this->wordpressService = $wordpressService;
 
-        $this->info('sync Category:');
-        $this->wordpressService->import('products/categories', 'syncCategory');
+        $this->info('Sync Customer:');
+        $this->wordpressService->setWooCommerceCallback('customers');
+        $this->wordpressService->import();
         $this->info('');
 
-        $this->info('sync Tax:');
-        $this->wordpressService->import('taxes', 'syncTax');
+        $this->info('Sync Category:');
+        $this->wordpressService->setWooCommerceCallback('products/categories');
+        $this->wordpressService->setWordpressServiceCallback('syncCategory');
+        $this->wordpressService->import();
         $this->info('');
 
-        $this->info('sync Coupon:');
-        $this->wordpressService->import('coupons', 'syncCoupon');
+        $this->info('Sync Tax:');
+        $this->wordpressService->setWooCommerceCallback('taxes');
+        $this->wordpressService->import();
         $this->info('');
 
-        $this->info('sync products:');
+        $this->info('Sync Coupon:');
+        $this->wordpressService->setWooCommerceCallback('coupons');
+        $this->wordpressService->import();
+        $this->info('');
+
+        $this->info('Sync products:');
         $this->wordpressService->inspector(function($page) {
             $products = collect(Woocommerce::get('products', ['page' => $page]));
             $products->each(function ($product) {

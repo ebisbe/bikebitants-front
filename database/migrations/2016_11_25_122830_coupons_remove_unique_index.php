@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBuyersTable extends Migration
+class CouponsRemoveUniqueIndex extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,8 @@ class CreateBuyersTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('coupons', function ($table) {
+            $table->dropIndex(['name']);
         });
     }
 
@@ -25,6 +24,8 @@ class CreateBuyersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('customers');
+        Schema::table('coupons', function ($table) {
+            $table->unique(['name']);
+        });
     }
 }

@@ -13,9 +13,9 @@ class Country extends Model
     /**
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
-    public function provinces()
+    public function states()
     {
-        return $this->embedsMany(Province::class);
+        return $this->embedsMany(State::class);
     }
 
     /**

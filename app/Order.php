@@ -70,9 +70,9 @@ class Order extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function buyer()
+    public function customer()
     {
-        return $this->belongsTo(Buyer::class);
+        return $this->belongsTo(Customer::class);
     }
 
     /**

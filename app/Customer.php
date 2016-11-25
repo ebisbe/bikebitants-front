@@ -4,10 +4,10 @@ namespace App;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 
-class Buyer extends Model
+class Customer extends Model
 {
 
-    protected $fillable = ['first_name', 'email'];
+    protected $fillable = ['email', 'first_name', 'last_name', 'username', 'last_order', 'orders_count', 'total_spent', 'avatar_url'];
 
     /**
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany

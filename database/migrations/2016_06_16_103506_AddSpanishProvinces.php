@@ -2,6 +2,7 @@
 
 use App\Country;
 use App\Province;
+use App\State;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -17,10 +18,10 @@ class AddSpanishProvinces extends Migration
         /** @var Country $spain */
         $spain = Country::where('_id', 'ES')->first();
         foreach ($this->provinces as $province) {
-            $data = new Province();
+            $data = new State();
             $data->_id = $province['_id'];
             $data->name = $province['name'];
-            $spain->provinces()->associate($data);
+            $spain->states()->associate($data);
         }
         $spain->save();
     }

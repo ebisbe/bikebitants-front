@@ -11,7 +11,7 @@ use App\Events\NewOrder;
 use App\Order;
 use App\PaymentMethod;
 use App\Shipping;
-use App\Buyer;
+use App\Customer;
 use Carbon\Carbon;
 use Darryldecode\Cart\CartCondition;
 use Darryldecode\Cart\ItemCollection;
@@ -224,15 +224,15 @@ class OrderService
 
         $this->order->status = Order::ValidData;
 
-        $buyer = $this->getBuyer();
-        $this->order->buyer()->associate($buyer);
-        $this->order->billing()->associate($buyer->billing);
-        $this->order->shipping()->associate($buyer->shipping);
+        $customer = $this->getCustomer();
+        $this->order->customer()->associate($customer);
+        $this->order->billing()->associate($customer->billing);
+        $this->order->shipping()->associate($customer->shipping);
 
         $paymentMethod = PaymentMethod::whereCode($this->getPaymentType())->first();
         $this->order->payment_method()->associate($paymentMethod);
 
-        $this->order->buyer_id = $buyer->id;
+        $this->order->customer_id = $customer->id;
 
         $this->order->save();
     }
@@ -246,8 +246,8 @@ class OrderService
             return $this->country->all()->pluck('name', '_id');
         });
 
-        $provinces = Cache::remember('provinces_list', 5, function () {
-            return $this->country->first()->provinces->pluck('name', '_id');
+        $states = Cache::remember('states_list', 5, function () {
+            return $this->country->first()->states->pluck('name', '_id');
         });
 
         $paymentMethods = Cache::remember('payment_methods', 5, function () {
@@ -256,7 +256,7 @@ class OrderService
         $items = Cart::getContent();
 
         $this->setView('checkout.index');
-        $this->setViewVars(compact('countries', 'provinces', 'items', 'paymentMethods'));
+        $this->setViewVars(compact('countries', 'states', 'items', 'paymentMethods'));
     }
 
     /**
@@ -359,21 +359,21 @@ class OrderService
     /**
      *
      */
-    private function getBuyer()
+    private function getCustomer()
     {
-        //If not logged search buyer by billing.email
-        $buyer = Buyer::whereEmail($this->getFormParams('billing.email'))->get();
+        //If not logged search customer by billing.email
+        $customer = Customer::whereEmail($this->getFormParams('billing.email'))->get();
 
-        if ($buyer->isEmpty()) {
-            $buyer = new Buyer();
-            $buyer->fill($this->getFormParams('billing'));
+        if ($customer->isEmpty()) {
+            $customer = new Customer();
+            $customer->fill($this->getFormParams('billing'));
         } else {
-            $buyer = $buyer->first();
+            $customer = $customer->first();
         }
 
         $billing = new Billing();
         $billing->fill($this->getFormParams('billing'));
-        $buyer->billing()->associate($billing);
+        $customer->billing()->associate($billing);
 
         $data = $this->getFormParams('shipping');
         if ($this->getFormParams('check_shipping') == 'true') {
@@ -381,11 +381,11 @@ class OrderService
         }
         $shipping = new Shipping();
         $shipping->fill($data);
-        $buyer->shipping()->associate($shipping);
+        $customer->shipping()->associate($shipping);
 
-        $buyer->save();
+        $customer->save();
 
-        return $buyer;
+        return $customer;
     }
 
     /**

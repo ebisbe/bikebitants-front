@@ -64,9 +64,9 @@
                                     <h4>@lang('checkout.billing_information')</h4>
                                     <ul class="list-unstyled">
                                         <li><b>{{ $order->billing->first_name }} {{ $order->billing->last_name }}</b></li>
-                                        <li>{{ $order->billing->address }}</li>
+                                        <li>{{ $order->billing->address_1 }}</li>
                                         <li>{{ $order->billing->postcode }} {{ $order->billing->city }}</li>
-                                        <li>{{ $order->billing->country->name }} ({{ $order->billing->provinces()->name }})</li>
+                                        <li>{{ $order->billing->country->name }} ({{ $order->billing->states()->name }})</li>
                                     </ul>
                                 </div>
                             </div>
@@ -75,9 +75,9 @@
                                     <h4>@lang('checkout.shipping_information')</h4>
                                     <ul class="list-unstyled">
                                         <li><b>{{ $order->shipping->first_name }} {{ $order->shipping->last_name }}</b></li>
-                                        <li>{{ $order->shipping->address }}</li>
+                                        <li>{{ $order->shipping->address_1 }}</li>
                                         <li>{{ $order->shipping->postcode }} {{ $order->shipping->city }}</li>
-                                        <li>{{ $order->shipping->country->name }} ({{ $order->shipping->provinces()->name }})</li>
+                                        <li>{{ $order->shipping->country->name }} ({{ $order->shipping->states()->name }})</li>
                                     </ul>
                                 </div>
                             </div>

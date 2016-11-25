@@ -2,9 +2,11 @@
 
 namespace App\Business\Services;
 
+use App\Billing;
 use App\Brand;
 use App\Business\Repositories\CategoryRepository;
 use App\Business\Repositories\ProductRepository;
+use App\Customer;
 use App\Category;
 use App\Coupon;
 use App\Image;
@@ -27,23 +29,47 @@ class WordpressService
     /** @var  Product $product */
     protected $product;
 
-    public function import($wooCommerceCallback, $wordpressServiceCallback)
+    protected $wooCommerceCallback;
+    protected $wordpressServiceCallback;
+
+    public function setWooCommerceCallback($wooCommerceCallback)
     {
-        $this->inspector(function ($page) use ($wooCommerceCallback, $wordpressServiceCallback) {
-            $categories = collect(Woocommerce::get($wooCommerceCallback, ['page' => $page]));
-            $categories->each(function ($element) use ($wordpressServiceCallback) {
+        $this->wooCommerceCallback = $wooCommerceCallback;
+        $this->wordpressServiceCallback = null;
+    }
+
+    public function getWooCommerceCallback()
+    {
+        return $this->wooCommerceCallback;
+    }
+
+    public function setWordpressServiceCallback($wordpressServiceCallback)
+    {
+        $this->wordpressServiceCallback = $wordpressServiceCallback;
+    }
+
+    public function getWordpressServiceCallback()
+    {
+        return !is_null($this->wordpressServiceCallback) ? $this->wordpressServiceCallback : 'sync' . ucfirst($this->getWooCommerceCallback());
+    }
+
+    public function import()
+    {
+        $this->inspector(function ($page) {
+            $elements = collect(Woocommerce::get($this->getWooCommerceCallback(), ['page' => $page]));
+            $elements->each(function ($element) {
+                $wordpressServiceCallback = $this->getWordpressServiceCallback();
                 if (method_exists($this, $wordpressServiceCallback)) {
                     $this->$wordpressServiceCallback($element);
                 }
                 echo '.';
             });
-            return $categories->count();
+            return $elements->count();
         });
     }
 
     /**
      * @param $callback
-     * @param string $text
      */
     public function inspector($callback)
     {
@@ -333,27 +359,45 @@ class WordpressService
      * Import tax
      * @param $wpTax
      */
-    public function syncTax($wpTax)
+    public function syncTaxes($wpTax)
     {
         $tax = Tax::whereExternalId($wpTax['id'])->first();
         if (empty($tax)) {
             $tax = new Tax();
+            $tax->external_id = $wpTax['id'];
         }
 
-        $tax->external_id = $wpTax['id'];
-        $tax->country = $wpTax['country'];
-        $tax->state = $wpTax['state'];
-        $tax->postcode = $wpTax['postcode'];
-        $tax->city = $wpTax['city'];
-        $tax->rate = (float)$wpTax['rate'];
-        $tax->name = $wpTax['name'];
+        $tax->fill($wpTax);
         //$tax->priority = $wpTax['priority'];
         //$tax->compound = $wpTax['compound'];
         //$tax->shipping = $wpTax['shipping'];
-        $tax->order = $wpTax['order'];
         //$tax->class = $wpTax['class'];
 
         $tax->save();
+    }
+
+    /**
+     * Import tax
+     * @param $wpCustomer
+     */
+    public function syncCustomers($wpCustomer)
+    {
+        $customer = Customer::whereExternalId($wpCustomer['id'])->first();
+        if (empty($customer)) {
+            $customer = new Customer();
+            $customer->external_id = $wpCustomer['id'];
+        }
+        $customer->fill($wpCustomer);
+
+        $billing = new Billing();
+        $billing->fill($wpCustomer['billing']);
+        $customer->billing()->associate($billing);
+
+        $shipping = new Shipping();
+        $shipping->fill($wpCustomer['shipping']);
+        $customer->shipping()->associate($shipping);
+
+        $customer->save();
     }
 
     /**
@@ -436,7 +480,7 @@ class WordpressService
 
         if ($new) {
             $this->product->reviews()->save($review);
-            (new ProductRepository)->update($this->product->_id, $this->product->toArray());
+            (new ProductRepository)->update($this->product, $this->product->toArray());
         } else {
             $review->save();
         }
@@ -460,7 +504,7 @@ class WordpressService
      * TODO still some options have to be implemented
      * @param $wpCoupon
      */
-    public function syncCoupon($wpCoupon)
+    public function syncCoupons($wpCoupon)
     {
         $coupon = Coupon::whereExternalId($wpCoupon['id'])->first();
         if (empty($coupon)) {
@@ -539,10 +583,10 @@ class WordpressService
             'billing' => [
                 'first_name' => $order->billing->first_name,
                 'last_name' => $order->billing->last_name,
-                'address_1' => $order->billing->address,
+                'address_1' => $order->billing->address_1,
                 'address_2' => $order->billing->address_2,
                 'city' => $order->billing->city,
-                'state' => $order->billing->province,
+                'state' => $order->billing->state,
                 'postcode' => $order->billing->postcode,
                 'country' => $order->billing->country,
                 'email' => $order->billing->email,
@@ -551,10 +595,10 @@ class WordpressService
             'shipping' => [
                 'first_name' => $order->shipping->first_name,
                 'last_name' => $order->shipping->last_name,
-                'address_1' => $order->shipping->address,
+                'address_1' => $order->shipping->address_1,
                 'address_2' => $order->shipping->address_2,
                 'city' => $order->shipping->city,
-                'state' => $order->shipping->province,
+                'state' => $order->shipping->state,
                 'postcode' => $order->shipping->postcode,
                 'country' => $order->shipping->country,
             ],
