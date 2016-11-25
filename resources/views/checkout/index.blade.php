@@ -109,10 +109,10 @@
                                             {{ Form::text('billing[city]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('billing.city', '<p class="help-block">:message</p>') !!}
                                         </div>
-                                        <div class="form-group col-sm-6 {{ $errors->has('billing.postal_code') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[postal_code]', trans('checkout.zip').' <span class="required">*</span>', [], false) }}
-                                            {{ Form::text('billing[postal_code]', null, ['class' => 'form-control']) }}
-                                            {!! $errors->first('billing.postal_code', '<p class="help-block">:message</p>') !!}
+                                        <div class="form-group col-sm-6 {{ $errors->has('billing.postcode') ? 'has-error' : ''}}">
+                                            {{ Form::label('billing[postcode]', trans('checkout.zip').' <span class="required">*</span>', [], false) }}
+                                            {{ Form::text('billing[postcode]', null, ['class' => 'form-control']) }}
+                                            {!! $errors->first('billing.postcode', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="form-group col-sm-6 {{ $errors->has('billing.country') ? 'has-error' : ''}}">
@@ -221,10 +221,10 @@
                                                 {{ Form::text('shipping[city]', null, ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.city', '<p class="help-block">:message</p>') !!}
                                             </div>
-                                            <div class="form-group col-sm-6 {{ $errors->has('shipping.postal_code') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[postal_code]', trans('checkout.city').'e <span class="required">*</span>', [], false) }}
-                                                {{ Form::text('shipping[postal_code]', null, ['class' => 'form-control']) }}
-                                                {!! $errors->first('shipping.postal_code', '<p class="help-block">:message</p>') !!}
+                                            <div class="form-group col-sm-6 {{ $errors->has('shipping.postcode') ? 'has-error' : ''}}">
+                                                {{ Form::label('shipping[postcode]', trans('checkout.city').'e <span class="required">*</span>', [], false) }}
+                                                {{ Form::text('shipping[postcode]', null, ['class' => 'form-control']) }}
+                                                {!! $errors->first('shipping.postcode', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="clearfix"></div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.phone') ? 'has-error' : ''}}">

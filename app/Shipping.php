@@ -9,7 +9,7 @@ class Shipping extends Model
     const CART_CONDITION_TYPE = 'shipping';
 
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'address', 'address_2', 'city', 'postal_code', 'phone', 'country', 'province', 'fax', 'phone'
+        'first_name', 'last_name', 'email', 'address', 'address_2', 'city', 'postcode', 'phone', 'country', 'province', 'fax', 'phone'
     ];
 
     public function country()
