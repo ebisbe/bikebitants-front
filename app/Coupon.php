@@ -61,28 +61,6 @@ class Coupon extends Model
     }
 
     /**
-     * Add to cart conditions a valid couponName
-     * @param $couponName
-     * @return array
-     */
-    public static function addToCart($couponName)
-    {
-        if (empty($couponName)) {
-            return [];
-        }
-
-        $coupon = Coupon::whereName($couponName)->first();
-
-        return [
-            'name' => $coupon->name,
-            'type' => Coupon::CART_CONDITION_TYPE,
-            'target' => Cart::CART_CONDITION_TARGET_ITEM,
-            'value' => $coupon->value,
-            'order' => 1
-        ];
-    }
-
-    /**
      * Return type options for a coupon
      * @return array
      */

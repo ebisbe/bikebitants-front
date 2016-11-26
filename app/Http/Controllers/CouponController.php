@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Coupon;
+use App\Business\Models\Shop\Coupon;
 use Darryldecode\Cart\CartCondition;
 use Illuminate\Http\Request;
 use Cart;

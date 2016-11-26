@@ -4,7 +4,7 @@ namespace App\Business\Services;
 
 use App\Billing;
 use App\Country;
-use App\Coupon;
+use App\Business\Models\Shop\Coupon;
 use App\Events\CancelOrder;
 use App\Events\ConfirmedOrder;
 use App\Events\NewOrder;
