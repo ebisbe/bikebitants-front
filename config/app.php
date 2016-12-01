@@ -178,7 +178,8 @@ return [
         PulkitJalan\GeoIP\GeoIPServiceProvider::class,
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Thujohn\Twitter\TwitterServiceProvider::class,
-        Illuminate\Notifications\NotificationServiceProvider::class
+        Illuminate\Notifications\NotificationServiceProvider::class,
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
     ],
 
     /*
@@ -240,6 +241,7 @@ return [
         'Woocommerce' => Pixelpeter\Woocommerce\Facades\Woocommerce::class,
         'GeoIP' => PulkitJalan\GeoIP\Facades\GeoIP::class,
         'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 ];
