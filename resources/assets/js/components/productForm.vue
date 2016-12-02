@@ -2,14 +2,14 @@
     <div class="form-inline">
         <attribute-select
                 v-for="property in properties"
-                v-bind:order="property.order"
-                v-bind:name="property.name"
-                v-bind:options="property.properties_values"
-                v-on:changed="emitChangedValue">
+                :order="property.order"
+                :name="property.name"
+                :options="property.properties_values"
+                @changed="emitChangedValue">
         </attribute-select>
 
         <quantity-select
-                v-bind:max-quantity="maxQuantity">
+                :max-quantity="maxQuantity">
         </quantity-select>
 
         <button type="submit"

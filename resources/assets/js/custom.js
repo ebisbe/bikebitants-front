@@ -118,10 +118,10 @@ $(document).ready(function () {
     /*------------------------------
      COMPARE TABLE
      ------------------------------*/
-    $('#table-compare').dragtable({
+    /*$('#table-compare').dragtable({
         dragHandle: '.fa-arrows',
         dragaccept: '.accept'
-    });
+    });*/
 
     /*------------------------------
      TOOLTIP INIT

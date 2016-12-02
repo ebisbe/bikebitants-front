@@ -291,9 +291,7 @@
                                             @endforeach
                                             </tbody>
                                         </table>
-                                        <div class="">
-                                            <total-checkout></total-checkout>
-                                        </div>
+                                        <total-checkout></total-checkout>
                                     </div>
                                 </div>
 

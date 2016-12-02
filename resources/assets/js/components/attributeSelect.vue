@@ -1,11 +1,11 @@
 <template>
     <div class="form-group product-size">
         <label>{{ name }}:</label>
-        <select name="properties[{{ name }}]"
+        <select name="properties[name]"
                 v-model="selectedElement"
                 class="form-control"
-                v-on:change="changed">
-            <option v-for="option in options" value="{{ option._id }}">
+                @change="changed">
+            <option v-for="option in options" :value="option._id">
                 {{ option.name }}&nbsp;{{ option.complementary_text ? '(' + option.complementary_text + ')' : ''
                 }}
             </option>

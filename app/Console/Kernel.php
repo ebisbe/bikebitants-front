@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('wp:expire')->everyFiveMinutes();
+         $schedule->command('order:expire')->everyFiveMinutes();
+         $schedule->command('wp:sync')->everyFiveMinutes();
     }
 }

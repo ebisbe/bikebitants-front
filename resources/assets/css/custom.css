@@ -4001,14 +4001,14 @@ footer.navbar a:hover {
 
 .services {
 	background-color:#FFFFFF;
-	padding:60px 0 0;
+	padding:20px 0 0;
 }
 
 .services .service {
 	text-align:center;
 	padding:15px;
 	border-right:1px solid #F0F0F0;
-	margin-bottom:60px;
+	margin-bottom:20px;
 }
 
 .services .row > div:nth-child(3n) .service {

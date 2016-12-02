@@ -1,6 +1,6 @@
-var elixir = require('laravel-elixir');
-elixir.config.sourcemaps = false;
-require('laravel-elixir-vueify');
+const elixir = require('laravel-elixir');
+
+require('laravel-elixir-vue-2');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,9 +13,9 @@ require('laravel-elixir-vueify');
  |
  */
 
-elixir(function (mix) {
+elixir(mix => {
     mix
-        //js
+    //js
         .copy('vendor/bower_components/jquery/dist/jquery.js', 'resources/assets/js/bower/jquery.js')
         .copy('vendor/bower_components/jquery-ui/jquery-ui.js', 'resources/assets/js/bower/jquery-ui.js')
         .copy('vendor/bower_components/google-maps/lib/Google.js', 'resources/assets/js/bower/google-maps.js')
@@ -45,10 +45,9 @@ elixir(function (mix) {
 
         //files
         .copy('resources/assets/images', 'public/build/images/')
-        .browserify('shop_vue.js', 'resources/assets/js/bower/vue_main.js')
-        .copy('resources/assets/js/bower/vue_main.js', 'public/assets/js/vue.js')
+        .webpack('app.js')
 
-        .scripts([
+        /*.scripts([
             'bower/jquery.js',
             'bower/jquery-ui.js',
             'bower/google-maps.js',
@@ -64,7 +63,7 @@ elixir(function (mix) {
             'custom.js',
             'shop.js',
             'bower/vue_main.js'
-        ])
+        ])*/
 
         .styles([
             'bower/bootstrap.css',
@@ -82,5 +81,5 @@ elixir(function (mix) {
             'bower/brighttheme.css'
         ])
 
-        .version(['js/all.js', 'css/all.css']);
+        .version(['js/app.js', 'css/all.css']);
 });
