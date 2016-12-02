@@ -20,14 +20,7 @@ require('bootstrap-hover-dropdown');
 require('./custom.js');
 require('./shop.js');
 
-/*window.skel = require('skel-framework');
- require('./util.js');
-require('./main.js');
-require('./../../../vendor/bower/jquery.poptrox/jquery.poptrox.js');
-
-
-var VueLazyload = require('vue-lazyload');
-
+/*var VueLazyload = require('vue-lazyload');
 Vue.use(VueLazyload);*/
 
 Vue.component('total-checkout', require('./components/totalCheckout.vue'));

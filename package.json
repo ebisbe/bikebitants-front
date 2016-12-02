@@ -17,11 +17,11 @@
     "vue-lazyload": "^0.9.3",
     "vue-i18n": "4.7.1",
     "google-maps": "3.2.1",
-    "jquery-ui": "1.12.1",
+    "jquery-ui-bundle": "1.11.4",
     "bootstrap-hover-dropdown": "2.2.1",
     "card": "2.0.6",
     "jgrowl": "1.4.5",
-    "owl.carousel": "2.0.0",
+    "owl.carousel": "2.2.0",
     "smoothscroll-for-websites": "1.4.6"
   }
 }

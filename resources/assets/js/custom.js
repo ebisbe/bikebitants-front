@@ -355,7 +355,7 @@ $(document).ready(function () {
     /*------------------------------
      YOUTUBE VIDEO BACKGROUND
      ------------------------------*/
-    $(".player").YTPlayer();
+    //$(".player").YTPlayer();
 
     /*------------------------------
      GOOGLE MAP

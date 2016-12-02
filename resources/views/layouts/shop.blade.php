@@ -272,7 +272,7 @@
 
     @include('partials.discount_popup')
     @include('partials.product_popup')
-    @include('cookieConsent::index')
+    {{--@include('cookieConsent::index')--}}
 </div> <!-- PAGE - END -->
 
 <!-- ==========================
