@@ -8,7 +8,7 @@ class StaticVars
     /** General Info */
     protected $company = 'Bikebitants';
     protected $email = 'hola@bikebitants.com';
-    protected $telephone = '(+34) 696.603.741';
+    protected $telephone = '(+34) 930.044.543';
     protected $slogan = 'Tu bici, tu ciudad';
 
     protected $facebook = 'https://www.facebook.com/bikebitants/';
