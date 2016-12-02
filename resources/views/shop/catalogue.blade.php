@@ -23,21 +23,19 @@ PRODUCTS - START
                                 <div class="widget-body">
                                     <ul class="list-unstyled" id="categories" role="tablist"
                                         aria-multiselectable="true">
-                                        {{-- */$x=0;/* --}}
                                         @foreach($categories as $category)
-                                            {{-- */$x++;/* --}}
                                             <li class="panel">
                                                 <a class="{{ $category->_id == $selectedCat ? '' : 'collapsed' }}"
                                                    {{--role="button"
                                                    data-toggle="collapse"
                                                    data-parent="#categories"
-                                                   href="#parent-{{ $x }}"
+                                                   href="#parent-{{ $loop->iteration }}"
                                                    aria-expanded="true"
-                                                   aria-controls="parent-{{ $x }}"--}}
+                                                   aria-controls="parent-{{ $loop->iteration }}"--}}
                                                    href="{{ route('shop.category', ['category' => $category->slug]) }}">{{ $category->name }}
                                                     <span>[{{ $category->products_count }}]</span>
                                                 </a>
-                                                <ul id="parent-{{ $x }}"
+                                                <ul id="parent-{{ $loop->iteration }}"
                                                     class="list-unstyled panel-collapse collapse {{ $category->_id == $selectedCat ? 'in' : '' }}"
                                                     role="menu">
                                                     @foreach($category->children as $subcategory)
