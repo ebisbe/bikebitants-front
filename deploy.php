@@ -6,7 +6,7 @@ require 'recipe/laravel.php';
 
 set('repository', 'git@bitbucket.org:bikebitants/bikebitants.git');
 
-add('shared_files', []);
+add('shared_files', ['database/geoip/GeoLite2-City.mmdb']);
 add('shared_dirs', ['public/img']);
 
 add('writable_dirs', []);
