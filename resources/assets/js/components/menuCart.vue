@@ -20,8 +20,9 @@
                         <h4>
                             <a :href="product.route">{{ product.name }}</a>
                         </h4>
-                        <p>{{ product.quantity }}x - {{ product.price }}{{ product.currency }}</p>
-                        <button @click="delete(product._id)" class="btn btn-link remove no-padding" type="button">
+                        <p v-html="priceLine(product)"></p>
+                        <button @click="deleteProduct(product)" class="btn btn-link remove no-padding"
+                                type="button">
                             <i class="fa fa-times-circle"></i>
                         </button>
                     </div>
@@ -62,14 +63,11 @@
 
     export default {
 
+        props: ['cart', 'checkout', 'shop'],
+
         data() {
             return {
-                products: [],
-                _token: '',
-                cart: '',
-                checkout: '',
-                shop: '',
-                resync: ''
+                products: []
             }
         },
 
@@ -79,44 +77,21 @@
 
         methods: {
             sync: function () {
-                $.getJSON('/cart', function (data) {
-                    this.update(data);
-                }.bind(this));
+                this.$http.get('/api/cart')
+                        .then(function (response) {
+                            console.log(response);
+                            this.products = response.data;
+                        });
             },
 
-            update: function (data) {
-                this.products = data.products;
-                this._token = data._token;
-                this.cart = data.cart;
-                this.checkout = data.checkout;
-                this.shop = data.shop;
-                $('#js-cart').mouseover();
+            deleteProduct: function (product) {
+                var index = this.products.indexOf(product);
+                this.products.splice(index, 1);
+                this.$http.delete('/api/cart/' + product._id)
             },
 
-            delete: function (id) {
-                $.ajax({
-                            url: '/cart/' + id,
-                            data: {
-                                '_method': 'DELETE',
-                                '_token': this._token
-                            },
-                            method: 'post'
-                        })
-                        .done(function (jqXHR) {
-                            this.update(jQuery.parseJSON(jqXHR));
-                        }.bind(this))
-                        .fail(function (jqXHR) {
-
-                        })
-                        .always(function () {
-
-                        }.bind(this));
-            }
-        },
-
-        watch: {
-            'resync': function () {
-                this.update(jQuery.parseJSON(this.resync));
+            priceLine: function (product) {
+                return product.quantity + 'x - ' + product.price + product.currency;
             }
         }
     };

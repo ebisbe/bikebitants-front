@@ -16,7 +16,7 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     mix
     //js
-        .copy('vendor/bower_components/jquery/dist/jquery.js', 'resources/assets/js/bower/jquery.js')
+        /*.copy('vendor/bower_components/jquery/dist/jquery.js', 'resources/assets/js/bower/jquery.js')
         .copy('vendor/bower_components/jquery-ui/jquery-ui.js', 'resources/assets/js/bower/jquery-ui.js')
         .copy('vendor/bower_components/google-maps/lib/Google.js', 'resources/assets/js/bower/google-maps.js')
         .copy('vendor/bower_components/bootstrap/dist/js/bootstrap.js', 'resources/assets/js/bower/bootstrap.js')
@@ -26,7 +26,7 @@ elixir(mix => {
         .copy('vendor/bower_components/owl.carousel/dist/owl.carousel.js', 'resources/assets/js/bower/owl.carousel.js')
         .copy('vendor/bower_components/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js', 'resources/assets/js/bower/jquery.mb.YTPlayer.js')
         .copy('vendor/bower_components/underscore/underscore.js', 'resources/assets/js/bower/underscore.js')
-        .copy('vendor/bower_components/pnotify/dist/pnotify.js', 'resources/assets/js/bower/pnotify.js')
+        .copy('vendor/bower_components/pnotify/dist/pnotify.js', 'resources/assets/js/bower/pnotify.js')*/
 
         //css
         .copy('vendor/bower_components/bootstrap/dist/css/bootstrap.css', 'resources/assets/css/bower/bootstrap.css')

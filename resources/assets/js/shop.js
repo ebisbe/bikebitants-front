@@ -22,7 +22,6 @@ $(document).ready(function () {
 
             })
             .always(function () {
-                //console.log("complete");
                 form.find('.js-add-button')
                     .prop("disabled", false)
                     .find('i')

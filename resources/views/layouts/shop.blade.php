@@ -123,7 +123,11 @@
                         </ul>
                     </li>--}}
 
-                    <menu-cart></menu-cart>
+                    <menu-cart
+                            cart="{{ route('cart.index') }}"
+                            checkout="{{ route('checkout.index') }}"
+                            shop="{{ route('shop.catalogue') }}">
+                    </menu-cart>
                     {{--<li class="dropdown navbar-search hidden-xs">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
                         <ul class="dropdown-menu">
@@ -149,7 +153,7 @@
 
     @yield('content')
 
-    <!-- ==========================
+            <!-- ==========================
     	NEWSLETTER - START
     =========================== -->
     <section class="separator separator-newsletter">
@@ -274,7 +278,12 @@
     @include('partials.product_popup')
     {{--@include('cookieConsent::index')--}}
 </div> <!-- PAGE - END -->
-
+<script>
+    window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'language' => config('app.locale')
+    ]) !!}
+</script>
 <!-- ==========================
  JS
 =========================== -->

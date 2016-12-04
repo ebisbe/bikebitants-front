@@ -19,11 +19,4 @@ foreach($cartCollect as $item) {
     ];
     $products->push($productArr);
 }
-$response = [
-    'products' => $products->toArray(),
-    '_token' => csrf_token(),
-    'cart' => route('cart.index'),
-    'checkout' => route('checkout.index'),
-    'shop' => route('shop.catalogue'),
-];
-echo json_encode($response);
+echo json_encode($products->toArray());
