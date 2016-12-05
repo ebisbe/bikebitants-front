@@ -20,12 +20,16 @@ class CouponController extends Controller
 
         if (!empty($coupon)) {
             $condition = new CartCondition($coupon);
-            Cart::getContent()
-                ->each(function ($item) use ($condition) {
-                    Cart::addItemCondition($item->id, $condition);
+            $response = Cart::getContent()
+                ->map(function ($item) use ($condition) {
+                    return Cart::addItemCondition($item->id, $condition);
                 });
             // Add condition to cart only to show it on the subtotal. We add them to every item.
             Cart::condition($condition);
+
+            if($response->unique()->first()) {
+                $request->session()->push('coupons', $request->input('coupon'));
+            }
         }
 
         return redirect(route('cart.index'));

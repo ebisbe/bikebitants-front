@@ -38,21 +38,21 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Event::listen('cart.removed', function ($id, $cart) {
+        Event::listen('cart.removed', function () {
             if (Cart::isEmpty()) {
                 Request::session()->forget('coupons');
                 Cart::clearCartConditions();
             }
         });
 
-        Event::listen('cart.updating', function ($items, $cart) {
+        Event::listen('cart.updating', function ($items) {
             $coupons = collect(Request::session()->get('coupons', []));
-            if (
-                !empty($items['conditions'])
-                && $coupons
-                    ->pluck('name')
-                    ->contains($items['conditions'][0]->getName())
-            ) {
+            $conditionsName = collect($items['conditions'])->map(function($condition) {
+                return $condition->getName();
+            });
+            // If the count is one means that the condition is the IVA applied therefore
+            // we dont continue the update.
+            if ($conditionsName->diff($coupons)->count() == 1) {
                 return false;
             }
         });

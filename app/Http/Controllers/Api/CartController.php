@@ -66,19 +66,20 @@ class CartController extends ApiController
                 ],
             ]);
         } else {
+            // TODO change tax depending IP
+            $taxCondition = new \Darryldecode\Cart\CartCondition([
+                'name' => '[21%] IVA',
+                'type' => 'tax',
+                'target' => 'item',
+                'value' => '21%',
+                'order' => 5
+            ]);
             Cart::add([
                 'id' => $variation->sku,
                 'name' => $product->name,
                 'price' => $product->finalPrice($variationProperties),
                 'quantity' => $quantity,
-                // TODO change tax depending IP
-                /*'conditions' => new \Darryldecode\Cart\CartCondition([
-                    'name' => '[21%] IVA',
-                    'type' => 'tax',
-                    'target' => 'item',
-                    'value' => '21%',
-                    'order' => 5
-                ]),*/
+                'conditions' => [$taxCondition],
                 'attributes' => [
                     'product' => $product,
                     'variation_id' => $variation->external_id,
