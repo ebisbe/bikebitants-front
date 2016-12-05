@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business\Models\Shop\Coupon;
+use App\Business\Repositories\CouponRepository;
 use Darryldecode\Cart\CartCondition;
 use Illuminate\Http\Request;
 use Cart;
@@ -10,13 +11,13 @@ use App\Http\Requests;
 
 class CouponController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, CouponRepository $couponRepository)
     {
         $this->validate($request, [
             'coupon' => 'bail|required|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
         ]);
 
-        $coupon = Coupon::addToCart($request->input('coupon'));
+        $coupon = $couponRepository->addToCart($request->input('coupon'));
 
         if (!empty($coupon)) {
             $response = Cart::getContent()

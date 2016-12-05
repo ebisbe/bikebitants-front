@@ -3,6 +3,7 @@
 namespace App\Business\Services;
 
 use App\Billing;
+use App\Business\Repositories\CouponRepository;
 use App\Country;
 use App\Business\Models\Shop\Coupon;
 use App\Events\CancelOrder;
@@ -42,16 +43,21 @@ class OrderService
     protected $session_id;
     protected $form_params;
 
+    /** Repositories */
+    protected $couponRepository;
+
     /**
      * OrderService constructor.
-     * @param Cache $cache
      * @param Country $country
      * @param PaymentMethod $paymentMethod
+     * @param CouponRepository $couponRepository
      */
-    public function __construct(Country $country, PaymentMethod $paymentMethod)
+    public function __construct(Country $country, PaymentMethod $paymentMethod, CouponRepository $couponRepository)
     {
         $this->country = $country;
         $this->paymentMethod = $paymentMethod;
+
+        $this->couponRepository = $couponRepository;
     }
 
     public function checkoutOrder($avoidLoop = false)
@@ -215,7 +221,7 @@ class OrderService
     {
         $this->getOrder();
 
-        $coupon = Coupon::addToCart($this->getCoupon());
+        $coupon = $this->couponRepository->addToCart($this->getCoupon());
         if(!empty($coupon)) {
             $condition = new CartCondition($coupon);
             Cart::condition($condition);
