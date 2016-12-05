@@ -52,7 +52,11 @@ class EventServiceProvider extends ServiceProvider
             });
             // If the count is one means that the condition is the IVA applied therefore
             // we dont continue the update.
-            if ($conditionsName->diff($coupons)->count() == 1) {
+            if (
+                $conditionsName->diff($coupons)->count() == 1
+                // we are trying to add more conditions -> coupons otherwise we are just updating quantity
+                && $conditionsName->count() != 1
+            ) {
                 return false;
             }
         });
