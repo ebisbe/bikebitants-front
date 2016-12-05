@@ -27,15 +27,11 @@
                 </ul>
                 <p>{!! $product->introduction !!}</p>
                 <div class="product-form clearfix">
-                    <form action="/cart" class="js-add-to-cart" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="product_id" value="{{ $product->_id }}">
-                        <product-form
-                                v-bind:properties='{!! json_encode($product->properties()->sortBy('order')->all()) !!}'
-                                v-bind:variations='{!! json_encode($product->variations()->all()) !!}'
-                        ></product-form>
-
-                    </form>
+                    <product-form
+                            product_id="{{ $product->_id }}"
+                            v-bind:properties='{!! json_encode($product->properties()->sortBy('order')->all()) !!}'
+                            v-bind:variations='{!! json_encode($product->variations()->all()) !!}'
+                    ></product-form>
                 </div>
                 {{--<ul class="list-inline product-links">
                     <li><a href="#"><i class="fa fa-heart"></i>Add to wishlist</a></li>

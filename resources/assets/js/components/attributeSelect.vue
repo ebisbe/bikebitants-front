@@ -1,7 +1,7 @@
 <template>
     <div class="form-group product-size">
         <label>{{ name }}:</label>
-        <select name="properties[name]"
+        <select :name="name"
                 v-model="selectedElement"
                 class="form-control"
                 @change="changed">

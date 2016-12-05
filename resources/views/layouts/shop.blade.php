@@ -123,11 +123,11 @@
                         </ul>
                     </li>--}}
 
-                    <menu-cart
+                    <cart-menu
                             cart="{{ route('cart.index') }}"
                             checkout="{{ route('checkout.index') }}"
                             shop="{{ route('shop.catalogue') }}">
-                    </menu-cart>
+                    </cart-menu>
                     {{--<li class="dropdown navbar-search hidden-xs">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
                         <ul class="dropdown-menu">

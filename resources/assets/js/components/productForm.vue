@@ -1,5 +1,5 @@
 <template>
-    <div class="form-inline">
+    <form id="add-product" class="form-inline">
         <attribute-select
                 v-for="property in properties"
                 :order="property.order"
@@ -9,17 +9,20 @@
         </attribute-select>
 
         <quantity-select
-                :max-quantity="maxQuantity">
+                :max-quantity="maxQuantity"
+                @changedQuantity="updateQuantity">
         </quantity-select>
 
-        <button type="submit"
-                class="btn btn-primary add-to-cart js-add-button"
-                v-html="$t('catalogue.add_to_stock')">
-
-        </button>
+        <cart-add :quantity="quantity"
+                  :product_id="product_id"
+                  :properties="cart_properties"
+                  text="catalogue.add"
+                  :show_icon="true"
+                  button_class="btn btn-primary add-to-cart">
+        </cart-add>
 
         <span class="help-block" id="helpBlock2">{{ $t('catalogue.max_stock') }}: {{ maxQuantity }}</span>
-    </div>
+    </form>
 </template>
 
 <script>
@@ -27,13 +30,16 @@
     import quantitySelect from './quantitySelect.vue';
 
     export default {
-        props: ['properties', 'variations'],
+        props: ['properties', 'variations', 'product_id'],
 
         data() {
             return {
                 firstSelected: '',
                 variationsFilter: [],
-                maxQuantity: -1
+                maxQuantity: -1,
+
+                quantity:1,
+                cart_properties: {}
             }
         },
 
@@ -65,6 +71,7 @@
 
         methods: {
             emitChangedValue: function (order, selectedValue) {
+                this.cart_properties[order] = selectedValue;
                 switch (this.properties.length) {
                     case 1:
                         this.firstSelected = selectedValue;
@@ -103,6 +110,10 @@
                 ).shift();
 
                 this.maxQuantity = selectedVariation.stock;
+            },
+
+            updateQuantity: function(quantity) {
+                this.quantity = quantity;
             }
         },
 

@@ -22,19 +22,20 @@ class CartController extends ApiController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Support\Collection
      */
     public function index()
     {
-        $cartCollect = Cart::getContent();
-        return response(view('ajax.cart.index', compact('cartCollect')))->header('Content-Type', 'application/json');
-
+        return Cart::getContent()
+            ->map(function ($item) {
+                return $this->mapItem($item);
+            });
     }
 
     /**
      * @param Request $request
      * @param ProductRepository $productRepository
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
+     * @return array
      */
     public function store(Request $request, ProductRepository $productRepository)
     {
@@ -46,6 +47,8 @@ class CartController extends ApiController
 
         $productId = $request->input('product_id');
         $properties = $request->input('properties', []);
+        $quantity = $request->input('quantity', 1);
+
         $variationProperties = array_merge([$productId], $properties);
 
         /** @var Product $product */
@@ -53,7 +56,7 @@ class CartController extends ApiController
         $variation = $product->productVariation($variationProperties);
 
         $item = Cart::get($variation->sku);
-        if (!is_null($item) && ($item->quantity + $request->input('quantity', 1)) >= $variation->stock) {
+        if (!is_null($item) && ($item->quantity + $quantity) >= $variation->stock) {
             //TODO notify that this is already maximum stock
             Cart::update($variation->sku, [
                 'quantity' => [
@@ -66,7 +69,7 @@ class CartController extends ApiController
                 'id' => $variation->sku,
                 'name' => $product->name,
                 'price' => $product->finalPrice($variationProperties),
-                'quantity' => $request->input('quantity', 1),
+                'quantity' => $quantity,
                 // TODO change tax depending IP
                 /*'conditions' => new \Darryldecode\Cart\CartCondition([
                     'name' => '[21%] IVA',
@@ -84,7 +87,7 @@ class CartController extends ApiController
             ]);
         }
 
-        return $this->response();
+        return $this->mapItem(Cart::get($variation->sku));
     }
 
     /**
@@ -100,14 +103,25 @@ class CartController extends ApiController
         return \Response::json(['success' => true]);
     }
 
-
-    protected function response()
+    /**
+     * @param $item
+     * @return array
+     */
+    protected function mapItem($item)
     {
-        $cartCollect = Cart::getContent();
-        if ($cartCollect->isEmpty()) {
-            return view('ajax.cart.empty');
-        }
+        /** @var Product $product */
+        $product = $item->attributes['product'];
 
-        return view('ajax.cart.index', compact('cartCollect'));
+        $productArr = [
+            'filename' => $item->attributes->filename,
+            'alt' => $item->name,
+            'name' => $item->name,
+            'route' => route('shop.product', ['slug' => $product->slug]),
+            'quantity' => $item->quantity,
+            'price' => $item->getPriceWithConditions(),
+            'currency' => $product->currency,
+            '_id' => $item->id
+        ];
+        return $productArr;
     }
 }

@@ -17,7 +17,8 @@ PRODUCTS - START
                         <!-- WIDGET:CATEGORIES - START -->
                         <div class="widget widget-categories">
                             <h3><a role="button" data-toggle="collapse" href="#widget-categories-collapse"
-                                   aria-expanded="true" aria-controls="widget-categories-collapse">@lang('catalogue.categories')</a></h3>
+                                   aria-expanded="true"
+                                   aria-controls="widget-categories-collapse">@lang('catalogue.categories')</a></h3>
                             <div class="collapse in" id="widget-categories-collapse" aria-expanded="true"
                                  role="tabpanel">
                                 <div class="widget-body">
@@ -162,22 +163,18 @@ PRODUCTS - START
                                                             @lang('catalogue.choose_options')
                                                         </a>
                                                     @else
-                                                        <button class="btn btn-transparent btn-sm js-shop-add-button"
-                                                                data-quantity="1"
-                                                                data-product_id="{{ $product->_id }}"
-                                                                data-product_name="{{ $product->name }}"
-                                                                data-action="{{ route('cart.store') }}"
-                                                                data-token="{{ csrf_token() }}">
-                                                            @lang('catalogue.add')
-                                                        </button>
-                                                        <button class="btn btn-transparent btn-sm js-shop-add-button"
-                                                                data-quantity="1"
-                                                                data-product_id="{{ $product->_id }}"
-                                                                data-product_name="{{ $product->name }}"
-                                                                data-action="{{ route('cart.store') }}"
-                                                                data-token="{{ csrf_token() }}">
-                                                            @lang('catalogue.add_and_buy')
-                                                        </button>
+                                                        <cart-add :quantity="1"
+                                                                  product_id="{{ $product->_id }}"
+                                                                  text="catalogue.add"
+                                                                  :show_icon="true"
+                                                                  button_class="btn btn-transparent btn-sm">
+                                                        </cart-add>
+                                                        <cart-add :quantity="1"
+                                                                  product_id="{{ $product->_id }}"
+                                                                  text="catalogue.add_and_buy"
+                                                                  :show_icon="false"
+                                                                  button_class="btn btn-transparent btn-sm">
+                                                        </cart-add>
                                                     @endif
                                                     {{--<button type="submit" class="btn btn-primary add-to-cart js-add-button">--}}
                                                     {{--<i class="fa fa-shopping-cart"></i>--}}

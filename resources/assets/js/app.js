@@ -24,9 +24,10 @@ require('./shop.js');
 Vue.use(VueLazyload);*/
 
 Vue.component('total-checkout', require('./components/totalCheckout.vue'));
-Vue.component('productForm' , require('./components/productForm.vue'));
-Vue.component('addReview' , require('./components/addReview.vue'));
-Vue.component('menuCart' , require('./components/menuCart.vue'));
+Vue.component('product-form' , require('./components/productForm.vue'));
+Vue.component('add-review' , require('./components/addReview.vue'));
+Vue.component('cart-menu' , require('./components/cartMenu.vue'));
+Vue.component('cart-add' , require('./components/cartAdd.vue'));
 
 var VueInternalization = require('vue-i18n');
 import Locales from './vue-i18n-locales.generated.js';

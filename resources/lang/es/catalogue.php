@@ -5,7 +5,7 @@ return [
     'sort_by' => 'Ordenar por:',
     'no_rating' => 'No hay valoraciones',
     'choose_options' => '<i class="fa fa-plus"></i>&nbsp;Seleccionar opciones',
-    'add' => '<i class="fa fa-shopping-cart"></i>&nbsp;Añadir',
+    'add' => '&nbsp;Añadir',
     'add_and_buy' => 'Comprar',
     'read_more' => '<i class="fa fa-plus"></i>Leer más',
 
@@ -34,7 +34,7 @@ return [
 
     //lost things
     'max_stock' => 'Cantidad de stock',
-    'add_to_stock' => '<i class="fa fa-shopping-cart"></i> Añadir',
+    //'add_to_stock' => '<i class="fa fa-shopping-cart"></i>&nbsp;Añadir',
     'in_stock' => 'In Stock',
     'out_of_stock' => 'Out of Stock'
 ];
