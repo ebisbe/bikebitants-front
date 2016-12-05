@@ -13,5 +13,5 @@ return [
     'third_box_p' => 'Aceptamos tu devoluci&oacute;n<br/> hasta 30 dias despues de la compra',
 
     'blog_h2' => 'Lo último de nuestro blog',
-    'blog_p' => 'Lee nuestros últimos posts sobre ciclismo, seguridad vial y últimas novedades.'
+    'blog_p' => 'Lee sobre como la tecnología y la innovación pueden ayudar al ciclista urbano... y más!'
 ];
