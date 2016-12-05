@@ -40,7 +40,7 @@ Route::get('/tienda/', 'ShopController@shop')->name('shop.catalogue');
 Route::get('/tienda/{slugCategory}/', 'ShopController@category')->name('shop.category');
 Route::get('/tienda/{slugCategory}/{slugSubCategory}', 'ShopController@subcategory')->name('shop.subcategory');
 Route::get('/product/{slug}', 'ShopController@product')->name('shop.product');
-Route::resource('cart', 'CartController', ['only' => ['index', 'store']]);
+Route::resource('cart', 'CartController', ['only' => ['index', 'destroy']]);
 Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
 
 Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store', 'show']]);

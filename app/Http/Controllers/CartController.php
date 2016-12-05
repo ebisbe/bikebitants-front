@@ -44,4 +44,17 @@ class CartController extends Controller
 
         return view('cart.index', compact('cartCollect', 'title', 'subtitle'));
     }
+
+    /**
+     * @param $id
+     * @return array|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function destroy($id)
+    {
+        if (!Cart::isEmpty()) {
+            Cart::remove($id);
+        }
+
+        return redirect()->back();
+    }
 }
