@@ -29,7 +29,8 @@ class CartController extends ApiController
         return Cart::getContent()
             ->map(function ($item) {
                 return $this->mapItem($item);
-            });
+            })
+            ->values();
     }
 
     /**
