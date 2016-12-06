@@ -1,0 +1,16 @@
+#Bower + google fonts
+http://www.cardinalsolutions.com/blog/2015/05/google-fonts-bower-proxy
+https://google-fonts.azurewebsites.net/
+https://dotdev.co/creating-unique-title-slugs-with-laravel-7f67badd98f9#.w6dboultx
+https://mattstauffer.co/blog/introducing-laravel-echo?utm_campaign=Laravel%20News&utm_medium=email&utm_source=ln108
+https://murze.be/2016/08/automatically-generate-a-sitemap-in-laravel/
+https://murze.be/2016/08/debugging-collection-chains/
+http://usman.it/ajaxify-your-laravel-application/
+https://blog.omranic.com/the-art-of-using-repositories-in-laravel-5-3-ee20a1eacb35
+
+Omnipay
+https://developer.paypal.com/developer/applications/
+Test account:
+enric@gmail.com / Bikebit4nts!
+
+Pixelpeter -> http build delete 3 params from woocomerce ( not sure why )
