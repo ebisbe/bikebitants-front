@@ -46,6 +46,11 @@ class EventServiceProvider extends ServiceProvider
         });
 
         Event::listen('cart.updating', function ($items) {
+            if(!isset($items['conditions'])) {
+                // we are updating quantity or we don't have any condition applied
+                return true;
+            }
+
             $coupons = collect(Request::session()->get('coupons', []));
             $conditionsName = collect($items['conditions'])->map(function($condition) {
                 return $condition->getName();

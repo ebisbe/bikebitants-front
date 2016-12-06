@@ -34,6 +34,6 @@ class CouponController extends Controller
             }
         }
 
-        return redirect(route('cart.index'));
+        return redirect()->back();
     }
 }

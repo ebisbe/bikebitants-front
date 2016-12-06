@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Business\Repositories\ProductRepository;
+use App\Business\Services\CartService;
 use App\Business\Services\TaxService;
 use App\Http\Middleware\CartMiddleware;
 use App\Order;
@@ -22,23 +23,20 @@ class CartController extends ApiController
     }
 
     /**
+     * @param CartService $cartService
      * @return \Illuminate\Support\Collection
      */
-    public function index()
+    public function index(CartService $cartService)
     {
-        return Cart::getContent()
-            ->map(function ($item) {
-                return $this->mapItem($item);
-            })
-            ->values();
+        return $cartService->getCartContent();
     }
 
     /**
      * @param Request $request
-     * @param ProductRepository $productRepository
+     * @param CartService $cartService
      * @return array
      */
-    public function store(Request $request, ProductRepository $productRepository)
+    public function store(Request $request, CartService $cartService)
     {
         $order = Order::currentOrder();
         if (!$order->isEmpty() && $order->first()->status > Order::New) {
@@ -46,50 +44,9 @@ class CartController extends ApiController
             abort(402, 'Unable to add more products while checking out the cart.');
         }
 
-        $productId = $request->input('product_id');
-        $properties = $request->input('properties', []);
-        $quantity = $request->input('quantity', 1);
+        $this->validate($request, ['product_id' => 'required']);
 
-        $variationProperties = array_merge([$productId], $properties);
-
-        /** @var Product $product */
-        $product = $productRepository->find($productId);
-        $variation = $product->productVariation($variationProperties);
-
-        $item = Cart::get($variation->sku);
-        if (!is_null($item) && ($item->quantity + $quantity) >= $variation->stock) {
-            //TODO notify that this is already maximum stock
-            Cart::update($variation->sku, [
-                'quantity' => [
-                    'relative' => false,
-                    'value' => $variation->stock
-                ],
-            ]);
-        } else {
-            // TODO change tax depending IP
-            $taxCondition = new \Darryldecode\Cart\CartCondition([
-                'name' => '[21%] IVA',
-                'type' => 'tax',
-                'target' => 'item',
-                'value' => '21%',
-                'order' => 5
-            ]);
-            Cart::add([
-                'id' => $variation->sku,
-                'name' => $product->name,
-                'price' => $product->finalPrice($variationProperties),
-                'quantity' => $quantity,
-                'conditions' => [$taxCondition],
-                'attributes' => [
-                    'product' => $product,
-                    'variation_id' => $variation->external_id,
-                    'properties' => $properties,
-                    'filename' => $variation->filename
-                ]
-            ]);
-        }
-
-        return $this->mapItem(Cart::get($variation->sku));
+        return $cartService->store($request);
     }
 
     /**
@@ -103,27 +60,5 @@ class CartController extends ApiController
         }
 
         return \Response::json(['success' => true]);
-    }
-
-    /**
-     * @param $item
-     * @return array
-     */
-    protected function mapItem($item)
-    {
-        /** @var Product $product */
-        $product = $item->attributes['product'];
-
-        $productArr = [
-            'filename' => $item->attributes->filename,
-            'alt' => $item->name,
-            'name' => $item->name,
-            'route' => route('shop.product', ['slug' => $product->slug]),
-            'quantity' => $item->quantity,
-            'price' => $item->getPriceWithConditions(),
-            'currency' => $product->currency,
-            '_id' => $item->id
-        ];
-        return $productArr;
     }
 }
