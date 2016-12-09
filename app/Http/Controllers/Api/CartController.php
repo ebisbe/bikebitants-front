@@ -45,7 +45,7 @@ class CartController extends ApiController implements CartMapper
 
         $cartService->setProductId($request->input('product_id'));
         $cartService->setProperties($request->input('properties', []));
-        $cartService->setQuantity((int)$request->input('quantity', 1));
+        $cartService->setQuantity($request->input('quantity', 1));
         $cartService->setCoupons($request->session()->get('coupons', []));
 
         return $cartService->store($this);

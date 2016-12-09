@@ -4,7 +4,6 @@ namespace App\Business\Services;
 
 use App\Business\Interfaces\CartMapper;
 use App\Business\Models\Shop\Product;
-use App\Business\Repositories\CouponRepository;
 use App\Business\Repositories\ProductRepository;
 use App\Variation;
 use \Cart;
