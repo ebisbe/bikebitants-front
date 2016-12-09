@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Business\Repositories\ProductRepository;
+use App\Business\Interfaces\CartMapper;
 use App\Business\Services\CartService;
-use App\Business\Services\TaxService;
 use App\Http\Middleware\CartMiddleware;
 use App\Order;
 use App\Product;
-use App\Variation;
+use Darryldecode\Cart\ItemCollection;
 use Illuminate\Http\Request;
-use MetaTag;
 use Cart;
-use BreadCrumbLinks;
 
-class CartController extends ApiController
+class CartController extends ApiController implements CartMapper
 {
 
     public function __construct()
@@ -28,7 +25,7 @@ class CartController extends ApiController
      */
     public function index(CartService $cartService)
     {
-        return $cartService->getCartContent();
+        return $cartService->getCartContent($this);
     }
 
     /**
@@ -46,7 +43,12 @@ class CartController extends ApiController
 
         $this->validate($request, ['product_id' => 'required']);
 
-        return $cartService->store($request);
+        $cartService->setProductId($request->input('product_id'));
+        $cartService->setProperties($request->input('properties', []));
+        $cartService->setQuantity((int)$request->input('quantity', 1));
+        $cartService->setCoupons($request->session()->get('coupons', []));
+
+        return $cartService->store($this);
     }
 
     /**
@@ -60,5 +62,27 @@ class CartController extends ApiController
         }
 
         return \Response::json(['success' => true]);
+    }
+
+    /**
+     * @param ItemCollection $item
+     * @return array
+     */
+    public function mapItem(ItemCollection $item)
+    {
+        /** @var Product $product */
+        $product = $item->attributes['product'];
+
+        $productArr = [
+            'filename' => $item->attributes->filename,
+            'alt' => $item->name,
+            'name' => $item->name,
+            'route' => route('shop.product', ['slug' => $product->slug]),
+            'quantity' => $item->quantity,
+            'price' => $item->getPriceWithConditions(),
+            'currency' => $product->currency,
+            '_id' => $item->id
+        ];
+        return $productArr;
     }
 }

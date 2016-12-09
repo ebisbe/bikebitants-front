@@ -44,20 +44,20 @@ class OrderService
     protected $form_params;
 
     /** Repositories */
-    protected $couponRepository;
+    protected $couponService;
 
     /**
      * OrderService constructor.
      * @param Country $country
      * @param PaymentMethod $paymentMethod
-     * @param CouponRepository $couponRepository
+     * @param CouponService $couponService
      */
-    public function __construct(Country $country, PaymentMethod $paymentMethod, CouponRepository $couponRepository)
+    public function __construct(Country $country, PaymentMethod $paymentMethod, CouponService $couponService)
     {
         $this->country = $country;
         $this->paymentMethod = $paymentMethod;
 
-        $this->couponRepository = $couponRepository;
+        $this->couponService = $couponService;
     }
 
     public function checkoutOrder($avoidLoop = false)
@@ -221,10 +221,9 @@ class OrderService
     {
         $this->getOrder();
 
-        $coupon = $this->couponRepository->addToCart($this->getCoupon());
-        if(!empty($coupon)) {
-            $condition = new CartCondition($coupon);
-            Cart::condition($condition);
+        if(!empty($this->getCoupon())) {
+            $coupon = $this->couponService->createCoupon($this->getCoupon());
+            Cart::condition($coupon);
             $this->order->conditions = $this->updateOrderConditions();
         }
 
