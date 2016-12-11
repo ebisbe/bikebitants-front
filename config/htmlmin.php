@@ -44,6 +44,6 @@ return [
     |
     */
 
-    'force' => true,
+    'force' => !env('APP_DEBUG'),
 
 ];
