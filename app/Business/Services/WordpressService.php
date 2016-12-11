@@ -97,7 +97,7 @@ class WordpressService
 
         $this->product = Product::orWhere(function ($query) use ($wpProduct) {
                 $query->whereExternalId($wpProduct['id'])
-                    ->orWhere('sku', $wpProduct['sku']);
+                    ->orWhere('_id', $wpProduct['sku']);
             })
             ->first();
         // $this->product->timestamps = false;
