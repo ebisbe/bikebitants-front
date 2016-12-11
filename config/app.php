@@ -180,6 +180,7 @@ return [
         Thujohn\Twitter\TwitterServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class
     ],
 
     /*

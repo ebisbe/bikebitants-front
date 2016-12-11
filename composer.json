@@ -31,7 +31,8 @@
         "pulkitjalan/geoip": "2.*",
         "martinlindhe/laravel-vue-i18n-generator": "^0.1.7",
         "thujohn/twitter": "^2.2",
-        "sentry/sentry-laravel": "^0.4.1"
+        "sentry/sentry-laravel": "^0.4.1",
+        "graham-campbell/htmlmin": "^4.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
