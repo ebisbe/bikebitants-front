@@ -148,6 +148,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        //if not placed here Custom blade syntaxes are outputed as text
+        GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -180,7 +183,6 @@ return [
         Thujohn\Twitter\TwitterServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
-        GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class
     ],
 
     /*
