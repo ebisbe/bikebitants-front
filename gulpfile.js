@@ -42,7 +42,7 @@ elixir(mix => {
             'custom.css',
             'bikebitants.css',
             'color/green.css'
-        ], 'storage/app/css/injected.css')
+        ], 'resources/assets/css/injected.css')
 
         .version(['js/app.js', 'css/all.css']);
 });

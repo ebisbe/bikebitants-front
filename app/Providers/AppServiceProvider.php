@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         DB::connection('mongodb')->enableQueryLog();
 
         Blade::directive('injectCss', function ($cssRoute) {
-            return "<style><?php echo \Storage::get({$cssRoute}); ?></style>";
+            return "<style><?php echo file_get_contents(resource_path({$cssRoute})); ?></style>";
         });
     }
 
