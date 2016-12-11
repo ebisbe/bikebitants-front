@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-
-    <link rel="stylesheet" async href="{{ elixir('css/all.css') }}">
+    @injectCss('css/main.css')
 
     <title>{{ MetaTag::get('title') }}</title>
 
@@ -288,6 +287,7 @@
  JS
 =========================== -->
 <script src="{{ elixir('js/app.js') }}"></script>
+<link rel="stylesheet" href="{{ elixir('css/all.css') }}">
 @stack('footer.scripts')
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

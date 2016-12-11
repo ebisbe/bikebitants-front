@@ -12,6 +12,7 @@ use App\Jobs\UpdateCategories;
 use App\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
+use Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
         });
 
         DB::connection('mongodb')->enableQueryLog();
+
+        Blade::directive('injectCss', function ($cssRoute) {
+            return "<style><?php echo \Storage::get({$cssRoute}); ?></style>";
+        });
     }
 
     /**
