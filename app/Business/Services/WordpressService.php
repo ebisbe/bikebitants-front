@@ -32,6 +32,8 @@ class WordpressService
     protected $wooCommerceCallback;
     protected $wordpressServiceCallback;
 
+    static $WP_FILE = 'wp_files';
+
     public function setWooCommerceCallback($wooCommerceCallback)
     {
         $this->wooCommerceCallback = $wooCommerceCallback;
@@ -409,7 +411,7 @@ class WordpressService
         if (!empty($image['src'])) {
             $name = basename($image['src']);
             if (!Storage::exists($name)) {
-                Storage::put($name, file_get_contents($image['src']));
+                Storage::put(static::$WP_FILE . '/' . $name, file_get_contents($image['src']));
             }
             return $name;
         }

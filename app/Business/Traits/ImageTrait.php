@@ -2,6 +2,7 @@
 
 namespace App\Business\Traits;
 
+use App\Business\Services\WordpressService;
 use Intervention\Image\ImageManager;
 use Illuminate\Http\Response as IlluminateResponse;
 use Config;
@@ -49,7 +50,7 @@ trait ImageTrait
             } else {
                 $width = $filter;
             }
-            $image->make(Storage::get($filename))
+            $image->make(Storage::get(WordpressService::$WP_FILE . '/' . $filename))
                 /*->resize($width, $height, function ($constraint) use ($height) {
                     if (is_null($height)) {
                         $constraint->aspectRatio();
@@ -67,9 +68,9 @@ trait ImageTrait
                 });
             }
 
-            $dir = public_path("img/$filter/");
+            $dir = public_path("storage/img/$filter/");
             \File::makeDirectory($dir, 0777, true, true);
-            $image->save(public_path("img/$filter/$filename"));
+            $image->save(public_path("storage/img/$filter/$filename"));
 
         }, config('cache.image.lifetime'));
 
