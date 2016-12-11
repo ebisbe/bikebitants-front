@@ -95,7 +95,11 @@ class WordpressService
             return false;
         }
 
-        $this->product = Product::whereExternalId($wpProduct['id'])->orWhere('sku', $wpProduct['sku'])->first();
+        $this->product = Product::orWhere(function ($query) use ($wpProduct) {
+                $query->whereExternalId($wpProduct['id'])
+                    ->orWhere('sku', $wpProduct['sku']);
+            })
+            ->first();
         // $this->product->timestamps = false;
         if (empty($this->product)) {
             $this->product = new Product();
