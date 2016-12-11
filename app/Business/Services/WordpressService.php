@@ -410,7 +410,7 @@ class WordpressService
     {
         if (!empty($image['src'])) {
             $name = basename($image['src']);
-            if (!Storage::exists($name)) {
+            if (!Storage::exists(static::$WP_FILE . '/' . $name)) {
                 Storage::put(static::$WP_FILE . '/' . $name, file_get_contents($image['src']));
             }
             return $name;
