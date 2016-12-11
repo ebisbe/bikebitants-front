@@ -26,6 +26,10 @@ elixir(mix => {
         .webpack('app.js')
 
         .styles([
+            'bower/bootstrap/dist/css/bootstrap.css',
+            'custom.css',
+            'bikebitants.css',
+            'color/green.css',
             'bower/jquery-ui/themes/smoothness/jquery-ui.css',
             'bower/font-awesome/css/font-awesome.css',
             'bower/dragtable/dragtable.css',
@@ -36,13 +40,6 @@ elixir(mix => {
             'bower/pnotify/dist/pnotify.css',
             'bower/pnotify/dist/pnotify.brighttheme.css'
         ])
-
-        .styles([
-            'bower/bootstrap/dist/css/bootstrap.css',
-            'custom.css',
-            'bikebitants.css',
-            'color/green.css'
-        ], 'resources/assets/css/injected.css')
 
         .version(['js/app.js', 'css/all.css']);
 });
