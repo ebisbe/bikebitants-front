@@ -96,9 +96,9 @@ class WordpressService
         }
 
         $this->product = Product::orWhere(function ($query) use ($wpProduct) {
-                $query->whereExternalId($wpProduct['id'])
-                    ->orWhere('_id', $wpProduct['sku']);
-            })
+            $query->whereExternalId($wpProduct['id'])
+                ->orWhere('_id', $wpProduct['sku']);
+        })
             ->first();
         // $this->product->timestamps = false;
         if (empty($this->product)) {
@@ -271,9 +271,22 @@ class WordpressService
      */
     public function syncImages($images)
     {
-        $this->product->images()->filter();
-        collect($images)->each(function ($wpImage) {
-            $this->syncImage($wpImage);
+        $ids = collect($images)
+            ->map(function ($wpImage) {
+                return $this->syncImage($wpImage);
+            })
+            ->pluck('external_id')
+            ->toArray();
+
+        //Find deleted images
+        $imagesToDelete = $this->product
+            ->images()
+            ->filter(function ($image) use ($ids) {
+                return !in_array($image['external_id'], $ids);
+            });
+        //Delete attributes
+        $imagesToDelete->each(function ($attribute) {
+            $this->product->images()->destroy($attribute);
         });
     }
 
