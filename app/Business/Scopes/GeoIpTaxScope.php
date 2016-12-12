@@ -16,35 +16,36 @@ class GeoIpTaxScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        return $builder->orWhere(function ($query) {
-            $query->whereCountry(GeoIP::getCountryCode())
-                ->whereState(GeoIP::getRegionCode())
-                ->wherePostcode(GeoIP::getPostalCode())
-                ->whereCity(GeoIP::getCity());
-        })
-        ->orWhere(function ($query) {
-            $query->whereCountry(GeoIP::getCountryCode())
-                ->whereState(GeoIP::getRegionCode())
-                ->wherePostcode(GeoIP::getPostalCode())
-                ->whereCity('');
-        })
-        ->orWhere(function ($query) {
-            $query->whereCountry(GeoIP::getCountryCode())
-                ->whereState(GeoIP::getRegionCode())
-                ->wherePostcode('')
-                ->whereCity('');
-        })
-        ->orWhere(function ($query) {
-            $query->whereCountry(GeoIP::getCountryCode())
-                ->whereState('')
-                ->wherePostcode('')
-                ->whereCity('');
-        })
-        ->orWhere(function ($query) {
-            $query->whereCountry('')
-                ->whereState('')
-                ->wherePostcode('')
-                ->whereCity('');
-        });
+        return $builder
+            ->orWhere(function ($query) {
+                $query->where('country',GeoIP::getCountryCode())
+                    ->where('state',GeoIP::getRegionCode())
+                    ->where('postcode',GeoIP::getPostalCode())
+                    ->where('city',GeoIP::getCity());
+            })
+            ->orWhere(function ($query) {
+                $query->where('country',GeoIP::getCountryCode())
+                    ->where('state',GeoIP::getRegionCode())
+                    ->where('postcode',GeoIP::getPostalCode())
+                    ->where('city','');
+            })
+            ->orWhere(function ($query) {
+                $query->where('country',GeoIP::getCountryCode())
+                    ->where('state',GeoIP::getRegionCode())
+                    ->where('postcode','')
+                    ->where('city','');
+            })
+            ->orWhere(function ($query) {
+                $query->where('country',GeoIP::getCountryCode())
+                    ->where('state','')
+                    ->where('postcode','')
+                    ->where('city','');
+            })
+            ->orWhere(function ($query) {
+                $query->where('country','')
+                    ->where('state','')
+                    ->where('postcode','')
+                    ->where('city','');
+            });
     }
 }

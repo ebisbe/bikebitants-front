@@ -2,25 +2,33 @@
 
 namespace App\Business\Services;
 
+use App\Business\Models\Shop\Tax;
 use App\Business\Repositories\TaxRepository;
 
 class TaxService
 {
-    /**
-     * @return mixed
-     */
-    public static function getTax()
+    protected $taxRepository;
+
+    public function __construct(TaxRepository $taxRepository)
     {
-        return (new TaxRepository())->orderBy('order')->get()->first();
+        $this->taxRepository = $taxRepository;
+    }
+
+    /**
+     * @return Tax
+     */
+    public function getTax()
+    {
+        return $this->taxRepository->orderBy('order')->findAll()->first();
     }
 
     /**
      * @param Float $price
      * @return string
      */
-    public static function applyTax(Float $price)
+    public function applyTax(Float $price)
     {
-        $rate = self::getTax()->rate;
+        $rate = $this->getTax()->rate;
         return number_format(round($price * (100 +  $rate ) / 100, 2), 2);
     }
 }

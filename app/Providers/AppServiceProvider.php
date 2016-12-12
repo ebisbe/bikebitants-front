@@ -38,9 +38,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
+
         $this->app->bind('title', 'App\Business\Admin\Title');
         $this->app->bind('breadcrumblinks', 'App\Business\Admin\BreadCrumbLinks');
         $this->app->bind('staticvars', 'App\Business\StaticVars');
+        $this->app->bind('taxservice', 'App\Business\Services\TaxService');
+
         $this->app->bind('App\Business\Services\TwitterService', 'App\Business\Services\TwitterService');
 
     }

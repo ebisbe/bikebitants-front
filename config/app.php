@@ -163,11 +163,9 @@ return [
          * Bikebitants services
          */
         Jenssegers\Mongodb\MongodbServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
         Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
@@ -230,12 +228,14 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
 
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
-        'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
         'Title' => App\Business\Facades\Title::class,
         'BreadCrumbLinks' => App\Business\Facades\BreadCrumbLinks::class,
         'StaticVars' => App\Business\Facades\StaticVars::class,
+        'TaxService' => App\Business\Facades\TaxService::class,
+
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Breadcrumbs' => Creitive\Breadcrumbs\Facades\Breadcrumbs::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'MetaTag' => Torann\LaravelMetaTags\Facades\MetaTag::class,
         'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class,

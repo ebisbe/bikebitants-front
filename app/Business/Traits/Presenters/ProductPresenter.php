@@ -1,7 +1,7 @@
 <?php
 namespace App\Business\Traits\Presenters;
 
-use App\Business\Services\TaxService;
+use \TaxService;
 
 trait ProductPresenter
 {
@@ -12,12 +12,12 @@ trait ProductPresenter
      */
     public function getRangePriceAttribute()
     {
-        $min = $this->variations->min('price');
-        $max = $this->variations->max('price');
+        $min = TaxService::applyTax($this->variations->min('price'));
+        $max = TaxService::applyTax($this->variations->max('price'));
         if ($min != $max) {
-            return TaxService::applyTax($min) . $this->currency . ' - ' . TaxService::applyTax($max) . $this->currency;
+            return $min . $this->currency . ' - ' . $max . $this->currency;
         }
-        return TaxService::applyTax($min) . $this->currency;
+        return $min . $this->currency;
     }
 
     /**
@@ -26,12 +26,12 @@ trait ProductPresenter
      */
     public function getRangeRealPriceAttribute()
     {
-        $min = $this->variations->min('real_price');
-        $max = $this->variations->max('real_price');
+        $min = TaxService::applyTax($this->variations->min('real_price'));
+        $max = TaxService::applyTax($this->variations->max('real_price'));
         if ($min != $max) {
-            return TaxService::applyTax($min) . $this->currency . ' - ' . TaxService::applyTax($max) . $this->currency;
+            return $min . $this->currency . ' - ' . $max . $this->currency;
         }
-        return TaxService::applyTax($min) . $this->currency;
+        return $min . $this->currency;
     }
 
     public function getStatusTextAttribute()
