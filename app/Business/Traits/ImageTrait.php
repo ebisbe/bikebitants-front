@@ -3,10 +3,10 @@
 namespace App\Business\Traits;
 
 use App\Business\Services\WordpressService;
-use Intervention\Image\ImageManager;
 use Illuminate\Http\Response as IlluminateResponse;
-use Config;
+use \Image;
 use Storage;
+use \File;
 
 trait ImageTrait
 {
@@ -41,41 +41,34 @@ trait ImageTrait
      */
     public function getImage($filter, $filename)
     {
-        $manager = new ImageManager(Config::get('image'));
-        $content = $manager->cache(function ($image) use ($filter, $filename) {
 
-            $height = null;
-            if (strpos($filter, '/') !== false) {
-                list($width, $height) = explode('/', $filter);
-            } else {
-                $width = $filter;
-            }
-            $image->make(Storage::get(WordpressService::$WP_FILE . '/' . $filename))
-                /*->resize($width, $height, function ($constraint) use ($height) {
-                    if (is_null($height)) {
-                        $constraint->aspectRatio();
-                    }
-                })*/
-                ->fit($width, (int)$width + 30)
-                ->interlace();
+        if (strpos($filter, '/') !== false) {
+            list($width) = explode('/', $filter);
+        } else {
+            $width = $filter;
+        }
+        $wp_file = Storage::get(WordpressService::$WP_FILE . '/' . $filename);
+        $image = Image::make($wp_file)
+            ->fit($width, (int)$width + 30)
+            ->interlace();
 
-            if (env('APP_ENV') == 'local') {
-                $image->text($width, 50, 10, function ($font) {
-                    $font->file(5);
-                    $font->size(60);
-                    $font->color('#fdf6e3');
-                    $font->align('center');
-                    $font->valign('top');
-                });
-            }
+        if (env('APP_ENV') == 'local') {
+            $image->text($width, 50, 10, function ($font) {
+                $font->file(5);
+                $font->size(60);
+                $font->color('#fdf6e3');
+                $font->align('center');
+                $font->valign('top');
+            });
+        }
 
-            $dir = public_path("storage/img/$filter/");
-            \File::makeDirectory($dir, 0777, true, true);
-            $image->save(public_path("storage/img/$filter/$filename"));
+        $dir = storage_path("app/public/img/$filter/");
+        File::makeDirectory($dir, 0777, true, true);
 
-        }, config('cache.image.lifetime'));
+        $file_path = $dir.$filename;
+        $newImage = $image->save($file_path);
 
-        return $this->buildResponse($content);
+        return $this->buildResponse($newImage);
     }
 
     /**
