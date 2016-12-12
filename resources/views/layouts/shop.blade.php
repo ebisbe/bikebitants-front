@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
+    <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
 
     <title>{{ MetaTag::get('title') }}</title>
 
@@ -285,7 +286,6 @@
 <!-- ==========================
  JS
 =========================== -->
-<link rel="stylesheet" href="{{ elixir('css/all.css') }}">
 <script src="{{ elixir('js/app.js') }}" async></script>
 
 @stack('footer.scripts')

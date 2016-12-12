@@ -56,7 +56,8 @@ trait ImageTrait
                         $constraint->aspectRatio();
                     }
                 })*/
-                ->fit($width, (int)$width + 30);
+                ->fit($width, (int)$width + 30)
+                ->interlace();
 
             if (env('APP_ENV') == 'local') {
                 $image->text($width, 50, 10, function ($font) {
