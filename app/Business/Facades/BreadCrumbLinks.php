@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Facades;
+namespace App\Business\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Title extends Facade
+class BreadCrumbLinks extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -13,6 +13,6 @@ class Title extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'title';
+        return 'breadcrumblinks';
     }
 }

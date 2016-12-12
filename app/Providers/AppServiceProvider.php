@@ -2,14 +2,7 @@
 
 namespace App\Providers;
 
-use App\Business\Admin\BreadCrumbLinks;
-use App\Business\Admin\Title;
-use App\Business\Services\TwitterService;
-use App\Business\StaticVars;
 use App\Category;
-use App\Coupon;
-use App\Jobs\UpdateCategories;
-use App\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Blade;
@@ -45,20 +38,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['title'] = $this->app->share(function ($app) {
-            return new Title();
-        });
+        $this->app->bind('title', 'App\Business\Admin\Title');
+        $this->app->bind('breadcrumblinks', 'App\Business\Admin\BreadCrumbLinks');
+        $this->app->bind('staticvars', 'App\Business\StaticVars');
+        $this->app->bind('App\Business\Services\TwitterService', 'App\Business\Services\TwitterService');
 
-        $this->app['breadcrumblinks'] = $this->app->share(function ($app) {
-            return new BreadCrumbLinks();
-        });
-
-        $this->app['staticvars'] = $this->app->share(function ($app) {
-            return new StaticVars();
-        });
-
-        $this->app->bind('App\Business\Services\TwitterService', function ($app) {
-            return new TwitterService();
-        });
     }
 }
