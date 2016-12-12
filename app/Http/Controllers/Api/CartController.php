@@ -35,7 +35,7 @@ class CartController extends ApiController implements CartMapper
      */
     public function store(Request $request, CartService $cartService)
     {
-        $order = Order::currentOrder();
+        $order = Order::currentOrder()->get();
         if (!$order->isEmpty() && $order->first()->status > Order::New) {
             //TODO throw response in json form  if it is an ajax request
             abort(402, 'Unable to add more products while checking out the cart.');
@@ -46,7 +46,6 @@ class CartController extends ApiController implements CartMapper
         $cartService->setProductId($request->input('product_id'));
         $cartService->setProperties($request->input('properties', []));
         $cartService->setQuantity($request->input('quantity', 1));
-        $cartService->setCoupons($request->session()->get('coupons', []));
 
         return $cartService->store($this);
     }

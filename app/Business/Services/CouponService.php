@@ -23,20 +23,20 @@ class CouponService {
     }
 
     /**
-     * @param Request $request
+     * @param string $name
      * @return bool|Collection
      */
-    public function addCoupon(Request $request)
+    public function addCoupon($name)
     {
-        $coupon = $this->createCoupon($request->input('coupon'));
-
         $response = Cart::getContent()
-            ->map(function ($item) use ($coupon) {
+            ->map(function ($item) use ($name) {
+                $coupon = $this->createCoupon($name);
                 return Cart::addItemCondition($item->id, $coupon);
             })
             ->unique();
         // Add condition to cart only to show it on the subtotal. We add it to every item because of how
         //woocommerce works with discounts.
+        $coupon = $this->createCoupon($name);
         Cart::condition($coupon);
         return $response;
     }

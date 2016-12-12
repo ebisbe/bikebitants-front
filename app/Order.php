@@ -5,7 +5,13 @@ namespace App;
 use App\Business\MongoEloquentModel as Model;
 use App\Business\Repositories\ProductRepository;
 use App\Exceptions\OutOfStockException;
+use \Request;
 
+
+/**
+ * Class Order
+ * @package App
+ */
 class Order extends Model
 {
 
@@ -95,8 +101,9 @@ class Order extends Model
     /**
      * @return Order|null
      */
-    public static function currentOrder() {
-        return self::where('token', \Request::session()->get('order'))->get();
+    public function scopeCurrentOrder($query) {
+
+        return $query->where('token', Request::session()->get('order'));
     }
 
     public function conditionsFilter($condition)

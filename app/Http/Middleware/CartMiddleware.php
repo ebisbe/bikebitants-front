@@ -5,10 +5,26 @@ namespace App\Http\Middleware;
 use App\Order;
 use Cart;
 use Closure;
+use TaxService;
 use Darryldecode\Cart\CartCondition;
 
+/**
+ * Class CartMiddleware
+ * @package App\Http\Middleware
+ */
 class CartMiddleware
 {
+    protected $order;
+
+    /**
+     * CartMiddleware constructor.
+     * @param Order $order
+     */
+    public function __construct(Order $order)
+    {
+        $this->order = $order;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -18,15 +34,16 @@ class CartMiddleware
      */
     public function handle($request, Closure $next)
     {
+        $tax = TaxService::getTax();
         Cart::condition(new CartCondition([
-            'name' => 'IVA',
+            'name' => $tax->name,
             'type' => 'tax',
             'target' => 'subtotal',
-            'value' => '21%',
+            'value' => $tax->rate . '%',
             'order' => 5
         ]));
 
-        $order = Order::currentOrder();
+        $order = $this->order->currentOrder()->get();
         if ($order->isEmpty()
             || $order->first()->status >= Order::Redirected
             || $order->first()->status < Order::New

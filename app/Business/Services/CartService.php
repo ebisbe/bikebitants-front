@@ -7,6 +7,7 @@ use App\Business\Models\Shop\Product;
 use App\Business\Repositories\ProductRepository;
 use App\Variation;
 use \Cart;
+use \TaxService;
 use Darryldecode\Cart\CartCondition;
 
 class CartService
@@ -155,20 +156,20 @@ class CartService
         $taxCondition = $this->getTaxCondition();
         $couponsConditions = $this->getCouponsConditions();
 
-        return $couponsConditions->merge($taxCondition);
+        return array_merge([$taxCondition], $couponsConditions->toArray());
     }
 
     /**
-     * TODO change tax depending IP
      * @return CartCondition
      */
     protected function getTaxCondition()
     {
+        $tax = TaxService::getTax();
         return new CartCondition([
-            'name' => '[21%] IVA',
+            'name' => $tax->name,
             'type' => 'tax',
             'target' => 'item',
-            'value' => '21%',
+            'value' => $tax->rate . '%',
             'order' => 5
         ]);
     }
@@ -179,7 +180,7 @@ class CartService
     protected function getCouponsConditions()
     {
         $coupons = collect();
-        foreach($this->coupons as $coupon) {
+        foreach ($this->coupons as $coupon) {
             $coupons->push($this->couponService->createCoupon($coupon));
         }
 

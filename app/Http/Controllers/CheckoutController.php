@@ -7,11 +7,33 @@ use App\Http\Middleware\CheckoutMiddleware;
 use App\Order;
 use Illuminate\Http\Request;
 
+/**
+ * Class CheckoutController
+ * @package App\Http\Controllers
+ */
 class CheckoutController extends Controller
 {
-    public function __construct()
+    /**
+     * @var OrderService
+     */
+    protected $orderService;
+
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * CheckoutController constructor.
+     * @param OrderService $orderService
+     * @param Request $request
+     */
+    public function __construct(OrderService $orderService, Request $request)
     {
         $this->middleware([CheckoutMiddleware::class]);
+
+        $this->orderService = $orderService;
+        $this->request = $request;
     }
 
     /**
@@ -19,22 +41,23 @@ class CheckoutController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(OrderService $orderService, Request $request)
+    public function index()
     {
-        if(!Order::currentOrder()->isEmpty()) {
-            $order = Order::currentOrder()->first();
-            $orderService->setOrder($order);
+        $currentOrder = Order::currentOrder()->get();
+        if(!$currentOrder->isEmpty()) {
+            $order = $currentOrder->first();
+            $this->orderService->setOrder($order);
             if(!empty($order->payment_method)) {
-                $orderService->setPaymentType($order->payment_method->code);
+                $this->orderService->setPaymentType($order->payment_method->code);
             }
         }
-        $orderService->setSessionId($request->session()->getId());
+        $this->orderService->setSessionId($this->request->session()->getId());
 
-        $orderService->checkoutOrder();
+        $this->orderService->checkoutOrder();
 
-        $request->session()->set('order', $orderService->getToken());
+        $this->request->session()->set('order', $this->orderService->getToken());
 
-        return view($orderService->getView(), $orderService->getViewVars());
+        return view($this->orderService->getView(), $this->orderService->getViewVars());
     }
 
     /**
@@ -42,9 +65,9 @@ class CheckoutController extends Controller
      * @param OrderService $orderService
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, OrderService $orderService)
+    public function store()
     {
-        $this->validate($request, [
+        $this->validate($this->request, [
             'billing.first_name' => 'required',
             'billing.last_name' => 'required',
             'billing.email' => 'required',
@@ -71,28 +94,33 @@ class CheckoutController extends Controller
             'coupon' => 'bail|present|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
         ]);
 
-        if(!Order::currentOrder()->isEmpty()) {
-            $orderService->setOrder(Order::currentOrder()->first());
+        $currentOrder = Order::currentOrder()->get();
+        if(!$currentOrder->isEmpty()) {
+            $this->orderService->setOrder($currentOrder->first());
         }
 
-        $orderService->setPaymentType($request->input('payment'));
-        $orderService->setFormParams($request->all());
-        $orderService->setCoupon($request->input('coupon', ''));
+        $this->orderService->setPaymentType($this->request->input('payment'));
+        $this->orderService->setFormParams($this->request->all());
+        $this->orderService->setCoupon($this->request->input('coupon', ''));
 
         /** Posible redirection inside pay() method. It depends on the gateway used. */
-        $orderService->pay();
+        $this->orderService->pay();
 
         return redirect(route('checkout.index'));
     }
 
-    public function cancel(OrderService $orderService, Request $request)
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function cancel()
     {
-        if(!Order::currentOrder()->isEmpty()) {
-            $orderService->setOrder(Order::currentOrder()->first());
+        $currentOrder = Order::currentOrder()->get();
+        if(!$currentOrder->isEmpty()) {
+            $this->orderService->setOrder($currentOrder->first());
         }
 
-        $orderService->cancel();
-        $request->session()->remove('order');
+        $this->orderService->cancel();
+        $this->request->session()->remove('order');
         return redirect(route('cart.index'));
     }
 }
