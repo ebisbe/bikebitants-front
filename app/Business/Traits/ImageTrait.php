@@ -62,7 +62,7 @@ trait ImageTrait
             });
         }
 
-        $dir = storage_path("app/public/img/$filter/");
+        $dir = public_path("img/$filter/");
         File::makeDirectory($dir, 0777, true, true);
 
         $file_path = $dir.$filename;

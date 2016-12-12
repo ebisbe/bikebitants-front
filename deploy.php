@@ -7,7 +7,7 @@ require 'recipe/laravel.php';
 set('repository', 'git@bitbucket.org:bikebitants/bikebitants.git');
 
 add('shared_files', ['database/geoip/GeoLite2-City.mmdb']);
-add('shared_dirs', []);
+add('shared_dirs', ['public/img']);
 
 add('writable_dirs', []);
 
@@ -25,12 +25,6 @@ task('knock:penny', function () {
 });
 before('deploy:prepare', 'knock:penny');
 before('deploy:unlock', 'knock:penny');
-
-task('storage:link', function () {
-    $output = run('{{bin/php}} {{release_path}}/artisan storage:link');
-    writeln('<info>' . $output . '</info>');
-});
-after('deploy:symlink', 'storage:link');
 
 /*desc('Restart PHP-FPM service');
 task('php-fpm:restart', function () {

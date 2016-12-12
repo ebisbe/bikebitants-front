@@ -1,0 +1,6 @@
+*
+!public/
+!css/
+!wp_files/
+!css/*
+!.gitignore
