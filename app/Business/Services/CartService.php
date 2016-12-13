@@ -148,13 +148,15 @@ class CartService
     }
 
     /**
-     * TODO Add already added coupons in order to have the discount applied
+     * All coupons are applied per Item but the condition is also added to the main conditions. But it is added
+     * as per item and not per subtotal in order to not calculate 2 times the discount.
+     * It's just a dirty work arround.
      * @return array
      */
     protected function getConditions()
     {
         $taxCondition = $this->getTaxCondition();
-        $couponsConditions = $this->getCouponsConditions();
+        $couponsConditions = Cart::getConditionsByType('coupon');
 
         return array_merge([$taxCondition], $couponsConditions->toArray());
     }
@@ -172,18 +174,5 @@ class CartService
             'value' => $tax->rate . '%',
             'order' => 5
         ]);
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    protected function getCouponsConditions()
-    {
-        $coupons = collect();
-        foreach ($this->coupons as $coupon) {
-            $coupons->push($this->couponService->createCoupon($coupon));
-        }
-
-        return $coupons;
     }
 }

@@ -31,7 +31,6 @@ class EventServiceProvider extends ServiceProvider
     /**
      * Register any other events for your application.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      */
     public function boot()
@@ -40,29 +39,7 @@ class EventServiceProvider extends ServiceProvider
 
         Event::listen('cart.removed', function () {
             if (Cart::isEmpty()) {
-                Request::session()->forget('coupons');
                 Cart::clearCartConditions();
-            }
-        });
-
-        Event::listen('cart.updating', function ($items) {
-            if(!isset($items['conditions'])) {
-                // we are updating quantity or we don't have any condition applied
-                return true;
-            }
-
-            $coupons = collect(Request::session()->get('coupons', []));
-            $conditionsName = collect($items['conditions'])->map(function($condition) {
-                return $condition->getName();
-            });
-            // If the count is one means that the condition is the IVA applied therefore
-            // we dont continue the update.
-            if (
-                $conditionsName->diff($coupons)->count() == 1
-                // we are trying to add more conditions -> coupons otherwise we are just updating quantity
-                && $conditionsName->count() != 1
-            ) {
-                return false;
             }
         });
 

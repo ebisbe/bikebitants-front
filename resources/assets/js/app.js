@@ -9,7 +9,6 @@ require('./bootstrap');
 
 require('jquery-ui-bundle');
 require('google-maps');
-require('bootstrap-hover-dropdown');
 require('smoothscroll-for-websites');
 //require('card');
 //require('jgrowl');
@@ -21,7 +20,21 @@ require('./custom.js');
 require('./shop.js');
 
 /*var VueLazyload = require('vue-lazyload');
-Vue.use(VueLazyload);*/
+Vue.use(VueLazyload, {
+    adapter: {
+        loaded ({ naturalHeight, naturalWidth, el }) {
+            console.log(naturalWidth + ' x ' + naturalHeight);
+            el.setAttribute('data-width', naturalWidth);
+            el.setAttribute('data-height', naturalHeight);
+        },
+        loading (listener, Init) {
+            console.log('loading')
+        },
+        error (listener, Init) {
+            console.log(listener)
+        }
+    }
+});*/
 
 Vue.component('total-checkout', require('./components/totalCheckout.vue'));
 Vue.component('product-form' , require('./components/productForm.vue'));

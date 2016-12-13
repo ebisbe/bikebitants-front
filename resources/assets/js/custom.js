@@ -126,12 +126,12 @@ $(document).ready(function () {
     /*------------------------------
      TOOLTIP INIT
      ------------------------------*/
-    $('.widget-color .checkbox label').tooltip();
+    //$('.widget-color .checkbox label').tooltip();
 
     /*------------------------------
      SCROLLSPY INIT
      ------------------------------*/
-    $('body').scrollspy({target: '#scrollspy-nav', offset: 100});
+    //$('body').scrollspy({target: '#scrollspy-nav', offset: 100});
 
     /*------------------------------
      GRID/LIST TOGGLE

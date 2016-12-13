@@ -95,7 +95,6 @@
     <!-- ==========================
     	FOOTER - END
     =========================== -->
-    @include('cookieConsent::index')
 </div> <!-- PAGE - END -->
 
 <!-- ==========================
@@ -108,6 +107,11 @@
 <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 <![endif]-->
 
-@include('partials.flash_message')
+<script>
+    window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'language' => config('app.locale')
+    ]) !!}
+</script>
 </body>
 </html>
