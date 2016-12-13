@@ -7,11 +7,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class SimpleProductTest extends TestCase
 {
     /**
-     * A basic functional test example.
-     *
-     * @return void
+     * @test
      */
-    public function testSimpleProduct()
+    public function find_simple_product_at_home()
     {
         $this->visit('/')
             ->see('Simple Product')
@@ -21,5 +19,14 @@ class SimpleProductTest extends TestCase
             ->see('Subcategory 1')
             ->seePageIs($this->link('product/simple-product'))
             ->seeRouteIs('shop.product', ['slug' => 'simple-product']);
+    }
+
+    /**
+     * @test
+     */
+    public function add_one_product_to_cart()
+    {
+        $this->visit('/product/simple-product')
+            ->click('Añadir');
     }
 }
