@@ -16,6 +16,9 @@ class SimpleProductTest extends TestCase
         $this->visit('/')
             ->see('Simple Product')
             ->click('Simple Product')
+            ->see('Simple Product')
+            ->see('Category 1')
+            ->see('Subcategory 1')
             ->seePageIs($this->link('product/simple-product'))
             ->seeRouteIs('shop.product', ['slug' => 'simple-product']);
     }
