@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    @injectCss('assets/css/injected.css')
+    {{--@injectCss('assets/css/injected.css')--}}
 
     <title>{{ MetaTag::get('title') }}</title>
 
