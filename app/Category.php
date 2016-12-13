@@ -28,7 +28,7 @@ class Category extends Model
     use SluggableTrait;
 
     protected $attributes = array(
-        'products' => 0
+        'products_count' => 0
     );
 
     protected $fillable = ['name', 'slug', 'filename', 'products_count', 'meta_title', 'meta_description' , 'meta_slug', 'external_id'];
