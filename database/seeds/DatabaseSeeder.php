@@ -206,14 +206,14 @@ class DatabaseSeeder extends Seeder
                     $this->brand->products()->save($product);
                     $child->products()->save($product);
 
-                    $child->products = 1;
+                    $child->products_count = 1;
                     $child->save();
 
                     $total_products += 1;
                 });
             }
 
-            $cat->products = $total_products;
+            $cat->products_count = $total_products;
             $cat->save();
         });
     }
