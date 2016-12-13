@@ -29,6 +29,13 @@ elixir(mix => {
             'bower/bootstrap/dist/css/bootstrap.css',
             'custom.css',
             'bikebitants.css',
+            'color/green.css'
+        ], 'resources/assets/css/injected.css')
+
+        .styles([
+            'bower/bootstrap/dist/css/bootstrap.css',
+            'custom.css',
+            'bikebitants.css',
             'color/green.css',
             'bower/jquery-ui/themes/smoothness/jquery-ui.css',
             'bower/font-awesome/css/font-awesome.css',

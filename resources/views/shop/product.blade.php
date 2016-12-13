@@ -73,16 +73,14 @@ PRODUCTS - START
                 @endif
                 @if($product->faqs->count() > 0)
                     <div role="tabpanel" class="tab-pane panel-group" id="faq">
-                        {{--*/$x=0/* --}}
                         @foreach($product->faqs as $faq)
-                            {{--*/$x++/* --}}
                             <div class="panel panel-primary">
                                 <div class="panel-heading" role="tab">
                                     <h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse"
-                                                               href="#faq-{{ $x }}" aria-expanded="false"
-                                                               aria-controls="faq-{{ $x }}">{{ $faq->name }}</a></h4>
+                                                               href="#faq-{{ $loop->iteration }}" aria-expanded="false"
+                                                               aria-controls="faq-{{ $loop->iteration }}">{{ $faq->name }}</a></h4>
                                 </div>
-                                <div aria-expanded="false" id="faq-{{ $x }}" class="panel-collapse collapse"
+                                <div aria-expanded="false" id="faq-{{ $loop->iteration }}" class="panel-collapse collapse"
                                      role="tabpanel">
                                     <div class="panel-body">{{ $faq->answer }}</div>
                                 </div>
