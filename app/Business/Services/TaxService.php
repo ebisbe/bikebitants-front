@@ -15,11 +15,11 @@ class TaxService
     }
 
     /**
-     * @return Tax
+     * @return \Illuminate\Support\Collection
      */
     public function getTax()
     {
-        return $this->taxRepository->orderBy('order')->findAll()->first();
+        return $this->taxRepository->orderBy('order')->findAll();
     }
 
     /**
@@ -28,7 +28,12 @@ class TaxService
      */
     public function applyTax(Float $price)
     {
-        $rate = $this->getTax()->rate;
+        $rate = 0;
+        $tax = $this->getTax();
+        if(!$tax->isEmpty()) {
+            $rate = $tax->first()->rate;
+        }
+
         return number_format(round($price * (100 +  $rate ) / 100, 2), 2);
     }
 }
