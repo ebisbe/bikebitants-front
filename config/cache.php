@@ -76,9 +76,5 @@ return [
     |
     */
 
-    'prefix' => 'laravel',
-
-    'image' => [
-        'lifetime' => env('IMGCACHE_LIFETIME', 43200)
-    ]
+    'prefix' => 'laravel'
 ];
