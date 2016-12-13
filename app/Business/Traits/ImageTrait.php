@@ -112,7 +112,7 @@ trait ImageTrait
         // return http response
         return new IlluminateResponse($content, 200, array(
             'Content-Type' => $mime,
-            'Cache-Control' => 'max-age=' . (config('cache.image.lifetime') * 60) . ', public',
+            'Cache-Control' => 'Expires=' . (config('cache.image.lifetime') * 60) . ', public',
             'Etag' => md5($content)
         ));
     }
