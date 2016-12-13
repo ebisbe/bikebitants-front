@@ -169,9 +169,9 @@ class DatabaseSeeder extends Seeder
         $categories = collect([
             ['name' => 'Category 1',
                 'subcategories' => collect([
-                    ['name' => 'Subcategory 1', 'featured' => 1, 'variable' => false, 'prod_options' => ['name' => 'Product 1']],
-                    ['name' => 'Subcategory 2', 'featured' => 2, 'variable' => true, 'prod_options' => ['name' => 'Product 2']],
-                    ['name' => 'Subcategory 3', 'featured' => 3, 'variable' => true, 'prod_options' => ['name' => 'Product 3']],
+                    ['name' => 'Subcategory 1', 'featured' => 1, 'variable' => false, 'prod_options' => ['name' => 'Simple Product', 'is_featured' => true]],
+                    ['name' => 'Subcategory 2', 'featured' => 2, 'variable' => true, 'prod_options' => ['name' => 'Variable Product 1', 'is_featured' => true]],
+                    ['name' => 'Subcategory 3', 'featured' => 3, 'variable' => true, 'prod_options' => ['name' => 'Variable Product 2', 'is_featured' => true]],
                 ])]
         ]);
 
@@ -202,7 +202,7 @@ class DatabaseSeeder extends Seeder
                     ]);
                     $child->father()->associate($cat);
 
-                    $product = $this->product($item['variable'], array_merge(['category_id' => $child->_id], $item['prod_options']));
+                    $product = $this->product($item['variable'], $item['prod_options']);
                     $this->brand->products()->save($product);
                     $child->products()->save($product);
 
