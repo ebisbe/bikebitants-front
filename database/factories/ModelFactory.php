@@ -11,8 +11,8 @@
 |
 */
 
-use App\Attribute;
-use App\AttributeValue;
+use App\Property;
+use App\PropertyValue;
 use App\Billing;
 use App\Brand;
 use App\BrandService;
@@ -74,14 +74,14 @@ $factory->define(Product::class, function (Generator $faker) {
     ];
 });
 
-$factory->define(Attribute::class, function (Generator $faker) {
+$factory->define(Property::class, function (Generator $faker) {
     return [
         'name' => $faker->word,
         'order' => $faker->randomNumber()
     ];
 });
 
-$factory->define(AttributeValue::class, function (Generator $faker) {
+$factory->define(PropertyValue::class, function (Generator $faker) {
     return [
         'name' => $faker->word,
         'sku' => $faker->word,

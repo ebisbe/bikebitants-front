@@ -1,7 +1,7 @@
 <?php
 
-use App\Attribute;
-use App\AttributeValue;
+use App\Property;
+use App\PropertyValue;
 use App\Brand;
 use App\BrandService;
 use App\Category;
@@ -29,23 +29,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        $this->brand = factory(Brand::class)->create([
-//            'name' => 'cum-aliquid-enim'
-//        ]);
+        $this->brand = factory(Brand::class)->create([
+            'name' => 'Simple Brand'
+        ]);
 //
 //        $this->brand->services()->save(factory(BrandService::class)->make());
 //        $this->brand->services()->save(factory(BrandService::class)->make());
 //        $this->brand->services()->save(factory(BrandService::class)->make());
 //
-//        $this->categories();
+        $this->categories();
         //$this->discounts();
-        $this->zones();
+        //$this->zones();
 
-        factory(User::class)->create([
+        /*factory(User::class)->create([
             'name' => 'Admin',
             'email' => 'enricu@gmail.com',
             'password' => bcrypt('123456'),
-        ]);
+        ]);*/
 
         Artisan::call('cache:clear');
 
@@ -63,61 +63,61 @@ class DatabaseSeeder extends Seeder
         $product = factory(Product::class)->create($type);
 
         if ($variable) {
-            /** @var Attribute $size */
-            $size = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'size', 'order' => 1]));
+            /** @var Property $size */
+            $size = $product->properties()->save(factory(Property::class)->make(['name' => 'size', 'order' => 1]));
 
-            $size->attribute_values()->save(factory(AttributeValue::class)->make([
+            $size->properties_values()->save(factory(PropertyValue::class)->make([
                 '_id' => 'L',
                 'name' => 'L',
                 'complementary_text' => '60-62cm'
             ]));
-            $size->attribute_values()->save(factory(AttributeValue::class)->make([
+            $size->properties_values()->save(factory(PropertyValue::class)->make([
                 '_id' => 'M',
                 'name' => 'M',
                 'complementary_text' => '57-59cm'
             ]));
-            $size->attribute_values()->save(factory(AttributeValue::class)->make([
+            $size->properties_values()->save(factory(PropertyValue::class)->make([
                 '_id' => 'S',
                 'name' => 'S',
                 'complementary_text' => '54-56cm'
             ]));
 
-            /** @var Attribute $color */
-            $color = $product->attributes()->save(factory(Attribute::class)->make(['name' => 'color', 'order' => 2]));
+            /** @var Property $color */
+            $color = $product->properties()->save(factory(Property::class)->make(['name' => 'color', 'order' => 2]));
 
-            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+            $color->properties_values()->save(factory(PropertyValue::class)->make([
                 '_id' => 'R',
                 'name' => 'Red',
                 'complementary_text' => ''
             ]));
-            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+            $color->properties_values()->save(factory(PropertyValue::class)->make([
                 '_id' => 'GR',
                 'name' => 'Green',
                 'complementary_text' => ''
             ]));
-            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+            $color->properties_values()->save(factory(PropertyValue::class)->make([
                 '_id' => 'GO',
                 'name' => 'Gold',
                 'complementary_text' => ''
             ]));
-            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+            $color->properties_values()->save(factory(PropertyValue::class)->make([
                 '_id' => 'BR',
                 'name' => 'Brown',
                 'complementary_text' => ''
             ]));
-            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+            $color->properties_values()->save(factory(PropertyValue::class)->make([
                 '_id' => 'BL',
                 'name' => 'Blue',
                 'complementary_text' => ''
             ]));
-            $color->attribute_values()->save(factory(AttributeValue::class)->make([
+            $color->properties_values()->save(factory(PropertyValue::class)->make([
                 '_id' => 'YL',
                 'name' => 'Yellow',
                 'complementary_text' => ''
             ]));
 
-            $sizes = $size->attribute_values()->get()->pluck('_id')->toArray();
-            $colours = $color->attribute_values()->get()->pluck('_id')->toArray();
+            $sizes = $size->properties_values()->get()->pluck('_id')->toArray();
+            $colours = $color->properties_values()->get()->pluck('_id')->toArray();
 
             $arguments = [
                 [$product->_id],
@@ -131,7 +131,7 @@ class DatabaseSeeder extends Seeder
         $reflectionClass = new ReflectionClass('\Hoa\Math\Combinatorics\Combination\CartesianProduct');
         $cartesian = $reflectionClass->newInstanceArgs($arguments);
         foreach ($cartesian as $tuple) {
-            if(rand(1,10) <= 3 && count($cartesian) > 1) {
+            if (rand(1, 10) <= 3 && count($cartesian) > 1) {
                 continue;
             }
 
@@ -167,39 +167,12 @@ class DatabaseSeeder extends Seeder
     {
 
         $categories = collect([
-            ['name' => 'Accesorios bicicleta',
+            ['name' => 'Category 1',
                 'subcategories' => collect([
-                    'Antirrobo',
-                    'Electrónica',
-                    'Guardabarros',
-                    'Soporte Móvil',
-                    ['name' =>'Timbres', 'featured' => 2],
-                ])],
-            ['name' => 'Cascos bicicleta',
-                'subcategories' => collect([
-                    'Casco Airbag',
-                    'Cascos plegables',
-                ])],
-            ['name' => 'Complementos ciclista',
-                'subcategories' => collect([
-                    'Mochilas y bolsas',
-                ])],
-            ['name' => 'Infantil',
-                'featured' => 3,
-                'subcategories' => collect([
-                    'Bicicletas sin pedales',
-                    'Cascos para niños',
-                    'Remolque',
-                    'Silla portabebes',
-                    'Timbres para niños'
-                ])],
-            ['name' => 'Luces bicicleta',
-                'featured' => 1,
-                'subcategories' => collect([
-                    'Intermitentes',
-                    'Luz delantera',
-                    'Luz trasera',
-                ])],
+                    ['name' => 'Subcategory 1', 'featured' => 1, 'variable' => false, 'prod_options' => ['name' => 'Product 1']],
+                    ['name' => 'Subcategory 2', 'featured' => 2, 'variable' => true, 'prod_options' => ['name' => 'Product 2']],
+                    ['name' => 'Subcategory 3', 'featured' => 3, 'variable' => true, 'prod_options' => ['name' => 'Product 3']],
+                ])]
         ]);
 
         $order = 1;
@@ -214,7 +187,7 @@ class DatabaseSeeder extends Seeder
             if (isset($item['subcategories'])) {
                 $subOrder = 1;
                 $item['subcategories']->each(function ($item) use ($cat, &$subOrder, &$total_products) {
-                    if(is_array($item)) {
+                    if (is_array($item)) {
                         $name = $item['name'];
                         $featured = $item['featured'];
                     } else {
@@ -229,16 +202,14 @@ class DatabaseSeeder extends Seeder
                     ]);
                     $child->father()->associate($cat);
 
-                    $cont = 0;
-                    while ($cont++ < 5) {
-                        $product = $this->product(rand(0, 1), ['category_id' => $child->_id]);
-                        $this->brand->products()->save($product);
-                        $child->products()->save($product);
-                    }
-                    $child->products = $cont;
+                    $product = $this->product($item['variable'], array_merge(['category_id' => $child->_id], $item['prod_options']));
+                    $this->brand->products()->save($product);
+                    $child->products()->save($product);
+
+                    $child->products = 1;
                     $child->save();
 
-                    $total_products += $cont;
+                    $total_products += 1;
                 });
             }
 
