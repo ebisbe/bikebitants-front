@@ -25,6 +25,8 @@ task('knock:penny', function () {
 });
 before('deploy:prepare', 'knock:penny');
 before('deploy:unlock', 'knock:penny');
+after('artisan:optimize', 'artisan:route:cache');
+after('artisan:optimize', 'artisan:migrate');
 
 /*desc('Restart PHP-FPM service');
 task('php-fpm:restart', function () {
