@@ -34,17 +34,14 @@ class CartMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $taxCol = TaxService::getTax();
-        if (!$taxCol->isEmpty()) {
-            $tax = $taxCol->first();
-            Cart::condition(new CartCondition([
-                'name' => $tax->name,
-                'type' => 'tax',
-                'target' => 'subtotal',
-                'value' => $tax->rate . '%',
-                'order' => 5
-            ]));
-        }
+        $tax = TaxService::getTax();
+        Cart::condition(new CartCondition([
+            'name' => $tax->name,
+            'type' => 'tax',
+            'target' => 'subtotal',
+            'value' => $tax->rate . '%',
+            'order' => 5
+        ]));
 
         $order = $this->order->currentOrder()->get();
         if ($order->isEmpty()

@@ -5,7 +5,7 @@ namespace App\Business\Scopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Scope;
-use PulkitJalan\GeoIP\Facades\GeoIP;
+use \GeoIP;
 
 class GeoIpTaxScope implements Scope
 {

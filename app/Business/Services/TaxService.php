@@ -4,6 +4,7 @@ namespace App\Business\Services;
 
 use App\Business\Models\Shop\Tax;
 use App\Business\Repositories\TaxRepository;
+use App\Exceptions\TaxNotFoundException;
 
 class TaxService
 {
@@ -15,11 +16,16 @@ class TaxService
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return mixed
+     * @throws TaxNotFoundException
      */
     public function getTax()
     {
-        return $this->taxRepository->orderBy('order')->findAll();
+        $tax = $this->taxRepository->orderBy('order')->findAll();
+        if($tax->isEmpty()) {
+            throw new TaxNotFoundException('Tax not found.');
+        }
+        return $tax->first();
     }
 
     /**
@@ -28,12 +34,7 @@ class TaxService
      */
     public function applyTax(Float $price)
     {
-        $rate = 0;
         $tax = $this->getTax();
-        if(!$tax->isEmpty()) {
-            $rate = $tax->first()->rate;
-        }
-
-        return number_format(round($price * (100 +  $rate ) / 100, 2), 2);
+        return number_format(round($price * (100 +  $tax->rate ) / 100, 2), 2);
     }
 }
