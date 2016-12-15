@@ -21,6 +21,12 @@ class CartApiTest extends TestCase
             ])
             ->seeJsonStructure($this->getProductResponse());
 
+        $this->addSimpleProduct(2);
+        $this
+            ->seeJson([
+                'quantity' => 3,
+            ]);
+
         $this->addSimpleProduct(150);
         $this
             ->seeJson([

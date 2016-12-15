@@ -81,7 +81,7 @@ class CartService
         $item = Cart::get($variation->sku);
         if (!is_null($item)) {
             Cart::update($variation->sku, [
-                'quantity' => $this->getQuantity($variation->stock, $item->quantity, false)
+                'quantity' => $this->getQuantity($variation->stock, $item->quantity)
             ]);
         } else {
             $cart = Cart::add($this->getNewItem($variation, $product));
@@ -132,24 +132,12 @@ class CartService
      * @param $item_quantity
      * @return array
      */
-    protected function getQuantity($stock, $item_quantity = 0, $relative = true)
+    protected function getQuantity($stock, $item_quantity = 0)
     {
-        if (($item_quantity + $this->quantity) >= $stock) {
-            $value = $stock;
-        } else {
-            $value = $this->quantity;
-        }
-
-        if (!$relative) {
-            $return = [
-                'relative' => false,
-                'value' => $value
-            ];
-        } else {
-            $return = $value;
-        }
-
-        return $return;
+        return
+            (($item_quantity + $this->quantity) >= $stock)
+                ? $stock - $item_quantity
+                : $this->quantity;
     }
 
     /**
