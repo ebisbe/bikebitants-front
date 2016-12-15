@@ -2,9 +2,9 @@
 
 namespace App;
 
-use App\Business\MongoEloquentModel;
+use Jenssegers\Mongodb\Eloquent\Model;
 
-class PaymentMethod extends MongoEloquentModel
+class PaymentMethod extends Model
 {
     //
 }

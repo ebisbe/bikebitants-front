@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Business\MongoEloquentModel as Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use App\Business\Repositories\ProductRepository;
 use App\Exceptions\OutOfStockException;
 use \Request;

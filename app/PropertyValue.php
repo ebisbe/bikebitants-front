@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Business\MongoEloquentModel as Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 
 class PropertyValue extends Model
 {
