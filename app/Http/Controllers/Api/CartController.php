@@ -56,11 +56,22 @@ class CartController extends ApiController implements CartMapper
      */
     public function destroy($id)
     {
-        if (!Cart::isEmpty()) {
-            Cart::remove($id);
+        if (Cart::isEmpty()) {
+            $is_deleted = false;
+            $message = trans('api.cart_empty');
+        } else {
+            if ($is_deleted = Cart::remove($id)) {
+                $message = trans('api.product_deleted');
+            } else {
+                $is_deleted = false;
+                $message = trans('api.product_not_deleted');
+            }
         }
 
-        return \Response::json(['success' => true]);
+        return \Response::json([
+            'success' => $is_deleted,
+            'message' => $message
+        ]);
     }
 
     /**

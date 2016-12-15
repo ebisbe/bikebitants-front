@@ -20,13 +20,4 @@ class SimpleProductTest extends TestCase
             ->seePageIs($this->link('product/simple-product'))
             ->seeRouteIs('shop.product', ['slug' => 'simple-product']);
     }
-
-    /**
-     * @test
-     */
-    public function add_one_product_to_cart()
-    {
-        $this->visit('/product/simple-product')
-            ->click('Añadir');
-    }
 }

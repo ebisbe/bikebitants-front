@@ -20,6 +20,9 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
+        $app->setLocale('fake');
+        //disabled FALLBACK_LOCALE through phpunit env variables. All translation return their code
+
         return $app;
     }
 

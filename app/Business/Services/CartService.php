@@ -80,7 +80,9 @@ class CartService
 
         $item = Cart::get($variation->sku);
         if (!is_null($item)) {
-            Cart::update($variation->sku, $this->getUpdateItem($variation->stock, $item->quantity));
+            Cart::update($variation->sku, [
+                'quantity' => $this->getQuantity($variation->stock, $item->quantity, false)
+            ]);
         } else {
             $cart = Cart::add($this->getNewItem($variation, $product));
             $item = $cart->get($variation->sku);
@@ -113,7 +115,7 @@ class CartService
             'id' => $variation->sku,
             'name' => $product->name,
             'price' => $variation->price,
-            'quantity' => $this->quantity,
+            'quantity' => $this->getQuantity($variation->stock),
             'conditions' => $this->getConditions(),
             'attributes' => [
                 'product' => $product,
@@ -125,25 +127,28 @@ class CartService
     }
 
     /**
+     * TODO notify that this is already maximum stock
      * @param $stock
      * @param $item_quantity
      * @return array
      */
-    protected function getUpdateItem($stock, $item_quantity)
+    protected function getQuantity($stock, $item_quantity = 0, $relative = true)
     {
         if (($item_quantity + $this->quantity) >= $stock) {
-            //TODO notify that this is already maximum stock
+            $value = $stock;
+        } else {
+            $value = $this->quantity;
+        }
+
+        if (!$relative) {
             $return = [
-                'quantity' => [
-                    'relative' => false,
-                    'value' => $stock
-                ],
+                'relative' => false,
+                'value' => $value
             ];
         } else {
-            $return = [
-                'quantity' => $this->quantity,
-            ];
+            $return = $value;
         }
+
         return $return;
     }
 

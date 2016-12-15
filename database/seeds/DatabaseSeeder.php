@@ -12,6 +12,7 @@ use App\Label;
 use App\Product;
 use App\Review;
 use App\ShippingMethod;
+use App\Tax;
 use App\User;
 use App\Variation;
 use App\Zone;
@@ -31,6 +32,15 @@ class DatabaseSeeder extends Seeder
     {
         $this->brand = factory(Brand::class)->create([
             'name' => 'Simple Brand'
+        ]);
+
+        factory(Tax::class)->create([
+            'country' => '',
+            'state' => '',
+            'postcode' => '',
+            'city' => '',
+            'rate' => 21.00,
+            'name' => 'IVA'
         ]);
 //
 //        $this->brand->services()->save(factory(BrandService::class)->make());
@@ -137,7 +147,10 @@ class DatabaseSeeder extends Seeder
 
             $product->variations()->save(factory(Variation::class)->make([
                 '_id' => $tuple,
-                'sku' => implode('-', $tuple)
+                'sku' => implode('-', $tuple),
+                'real_price' => 10,
+                'discounted_price' => 5,
+                'is_discounted' => false
             ]));
         }
 
@@ -169,9 +182,35 @@ class DatabaseSeeder extends Seeder
         $categories = collect([
             ['name' => 'Category 1',
                 'subcategories' => collect([
-                    ['name' => 'Subcategory 1', 'featured' => 1, 'variable' => false, 'prod_options' => ['name' => 'Simple Product', 'is_featured' => true]],
-                    ['name' => 'Subcategory 2', 'featured' => 2, 'variable' => true, 'prod_options' => ['name' => 'Variable Product 1', 'is_featured' => true]],
-                    ['name' => 'Subcategory 3', 'featured' => 3, 'variable' => true, 'prod_options' => ['name' => 'Variable Product 2', 'is_featured' => true]],
+                    [
+                        'name' => 'Subcategory 1',
+                        'featured' => 1,
+                        'variable' => false,
+                        'prod_options' => [
+                            '_id' => 'simple-product',
+                            'name' => 'Simple Product',
+                            'is_featured' => true
+                        ]
+                    ],
+                    [
+                        'name' => 'Subcategory 2',
+                        'featured' => 2, 'variable' => true,
+                        'prod_options' => [
+                            '_id' => 'variable-product-1',
+                            'name' => 'Variable Product 1',
+                            'is_featured' => true
+                        ]
+                    ],
+                    [
+                        'name' => 'Subcategory 3',
+                        'featured' => 3,
+                        'variable' => true,
+                        'prod_options' => [
+                            '_id' => 'variable-product-2',
+                            'name' => 'Variable Product 2',
+                            'is_featured' => true
+                        ]
+                    ],
                 ])]
         ]);
 

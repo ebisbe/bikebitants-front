@@ -27,6 +27,7 @@ use App\Product;
 use App\Review;
 use App\Shipping;
 use App\ShippingMethod;
+use App\Tax;
 use App\User;
 use App\Variation;
 use App\Zone;
@@ -36,7 +37,7 @@ use MongoDB\BSON\UTCDatetime;
 
 
 $files = collect(Storage::files());
-if($files->isEmpty()) {
+if ($files->isEmpty()) {
     $files->push($faker->image(storage_path('app'), 640, 480, null, false));
 }
 
@@ -59,14 +60,14 @@ $factory->define(Product::class, function (Generator $faker) {
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'is_featured' => $faker->boolean(35),
-            //'is_discounted' => $faker->boolean(35),
-            //'min_price' => $faker->numberBetween(1, 10),
-            //'max_price' => $faker->numberBetween(1, 10),
+        //'is_discounted' => $faker->boolean(35),
+        //'min_price' => $faker->numberBetween(1, 10),
+        //'max_price' => $faker->numberBetween(1, 10),
         //'discount_init' => $faker->date(),
         //'discount_end' => $faker->date(),
         'tags' => $faker->words(),
         'reviews_allowed' => $faker->boolean(),
-            //'rating' => $faker,
+        //'rating' => $faker,
         //'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
@@ -95,7 +96,7 @@ $factory->define(Review::class, function (Generator $faker) {
         'email' => $faker->email,
         'comment' => $faker->paragraphs(2, true),
         'verified' => true,
-        'rating' => $faker->numberBetween(0,5)
+        'rating' => $faker->numberBetween(0, 5)
     ];
 });
 
@@ -142,7 +143,8 @@ $factory->define(Variation::class, function (Generator $faker) use ($files) {
         'real_price' => $faker->numberBetween(10, 250),
         'discounted_price' => $faker->numberBetween(1, 10),
         'is_discounted' => $faker->boolean(35),
-        'stock' => /*$faker->numberBetween(0,3)*/ 10,
+        'stock' => /*$faker->numberBetween(0,3)*/
+            10,
         'filename' => $files->random(),
     ];
 });
@@ -174,7 +176,7 @@ $factory->define(Lead::class, function (Generator $faker) {
 $factory->define(Category::class, function (Generator $faker) {
     $name = $faker->words(3, true);
     $files = collect(Storage::files());
-    if(empty($files)) {
+    if (empty($files)) {
         $files->push($faker->image(storage_path('app'), 640, 480, null, false));
     }
     return [
@@ -189,7 +191,7 @@ $factory->define(Category::class, function (Generator $faker) {
     ];
 });
 
-$factory->define(Billing::class, function(Generator $faker) {
+$factory->define(Billing::class, function (Generator $faker) {
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
@@ -206,7 +208,7 @@ $factory->define(Billing::class, function(Generator $faker) {
     ];
 });
 
-$factory->define(Shipping::class, function(Generator $faker) {
+$factory->define(Shipping::class, function (Generator $faker) {
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
@@ -225,7 +227,7 @@ $factory->define(Shipping::class, function(Generator $faker) {
     ];
 });
 
-$factory->define(Coupon::class, function(Generator $faker) {
+$factory->define(Coupon::class, function (Generator $faker) {
     $magnitude = $faker->numberBetween(-4, -5);
     $type = collect([Coupon::DIRECT, Coupon::PERCENTAGE])->random();
     return [
@@ -234,35 +236,48 @@ $factory->define(Coupon::class, function(Generator $faker) {
         'type' => $type,
         'description' => $faker->paragraph(),
         //'value' => "{$magnitude}{$type}",
-        'expired_at' => New UTCDatetime(Carbon::now()->addDays(4)->timestamp * 1000) ,
+        'expired_at' => New UTCDatetime(Carbon::now()->addDays(4)->timestamp * 1000),
         'minimum_cart' => 0,
         'maximum_cart' => null,
 
         'limit_usage_by_coupon' => 3,
         'limit_usage_by_user' => 1,
         'single_use' => 1,
-        'emails' => $faker->email.','.$faker->email.','.$faker->email
+        'emails' => $faker->email . ',' . $faker->email . ',' . $faker->email
     ];
 });
 
-$factory->define(Zone::class, function(Generator $faker) {
+$factory->define(Zone::class, function (Generator $faker) {
     return [
         'name' => $faker->name,
         'region' => ['C', 'AL', 'B', 'GI'],
     ];
 });
 
-$factory->define(ShippingMethod::class, function(Generator $faker) {
+$factory->define(ShippingMethod::class, function (Generator $faker) {
     return [
         'name' => $faker->name,
-        'cost' => $faker->numberBetween(3,25),
+        'cost' => $faker->numberBetween(3, 25),
         'free_shipping' => $faker->boolean
     ];
 });
 
-$factory->define(Faq::class, function(Generator $faker) {
+$factory->define(Faq::class, function (Generator $faker) {
     return [
-        'name' => $faker->sentence().' ?',
+        'name' => $faker->sentence() . ' ?',
         'answer' => $faker->paragraph()
+    ];
+});
+
+$factory->define(Tax::class, function (Generator $faker) {
+    return [
+        'country' => $faker->countryCode,
+        'state' => '',
+        'postcode' => $faker->postcode,
+        'city' => $faker->citySuffix,
+        'rate' => $faker->numberBetween(10,25),
+        'name' => 'Iva',
+        'order' => $faker->randomNumber(),
+        'external_id' => $faker->randomNumber()
     ];
 });
