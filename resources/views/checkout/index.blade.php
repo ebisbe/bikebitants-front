@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="form-group col-sm-6  {{ $errors->has('billing.state') ? 'has-error' : ''}}">
                                             {{ Form::label('billing[state]', trans('checkout.state').' <span class="required">*</span>', [], false) }}
-                                            {{ Form::select('billing[state]', $states, 'B', ['class' => 'form-control js-change', 'data-token' => csrf_token()]) }}
+                                            {{ Form::select('billing[state]', $states, 'B', ['class' => 'form-control js-change']) }}
                                             {!! $errors->first('billing.state', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>

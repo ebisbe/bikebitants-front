@@ -1,7 +1,5 @@
 <?php
 
-Route::post('/checkout/callback', 'CheckoutCallbackController@store')->name('shop.callback');
-
 /*Route::group(['domain' => 'admin_' . env('DOMAIN')], function () {
     Route::auth();
     Route::get('/', 'Admin\\AdminController@dashboard')->name('admin.dashboard');
@@ -41,14 +39,16 @@ Route::get('/tienda/{slugCategory}/', 'ShopController@category')->name('shop.cat
 Route::get('/tienda/{slugCategory}/{slugSubCategory}', 'ShopController@subcategory')->name('shop.subcategory');
 Route::get('/product/{slug}', 'ShopController@product')->name('shop.product');
 Route::resource('cart', 'CartController', ['only' => ['index', 'destroy']]);
-Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
 
+Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
+Route::post('/checkout/callback', 'CheckoutCallbackController@store')->name('shop.callback');
 Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store', 'show']]);
+
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 Route::resource('coupon', 'CouponController', ['only' => ['store']]);
-Route::resource('cart-conditions', 'CartConditionsController', ['only' => ['index', 'store']]);
 Route::resource('wp', 'WordPressController', ['only' => ['index', 'show']]);
 Route::resource('review', 'ReviewController', ['only' => ['store']]);
+
 
 // Static pages
 
@@ -65,8 +65,8 @@ Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
     ->name('shop.image');
 /** END shop */
 
+/** API */
 Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
-    /** API */
     Route::resource('cart', 'CartController', [
         'only' => ['index', 'store', 'destroy'],
         'names' => [
@@ -75,5 +75,6 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
             'destroy' => 'api.cart.destroy'
         ]
     ]);
-    /** END API */
+    Route::resource('cart-conditions', 'CartConditionsController', ['only' => ['index', 'store']]);
 });
+/** END API */

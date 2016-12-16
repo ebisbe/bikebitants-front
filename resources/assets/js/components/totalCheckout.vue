@@ -1,11 +1,10 @@
 <template>
     <div class="">
         <ul id="totalCheckout" class="list-unstyled order-total">
-            <li v-for="condition in list">{{ condition.name }}<span>{{ condition.value }}</span></li>
+            <li v-for="condition in list">{{ condition.name }}<span v-html="condition.value"></span></li>
         </ul>
-        <input type="hidden" id="vue-token" v-model="token">
         <input type="hidden" id="vue-country" v-model="country">
-        <input type="hidden" id="vue-region" v-model="region">
+        <input type="hidden" id="vue-state" v-model="state">
     </div>
 </template>
 
@@ -13,7 +12,7 @@
 
     export default {
 
-        props: ['token', 'country', 'region'],
+        props: ['country', 'state'],
 
         data() {
             return {
@@ -22,41 +21,27 @@
         },
 
         created: function () {
-            $.getJSON('cart-conditions', function (data) {
-                this.list = data;
-            }.bind(this));
+            this.$http.get('api/cart-conditions')
+                    .then(function (response) {
+                        this.list = response.data;
+                    });
         },
 
         methods: {
             updateShipping: function () {
-                $.ajax({
-                            url: 'cart-conditions',
-                            data: {
-                                'country': this.country,
-                                'region': this.region,
-                                '_token': this.token
-                            },
-                            method: 'post'
-                        })
-                        .done(function (jqXHR) {
-                            this.list = jqXHR;
-                        }.bind(this))
-                        .fail(function (jqXHR) {
-
-                        })
-                        .always(function () {
-
-                        });
+                console.log('hola!');
+                this.$http.post('api/cart-conditions', {
+                    'country': this.country,
+                    'sate': this.state
+                }).then(function (response) {
+                    this.$set('list', response.body);
+                });
             }
         },
 
         watch: {
-            'region': function () {
+            'state': function () {
                 this.updateShipping();
-            },
-            'token': function () {
-            },
-            'country': function () {
             }
         }
     };

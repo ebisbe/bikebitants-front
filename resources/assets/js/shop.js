@@ -67,12 +67,10 @@ $(document).ready(function () {
     $('#js-shipping').on('change', '.js-change', function (event) {
         var that = $(this);
         var country = $('.js-country').val();
-        var region = that.val();
-        var token = that.data('token');
+        var state = that.val();
 
-        $('#vue-token').val(token).trigger('change');
         $('#vue-country').val(country).trigger('change');
-        $('#vue-region').val(region).trigger('change');
+        $('#vue-state').val(state).trigger('change');
     });
     $('#js-shipping .js-change').trigger('change');
 });
