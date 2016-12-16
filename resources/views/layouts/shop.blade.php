@@ -276,17 +276,11 @@
     @include('partials.discount_popup')
     @include('partials.product_popup')
 </div> <!-- PAGE - END -->
-<script>
-    window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-            'language' => config('app.locale')
-    ]) !!}
-</script>
 <!-- ==========================
  JS
 =========================== -->
+@include('partials.js_vars')
 <script src="{{ elixir('js/app.js') }}" async></script>
-
 @stack('footer.scripts')
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
