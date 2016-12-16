@@ -11,6 +11,8 @@ trait ProductTrait
                 'product_id' => "simple-product",
                 'quantity' => $quantity
             ]);
+
+        return $this;
     }
 
     public function getProductResponse()

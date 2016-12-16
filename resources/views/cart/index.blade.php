@@ -27,19 +27,16 @@ MY ACCOUNT - START
                                 </thead>
                                 <tbody>
                                 @foreach($cartCollect as $item)
-                                    @php
-                                    $product = $item->attributes->product;
-                                    @endphp
                                     <tr>
                                         <td class="col-xs-1">
                                             <img src="/img/70/{{ $item->attributes->filename }}"
-                                                 alt="{{ $product->front_image->alt }}"
+                                                 alt="{{ $item->attributes['image_alt'] }}"
                                                  class="img-responsive">
                                         </td>
                                         <td class="col-xs-4 col-md-5">
                                             <h4>
-                                                <a href="{!! url('product', ['slug' => $product->slug]) !!}"> {{ $product->name }}</a>
-                                                <small> {{ $product->brand->name }}
+                                                <a href="{!! url('product', ['slug' => $item->attributes['slug']]) !!}"> {{ $item->name }}</a>
+                                                <small> {{ $item->attributes['brand'] }}
                                                     @foreach($item->attributes->properties as $property)
                                                         , {{ $property }}
                                                     @endforeach
@@ -51,12 +48,12 @@ MY ACCOUNT - START
                                         <td class="col-xs-2 col-md-1">
                                             <div class="form-group">
                                                 <input type="text" class="form-control"
-                                                       name="{{ $product->_id }}"
+                                                       name="{{ $item->attributes['_id'] }}"
                                                        value="{{ $item->quantity }}">
                                             </div>
                                         </td>
                                         <td class="col-xs-2 text-center">
-                                            <span><b>{{ $item->getPriceSumWithConditions() }}{{ $product->currency }}</b></span>
+                                            <span><b>{{ $item->getPriceSumWithConditions() }}{{ $item->attributes['currency'] }}</b></span>
                                         </td>
                                         <td class="col-xs-1 text-center">
                                             <form method="POST" action="/cart/{{ $item->id }}">
@@ -72,7 +69,8 @@ MY ACCOUNT - START
                                 </tbody>
                             </table>
                         </div>
-                        <a href="{{ route('shop.catalogue') }}" class="btn btn-inverse">@lang('cart.continue_shopping')</a>
+                        <a href="{{ route('shop.catalogue') }}"
+                           class="btn btn-inverse">@lang('cart.continue_shopping')</a>
                         {{--<a href="" class="btn btn-inverse update-cart">Update Shopping Cart</a>--}}
                     </div>
 
@@ -88,7 +86,8 @@ MY ACCOUNT - START
                                 <div class="input-group {{ $errors->has('coupon') ? 'has-error' : ''}}">
                                     {{ Form::text('coupon', null, [ 'class' => 'form-control', 'placeholder' => trans('cart.discount_code')] ) }}
                                     <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="submit">@lang('cart.apply_coupon')</button>
+                                            <button class="btn btn-primary"
+                                                    type="submit">@lang('cart.apply_coupon')</button>
                                         </span>
                                 </div>
                                 <div class="input-group {{ $errors->has('coupon') ? 'has-error' : ''}}">
@@ -108,7 +107,8 @@ MY ACCOUNT - START
                         </div>
                     </div>
                     <div class="clearfix">
-                        <a href="{{ route('checkout.index') }}" class="btn btn-primary btn-lg pull-right ">@lang('cart.checkout')</a>
+                        <a href="{{ route('checkout.index') }}"
+                           class="btn btn-primary btn-lg pull-right ">@lang('cart.checkout')</a>
                     </div>
 
 

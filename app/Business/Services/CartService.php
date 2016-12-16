@@ -128,7 +128,10 @@ class CartService
                 'currency' => $product->currency,
                 'variation_id' => $variation->external_id,
                 'properties' => $this->properties,
-                'filename' => $variation->filename
+                'filename' => $variation->filename,
+                'image_alt' => $product->front_image->alt,
+                'brand' => $product->brand->name,
+                '_id' => $product->_id,
             ]
         ];
     }

@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Business\Traits\Tests\ProductTrait;
 
 class CartApiTest extends TestCase
@@ -66,6 +65,9 @@ class CartApiTest extends TestCase
             ]);
     }
 
+    /**
+     * @test
+     */
     public function clear_cart_with_one_simple_product()
     {
         //count cart => 0

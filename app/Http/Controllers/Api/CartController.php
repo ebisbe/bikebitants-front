@@ -89,7 +89,9 @@ class CartController extends ApiController implements CartMapper
             'quantity' => $item->quantity,
             'price' => $item->getPriceWithConditions(),
             'currency' => $item->attributes['currency'],
-            '_id' => $item->id
+            'image_alt' => $item->attributes['image_alt'],
+            'brand' => $item->attributes['brand'],
+            '_id' => $item->attributes['_id'],
         ];
     }
 }
