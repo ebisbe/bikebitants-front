@@ -37,6 +37,10 @@ return [
 				'merchantURL' => env('OMNIPAY_REDSYS_MERCHANT_URL'),
 				'testMode' => env('OMNIPAY_REDSYS_TESTMODE'),
 			]
+		],
+		'Fake' => [
+			'driver' => 'Fake',
+			'options' => []
 		]
 	]
 

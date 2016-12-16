@@ -94,7 +94,7 @@ class Order extends Model
      */
     public static function isCurrentOrderConfirmed()
     {
-        $order = self::currentOrder();
+        $order = self::currentOrder()->get();
         return !$order->isEmpty() && $order->first()->status == self::Confirmed ? true : false;
     }
 

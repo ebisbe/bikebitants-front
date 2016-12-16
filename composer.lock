@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f4ab9ac392603430263c9f771ff349bc",
-    "content-hash": "b127a0649a1131cb9b811b25a89a0c58",
+    "hash": "6c9141437b3cc1d541f58ce9fe8f8375",
+    "content-hash": "dfa42e0b9fe8d73ff94929c480a997b5",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
@@ -491,6 +491,46 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "ebisbe/fake-omnipay",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ebisbe/fake-omnipay.git",
+                "reference": "3fd957382946b7e9e3af871a2e264365220500c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ebisbe/fake-omnipay/zipball/3fd957382946b7e9e3af871a2e264365220500c4",
+                "reference": "3fd957382946b7e9e3af871a2e264365220500c4",
+                "shasum": ""
+            },
+            "require": {
+                "omnipay/common": "2.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Omnipay\\Fake\\": "src/"
+                }
+            },
+            "license": [
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Enric Bisbe",
+                    "email": "enricu@gmail.com",
+                    "homepage": "http://github.com/ebisbe"
+                }
+            ],
+            "description": "Fake omnipay gateway. It just passes all through",
+            "support": {
+                "source": "https://github.com/ebisbe/fake-omnipay/tree/master",
+                "issues": "https://github.com/ebisbe/fake-omnipay/issues"
+            },
+            "time": "2016-12-16 07:00:03"
         },
         {
             "name": "geoip2/geoip2",
@@ -6368,7 +6408,8 @@
     "stability-flags": {
         "laravelcollective/html": 20,
         "nazka/sermepa-omnipay": 20,
-        "darryldecode/cart": 20
+        "darryldecode/cart": 20,
+        "ebisbe/fake-omnipay": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
