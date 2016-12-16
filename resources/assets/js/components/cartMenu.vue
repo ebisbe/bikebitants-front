@@ -90,7 +90,8 @@
             },
 
             priceLine: function (product) {
-                return product.quantity + 'x - ' + product.price + product.currency;
+                var stock = product.is_max_stock ? ' <small>( Max stock )</small>' : '';
+                return product.quantity + 'x - ' + product.price + product.currency + ' ' + stock;
             },
 
             addProduct: function (product) {

@@ -80,19 +80,16 @@ class CartController extends ApiController implements CartMapper
      */
     public function mapItem(ItemCollection $item)
     {
-        /** @var Product $product */
-        $product = $item->attributes['product'];
-
-        $productArr = [
+        return [
             'filename' => $item->attributes->filename,
             'alt' => $item->name,
             'name' => $item->name,
-            'route' => route('shop.product', ['slug' => $product->slug]),
+            'is_max_stock' => $item->attributes['is_max_stock'],
+            'route' => route('shop.product', ['slug' => $item->attributes['slug']]),
             'quantity' => $item->quantity,
             'price' => $item->getPriceWithConditions(),
-            'currency' => $product->currency,
+            'currency' => $item->attributes['currency'],
             '_id' => $item->id
         ];
-        return $productArr;
     }
 }

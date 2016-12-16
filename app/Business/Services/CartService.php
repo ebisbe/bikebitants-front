@@ -7,6 +7,7 @@ use App\Business\Models\Shop\Product;
 use App\Business\Repositories\ProductRepository;
 use App\Variation;
 use \Cart;
+use Darryldecode\Cart\ItemCollection;
 use \TaxService;
 use Darryldecode\Cart\CartCondition;
 
@@ -22,6 +23,8 @@ class CartService
     protected $properties;
     protected $quantity;
     protected $coupons;
+
+    protected $stock;
 
     /**
      * CartService constructor.
@@ -77,16 +80,18 @@ class CartService
         $variationProperties = array_merge([$this->product_id], $this->properties);
         /** @var Variation $variation */
         $variation = $product->productVariation($variationProperties);
+        $this->stock = $variation->stock;
 
         $item = Cart::get($variation->sku);
         if (!is_null($item)) {
             Cart::update($variation->sku, [
-                'quantity' => $this->getQuantity($variation->stock, $item->quantity)
+                'quantity' => $this->getQuantity($item->quantity),
+                'attributes' => $this->getAttributesFromItem($item, $item->quantity)
             ]);
         } else {
-            $cart = Cart::add($this->getNewItem($variation, $product));
-            $item = $cart->get($variation->sku);
+            Cart::add($this->getNewItem($variation, $product));
         }
+        $item = Cart::get($variation->sku);
 
         return $cartMapper->mapItem($item);
     }
@@ -115,10 +120,12 @@ class CartService
             'id' => $variation->sku,
             'name' => $product->name,
             'price' => $variation->price,
-            'quantity' => $this->getQuantity($variation->stock),
+            'quantity' => $this->getQuantity(),
             'conditions' => $this->getConditions(),
             'attributes' => [
-                'product' => $product,
+                'is_max_stock' => $this->isMaxStock(),
+                'slug' => $product->slug,
+                'currency' => $product->currency,
                 'variation_id' => $variation->external_id,
                 'properties' => $this->properties,
                 'filename' => $variation->filename
@@ -127,17 +134,14 @@ class CartService
     }
 
     /**
-     * TODO notify that this is already maximum stock
-     * @param $stock
      * @param $item_quantity
      * @return array
      */
-    protected function getQuantity($stock, $item_quantity = 0)
+    protected function getQuantity($item_quantity = 0)
     {
-        return
-            (($item_quantity + $this->quantity) >= $stock)
-                ? $stock - $item_quantity
-                : $this->quantity;
+        return $this->isMaxStock($item_quantity)
+            ? $this->stock - $item_quantity
+            : $this->quantity;
     }
 
     /**
@@ -167,5 +171,22 @@ class CartService
             'value' => $tax->rate . '%',
             'order' => 5
         ]);
+    }
+
+    /**
+     * @param $item_quantity
+     * @return bool
+     */
+    protected function isMaxStock($item_quantity = 0)
+    {
+        return ($item_quantity + $this->quantity) >= $this->stock;
+    }
+
+    protected function getAttributesFromItem(ItemCollection $item, $quantity)
+    {
+        return array_merge(
+            $item->attributes->toArray(),
+            ['is_max_stock' => $this->isMaxStock($quantity)]
+        );
     }
 }

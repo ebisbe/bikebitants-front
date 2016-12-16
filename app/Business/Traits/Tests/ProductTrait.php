@@ -19,6 +19,7 @@ trait ProductTrait
             'filename',
             'alt',
             'name',
+            'is_max_stock',
             'route',
             'quantity',
             'price',

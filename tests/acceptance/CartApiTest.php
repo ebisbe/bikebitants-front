@@ -17,7 +17,8 @@ class CartApiTest extends TestCase
             ->seeJson([
                 '_id' => "simple-product",
                 'quantity' => 1,
-                'price' => '12.10'
+                'price' => '12.10',
+                'is_max_stock' => false
             ])
             ->seeJsonStructure($this->getProductResponse());
 
@@ -25,12 +26,14 @@ class CartApiTest extends TestCase
         $this
             ->seeJson([
                 'quantity' => 3,
+                'is_max_stock' => false
             ]);
 
-        $this->addSimpleProduct(150);
+        $this->addSimpleProduct(7);
         $this
             ->seeJson([
                 'quantity' => 10,
+                'is_max_stock' => true
             ]);
     }
 
@@ -44,7 +47,8 @@ class CartApiTest extends TestCase
             ->seeJson([
                 '_id' => "simple-product",
                 'quantity' => 10,
-                'price' => '12.10'
+                'price' => '12.10',
+                'is_max_stock' => true
             ]);
     }
 
