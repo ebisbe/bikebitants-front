@@ -36,10 +36,9 @@ use \Faker\Generator;
 use MongoDB\BSON\UTCDatetime;
 
 
-$files = collect(Storage::files());
-if ($files->isEmpty()) {
-    $files->push($faker->image(storage_path('app'), 640, 480, null, false));
-}
+$files = collect(Storage::files('wp_files'))->map(function($string) {
+    return str_replace('wp_files', '', $string);
+});
 
 $factory->define(User::class, function (Generator $faker) {
     return [
@@ -173,12 +172,8 @@ $factory->define(Lead::class, function (Generator $faker) {
     ];
 });
 
-$factory->define(Category::class, function (Generator $faker) {
+$factory->define(Category::class, function (Generator $faker) use ($files) {
     $name = $faker->words(3, true);
-    $files = collect(Storage::files());
-    if (empty($files)) {
-        $files->push($faker->image(storage_path('app'), 640, 480, null, false));
-    }
     return [
         'name' => $name,
         //'slug' => str_slug($name)
