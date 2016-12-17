@@ -82,9 +82,6 @@ PRODUCTS - START
                             </div>
                         </div>
                         <!-- WIDGET:PRICE - END -->
-                        {{--<button type="submit" class="btn btn-primary add-to-cart js-add-button">
-                            Update search
-                        </button>--}}
                     </aside>
                 </div>
                 <div class="col-sm-9">
@@ -104,7 +101,7 @@ PRODUCTS - START
                                     </button>
                                 </div>
                                 <div class="form-inline order-by">
-                                    <div class="form-group">
+                                    <div class="form-group hidden-sm">
                                         <label>@lang('catalogue.sort_by')</label>
                                     </div>
                                     <div class="form-group">
@@ -176,12 +173,6 @@ PRODUCTS - START
                                                                   button_class="btn btn-transparent btn-sm">
                                                         </cart-add>
                                                     @endif
-                                                    {{--<button type="submit" class="btn btn-primary add-to-cart js-add-button">--}}
-                                                    {{--<i class="fa fa-shopping-cart"></i>--}}
-                                                    {{--Add to cart--}}
-                                                    {{--</button>--}}
-                                                    {{--<a href="" class="btn btn-primary btn-sm"><i--}}
-                                                    {{--class="fa fa-heart"></i></a>--}}
                                                 </div>
                                             </div>
                                         </div>
