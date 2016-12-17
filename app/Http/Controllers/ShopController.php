@@ -10,12 +10,11 @@ use App\Business\Repositories\CategoryRepository;
 use App\Business\Search\ProductSearch;
 use App\Business\Repositories\ProductRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use MetaTag;
 use Breadcrumbs;
 use App\Http\Requests;
 use Illuminate\Routing\Route;
-use Awjudd\FeedReader\Facades\FeedReader;
+use \FeedReader;
 
 class ShopController extends Controller
 {

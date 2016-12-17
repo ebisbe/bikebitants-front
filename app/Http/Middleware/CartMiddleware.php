@@ -38,7 +38,7 @@ class CartMiddleware
         Cart::condition(new CartCondition([
             'name' => $tax->name,
             'type' => 'tax',
-            'target' => 'subtotal',
+            'target' => 'item',
             'value' => $tax->rate . '%',
             'order' => 5
         ]));

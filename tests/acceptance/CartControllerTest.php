@@ -26,6 +26,12 @@ class CartControllerTest extends TestCase {
             ->visit('/cart')
             ->see('Simple Product')
             ->see('12.10')
+            ->see('Total<span>12.10')
+
+            ->type('DISCOUNT10', 'coupon')
+            ->press('cart.apply_coupon')
+            ->see('DISCOUNT10<span>-10%')
+            ->see('Total<span>10.89')
             ;
     }
 }

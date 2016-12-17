@@ -239,7 +239,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'MetaTag' => Torann\LaravelMetaTags\Facades\MetaTag::class,
         'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class,
-        'FeedReader' => Awjudd\FeedReader\Facades::class,
+        'FeedReader' => Awjudd\FeedReader\Facade::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Woocommerce' => Pixelpeter\Woocommerce\Facades\Woocommerce::class,
         'GeoIP' => PulkitJalan\GeoIP\Facades\GeoIP::class,

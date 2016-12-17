@@ -70,7 +70,7 @@ class CartConditionsController extends ApiController
             })->values();
 
         return array_merge(
-            [['name' => trans('checkout.total_products'), 'value' => Cart::getSubTotal() . ' &euro;']],
+            //[['name' => trans('checkout.total_products'), 'value' => Cart::getSubTotal() . ' &euro;']],
             $conditions->toArray(),
             [['name' => trans('checkout.total'), 'value' => Cart::getTotal() . ' &euro;']]
         );

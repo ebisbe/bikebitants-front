@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
 //        $this->brand->services()->save(factory(BrandService::class)->make());
 //
         $this->categories();
-        //$this->discounts();
+        $this->discounts();
         //$this->zones();
 
         /*factory(User::class)->create([
@@ -262,9 +262,9 @@ class DatabaseSeeder extends Seeder
      */
     public function discounts()
     {
-        factory(Coupon::class)->create(['name' => 'DISCOUNT10']);
-        factory(Coupon::class)->create(['name' => 'DISCOUNT20']);
-        factory(Coupon::class)->create(['name' => 'DISCOUNT30']);
+        factory(Coupon::class)->create(['name' => 'DISCOUNT10', 'type' => Coupon::PERCENTAGE, 'magnitude' => '-10']);
+        factory(Coupon::class)->create(['name' => 'DISCOUNT20', 'type' => Coupon::PERCENTAGE, 'magnitude' => '-20']);
+        factory(Coupon::class)->create(['name' => 'DISCOUNT30', 'type' => Coupon::PERCENTAGE, 'magnitude' => '-30']);
     }
 
     /**
