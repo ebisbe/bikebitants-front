@@ -108,7 +108,6 @@
                                     variation._id.indexOf(selectedValue) >= 1;
                         }
                 ).shift();
-
                 this.maxQuantity = selectedVariation.stock;
             },
 

@@ -118,6 +118,7 @@ class WordpressService
             ->map(function ($tag) {
                 return $tag['name'];
             })->toArray();
+        (new ProductRepository)->update($this->product, $this->product->toArray());
 
         $this->syncProperties($wpProduct['attributes']);
         $this->syncCategories($wpProduct['categories']);

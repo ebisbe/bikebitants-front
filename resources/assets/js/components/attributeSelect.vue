@@ -33,12 +33,6 @@
             changed: function () {
                 this.$emit('changed', this.order, this.selectedElement);
             }
-        },
-
-        watch: {
-            options: function () {
-                this.selectedElement = this.options[0]._id;
-            }
         }
     };
 
