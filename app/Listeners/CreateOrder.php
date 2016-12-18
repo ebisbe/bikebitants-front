@@ -26,6 +26,8 @@ class CreateOrder
      */
     public function handle(ConfirmedOrder $event)
     {
-        $this->wordpressService->createOrder($event->order);
+        if(env('APP_ENV') == 'production') {
+            $this->wordpressService->createOrder($event->order);
+        }
     }
 }

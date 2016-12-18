@@ -41,7 +41,7 @@
     <div class="top-header hidden-xs {{ StaticVars::layoutTopHeader(!empty($layoutTopHeader) ? $layoutTopHeader : '') }}">
         <div class="container">
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-7">
                     <ul class="list-inline contacts">
                         <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
                         <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
@@ -80,68 +80,11 @@
                     <li class="dropdown">
                         <a href="{{ route('shop.catalogue') }}">@lang('layout.shop')</a>
                     </li>
-                    {{--<li class="dropdown megamenu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="300" data-close-others="true">Eshop</a>
-                        <ul class="dropdown-menu">
-                            <li class="col-sm-4 col-md-3">
-                                <ul class="list-unstyled">
-                                    <li class="title">Men <span class="label label-danger pull-right">HOT</span></li>
-                                    <li><a href="products.html">Sweatshirts & Jackets</a></li>
-                                    <li><a href="products.html">Caps and Hats</a></li>
-                                    <li><a href="products.html">Ties</a></li>
-                                    <li><a href="products.html">Scarves</a></li>
-                                    <li><a href="products.html">Shirts</a></li>
-                                    <li><a href="products.html">Jeans</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-sm-4 col-md-3">
-                                <ul class="list-unstyled">
-                                    <li class="title">Women <span class="label label-info pull-right">30% OFF SALE</span></li>
-                                    <li><a href="products.html">Jackets & Coats</a></li>
-                                    <li><a href="products.html">Jumpers & cardigans</a></li>
-                                    <li><a href="products.html">Jeans</a></li>
-                                    <li><a href="products.html">Trousers</a></li>
-                                    <li><a href="products.html">Dresses</a></li>
-                                    <li><a href="products.html">Long Sleeve Tops</a></li>
-                                </ul>
-                            </li>
-                            <li class="col-sm-4 col-md-3">
-                                <ul class="list-unstyled">
-                                    <li class="title">Accessories</li>
-                                    <li><a href="products.html">Sunglasses</a></li>
-                                    <li><a href="products.html">Watches</a></li>
-                                    <li><a href="products.html">Umbrellas</a></li>
-                                    <li><a href="products.html">Bags & Wallets</a></li>
-                                    <li><a href="products.html">Fashion Jewellery</a></li>
-                                    <li><a href="products.html">Belts</a></li>
-                                </ul>
-                            </li>
-                            <li class="hidden-xs hidden-sm col-md-3">
-                                <img src="/images/megamenu.png" class="img-responsive center-block" alt="">
-                            </li>
-                        </ul>
-                    </li>--}}
-
                     <cart-menu
                             cart="{{ route('cart.index') }}"
                             checkout="{{ route('checkout.index') }}"
                             shop="{{ route('shop.catalogue') }}">
                     </cart-menu>
-                    {{--<li class="dropdown navbar-search hidden-xs">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <form>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control" placeholder="Search ...">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="button">Search</button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>--}}
                 </ul>
             </div>
         </div>

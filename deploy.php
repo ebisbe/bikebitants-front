@@ -21,7 +21,7 @@ server('production', 'web.ovh.bikebitants.com')
 
 // Tasks
 task('knock:penny', function () {
-    runLocally('~/Development/./knock_titans.sh web.ovh.bikebitants.com');
+    runLocally('~/Development/./knock_bikebitans.sh web.ovh.bikebitants.com');
 });
 before('deploy:prepare', 'knock:penny');
 before('deploy:unlock', 'knock:penny');
