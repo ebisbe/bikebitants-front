@@ -22,7 +22,7 @@ class CollectionMacrosProvider extends ServiceProvider
         $factory->macro('img', function ($filename, $sizes, $alt, $wrapper = '{img}', $class = 'img-responsive') {
             /** @var Collection $sizes */
             $srcset = $sizes->map(function ($size, $viewPort) use ($filename) {
-                return "/img/$size/$filename $viewPort";
+                return env('CDN')."/img/$size/$filename $viewPort";
             })->implode(',');
             return str_ireplace('{img}', '<img class="' . $class . '" alt="' . $alt . '" sizes="100w" srcset="' . $srcset . '">', $wrapper);
         });

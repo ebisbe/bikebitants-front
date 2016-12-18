@@ -25,7 +25,9 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        DB::connection('mongodb')->enableQueryLog();
+        if(env('APP_ENV') != 'production') {
+            DB::connection('mongodb')->enableQueryLog();
+        }
 
         Blade::directive('injectCss', function ($cssRoute) {
             return "<style><?php echo file_get_contents(resource_path({$cssRoute})); ?></style>";
