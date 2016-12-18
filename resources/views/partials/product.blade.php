@@ -13,7 +13,7 @@
         </div>
         <div class="col-{{ $col_size }}-8">
             <div class="product-body">
-                <h3>{{ $product->name }}</h3>
+                <h1>{{ $product->name }}</h1>
                 @include('partials.labels')
                 @include('partials.rating', ['rating' => $product->rating])
                 @include('partials.price')

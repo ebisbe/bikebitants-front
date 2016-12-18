@@ -91,7 +91,7 @@ trait ProductPresenter
     public function getStockLabelAttribute()
     {
         $add = '';
-        if($this->stock <= 10) {
+        if($this->stock <= 5) {
             $add = " ( $this->stock )";
         }
 
