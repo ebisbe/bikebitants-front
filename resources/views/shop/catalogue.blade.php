@@ -142,11 +142,11 @@ PRODUCTS - START
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="product-body">
-                                                <h3>
+                                                <h1>
                                                     <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
                                                        class="product-permalink">{{ str_limit($product->name, 29) }}
                                                     </a>
-                                                </h3>
+                                                </h1>
                                                 @include('partials.labels')
                                                 @include('partials.rating', ['rating' => $product->rating])
                                                 @include('partials.price', ['style' => 'display: block; height: 50px;'])
