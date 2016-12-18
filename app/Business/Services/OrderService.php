@@ -3,7 +3,9 @@
 namespace App\Business\Services;
 
 use App\Billing;
+use App\Business\Models\Shop\Product;
 use App\Business\Repositories\CouponRepository;
+use App\Business\Repositories\ProductRepository;
 use App\Country;
 use App\Business\Models\Shop\Coupon;
 use App\Events\CancelOrder;
@@ -45,6 +47,7 @@ class OrderService
 
     /** Repositories */
     protected $couponService;
+    protected $productRepository;
 
     /**
      * OrderService constructor.
@@ -52,12 +55,12 @@ class OrderService
      * @param PaymentMethod $paymentMethod
      * @param CouponService $couponService
      */
-    public function __construct(Country $country, PaymentMethod $paymentMethod, CouponService $couponService)
+    public function __construct(Country $country, PaymentMethod $paymentMethod, CouponService $couponService, ProductRepository $productRepository)
     {
         $this->country = $country;
         $this->paymentMethod = $paymentMethod;
-
         $this->couponService = $couponService;
+        $this->productRepository = $productRepository;
     }
 
     public function checkoutOrder($avoidLoop = false)
@@ -315,8 +318,9 @@ class OrderService
                 $cart->total = $item->getPriceSumWithConditions();
                 $cart->properties = $item['attributes']['properties'];
                 $cart->variation_id = $item['attributes']['variation_id'];
-                $cart->product_id = $item['attributes']['product']->external_id;
-                $cart->product()->associate($item['attributes']['product']);
+                $cart->product_id = $item['attributes']['_id'];
+                $product = $this->productRepository->find($item['attributes']['_id']);
+                $cart->product()->associate($product);
                 $order->cart()->associate($cart);
             });
 

@@ -267,13 +267,10 @@
                                             </thead>
                                             <tbody>
                                             @foreach($items as $item)
-                                                @php
-                                                $product = $item->attributes->product;
-                                                @endphp
                                                 <tr>
                                                     <td class="col-xs-4 col-md-5">
-                                                        <h4>{{ $product->name }}
-                                                            <small> {{ $product->brand->name }}
+                                                        <h4>{{ $item['name'] }}
+                                                            <small> {{ $item['attributes']['brand'] }}
                                                                 @foreach($item->attributes->properties as $attribute)
                                                                     , {{ $attribute }}
                                                                 @endforeach
@@ -282,9 +279,9 @@
                                                     </td>
                                                     <td class="col-xs-2 text-center">
                                                         <small>
-                                                            {{ $item->getPriceWithConditions() }}{{ $product->currency }} x {{ $item->quantity }}</small>
+                                                            {{ $item->getPriceWithConditions() }}{{ $item['attributes']['currency'] }} x {{ $item->quantity }}</small>
                                                         <span>
-                                                            <b>{{ $item->getPriceSumWithConditions() }}{{ $product->currency }}</b>
+                                                            <b>{{ $item->getPriceSumWithConditions() }}{{ $item['attributes']['currency'] }}</b>
                                                         </span>
                                                     </td>
                                                 </tr>
