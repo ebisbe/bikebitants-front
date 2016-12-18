@@ -3,7 +3,7 @@
         <span class="label label-info"><span class="fa fa-star"></span> </span>
     @endif
     @if($product->is_discounted)
-        <span class="label label-info">For sale</span>
+        <span class="label label-info">Oferta Bikebitants</span>
     @endif
     @if($product->stock == 0)
         <span class="label label-danger">Out of stock</span>
