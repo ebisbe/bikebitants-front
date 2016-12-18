@@ -247,4 +247,6 @@ return [
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
+
+    'cdn' => env('CDN')
 ];

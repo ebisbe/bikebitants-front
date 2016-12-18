@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="{{ env('CDN') }}{{ elixir('css/all.css') }}">
+    <link rel="stylesheet" href="{{ config('app.cdn') }}{{ elixir('css/all.css') }}">
 
     <title>{{ MetaTag::get('title') }}</title>
 
@@ -223,7 +223,7 @@
  JS
 =========================== -->
 @include('partials.js_vars')
-<script src="{{ env('CDN') }}{{ elixir('js/app.js') }}" async></script>
+<script src="{{ config('app.cdn') }}{{ elixir('js/app.js') }}" async></script>
 @stack('footer.scripts')
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
