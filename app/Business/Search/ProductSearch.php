@@ -49,14 +49,18 @@ class ProductSearch
      */
     public function apply()
     {
-        return Cache::tags($this->getCacheTags())->rememberForever($this->getCacheKey(), function () {
-            list($filters, $sort) = $this->applyDecoratorsFromRequest([]);
-            return $this->query($filters, $sort);
-        });
+        return Cache::tags($this->getCacheTags())
+            ->rememberForever($this->getCacheKey(), function () {
+                list($filters, $sort) = $this->applyDecoratorsFromRequest([]);
+                return $this->query($filters, $sort);
+            });
     }
 
     /**
      * Base query
+     *
+     * TODO Divide filters.
+     * Before unwind filter with $categories, $status and $deleted_at. After unwind use $prices
      *
      * @param $filters
      * @param $sort

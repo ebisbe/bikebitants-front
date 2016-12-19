@@ -33,12 +33,9 @@ class ProductVariations extends Job implements ShouldQueue
         $variations = $this->product->variations();
 
         $productRepository->update($this->product, [
-            'prices' => $variations->pluck('price')->unique()->toArray(),
+            'prices' => $variations->pluck('price')->unique()->values()->toArray(),
             'stock' => $variations->sum('stock'),
-            'is_discounted' => $variations
-                    ->filter(function ($variation) {
-                        return $variation->is_discounted;
-                    })->count() > 0
+            'is_discounted' => $variations->where('is_discounted', true)->count() > 0
         ]);
     }
 }
