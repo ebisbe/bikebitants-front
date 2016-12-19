@@ -93,6 +93,7 @@ $(window).scroll(function () {
         $("#scrolltop").removeClass("in");
     }
 });
+$(window).trigger('scroll');
 
 /*------------------------------
  DOCUMENT READY

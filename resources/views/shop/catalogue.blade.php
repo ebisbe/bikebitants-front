@@ -143,8 +143,8 @@ PRODUCTS - START
                                         <div class="col-sm-9">
                                             <div class="product-body">
                                                 <h1>
-                                                    <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
-                                                       class="product-permalink">{{ str_limit($product->name, 29) }}
+                                                    <a href="{{ route('shop.product', ['slug' => $product->slug]) }}">
+                                                        {{ str_limit($product->name, 29) }}
                                                     </a>
                                                 </h1>
                                                 @include('partials.labels')
