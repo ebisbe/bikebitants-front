@@ -41,7 +41,7 @@ class ShopController extends Controller
         $layoutHeader = 'navbar-transparent navbar-fixed-top';
         $layoutTopHeader = 'hidden';
 
-        $brands = $brandRepository->findAll();
+        $brands = collect()/*$brandRepository->findAll()*/;
         $featuredProducts = $productRepository->where('is_featured', true)->limit(10)->findAll();
         $productsLeft = $featuredProducts->splice(0, 2);
         $productsRight = $featuredProducts;
