@@ -78,9 +78,11 @@ PRODUCTS - START
                                 <div class="panel-heading" role="tab">
                                     <h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse"
                                                                href="#faq-{{ $loop->iteration }}" aria-expanded="false"
-                                                               aria-controls="faq-{{ $loop->iteration }}">{{ $faq->name }}</a></h4>
+                                                               aria-controls="faq-{{ $loop->iteration }}">{{ $faq->name }}</a>
+                                    </h4>
                                 </div>
-                                <div aria-expanded="false" id="faq-{{ $loop->iteration }}" class="panel-collapse collapse"
+                                <div aria-expanded="false" id="faq-{{ $loop->iteration }}"
+                                     class="panel-collapse collapse"
                                      role="tabpanel">
                                     <div class="panel-body">{{ $faq->answer }}</div>
                                 </div>
@@ -114,7 +116,11 @@ PRODUCTS - START
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="product-body">
-                                            <h3>{{ $relatedProduct->name }}</h3>
+                                            <h3>
+                                                <a href="{{ route('shop.product', $relatedProduct->slug) }}">
+                                                    {{ $relatedProduct->name }}
+                                                </a>
+                                            </h3>
                                             @include('partials.price', ['product' => $relatedProduct])
                                             <p></p>
                                             <div class="buttons buttons-simple">

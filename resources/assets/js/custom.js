@@ -172,20 +172,6 @@ $(document).ready(function () {
         $(this).find("i").addClass("fa-search");
     });
 
-    /*------------------------------
-     OWL CAROUSEL
-     ------------------------------*/
-    /*$("#homepage-1-carousel").owlCarousel({
-     items : 1,
-     loop : true,
-     lazyLoad : true,
-     autoplay : true,
-     nav : true,
-     navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-     animateOut: 'fadeOut',
-     animateIn: 'fadeIn'
-     });*/
-
     $("#homepage-2-carousel").owlCarousel({
         items: 1,
         loop: true,
@@ -196,34 +182,6 @@ $(document).ready(function () {
         animateOut: 'fadeOut',
         animateIn: 'fadeIn'
     });
-
-    /*$("#homepage-3-carousel").owlCarousel({
-     items : 1,
-     loop : true,
-     lazyLoad : true,
-     autoplay : true,
-     nav : true,
-     navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-     animateOut: 'fadeOut',
-     animateIn: 'fadeIn'
-     });
-
-     $("#homepage-4-carousel").owlCarousel({
-     items : 1,
-     loop : true,
-     lazyLoad : true,
-     autoplay : true,
-     animateOut: 'fadeOut',
-     animateIn: 'fadeIn'
-     });
-
-     $("#homepage-6-carousel").owlCarousel({
-     items : 1,
-     loop : false,
-     lazyLoad : true,
-     autoplay : false,
-     dots : false,
-     });*/
 
     $("#testimonials-carousel").owlCarousel({
         items: 1,
