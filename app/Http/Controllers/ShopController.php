@@ -120,7 +120,7 @@ class ShopController extends Controller
      * @param Request $request
      * @param ProductSearch $productSearch
      * @param Route $route
-     * @param Category $categoryRepository
+     * @param CategoryRepository $categoryRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function shop(Request $request, ProductSearch $productSearch, Route $route, CategoryRepository $categoryRepository)
@@ -149,7 +149,7 @@ class ShopController extends Controller
      * @param Request $request
      * @param ProductSearch $productSearch
      * @param Route $route
-     * @param Category $categoryRepository
+     * @param CategoryRepository $categoryRepository
      * @param string $slugCategory
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -182,7 +182,7 @@ class ShopController extends Controller
      * @param Request $request
      * @param ProductSearch $productSearch
      * @param Route $route
-     * @param Category $categoryRepository
+     * @param CategoryRepository $categoryRepository
      * @param string $slugCategory
      * @param string $slugSubCategory
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

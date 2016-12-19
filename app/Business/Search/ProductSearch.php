@@ -77,9 +77,9 @@ class ProductSearch
                     ['$match' =>
                         ['$and' => $filters]
                     ],
-                    ['$sort' => $sort],
                     ['$group' => [
                         '_id' => '$_id',
+                        'prices' => ['$first' => '$prices'],
                         'name' => ['$first' => '$name'],
                         'status' => ['$first' => '$status'],
                         'is_featured' => ['$first' => '$is_featured'],
@@ -92,7 +92,8 @@ class ProductSearch
                         'variations' => ['$first' => '$variations'],
                         'introduction' => ['$first' => '$introduction'],
                         'rating' => ['$first' => '$rating'],
-                    ]]
+                    ]],
+                    ['$sort' => $sort]
                 ]);
             });
     }

@@ -24,7 +24,7 @@ class Sort implements Filter
                 break;
 
             case 'featured';
-                $sort = ['is_featured' => 1];
+                $sort = ['is_featured' => -1];
                 break;
 
             case 'discounted';
