@@ -83,7 +83,7 @@
                         <a href="{{ route('shop.catalogue') }}">@lang('layout.shop')</a>
                     </li>
                     <li>
-                        <a href="{{ route('shop.bargain') }}">@lang('layout.bargain')</a>
+                        <a href="{{ route('shop.bargain') }}">@lang('bargain.title')</a>
                     </li>
                     <cart-menu
                             cart="{{ route('cart.index') }}"
