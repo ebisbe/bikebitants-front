@@ -29,7 +29,7 @@ elixir(mix => {
             'bower/bootstrap/dist/css/bootstrap.css',
             'custom.css',
             'bikebitants.css',
-            'color/green.css',
+            'color/bikebitants_green.css',
             'bower/jquery-ui/themes/smoothness/jquery-ui.css',
             'bower/font-awesome/css/font-awesome.css',
             'bower/dragtable/dragtable.css',

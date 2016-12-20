@@ -1405,7 +1405,7 @@ header.navbar-transparent.navbar-offset {
 }
 
 header.navbar-transparent .navbar-brand {
-    padding: 20px 15px;
+    padding: 10px 15px;
     font-size: 36px;
 }
 
@@ -5098,7 +5098,7 @@ footer.navbar a:hover {
     }
 
     header.navbar .navbar-brand {
-        padding: 20px 15px;
+        padding: 10px 15px;
         font-size: 36px;
     }
 
