@@ -27,19 +27,9 @@ class ProductSearch
     /** @var  Route $route */
     protected $route;
 
-    /**
-     * @param Request $filters
-     */
-    public function setFilters(Request $filters)
+    public function __construct(Request $filters, Route $route)
     {
         $this->filters = $filters;
-    }
-
-    /**
-     * @param Route $route
-     */
-    public function setRoute(Route $route)
-    {
         $this->route = $route;
     }
 
