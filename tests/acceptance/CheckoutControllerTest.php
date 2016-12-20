@@ -17,4 +17,12 @@ class CheckoutControllerTest extends TestCase
         $this->visit('/checkout')
             ->seePageIs('/checkout');
     }
+
+    // fill form
+
+    // validate data
+
+    // see shipping info
+
+    //
 }
