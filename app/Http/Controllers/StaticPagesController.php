@@ -68,4 +68,14 @@ class StaticPagesController extends Controller
 
         return view('staticPages.press', compact('title', 'subtitle'));
     }
+
+    public function faq()
+    {
+        $title = 'Bikebitants';
+        $subtitle = trans('static.faq');
+
+        Breadcrumbs::addCrumb(trans('static.faq'));
+
+        return view('staticPages.faq', compact('title', 'subtitle'));
+    }
 }

@@ -58,6 +58,7 @@ Route::get('/condiciones-generales', 'StaticPagesController@termsAndConditions')
 Route::get('/compromiso-bikebitants', 'StaticPagesController@socialCommitment')->name('social_commitment');
 Route::get('/incentivos-empresas', 'StaticPagesController@incentives')->name('incentives');
 Route::get('/prensa', 'StaticPagesController@press')->name('press');
+Route::get('/preguntas-frequentes', 'StaticPagesController@faq')->name('faq');
 
 // End Static Pages
 

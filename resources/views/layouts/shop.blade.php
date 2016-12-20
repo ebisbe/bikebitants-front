@@ -85,6 +85,9 @@
                     <li>
                         <a href="{{ route('shop.bargain') }}">@lang('bargain.title')</a>
                     </li>
+                    <li>
+                        <a href="{{ route('faq') }}">@lang('static.faq')</a>
+                    </li>
                     <cart-menu
                             cart="{{ route('cart.index') }}"
                             checkout="{{ route('checkout.index') }}"
