@@ -65,7 +65,7 @@
                         <!-- SERVICE - START -->
                         <div class="col-xs-6 col-sm-4">
                             <div class="service">
-                                <h3>En<ric Bisbe</h3>
+                                <h3>Enric Bisbe</h3>
                                 <p></p>
                             </div>
                         </div>
