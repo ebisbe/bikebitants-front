@@ -5,8 +5,10 @@ class Sort implements Filter
 {
 
     /**
+     * TODO refactor to decorator pattern
      * @param mixed $value
      * @return array
+     * @throws \Exception
      */
     public static function apply($value)
     {
