@@ -76,10 +76,13 @@
             <div class="navbar-collapse collapse">
                 <p class="navbar-text hidden-xs hidden-sm">{{ StaticVars::slogan() }}</p>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
+                    <li>
                         <a href="{{ route('shop.home') }}">@lang('layout.home')</a>
                     </li>
-                    <li class="dropdown">
+                    <li>
+                        <a href="{{ route('shop.catalogue') }}">@lang('layout.shop')</a>
+                    </li>
+                    <li>
                         <a href="{{ route('shop.catalogue') }}">@lang('layout.shop')</a>
                     </li>
                     <cart-menu

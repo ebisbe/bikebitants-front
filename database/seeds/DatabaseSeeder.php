@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
      * @param array $type
      * @return Product
      */
-    public function product($variable = false, $type = [])
+    public function product($variable = false, $type = [], $is_discounted)
     {
         /** @var Product $product */
         $product = factory(Product::class)->create($type);
@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
                 'sku' => implode('-', $tuple),
                 'real_price' => 10,
                 'discounted_price' => 5,
-                'is_discounted' => false
+                'is_discounted' => $is_discounted
             ]));
         }
 
@@ -208,7 +208,8 @@ class DatabaseSeeder extends Seeder
                         'prod_options' => [
                             '_id' => 'variable-product-2',
                             'name' => 'Variable Product 2',
-                            'is_featured' => true
+                            'is_featured' => true,
+                            'is_discounted' => true
                         ]
                     ],
                 ])]
@@ -241,7 +242,7 @@ class DatabaseSeeder extends Seeder
                     ]);
                     $child->father()->associate($cat);
 
-                    $product = $this->product($item['variable'], $item['prod_options']);
+                    $product = $this->product($item['variable'], $item['prod_options'], $item['prod_options']['is_discounted'] ?? false);
                     $this->brand->products()->save($product);
                     $child->products()->save($product);
 

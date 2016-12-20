@@ -205,4 +205,22 @@ class ShopController extends Controller
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function bargain()
+    {
+        Breadcrumbs::addCrumb(trans('bargain.title'));
+
+        $title = trans('layout.shop');
+        $subtitle = trans('bargain.title');
+
+        MetaTag::set('title', 'Ofertas accesorios bicicleta y ciclistas urbanos | Bikebitants');
+        MetaTag::set('description', trans('bargain.description'));
+
+        $products = $this->productRepository->findWhere(['is_discounted', '=', true]);
+
+        return view('shop.bargain', compact('products', 'title', 'subtitle'));
+    }
 }
