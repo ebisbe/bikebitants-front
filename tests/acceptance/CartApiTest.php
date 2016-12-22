@@ -57,7 +57,7 @@ class CartApiTest extends TestCase
     public function clear_empty_cart()
     {
         $this
-            ->delete('/api/cart/simple-product')
+            ->deleteJson('/api/cart/simple-product')
             ->seeStatusCode(200)
             ->seeJson([
                 'success' => false,
@@ -72,7 +72,7 @@ class CartApiTest extends TestCase
     {
         //count cart => 0
         $response = $this
-            ->get('/api/cart')
+            ->getJson('/api/cart')
             ->seeStatusCode(200)
             ->response;
         $this->assertEquals(0, count($response->getOriginalContent()));
@@ -82,7 +82,7 @@ class CartApiTest extends TestCase
 
         //count cart => 1
         $response = $this
-            ->get('/api/cart')
+            ->getJson('/api/cart')
             ->seeJsonStructure(['*' => $this->getProductResponse()])
             ->seeJson(['quantity' => 5])
             ->response;
@@ -92,7 +92,7 @@ class CartApiTest extends TestCase
 
         //clear product
         $this
-            ->delete('/api/cart/simple-products')
+            ->deleteJson('/api/cart/simple-products')
             ->seeStatusCode(200)
             ->seeJson([
                 'success' => true,

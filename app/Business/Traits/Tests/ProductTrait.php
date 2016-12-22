@@ -7,7 +7,7 @@ trait ProductTrait
     public function addSimpleProduct($quantity = 1)
     {
         $this
-            ->post('/api/cart', [
+            ->postJson('/api/cart', [
                 'product_id' => "simple-product",
                 'quantity' => $quantity
             ]);

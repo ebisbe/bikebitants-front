@@ -245,7 +245,7 @@ $factory->define(Coupon::class, function (Generator $faker) {
 $factory->define(Zone::class, function (Generator $faker) {
     return [
         'name' => $faker->name,
-        'region' => ['C', 'AL', 'B', 'GI'],
+        'state' => ['C', 'AL', 'B', 'GI'],
     ];
 });
 

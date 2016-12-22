@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Business\Services\ShippingMethodService;
 use App\Shipping;
-use App\Zone;
 use Darryldecode\Cart\CartCondition;
 use Illuminate\Http\Request;
 use Cart;
@@ -13,6 +13,13 @@ use App\Http\Requests;
 
 class CartConditionsController extends ApiController
 {
+    protected $shippingMethodService;
+
+    public function __construct(ShippingMethodService $shippingMethodService)
+    {
+        $this->shippingMethodService = $shippingMethodService;
+    }
+
     /**
      * @return array
      */
@@ -28,20 +35,14 @@ class CartConditionsController extends ApiController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'region' => 'required|exists:zones,region'
+            'state' => 'required|exists:zones,state'
         ]);
 
         //Remove cart condition before checking for total of cart because result will be not correct
         Cart::removeConditionsByType('shipping');
 
-        /** @var Zone $zone */
-        $zone = Zone::whereIn('region', [$request->input('region')])->first();
-        $shippingMethod = $zone->shippingMethods()
-            ->sortByDesc('price_condition')
-            ->filter(function ($item) {
-                return Cart::getTotal() >= $item->price_condition;
-            })
-            ->shift();
+        $shippingMethod = $this->shippingMethodService
+            ->getFromState($request->input('state'), Cart::getTotal());
 
         $condition = new CartCondition([
             'name' => $shippingMethod->name,
@@ -61,7 +62,7 @@ class CartConditionsController extends ApiController
     private function cartResponse()
     {
         $conditions = Cart::getConditions()
-            ->map(function ($item, $key) {
+            ->map(function ($item) {
                 /** @var CartCondition $item */
                 return [
                     'name' => $item->getName(),
@@ -70,7 +71,6 @@ class CartConditionsController extends ApiController
             })->values();
 
         return array_merge(
-            //[['name' => trans('checkout.total_products'), 'value' => Cart::getSubTotal() . ' &euro;']],
             $conditions->toArray(),
             [['name' => trans('checkout.total'), 'value' => Cart::getTotal() . ' &euro;']]
         );

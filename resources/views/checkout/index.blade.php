@@ -288,7 +288,10 @@
                                             @endforeach
                                             </tbody>
                                         </table>
-                                        <total-checkout></total-checkout>
+                                        <total-checkout
+                                            country="ES"
+                                            state="B"
+                                        ></total-checkout>
                                     </div>
                                 </div>
 

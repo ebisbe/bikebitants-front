@@ -11,11 +11,9 @@ use App\Image;
 use App\Label;
 use App\Product;
 use App\Review;
-use App\ShippingMethod;
 use App\Tax;
 use App\User;
 use App\Variation;
-use App\Zone;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -49,7 +47,6 @@ class DatabaseSeeder extends Seeder
 //
         $this->categories();
         $this->discounts();
-        //$this->zones();
 
         /*factory(User::class)->create([
             'name' => 'Admin',
@@ -266,73 +263,5 @@ class DatabaseSeeder extends Seeder
         factory(Coupon::class)->create(['name' => 'DISCOUNT10', 'type' => Coupon::PERCENTAGE, 'magnitude' => '-10']);
         factory(Coupon::class)->create(['name' => 'DISCOUNT20', 'type' => Coupon::PERCENTAGE, 'magnitude' => '-20']);
         factory(Coupon::class)->create(['name' => 'DISCOUNT30', 'type' => Coupon::PERCENTAGE, 'magnitude' => '-30']);
-    }
-
-    /**
-     * Create Zones
-     */
-    public function zones()
-    {
-        $zonesCol = collect([
-            [
-                'name' => 'España (Península)',
-                'region' => ['C', 'VI', 'AB', 'A', 'AL', 'O', 'AV', 'BA', 'B', 'BU', 'CC', 'CA', 'S', 'CS', 'CR', 'CO', 'CU', 'GI', 'GR', 'GU', 'SS', 'H', 'HU', 'J', 'LO', 'LE', 'L', 'LU', 'M', 'MA', 'MU', 'NA', 'OR', 'P', 'PO', 'SA', 'SG', 'SE', 'SO', 'T', 'TE', 'TO', 'V', 'VA', 'BI', 'ZA', 'Z'],
-                'shippingMethods' => collect([
-                    ['name' => 'Envío 24-48 horas',
-                        'cost' => 3.305785123966942,
-                        'price_condition' => 0],
-                    ['name' => 'Envío gratuito 24-48 horas',
-                        'cost' => 0,
-                        'price_condition' => 25]
-                ])
-            ],
-            [
-                'name' => 'España (Baleares)',
-                'region' => ['PM'],
-                'shippingMethods' => collect([
-                    ['name' => 'Envío 3-4 días',
-                        'cost' => 8.264462809917355,
-                        'price_condition' => 0],
-                    ['name' => 'Envío gratuito 3-4 dias',
-                        'cost' => 0,
-                        'price_condition' => 25]
-                ])
-            ],
-            [
-                'name' => 'España (Canarias)',
-                'region' => ['GC', 'TF'],
-                'shippingMethods' => collect([
-                    ['name' => 'Envío 3-4 dias',
-                        'cost' => 25,
-                        'price_condition' => 0]
-                ])
-            ],
-            [
-                'name' => 'España (Ceuta Melilla)',
-                'region' => ['CE', 'ML'],
-                'shippingMethods' => collect([
-                    ['name' => 'Envío 3-4 dias',
-                        'cost' => 25,
-                        'price_condition' => 0]
-                ])
-            ],
-        ]);
-
-        $zonesCol->each(function ($item, $key) {
-            /** @var Zone $zone */
-            $zone = factory(Zone::class)->create([
-                'name' => $item['name'],
-                'region' => $item['region']
-            ]);
-            $item['shippingMethods']->each(function ($item, $key) use ($zone) {
-                /** @var Category $child */
-                $shippingMethod = factory(ShippingMethod::class)->make([
-                    'name' => $item['name'],
-                    'cost' => $item['cost'],
-                    'price_condition' => $item['price_condition'],
-                ]);
-                $zone->shippingMethods()->save($shippingMethod);
-            });
-        });
     }
 }

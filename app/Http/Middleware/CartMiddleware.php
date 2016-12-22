@@ -36,7 +36,7 @@ class CartMiddleware
     {
         $tax = TaxService::getTax();
         Cart::condition(new CartCondition([
-            'name' => $tax->name,
+            'name' => 'IVA',
             'type' => 'tax',
             'target' => 'item',
             'value' => $tax->rate . '%',

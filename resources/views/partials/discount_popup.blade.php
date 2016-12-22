@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="col-sm-4 hidden-xs">
-                        <img src="/img/174/Closa-fuga-black-foldable-helmet-02-big.png" class="img-responsive" alt="">
+                        <img src="{{ assetCDN('/img/174/Closa-fuga-black-foldable-helmet-02-big.png') }}" class="img-responsive" alt="">
                     </div>
                 </div>
             </div>
