@@ -82,6 +82,7 @@ class CartController extends ApiController implements CartMapper
     {
         return [
             'filename' => $item->attributes->filename,
+            'file' => assetCDN('/img/70/' . $item->attributes->filename), //not present in ItemCollection
             'alt' => $item->name,
             'name' => $item->name,
             'is_max_stock' => $item->attributes['is_max_stock'],

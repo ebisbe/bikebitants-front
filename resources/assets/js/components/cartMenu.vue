@@ -13,7 +13,7 @@
             <li v-for="product in products">
                 <div class="row">
                     <div class="col-sm-3">
-                        <img v-bind:src="'/img/70/' + product.filename"
+                        <img v-bind:src="product.file"
                              :alt="product.alt" class="img-responsive">
                     </div>
                     <div class="col-sm-9">

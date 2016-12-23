@@ -69,8 +69,6 @@ $(document).ready(function () {
         var country = $('.js-country').val();
         var state = that.val();
 
-        $('#vue-country').val(country).trigger('change');
-        $('#vue-state').val(state).trigger('change');
+        Bus.$emit('shippingDestinationUpdate', { state: state, country: country});
     });
-    $('#js-shipping .js-change').trigger('change');
 });

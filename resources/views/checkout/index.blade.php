@@ -279,7 +279,8 @@
                                                     </td>
                                                     <td class="col-xs-2 text-center">
                                                         <small>
-                                                            {{ $item->getPriceWithConditions() }}{{ $item['attributes']['currency'] }} x {{ $item->quantity }}</small>
+                                                            {{ $item->getPriceWithConditions() }}{{ $item['attributes']['currency'] }}
+                                                            x {{ $item->quantity }}</small>
                                                         <span>
                                                             <b>{{ $item->getPriceSumWithConditions() }}{{ $item['attributes']['currency'] }}</b>
                                                         </span>
@@ -289,8 +290,8 @@
                                             </tbody>
                                         </table>
                                         <total-checkout
-                                            country="ES"
-                                            state="B"
+                                                country="ES"
+                                                state="B"
                                         ></total-checkout>
                                     </div>
                                 </div>
@@ -323,7 +324,8 @@
                                         {{ Form::label('checkout-terms-conditions', trans('checkout.read_and_aggree_terms', ['route' => route('terms_conditions')]), [], false) }}
                                         {!! $errors->first('checkout-terms-conditions', '<p class="help-block">:message</p>') !!}
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-lg pull-right">@lang('checkout.confirm_order')</button>
+                                    <button type="submit"
+                                            class="btn btn-primary btn-lg pull-right">@lang('checkout.confirm_order')</button>
                                 </div>
                             </div>
                         </div>

@@ -1,10 +1,8 @@
 <template>
-    <div class="">
+    <div>
         <ul id="totalCheckout" class="list-unstyled order-total">
             <li v-for="condition in list">{{ condition.name }}<span v-html="condition.value"></span></li>
         </ul>
-        <input type="hidden" id="vue-country" v-model="country">
-        <input type="hidden" id="vue-state" v-model="state">
     </div>
 </template>
 
@@ -20,28 +18,23 @@
             }
         },
 
-        created: function () {
-            this.$http.get('api/cart-conditions')
-                    .then(function (response) {
-                        this.list = response.data;
-                    });
+        created () {
+            this.updateShipping(this.country, this.state);
+
+            Bus.$on('shippingDestinationUpdate', this.shippingDestinationUpdate);
         },
 
         methods: {
-            updateShipping: function () {
-                console.log('hola!');
+            updateShipping: function (country, state) {
                 this.$http.post('api/cart-conditions', {
-                    'country': this.country,
-                    'sate': this.state
+                    'country': country,
+                    'state': state
                 }).then(function (response) {
-                    this.$set('list', response.body);
+                    this.list = response.body;
                 });
-            }
-        },
-
-        watch: {
-            'state': function () {
-                this.updateShipping();
+            },
+            shippingDestinationUpdate: function(data) {
+                this.updateShipping(data.country, data.state);
             }
         }
     };
