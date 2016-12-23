@@ -1117,7 +1117,7 @@ header.navbar > .container {
 }
 
 header.navbar .navbar-brand {
-    padding: 37px 15px;
+    padding: 30px 15px;
     height: auto;
     font-size: 50px;
     font-weight: 600;
@@ -1372,7 +1372,7 @@ header.navbar.navbar-small {
 }
 
 header.navbar.navbar-small .navbar-brand {
-    padding: 20px 15px;
+    padding: 10px 15px;
     font-size: 36px;
 }
 

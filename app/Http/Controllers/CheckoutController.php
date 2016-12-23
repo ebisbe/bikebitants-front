@@ -37,8 +37,6 @@ class CheckoutController extends Controller
     }
 
     /**
-     * @param OrderService $orderService
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -61,8 +59,6 @@ class CheckoutController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param OrderService $orderService
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store()
