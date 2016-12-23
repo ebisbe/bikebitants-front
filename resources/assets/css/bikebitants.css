@@ -14,3 +14,10 @@
     color: #999999;
     display: inline-block;
 }
+
+.lazyloading, .lazyload {
+    opacity: 1;
+    transition: opacity 300ms;
+    background: #f7f7f7 url(/build/images/rings.svg) no-repeat center;
+    height: 200px;
+}

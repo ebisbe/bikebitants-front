@@ -32,13 +32,13 @@ elixir(mix => {
             'color/bikebitants_green.css',
             'bower/jquery-ui/themes/smoothness/jquery-ui.css',
             'bower/font-awesome/css/font-awesome.css',
-            'bower/dragtable/dragtable.css',
+            //'bower/dragtable/dragtable.css',
             'bower/owl.carousel/dist/assets/owl.carousel.css',
             'bower/animate.css/animate.css',
             'bower/sourceSansPro/sourceSansPro.css',
             'bower/raleway/raleway.css',
-            'bower/pnotify/dist/pnotify.css',
-            'bower/pnotify/dist/pnotify.brighttheme.css'
+            //'bower/pnotify/dist/pnotify.css',
+            //'bower/pnotify/dist/pnotify.brighttheme.css'
         ])
 
         .version(['js/app.js', 'css/all.css']);

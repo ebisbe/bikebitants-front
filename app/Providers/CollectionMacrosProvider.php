@@ -19,12 +19,14 @@ class CollectionMacrosProvider extends ServiceProvider
 
     public function boot(FormBuilder $factory)
     {
-        $factory->macro('img', function ($filename, $sizes, $alt, $wrapper = '{img}', $class = 'img-responsive') {
+        $factory->macro('img', function ($filename, $sizes, $alt, $wrapper = '{img}', $class = 'lazyload img-responsive') {
             /** @var Collection $sizes */
             $srcset = $sizes->map(function ($size, $viewPort) use ($filename) {
                 return assetCDN("img/$size/$filename")." $viewPort";
             })->implode(',');
-            return str_ireplace('{img}', '<img class="' . $class . '" alt="' . $alt . '" sizes="100w" srcset="' . $srcset . '">', $wrapper);
+
+            $size = $sizes->first();
+            return str_ireplace('{img}', '<img data-src="'.assetCDN("img/$size/$filename").'" class="' . $class . '" alt="' . $alt . '" data-sizes="100w" data-srcset="' . $srcset . '">', $wrapper);
         });
 
         $factory->macro('product', function (Product $product) {

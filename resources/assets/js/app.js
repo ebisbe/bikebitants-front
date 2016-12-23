@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * include Vue and Vue Resource. This gives a great starting point for
@@ -19,22 +18,7 @@ require('bootstrap-hover-dropdown');
 require('./custom.js');
 require('./shop.js');
 
-/*var VueLazyload = require('vue-lazyload');
-Vue.use(VueLazyload, {
-    adapter: {
-        loaded ({ naturalHeight, naturalWidth, el }) {
-            console.log(naturalWidth + ' x ' + naturalHeight);
-            el.setAttribute('data-width', naturalWidth);
-            el.setAttribute('data-height', naturalHeight);
-        },
-        loading (listener, Init) {
-            console.log('loading')
-        },
-        error (listener, Init) {
-            console.log(listener)
-        }
-    }
-});*/
+require('lazysizes');
 
 Vue.component('total-checkout', require('./components/totalCheckout.vue'));
 Vue.component('product-form' , require('./components/productForm.vue'));

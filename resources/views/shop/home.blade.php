@@ -207,7 +207,7 @@
             @foreach($feed as $post)
                 <div class="col-xs-6 col-sm-3">
                     <article class="post">
-                        <img src="{{ Form::postImage($post->get_description()) }}" class="img-responsive"
+                        <img data-src="{{ Form::postImage($post->get_description()) }}" class="lazyload img-responsive"
                              alt="{{ $post->get_title() }}">
                         <h3><a href="{{ $post->get_permalink() }}">{{ $post->get_title() }}</a></h3>
                     </article>
