@@ -74,6 +74,29 @@ $factory->define(Product::class, function (Generator $faker) {
     ];
 });
 
+$factory->define(\App\Business\Models\Shop\Product::class, function (Generator $faker) {
+    $name = $faker->words(3, true);
+    return [
+        '_id' => strtoupper(str_slug($name)),
+        'name' => $name,
+        'status' => Product::PUBLISHED,
+        'introduction' => $faker->paragraphs(1, true),
+        'description' => $faker->paragraphs(3, true),
+        'is_featured' => $faker->boolean(35),
+        'tags' => $faker->words(),
+        'reviews_allowed' => $faker->boolean(),
+        'meta_title' => $name,
+        'meta_description' => $faker->paragraphs(1, true),
+        'meta_slug' => $faker->words(6, true)
+    ];
+});
+
+$factory->state(Product::class, 'bargain', function ($faker) {
+    return [
+        'is_discounted' => true,
+    ];
+});
+
 $factory->define(Property::class, function (Generator $faker) {
     return [
         'name' => $faker->word,

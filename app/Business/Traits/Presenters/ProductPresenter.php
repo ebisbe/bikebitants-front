@@ -1,6 +1,7 @@
 <?php
 namespace App\Business\Traits\Presenters;
 
+use App\Image;
 use \TaxService;
 
 trait ProductPresenter
@@ -68,11 +69,12 @@ trait ProductPresenter
     }
 
     /**
-     * @return Image|null
+     * Creates empty image if no images found
+     * @return Image
      */
     public function getFrontImageAttribute()
     {
-        return $this->images()->first();
+        return $this->images()->first() ?? Image::notFound();
     }
 
     /**
@@ -91,10 +93,10 @@ trait ProductPresenter
     public function getStockLabelAttribute()
     {
         $add = '';
-        if($this->stock <= 5) {
+        if ($this->stock <= 5) {
             $add = " ( $this->stock )";
         }
 
-        return $this->stock != 0 ? trans('catalogue.in_stock').$add : trans('catalogue.out_of_stock');
+        return $this->stock != 0 ? trans('catalogue.in_stock') . $add : trans('catalogue.out_of_stock');
     }
 }
