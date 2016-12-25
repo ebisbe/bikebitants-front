@@ -2,7 +2,6 @@
 
 use App\Business\Models\Shop\Product;
 use App\Image;
-use App\Variation;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -75,4 +74,44 @@ class ShopProductTest extends TestCase
 
         $this->assertEquals('catalogue.in_stock', $product->stock_label);
     }
+
+    /** @test */
+    public function product_status_is_draft()
+    {
+        /** @var Product $product */
+        $product = factory(Product::class)->states('draft')->create();
+
+        $product_with_scopes = Product::find($product->_id);
+        $product_without_scopes = Product::withoutGlobalScopes()->find($product->_id);
+
+        $this->assertEquals(null, $product_with_scopes);
+        $this->assertEquals($product->_id, $product_without_scopes->_id);
+    }
+
+    /** @test */
+    public function product_status_is_published()
+    {
+        /** @var Product $product */
+        $product = factory(Product::class)->create();
+
+        $product_with_scopes = Product::find($product->_id);
+        $product_without_scopes = Product::withoutGlobalScopes()->find($product->_id);
+
+        $this->assertEquals($product->_id, $product_with_scopes->_id);
+        $this->assertEquals($product->_id, $product_without_scopes->_id);
+    }
+
+    /** @test */
+    public function product_status_is_hidden()
+    {
+        /** @var Product $product */
+        $product = factory(Product::class)->states('hidden')->create();
+
+        $product_with_scopes = Product::find($product->_id);
+        $product_without_scopes = Product::withoutGlobalScopes()->find($product->_id);
+
+        $this->assertEquals($product->_id, $product_with_scopes->_id);
+        $this->assertEquals($product->_id, $product_without_scopes->_id);
+    }
+
 }

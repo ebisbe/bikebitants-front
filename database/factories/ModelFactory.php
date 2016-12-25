@@ -91,7 +91,19 @@ $factory->define(\App\Business\Models\Shop\Product::class, function (Generator $
     ];
 });
 
-$factory->state(Product::class, 'bargain', function ($faker) {
+$factory->state(\App\Business\Models\Shop\Product::class, 'draft', function () {
+    return [
+        'status' => Product::DRAFT,
+    ];
+});
+
+$factory->state(\App\Business\Models\Shop\Product::class, 'hidden', function () {
+    return [
+        'status' => Product::HIDDEN,
+    ];
+});
+
+$factory->state(Product::class, 'bargain', function () {
     return [
         'is_discounted' => true,
     ];

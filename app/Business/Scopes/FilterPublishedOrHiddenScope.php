@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Scope;
 
-class ShopProductScope implements Scope
+class FilterPublishedOrHiddenScope implements Scope
 {
     /**
      * @param Builder $builder
