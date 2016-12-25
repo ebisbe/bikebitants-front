@@ -170,7 +170,7 @@ $factory->define(BrandService::class, function (Generator $faker) {
 
 $factory->define(Variation::class, function (Generator $faker) use ($files) {
     return [
-        '_id' => $faker->slug(),
+        '_id' => [$faker->slug()],
         'sku' => $faker->slug(),
         //Price is set up before saving
         //'price' => $faker->numberBetween( 10, 250),

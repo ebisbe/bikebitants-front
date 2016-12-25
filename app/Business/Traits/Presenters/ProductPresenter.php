@@ -13,12 +13,8 @@ trait ProductPresenter
      */
     public function getRangePriceAttribute()
     {
-        $min = TaxService::applyTax($this->variations->min('price'));
-        $max = TaxService::applyTax($this->variations->max('price'));
-        if ($min != $max) {
-            return $min . $this->currency . ' - ' . $max . $this->currency;
-        }
-        return $min . $this->currency;
+        return $this->setRangePriceLabel('price');
+
     }
 
     /**
@@ -27,8 +23,17 @@ trait ProductPresenter
      */
     public function getRangeRealPriceAttribute()
     {
-        $min = TaxService::applyTax($this->variations->min('real_price'));
-        $max = TaxService::applyTax($this->variations->max('real_price'));
+        return $this->setRangePriceLabel('real_price');
+    }
+
+    /**
+     * @param $price
+     * @return string
+     */
+    private function setRangePriceLabel($price)
+    {
+        $min = TaxService::applyTax($this->variations->min($price));
+        $max = TaxService::applyTax($this->variations->max($price));
         if ($min != $max) {
             return $min . $this->currency . ' - ' . $max . $this->currency;
         }
