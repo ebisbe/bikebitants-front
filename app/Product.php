@@ -35,6 +35,8 @@ class Product extends Model
     const PUBLISHED = 2;
     const HIDDEN = 3;
 
+    const LOW_STOCK = 5;
+
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
@@ -164,5 +166,14 @@ class Product extends Model
 
         $categories[] = $category->slug;
         $this->categories = $categories;
+    }
+
+    /**
+     * Checks if current product is under low stock
+     * @return bool
+     */
+    public function hasLowStock()
+    {
+        return $this->stock <= self::LOW_STOCK;
     }
 }

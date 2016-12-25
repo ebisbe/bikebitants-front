@@ -69,7 +69,7 @@ trait ProductPresenter
     }
 
     /**
-     * Creates empty image if no images found
+     * Returns front image but creates empty image if no images found
      * @return Image
      */
     public function getFrontImageAttribute()
@@ -78,22 +78,25 @@ trait ProductPresenter
     }
 
     /**
-     * @return Image|null
+     * Returns front image hover but creates emtpy image if no images found
+     * @return Image
      */
     public function getFrontImageHoverAttribute()
     {
         $hover = $this->images()->slice(1, 1)->first();
         if (is_null($hover)) {
-            return $this->getFrontImageAttribute();
+            return $this->front_image;
         }
         return $hover;
     }
 
-
+    /**
+     * @return string
+     */
     public function getStockLabelAttribute()
     {
         $add = '';
-        if ($this->stock <= 5) {
+        if ($this->hasLowStock()) {
             $add = " ( $this->stock )";
         }
 
