@@ -8,6 +8,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ShippingMethodServiceTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /** @test */
     public function find_shipping_method_by_total_cart_value()
     {
