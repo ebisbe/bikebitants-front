@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6c9141437b3cc1d541f58ce9fe8f8375",
-    "content-hash": "dfa42e0b9fe8d73ff94929c480a997b5",
+    "hash": "1301db94b618b6225f8c97e07ed970ae",
+    "content-hash": "c07bc51969aad66852f7bfc069427177",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
@@ -3551,22 +3551,22 @@
         },
         {
             "name": "sentry/sentry-laravel",
-            "version": "0.4.1",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "34e4f5d800ce8db087272df4e244bdf565fce4e1"
+                "reference": "9f5214529abf542bd6390799ec1e955a415853aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/34e4f5d800ce8db087272df4e244bdf565fce4e1",
-                "reference": "34e4f5d800ce8db087272df4e244bdf565fce4e1",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/9f5214529abf542bd6390799ec1e955a415853aa",
+                "reference": "9f5214529abf542bd6390799ec1e955a415853aa",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "4.*|5.*",
                 "php": ">=5.2.4",
-                "sentry/sentry": ">=1.5.0"
+                "sentry/sentry": ">=1.6.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^1.8.0",
@@ -3575,7 +3575,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.4.x-dev"
+                    "dev-master": "0.5.x-dev"
                 }
             },
             "autoload": {
@@ -3593,15 +3593,15 @@
                     "email": "dcramer@gmail.com"
                 }
             ],
-            "description": "Laravel integration for Sentry (http://getsentry.com)",
-            "homepage": "http://getsentry.com",
+            "description": "Laravel integration for Sentry (https://sentry.io)",
+            "homepage": "https://sentry.io",
             "keywords": [
                 "errors",
                 "laravel",
                 "logging",
                 "sentry"
             ],
-            "time": "2016-09-30 07:13:57"
+            "time": "2016-12-09 03:42:22"
         },
         {
             "name": "simplepie/simplepie",
