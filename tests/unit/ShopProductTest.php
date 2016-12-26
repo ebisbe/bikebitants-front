@@ -179,4 +179,13 @@ class ShopProductTest extends TestCase
         $this->assertEquals('15.00&euro; - 25.00&euro;', $product->range_real_price);
 
     }
+
+    /** @test */
+    public function product_without_prices()
+    {
+        $product = factory(Product::class)->make();
+
+        $this->assertEquals('-', $product->range_price);
+        $this->assertEquals('-', $product->range_real_price);
+    }
 }

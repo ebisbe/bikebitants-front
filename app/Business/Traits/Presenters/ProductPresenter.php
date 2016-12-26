@@ -13,7 +13,7 @@ trait ProductPresenter
      */
     public function getRangePriceAttribute()
     {
-        return $this->setRangePriceLabel('price');
+        return $this->getRangePriceLabel('price');
 
     }
 
@@ -23,27 +23,34 @@ trait ProductPresenter
      */
     public function getRangeRealPriceAttribute()
     {
-        return $this->setRangePriceLabel('real_price');
+        return $this->getRangePriceLabel('real_price');
     }
 
     /**
      * @param $price
      * @return string
      */
-    private function setRangePriceLabel($price)
+    private function getRangePriceLabel($price)
     {
-        $min = TaxService::applyTax($this->variations->min($price));
-        $max = TaxService::applyTax($this->variations->max($price));
-        if ($min != $max) {
-            return $min . $this->currency . ' - ' . $max . $this->currency;
+        $min = $this->variations->min($price);
+        $max = $this->variations->max($price);
+
+        if(is_null($min) || is_null($max)) {
+            return '-';
         }
-        return $min . $this->currency;
+
+        $minTax = TaxService::applyTax($min);
+        $maxTax = TaxService::applyTax($max);
+        if ($min != $max) {
+            return $minTax . $this->currency . ' - ' . $maxTax . $this->currency;
+        }
+        return $minTax . $this->currency;
     }
 
-    public function getStatusTextAttribute()
+   /* public function getStatusTextAttribute()
     {
         return trans('Product.' . $this->status);
-    }
+    }*/
 
     /**
      * While we have just one currency we set a default value.

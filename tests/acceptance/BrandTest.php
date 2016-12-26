@@ -6,12 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BrandTest extends TestCase
 {
-    use WithoutMiddleware;
-
-    /**
-     * @test
-     */
-    public function test_find_brand_at_home()
+    /** */
+    public function find_brand_at_home()
     {
         $this->visit('/')
             ->see('Simple Brand')
