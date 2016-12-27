@@ -4,7 +4,7 @@
     <!-- ==========================
     	Meta Tags
     =========================== -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
@@ -22,7 +22,7 @@
     {!! MetaTag::twitterCard() !!}
 
     {{--Set default share picture after custom section pictures--}}
-    {!! MetaTag::tag('image', asset('images/default-logo.png')) !!}
+    {!! MetaTag::tag('image', assetCDN('logo.png')) !!}
 </head>
 <body>
 
@@ -54,8 +54,11 @@
     <header class="navbar {{ StaticVars::layoutHeader(!empty($layoutHeader) ? $layoutHeader : '') }}">
         <div class="container">
             <div class="navbar-header">
-                <a href="{{ route('shop.home') }}" class="navbar-brand"><span>Bike</span>Bitants</a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
+                <a href="{{ route('shop.home') }}" class="navbar-brand">
+                    <img src="{{ assetCDN('logo.png')  }}" height="36">
+                </a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i
+                            class="fa fa-bars"></i></button>
             </div>
         </div>
     </header>
@@ -65,7 +68,7 @@
 
     @yield('content')
 
-    <!-- ==========================
+            <!-- ==========================
     	FOOTER - START
     =========================== -->
     <footer class="navbar navbar-default">
@@ -74,7 +77,8 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="copyright">© Umarket 2015 All right reserved.</p>
-                        <p class="copyright">Designed by <a href="http://www.pixelized.cz/" target="_blank">Pixelized Studio.</a></p>
+                        <p class="copyright">Designed by <a href="http://www.pixelized.cz/" target="_blank">Pixelized
+                                Studio.</a></p>
                     </div>
                     <div class="col-sm-6">
                         <ul class="list-inline payment-methods">
