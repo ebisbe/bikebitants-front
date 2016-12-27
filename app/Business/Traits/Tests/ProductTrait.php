@@ -4,6 +4,7 @@ namespace App\Business\Traits\Tests;
 
 use App\Brand;
 use App\Business\Models\Shop\Product;
+use App\Category;
 use App\Coupon;
 use App\Tax;
 use App\Variation;
@@ -30,6 +31,10 @@ trait ProductTrait
         /** @var Brand $brand */
         $brand = factory(Brand::class)->create();
         $brand->products()->save($product);
+
+        /** @var Category $category */
+        $category = factory(Category::class)->create();
+        $category->products()->save($product);
         return $product;
     }
 
