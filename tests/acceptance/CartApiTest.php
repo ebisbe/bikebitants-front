@@ -1,16 +1,20 @@
 <?php
 
 use App\Business\Traits\Tests\ProductTrait;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class CartApiTest extends TestCase
 {
-    use ProductTrait;
+    use ProductTrait, DatabaseMigrations;
 
     /**
      * @test
      */
     public function add_one_simple_product_to_cart()
     {
+        $this->createTax(21);
+        $this->createSimpleProduct();
         $this->addSimpleProduct();
         $this
             ->seeJson([
@@ -41,6 +45,9 @@ class CartApiTest extends TestCase
      */
     public function add_more_than_ten_simple_products_to_cart()
     {
+        $this->createTax(21);
+        $this->createSimpleProduct();
+
         $this->addSimpleProduct(150);
         $this
             ->seeJson([
@@ -56,13 +63,14 @@ class CartApiTest extends TestCase
      */
     public function clear_empty_cart()
     {
+        $this->createTax();
         $this
             ->deleteJson('/api/cart/simple-product')
-            ->seeStatusCode(200)
             ->seeJson([
                 'success' => false,
                 'message' => 'api.cart_empty'
-            ]);
+            ])
+            ->seeStatusCode(200);
     }
 
     /**
@@ -70,6 +78,8 @@ class CartApiTest extends TestCase
      */
     public function clear_cart_with_one_simple_product()
     {
+        $this->createTax();
+        $this->createSimpleProduct();
         //count cart => 0
         $response = $this
             ->getJson('/api/cart')

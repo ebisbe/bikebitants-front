@@ -49,7 +49,7 @@ trait ProductTrait
         return Product::find($product->_id);
     }
 
-    public function createTax($rate = 0)
+    public function createTax(int $rate = 0)
     {
         factory(Tax::class)->create([
             'country' => '',
@@ -62,7 +62,7 @@ trait ProductTrait
         ]);
     }
 
-    public function addSimpleProduct($quantity = 1)
+    public function addSimpleProduct(int $quantity = 1)
     {
         $this
             ->postJson('/api/cart', [
