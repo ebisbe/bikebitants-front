@@ -225,7 +225,7 @@
     =========================== -->
 
     @include('partials.discount_popup')
-    @include('partials.product_popup')
+    {{--@include('partials.product_popup')--}}
 </div> <!-- PAGE - END -->
 <!-- ==========================
  JS

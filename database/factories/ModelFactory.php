@@ -103,6 +103,12 @@ $factory->state(\App\Business\Models\Shop\Product::class, 'hidden', function () 
     ];
 });
 
+$factory->state(\App\Business\Models\Shop\Product::class, 'featured', function () {
+    return [
+        'is_featured' => true,
+    ];
+});
+
 $factory->state(Product::class, 'bargain', function () {
     return [
         'is_discounted' => true,

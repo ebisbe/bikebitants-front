@@ -1,26 +1,28 @@
 <?php
 
 use App\Business\Traits\Tests\ProductTrait;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CartControllerTest extends TestCase {
 
-    use ProductTrait;
+    use ProductTrait, DatabaseMigrations;
 
-    /**
-     * @test
-     */
+    /** @test */
     public function see_empty_cart()
     {
+        $this->createTax();
         $this->visit('/cart')
             ->see('cart.empty_cart_h1')
             ->see('cart.empty_cart_message');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function add_product_and_go_to_cart()
     {
+        $this->createTax(21);
+        $this->createSimpleProduct();
+        $this->createDiscounts();
+
         $this
             ->addSimpleProduct()
             ->visit('/cart')
