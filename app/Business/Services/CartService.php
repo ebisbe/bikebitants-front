@@ -130,7 +130,7 @@ class CartService
                 'properties' => $this->properties,
                 'filename' => $variation->filename,
                 'image_alt' => $product->front_image->alt,
-                'brand' => $product->brand->name,
+                'brand' => $product->brand->name ?? '',
                 '_id' => $product->_id,
             ]
         ];

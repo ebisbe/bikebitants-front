@@ -1,6 +1,7 @@
 <?php
 
 use App\Business\Models\Shop\Product;
+use App\Business\Traits\Tests\ProductTrait;
 use App\Image;
 use App\Tax;
 use App\Variation;
@@ -10,7 +11,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ShopProductTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, ProductTrait;
 
     /** @test */
     public function product_does_not_have_images()
@@ -119,64 +120,21 @@ class ShopProductTest extends TestCase
     /** @test */
     public function product_prices_with_one_variation()
     {
-        factory(Tax::class)->create([
-            'country' => '',
-            'state' => '',
-            'postcode' => '',
-            'city' => '',
-            'rate' => 0,
-            'name' => 'Iva',
-            'order' => 1,
-        ]);
-        /** @var Product $product */
-        $product = factory(Product::class)->create();
-        $variation = factory(Variation::class)->make([
-            '_id' => [$product->_id],
-            'real_price' => 15,
-            'is_discounted' => false
-        ]);
-        $product->variations()->save($variation);
+        $this->createTax();
+        $product = $this->createSimpleProduct();
 
-
-        $this->assertEquals('15.00&euro;', $product->range_price);
-        $this->assertEquals('15.00&euro;', $product->range_real_price);
+        $this->assertEquals('10.00&euro;', $product->range_price);
+        $this->assertEquals('10.00&euro;', $product->range_real_price);
     }
 
     /** @test */
     public function product_prices_with_three_variation()
     {
-        factory(Tax::class)->create([
-            'country' => '',
-            'state' => '',
-            'postcode' => '',
-            'city' => '',
-            'rate' => 0,
-            'name' => 'Iva',
-            'order' => 1,
-        ]);
-        /** @var Product $product */
-        $product = factory(Product::class)->create();
-        $variation1 = factory(Variation::class)->make([
-            '_id' => [$product->_id],
-            'real_price' => 15,
-            'is_discounted' => false
-        ]);
-        $variation2 = factory(Variation::class)->make([
-            '_id' => [$product->_id],
-            'real_price' => 20,
-            'is_discounted' => false
-        ]);
-        $variation3 = factory(Variation::class)->make([
-            '_id' => [$product->_id],
-            'real_price' => 25,
-            'is_discounted' => false
-        ]);
-        $product->variations()->saveMany([$variation1, $variation2, $variation3]);
+        $this->createTax();
+        $product = $this->createProductWithThreeVariations();
 
-        $product = Product::find($product->_id);
-
-        $this->assertEquals('15.00&euro; - 25.00&euro;', $product->range_price);
-        $this->assertEquals('15.00&euro; - 25.00&euro;', $product->range_real_price);
+        $this->assertEquals('10.00&euro; - 20.00&euro;', $product->range_price);
+        $this->assertEquals('10.00&euro; - 20.00&euro;', $product->range_real_price);
 
     }
 
