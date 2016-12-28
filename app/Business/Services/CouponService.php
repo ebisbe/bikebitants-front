@@ -46,7 +46,7 @@ class CouponService {
      * @param string $couponName
      * @return CartCondition
      */
-    public function createCoupon(string $couponName)
+    private function createCoupon(string $couponName)
     {
         $coupon = $this->couponRepository->whereName($couponName)->first();
 

@@ -224,12 +224,6 @@ class OrderService
     {
         $this->getOrder();
 
-        if(!empty($this->getCoupon())) {
-            $coupon = $this->couponService->createCoupon($this->getCoupon());
-            Cart::condition($coupon);
-            $this->order->conditions = $this->updateOrderConditions();
-        }
-
         $this->order->status = Order::ValidData;
 
         $customer = $this->getCustomer();
@@ -451,14 +445,14 @@ class OrderService
         return $this->payment_type;
     }
 
-    public function setCoupon($coupon)
+    public function setCoupon(string $coupon)
     {
-        $this->coupon = $coupon;
-    }
+        if(empty($coupon)) {
+            return false;
+        }
 
-    public function getCoupon()
-    {
-        return $this->coupon;
+        $this->couponService->addCoupon($coupon);
+        $this->order = $this->updateOrder($this->order);
     }
 
     public function setSessionId($session_id)

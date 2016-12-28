@@ -243,10 +243,10 @@
                                                 {{ Form::select('shipping[country]', $countries, 'ES', ['class' => 'form-control']) }}
                                                 {!! $errors->first('shipping.country', '<p class="help-block">:message</p>') !!}
                                             </div>
-                                            <div class="form-group col-sm-6 {{ $errors->has('billing.state') ? 'has-error' : ''}}">
-                                                {{ Form::label('billing[state]', trans('checkout.state').' <span class="required">*</span>', [], false) }}
-                                                {{ Form::select('billing[state]', $states, 'B', ['class' => 'form-control']) }}
-                                                {!! $errors->first('billing.state', '<p class="help-block">:message</p>') !!}
+                                            <div class="form-group col-sm-6 {{ $errors->has('shipping.state') ? 'has-error' : ''}}">
+                                                {{ Form::label('shipping[state]', trans('checkout.state').' <span class="required">*</span>', [], false) }}
+                                                {{ Form::select('shipping[state]', $states, 'B', ['class' => 'form-control']) }}
+                                                {!! $errors->first('shipping.state', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
                                     </div>
