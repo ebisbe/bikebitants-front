@@ -8,10 +8,10 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class SimpleProductTest extends TestCase
 {
     use ProductTrait, DatabaseMigrations;
+
     /** @test */
     public function find_simple_product_at_home()
     {
-
         $this->createTax();
         $this->createSimpleProduct();
 

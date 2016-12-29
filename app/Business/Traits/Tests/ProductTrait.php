@@ -29,11 +29,11 @@ trait ProductTrait
         $product->variations()->save($variation);
 
         /** @var Brand $brand */
-        $brand = factory(Brand::class)->create();
+        $brand = factory(Brand::class)->create(['name' => 'Simple Brand']);
         $brand->products()->save($product);
 
         /** @var Category $category */
-        $category = factory(Category::class)->create();
+        $category = factory(Category::class)->create(['products_count' => 1]);
         $category->products()->save($product);
         return $product;
     }
