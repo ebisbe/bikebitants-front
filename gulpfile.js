@@ -29,20 +29,17 @@ elixir(mix => {
             'bower/bootstrap/dist/css/bootstrap.css',
             'custom.css',
             'bikebitants.css',
-            'color/bikebitants_green.css'
-        ], 'public/css/main.css')
-
-        .styles([
+            'color/bikebitants_green.css',
             'bower/jquery-ui/themes/smoothness/jquery-ui.css',
             'bower/font-awesome/css/font-awesome.css',
             //'bower/dragtable/dragtable.css',
             'bower/owl.carousel/dist/assets/owl.carousel.css',
             'bower/animate.css/animate.css',
-            'bower/sourceSansPro/sourceSansPro.css',
-            'bower/raleway/raleway.css',
+            //'bower/sourceSansPro/sourceSansPro.css',
+            //'bower/raleway/raleway.css',
             //'bower/pnotify/dist/pnotify.css',
             //'bower/pnotify/dist/pnotify.brighttheme.css'
         ])
 
-        .version(['js/app.js', 'css/all.css', 'css/main.css']);
+        .version(['js/app.js', 'css/all.css']);
 });

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="{{ elixirCDN('css/main.css') }}">
+    <link rel="stylesheet" href="{{ elixirCDN('css/all.css') }}">
 
     <title>{{ MetaTag::get('title') }}</title>
 
@@ -68,7 +68,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a href="{{ route('shop.home') }}" class="navbar-brand">
-                    <img height="36" src='{{ StaticVars::logo() }}' />
+                    <img height="36" alt="Bikebitants Logo" src='{{ StaticVars::logo() }}' />
                 </a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i
                             class="fa fa-bars"></i></button>
@@ -231,7 +231,6 @@
  JS
 =========================== -->
 @include('partials.js_vars')
-<link rel="stylesheet" href="{{ elixirCDN('css/all.css') }}">
 <script src="{{ elixirCDN('js/app.js') }}" async></script>
 @stack('footer.scripts')
 <!--[if lt IE 9]>
