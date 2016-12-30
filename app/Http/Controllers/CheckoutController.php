@@ -46,7 +46,7 @@ class CheckoutController extends Controller
             $order = $currentOrder->first();
             $this->orderService->setOrder($order);
             if(!empty($order->payment_method)) {
-                $this->orderService->setPaymentType($order->payment_method->code);
+                $this->orderService->setPaymentType($order->payment_method->slug);
             }
         }
         $this->orderService->setSessionId($this->request->session()->getId());

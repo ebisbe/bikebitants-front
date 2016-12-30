@@ -192,7 +192,7 @@ class CheckoutControllerTest extends TestCase
 
     public function checkPaymentAndAcceptTerms()
     {
-        $this->select('Fake', 'payment')
+        $this->select('bank-transfer', 'payment')
             ->check('checkout-terms-conditions');
     }
 }

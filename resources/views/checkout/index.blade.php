@@ -310,8 +310,8 @@
                                     <div id="payment-methods" class="{{ $errors->has('payment') ? 'has-error' : ''}}">
                                         @foreach($paymentMethods as $payment)
                                             <div class="panel radio">
-                                                {{ Form::radio('payment', $payment->code, null, ['id' => $payment->code]) }}
-                                                {{ Form::label($payment->code, $payment->name) }}
+                                                {{ Form::radio('payment', $payment->slug, null, ['id' => $payment->slug]) }}
+                                                {{ Form::label($payment->slug, $payment->name) }}
                                             </div>
                                         @endforeach
                                         {!! $errors->first('payment', '<p class="help-block">:message</p>') !!}

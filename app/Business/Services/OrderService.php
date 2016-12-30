@@ -97,7 +97,7 @@ class OrderService
      */
     private function confirmPayment()
     {
-        Omnipay::setGateway($this->getPaymentType());
+        Omnipay::setGateway($this->getPaymentType()->code);
         $gateway = Omnipay::gateway();
         if ($gateway->supportsCompleteAuthorize()) {
             $this->response = Omnipay::completePurchase($this->getPurchaseParams())->send();
@@ -129,7 +129,7 @@ class OrderService
      */
     public function checkoutCallback()
     {
-        Omnipay::setGateway($this->getPaymentType());
+        Omnipay::setGateway($this->getPaymentType()->code);
         $request = Request::createFromGlobals();
         $this->response = Omnipay::checkCallbackResponse($request, true);
         $params = Omnipay::decodeCallbackResponse($request);
@@ -147,7 +147,7 @@ class OrderService
     {
         $this->placeOrder();
 
-        Omnipay::setGateway($this->getPaymentType());
+        Omnipay::setGateway($this->getPaymentType()->code);
         $gateway = Omnipay::gateway();
 
         $this->response = $gateway->purchase($this->getPurchaseParams())->send();
@@ -231,8 +231,7 @@ class OrderService
         $this->order->billing()->associate($customer->billing);
         $this->order->shipping()->associate($customer->shipping);
 
-        $paymentMethod = PaymentMethod::whereCode($this->getPaymentType())->first();
-        $this->order->payment_method()->associate($paymentMethod);
+        $this->order->payment_method()->associate($this->getPaymentType());
 
         $this->order->customer_id = $customer->id;
 
@@ -435,11 +434,14 @@ class OrderService
         return $this->viewVars;
     }
 
-    public function setPaymentType($paymentType)
+    public function setPaymentType(string $paymentType)
     {
-        $this->payment_type = $paymentType;
+        $this->payment_type = PaymentMethod::whereSlug($paymentType)->first();
     }
 
+    /**
+     * @return PaymentMethod
+     */
     public function getPaymentType()
     {
         return $this->payment_type;
