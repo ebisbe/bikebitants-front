@@ -29,7 +29,10 @@ elixir(mix => {
             'bower/bootstrap/dist/css/bootstrap.css',
             'custom.css',
             'bikebitants.css',
-            'color/bikebitants_green.css',
+            'color/bikebitants_green.css'
+        ], 'public/css/main.css')
+
+        .styles([
             'bower/jquery-ui/themes/smoothness/jquery-ui.css',
             'bower/font-awesome/css/font-awesome.css',
             //'bower/dragtable/dragtable.css',
@@ -41,5 +44,5 @@ elixir(mix => {
             //'bower/pnotify/dist/pnotify.brighttheme.css'
         ])
 
-        .version(['js/app.js', 'css/all.css']);
+        .version(['js/app.js', 'css/all.css', 'css/main.css']);
 });

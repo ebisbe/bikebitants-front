@@ -2,13 +2,13 @@
 <html>
 <head>
     <!-- ==========================
-    	Meta Tags
+        Meta Tags
     =========================== -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="{{ elixirCDN('css/all.css') }}">
+    <link rel="stylesheet" href="{{ elixirCDN('css/main.css') }}">
 
     <title>{{ MetaTag::get('title') }}</title>
 
@@ -98,13 +98,13 @@
         </div>
     </header>
     <!-- ==========================
-    	HEADER - END
+        HEADER - END
     =========================== -->
 
     @yield('content')
 
             <!-- ==========================
-    	NEWSLETTER - START
+        NEWSLETTER - START
     =========================== -->
     <section class="separator separator-newsletter">
         <div class="container">
@@ -139,11 +139,11 @@
         </div>
     </section>
     <!-- ==========================
-    	NEWSLETTER - END
+        NEWSLETTER - END
     =========================== -->
 
     <!-- ==========================
-    	FOOTER - START
+        FOOTER - START
     =========================== -->
     <footer class="navbar navbar-default">
         <div class="container">
@@ -221,7 +221,7 @@
         </div>
     </footer>
     <!-- ==========================
-    	FOOTER - END
+        FOOTER - END
     =========================== -->
 
     @include('partials.discount_popup')
@@ -231,6 +231,7 @@
  JS
 =========================== -->
 @include('partials.js_vars')
+<link rel="stylesheet" href="{{ elixirCDN('css/all.css') }}">
 <script src="{{ elixirCDN('js/app.js') }}" async></script>
 @stack('footer.scripts')
 <!--[if lt IE 9]>
