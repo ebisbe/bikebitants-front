@@ -21,7 +21,7 @@
     {!! MetaTag::twitterCard() !!}
 
     {{--Set default share picture after custom section pictures--}}
-    {!! MetaTag::tag('image', assetCDN('logo.png')) !!}
+    {!! MetaTag::tag('image', StaticVars::logo()) !!}
 </head>
 <body>
 
@@ -68,7 +68,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a href="{{ route('shop.home') }}" class="navbar-brand">
-                    <img src="{{ assetCDN('logo.png')  }}" height="36">
+                    <img height="36" src='{{ StaticVars::logo() }}' />
                 </a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i
                             class="fa fa-bars"></i></button>

@@ -41,6 +41,8 @@ use Illuminate\Support\Collection;
  *
  * @method static string wordpressDateTime()
  *
+ * @method static string logo()
+ *
  *
  */
 class StaticVars extends Facade
