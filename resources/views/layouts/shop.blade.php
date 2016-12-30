@@ -77,9 +77,6 @@
                 <p class="navbar-text hidden-xs hidden-sm">{{ StaticVars::slogan() }}</p>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{{ route('shop.home') }}">@lang('layout.home')</a>
-                    </li>
-                    <li>
                         <a href="{{ route('shop.catalogue') }}">@lang('layout.shop')</a>
                     </li>
                     <li>
