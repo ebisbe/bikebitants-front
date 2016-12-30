@@ -21,3 +21,8 @@
     background: #f7f7f7 url(/build/images/rings.svg) no-repeat center;
     height: 200px;
 }
+
+.blocked{
+    display: block;
+    height: 50px;
+}

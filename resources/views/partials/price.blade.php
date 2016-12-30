@@ -1,4 +1,4 @@
-<span class="price" style="{{ $style ?? '' }}">
+<span class="price {{ $class ?? '' }}">
     @if($product->is_discounted)
         <del><span class="amount">{{ $product->range_real_price }}</span></del>
     @endif

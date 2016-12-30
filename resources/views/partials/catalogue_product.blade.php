@@ -27,7 +27,7 @@
                     </h1>
                     @include('partials.labels')
                     @include('partials.rating', ['rating' => $product->rating])
-                    @include('partials.price', ['style' => 'display: block; height: 50px;'])
+                    @include('partials.price', ['class' => 'blocked'])
                     <div class="p">{!! $product->introduction !!}</div>
                     <div class="buttons">
                         {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
