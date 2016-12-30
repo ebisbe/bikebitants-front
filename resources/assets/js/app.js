@@ -34,6 +34,13 @@ Object.keys(Locales).forEach(function (lang) {
     Vue.locale(lang, Locales[lang])
 });
 
+var WebFont = require('webfontloader');
+
+WebFont.load({
+    google: {
+        families: ['Source Sans Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900,900italic', 'Raleway:400,100,200,300,500,600,700,900,800']
+    }
+});
 
 const app = new Vue({
     el: '#page-wrapper'
