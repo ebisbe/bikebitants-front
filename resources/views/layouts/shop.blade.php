@@ -22,6 +22,8 @@
 
     {{--Set default share picture after custom section pictures--}}
     {!! MetaTag::tag('image', StaticVars::logo()) !!}
+
+    @include('scripts.gtm')
 </head>
 <body>
 

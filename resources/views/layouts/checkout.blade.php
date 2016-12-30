@@ -23,6 +23,8 @@
 
     {{--Set default share picture after custom section pictures--}}
     {!! MetaTag::tag('image', assetCDN('logo.png')) !!}
+
+    @include('scripts.gtm')
 </head>
 <body>
 

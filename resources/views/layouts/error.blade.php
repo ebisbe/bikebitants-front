@@ -13,6 +13,8 @@
     <title>Bikebitants</title>
 
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
+
+    @include('scripts.gtm')
 </head>
 <body>
 
