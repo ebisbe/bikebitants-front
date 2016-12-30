@@ -599,7 +599,7 @@ class WordpressService
         $data = [
             'payment_method' => $order->payment_method->code,
             'payment_method_title' => $order->payment_method->name,
-            'set_paid' => false,
+            'set_paid' => $order->payment_method->set_paid,
             'billing' => [
                 'first_name' => $order->billing->first_name,
                 'last_name' => $order->billing->last_name,
@@ -633,8 +633,6 @@ class WordpressService
             ],
             "coupon_lines" => $coupon
         ];
-
-        // todo add coupons
 
         $response = \Woocommerce::post('orders', $data);
 
