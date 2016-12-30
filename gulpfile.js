@@ -16,9 +16,9 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     mix
     //css
-        .copy('bower/font-awesome/fonts', 'public/build/fonts')
-        .copy('bower/sourceSansPro/*.ttf', 'public/build/css/')
-        .copy('bower/raleway/*.ttf', 'public/build/css/')
+        .copy('resources/assets/css/bower/font-awesome/fonts', 'public/build/fonts')
+        .copy('resources/assets/css/bower/sourceSansPro/*.ttf', 'public/build/css/')
+        .copy('resources/assets/css/bower/raleway/*.ttf', 'public/build/css/')
 
         //files
         .copy('resources/assets/images', 'public/build/images/')
@@ -35,8 +35,8 @@ elixir(mix => {
             //'bower/dragtable/dragtable.css',
             'bower/owl.carousel/dist/assets/owl.carousel.css',
             'bower/animate.css/animate.css',
-            //'bower/sourceSansPro/sourceSansPro.css',
-            //'bower/raleway/raleway.css',
+            'bower/sourceSansPro/sourceSansPro.css',
+            'bower/raleway/raleway.css',
             //'bower/pnotify/dist/pnotify.css',
             //'bower/pnotify/dist/pnotify.brighttheme.css'
         ])
