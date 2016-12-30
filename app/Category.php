@@ -27,6 +27,7 @@ class Category extends Model
 {
     use SluggableTrait;
 
+    // TODO Trigger update when category saved
     protected $attributes = array(
         'products_count' => 0
     );
