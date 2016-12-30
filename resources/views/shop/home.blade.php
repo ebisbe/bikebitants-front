@@ -49,7 +49,7 @@
         <div class="row row-no-padding">
 
             <!-- SERVICE - START -->
-            <div class="col-xs-12 col-sm-4">
+            <div class="col-xs-4 col-sm-4">
                 <div class="service">
                     <i class="@lang('home.first_box_i')"></i>
                     <h3>@lang('home.first_box_h3')</h3>
@@ -59,7 +59,7 @@
             <!-- SERVICE - END -->
 
             <!-- SERVICE - START -->
-            <div class="col-xs-6 col-sm-4">
+            <div class="col-xs-4 col-sm-4">
                 <div class="service">
                     <i class="@lang('home.second_box_i')"></i>
                     <h3>@lang('home.second_box_h3')</h3>
@@ -69,7 +69,7 @@
             <!-- SERVICE - END -->
 
             <!-- SERVICE - START -->
-            <div class="col-xs-6 col-sm-4">
+            <div class="col-xs-4 col-sm-4">
                 <div class="service">
                     <i class="@lang('home.third_box_i')"></i>
                     <h3>@lang('home.third_box_h3')</h3>
@@ -98,7 +98,7 @@
                     <a href="{{ route('shop.category', ['slugCategory' => $category->slug]) }}">
                         {!! Form::img($category->filename, StaticVars::homeCategories(), $category->name) !!}
                         <div class="category-mask"></div>
-                        <h3 class="category-title">{{ $category->name }}</h3>
+                        <h3 class="category-title"><span>{!!  str_replace(' ', '<br/>', $category->name) !!}</span></h3>
                     </a>
                 </div>
             </div>

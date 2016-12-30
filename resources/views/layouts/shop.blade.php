@@ -100,45 +100,6 @@
 
     @yield('content')
 
-            <!-- ==========================
-        NEWSLETTER - START
-    =========================== -->
-    <section class="separator separator-newsletter">
-        <div class="container">
-            <div class="newsletter-left">
-                <div class="newsletter-badge">
-                    <span>Subsribe & Get </span>
-                    <span class="price">$15</span>
-                    <span>discount</span>
-                </div>
-            </div>
-            <div class="newsletter-right">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="newsletter-body">
-                            <h3>Newsletter</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <form>
-                            <div class="input-group input-group-lg">
-                                <input type="email" class="form-control" placeholder="Enter email address">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button">Sign Up</button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ==========================
-        NEWSLETTER - END
-    =========================== -->
-
     <!-- ==========================
         FOOTER - START
     =========================== -->
@@ -196,20 +157,17 @@
             <div class="footer-bottom footer-line">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p class="copyright">Bikebitants SL All right reserved.</p>
-                        <p class="copyright">
-                            Designed by <a href="http://www.pixelized.cz/" target="_blank">Pixelized Studio.</a>
-                        </p>
+                        <p class="copyright">&copy; Bikebitants SL 2015</p>
                     </div>
                     <div class="col-sm-6">
                         <ul class="list-inline payment-methods">
-                            <li><i class="fa fa-cc-amex"></i></li>
-                            <li><i class="fa fa-cc-diners-club"></i></li>
-                            <li><i class="fa fa-cc-discover"></i></li>
-                            <li><i class="fa fa-cc-jcb"></i></li>
+                            {{--<li><i class="fa fa-cc-amex"></i></li>--}}
+                            {{--<li><i class="fa fa-cc-diners-club"></i></li>--}}
+                            {{--<li><i class="fa fa-cc-discover"></i></li>
+                            <li><i class="fa fa-cc-jcb"></i></li>--}}
                             <li><i class="fa fa-cc-mastercard"></i></li>
                             <li><i class="fa fa-cc-paypal"></i></li>
-                            <li><i class="fa fa-cc-stripe"></i></li>
+                            {{--<li><i class="fa fa-cc-stripe"></i></li>--}}
                             <li><i class="fa fa-cc-visa"></i></li>
                         </ul>
                     </div>

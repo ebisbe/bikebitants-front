@@ -4,7 +4,7 @@ return [
     'price_filter' => 'Filtrar por precio',
     'sort_by' => 'Ordenar por:',
     'no_rating' => 'No hay valoraciones',
-    'choose_options' => '<i class="fa fa-plus"></i>&nbsp;Seleccionar opciones',
+    'choose_options' => '<i class="fa fa-plus"></i>&nbsp;Ver modelos',
     'add' => '&nbsp;Añadir',
     'add_and_buy' => 'Comprar',
     'read_more' => '<i class="fa fa-plus"></i>Leer más',
