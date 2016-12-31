@@ -64,28 +64,47 @@ class ShopController extends Controller
     }
 
     /**
-     * @param $slug
+     * @param string $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function product($slug)
+    public function slug($slug)
     {
         /** @var Product $product */
         $product = $this->productRepository->with(['category.father', 'brand'])->findBy('slug', $slug);
+        if(!empty($product)) {
+            return $this->product($product);
+        }
+
+        /** @var Category $cat */
+        $cat = $this->categoryRepository->findBy('slug', $slug);
+        if(!empty($cat)) {
+            return $this->category($cat);
+        }
+        
+        abort(404, 'Not found');
+    }
+
+    /**
+     * @param $product
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function product(Product $product)
+    {
 
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         if (!empty($product->category->father)) {
-            Breadcrumbs::addCrumb($product->category->father->name, route('shop.category', [
+            Breadcrumbs::addCrumb($product->category->father->name, route('shop.slug', [
                 'category' => $product->category->father->slug
             ]));
-            $routeName = 'shop.subcategory';
+            $routeName = 'shop.subslug';
             $routeParams = [
-                'category' => $product->category->father->slug,
-                'subcategory' => $product->category->slug
+                'slug' => $product->category->father->slug,
+                'subslug' => $product->category->slug
             ];
         } else {
-            $routeName = 'shop.category';
+            $routeName = 'shop.slug';
             $routeParams = [
-                'category' => $product->category->slug
+                'slug' => $product->category->slug
             ];
         }
         Breadcrumbs::addCrumb($product->category->name, route($routeName, $routeParams));
@@ -148,15 +167,14 @@ class ShopController extends Controller
     }
 
     /**
-     * @param string $slugCategory
+     * @param Category $slugCategory
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function category($slugCategory)
+    public function category(Category $cat)
     {
-        /** @var Category $cat */
-        $cat = $this->categoryRepository->findBy('slug', $slugCategory);
+
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
-        Breadcrumbs::addCrumb($cat->name, route('shop.category', ['category' => $cat->slug]));
+        Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['category' => $cat->slug]));
 
         MetaTag::set('title', $cat->meta_title);
         MetaTag::set('description', $cat->meta_description);
@@ -179,7 +197,7 @@ class ShopController extends Controller
      * @param string $slugSubCategory
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function subcategory($slugCategory, $slugSubCategory)
+    public function subslug($slugCategory, $slugSubCategory)
     {
         /** @var Category $cat */
         $cat = $this->categoryRepository->findBy('slug', $slugCategory);
@@ -187,7 +205,7 @@ class ShopController extends Controller
         $subCat = $this->categoryRepository->findBy('slug', $slugSubCategory);
 
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
-        Breadcrumbs::addCrumb($cat->name, route('shop.category', ['category' => $cat->slug]));
+        Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['slug' => $cat->slug]));
         Breadcrumbs::addCrumb($subCat->name);
 
         MetaTag::set('title', $subCat->meta_title);

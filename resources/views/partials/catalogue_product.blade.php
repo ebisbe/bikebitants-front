@@ -6,7 +6,7 @@
                     <div class="product-mask">
                         {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt, StaticVars::imgWrapper()) !!}
                     </div>
-                    <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
+                    <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
                        class="product-permalink"></a>
                     {!! Form::img($product->front_image->filename, StaticVars::productRelated(), $product->front_image->alt, StaticVars::imgWrapper()) !!}
                     {{--<div class="product-quickview">
@@ -21,7 +21,7 @@
             <div class="col-sm-9">
                 <div class="product-body">
                     <h1>
-                        <a href="{{ route('shop.product', ['slug' => $product->slug]) }}">
+                        <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}">
                             {{ str_limit($product->name, 29) }}
                         </a>
                     </h1>
@@ -32,12 +32,12 @@
                     <div class="buttons">
                         {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
                         @if($product->stock == 0)
-                            <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
+                            <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
                                class="btn btn-transparent btn-sm add-to-cart">
                                 @lang('catalogue.read_more')
                             </a>
                         @elseif($product->variations->count() > 1)
-                            <a href="{{ route('shop.product', ['slug' => $product->slug]) }}"
+                            <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
                                class="btn btn-transparent btn-sm add-to-cart">
                                 @lang('catalogue.choose_options')
                             </a>

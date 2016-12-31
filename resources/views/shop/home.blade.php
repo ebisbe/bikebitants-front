@@ -95,7 +95,7 @@
         @foreach($categories as $category)
             <div class="col-xs-4">
                 <div class="category">
-                    <a href="{{ route('shop.category', ['slugCategory' => $category->slug]) }}">
+                    <a href="{{ route('shop.slug', ['slug' => $category->slug]) }}">
                         {!! Form::img($category->filename, StaticVars::homeCategories(), $category->name) !!}
                         <div class="category-mask"></div>
                         <h3 class="category-title"><span>{!!  str_replace(' ', '<br/>', $category->name) !!}</span></h3>
@@ -121,14 +121,14 @@
                 <div class="col-xs-6 col-sm-3">
                     <article class="product-item">
                         <div class="product-overlay">
-                            <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
+                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
                                 <div class="product-mask">
                                     {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt) !!}
                                 </div>
                                 {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
                             </a>
                         </div>
-                        <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
+                        <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
                             <h3>{{ $product->name }}</h3>
                         </a>
                         @include('partials.rating', ['rating' => $product->rating])
@@ -144,14 +144,14 @@
                         <li class="clearfix">
 
                             <div class="product-overlay">
-                                <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
+                                <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
                                     <div class="product-mask">
                                         {!! Form::img($product->front_image_hover->filename, StaticVars::homeLeft(), $product->front_image_hover->alt) !!}
                                     </div>
                                     {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
                                 </a>
                             </div>
-                            <a href="{{ route('shop.product', ['slug' => $product->slug ]) }}">
+                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
                                 <h3>{{ $product->name }}</h3>
                             </a>
                             @include('partials.rating', ['rating' => $product->rating])

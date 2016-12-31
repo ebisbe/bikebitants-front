@@ -86,7 +86,7 @@ class CartController extends ApiController implements CartMapper
             'alt' => $item->name,
             'name' => $item->name,
             'is_max_stock' => $item->attributes['is_max_stock'],
-            'route' => route('shop.product', ['slug' => $item->attributes['slug']]),
+            'route' => route('shop.slug', ['slug' => $item->attributes['slug']]),
             'quantity' => $item->quantity,
             'price' => $item->getPriceWithConditions(),
             'currency' => $item->attributes['currency'],

@@ -65,7 +65,7 @@
                     <div class="col-xs-6 col-sm-3">
                         <article class="product-item">
                             <div class="product-overlay">
-                                <a href="{!! route('shop.product', ['slug' => $product->slug]) !!}">
+                                <a href="{!! route('shop.slug', ['slug' => $product->slug]) !!}">
                                     <div class="product-mask">
                                         {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt) !!}
                                     </div>
@@ -73,7 +73,7 @@
                                 </a>
                             </div>
                             <h3>
-                                <a href="{!! route('shop.product', ['slug' => $product->slug]) !!}">{{ str_limit($product->name, 30) }}</a>
+                                <a href="{!! route('shop.slug', ['slug' => $product->slug]) !!}">{{ str_limit($product->name, 30) }}</a>
                             </h3>
                             @if(isset($product->rating))
                                 <div class="product-rating">

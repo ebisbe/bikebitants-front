@@ -33,7 +33,7 @@ PRODUCTS - START
                                                    href="#parent-{{ $loop->iteration }}"
                                                    aria-expanded="true"
                                                    aria-controls="parent-{{ $loop->iteration }}"--}}
-                                                   href="{{ route('shop.category', ['category' => $category->slug]) }}">{{ $category->name }}
+                                                   href="{{ route('shop.slug', ['slug' => $category->slug]) }}">{{ $category->name }}
                                                     <span>[{{ $category->products_count }}]</span>
                                                 </a>
                                                 <ul id="parent-{{ $loop->iteration }}"
@@ -41,7 +41,7 @@ PRODUCTS - START
                                                     role="menu">
                                                     @foreach($category->children as $subcategory)
                                                         <li>
-                                                            <a href="{{ route('shop.subcategory', ['category' => $category->slug, 'subcategory' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
+                                                            <a href="{{ route('shop.subslug', ['slug' => $category->slug, 'subslug' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>

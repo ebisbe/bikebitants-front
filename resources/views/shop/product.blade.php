@@ -105,7 +105,7 @@ PRODUCTS - START
                                     <div class="col-sm-3">
                                         <div class="product-overlay">
                                             <div class="product-mask"></div>
-                                            <a href="{{ route('shop.product', $relatedProduct->slug) }}"
+                                            <a href="{{ route('shop.slug', $relatedProduct->slug) }}"
                                                class="product-permalink"></a>
                                             {!! Form::img($relatedProduct->front_image->filename, StaticVars::productRelated(), $relatedProduct->front_image->filename) !!}
                                             <div class="product-quickview">
@@ -117,7 +117,7 @@ PRODUCTS - START
                                     <div class="col-sm-9">
                                         <div class="product-body">
                                             <h3>
-                                                <a href="{{ route('shop.product', $relatedProduct->slug) }}">
+                                                <a href="{{ route('shop.slug', $relatedProduct->slug) }}">
                                                     {{ $relatedProduct->name }}
                                                 </a>
                                             </h3>
