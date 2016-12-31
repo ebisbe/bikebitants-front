@@ -87,31 +87,6 @@
 =========================== -->
 
 <!-- ==========================
-    CATEGORIES - START
-=========================== -->
-<section class="content categories">
-    <div class="row row-no-padding">
-        <!-- CATEGORY - START -->
-        @foreach($categories as $category)
-            <div class="col-xs-4">
-                <div class="category">
-                    <a href="{{ route('shop.slug', ['slug' => $category->slug]) }}">
-                        {!! Form::img($category->filename, StaticVars::homeCategories(), $category->name) !!}
-                        <div class="category-mask"></div>
-                        <h3 class="category-title"><span>{!!  str_replace(' ', '<br/>', $category->name) !!}</span></h3>
-                    </a>
-                </div>
-            </div>
-            @endforeach
-                    <!-- CATEGORY - END -->
-    </div>
-
-</section>
-<!-- ==========================
-    CATEGORIES - END
-=========================== -->
-
-<!-- ==========================
     GRID PRODUCTS - START
 =========================== -->
 <section class="content grid-products border-top">
@@ -168,6 +143,31 @@
 </section>
 <!-- ==========================
     GRID PRODUCTS - END
+=========================== -->
+
+<!-- ==========================
+    CATEGORIES - START
+=========================== -->
+<section class="content categories">
+    <div class="row row-no-padding">
+        <!-- CATEGORY - START -->
+        @foreach($categories as $category)
+            <div class="col-xs-2">
+                <div class="category">
+                    <a href="{{ route('shop.slug', ['slug' => $category->slug]) }}">
+                        {!! Form::img($category->filename, StaticVars::homeCategories(), $category->name) !!}
+                        <div class="category-mask"></div>
+                        <h3 class="category-title"><span>{!!  str_replace(' ', '<br/>', $category->name) !!}</span></h3>
+                    </a>
+                </div>
+            </div>
+            @endforeach
+                    <!-- CATEGORY - END -->
+    </div>
+
+</section>
+<!-- ==========================
+    CATEGORIES - END
 =========================== -->
 
 {{--<!-- ==========================

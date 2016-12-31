@@ -56,7 +56,10 @@ class ShopController extends Controller
         $featuredProducts = $this->productRepository->where('is_featured', true)->limit(10)->findAll();
         $productsLeft = $featuredProducts->splice(0, 2);
         $productsRight = $featuredProducts;
-        $categories = $this->categoryRepository->with(['children'])->where('filename', 'exists', true)->orderBy('is_featured', 'asc')->limit(3)->findAll();
+        $categories = $this->categoryRepository
+            ->where('filename', 'exists', true)
+            ->where('father_id', 'exists', false)
+            ->orderBy('name', 'asc')->findAll();
 
         $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);
 
