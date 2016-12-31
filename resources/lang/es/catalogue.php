@@ -36,5 +36,6 @@ return [
     'max_stock' => 'Cantidad de stock',
     //'add_to_stock' => '<i class="fa fa-shopping-cart"></i>&nbsp;Añadir',
     'in_stock' => 'In Stock',
-    'out_of_stock' => 'Out of Stock'
+    'out_of_stock' => 'Out of Stock',
+    'iva' => 'IVA inc.'
 ];

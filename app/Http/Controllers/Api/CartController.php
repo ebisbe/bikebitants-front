@@ -89,7 +89,7 @@ class CartController extends ApiController implements CartMapper
             'route' => route('shop.slug', ['slug' => $item->attributes['slug']]),
             'quantity' => $item->quantity,
             'price' => $item->getPriceWithConditions(),
-            'currency' => $item->attributes['currency'],
+            'currency' => $item->attributes['currency']. ' '. trans('catalogue.iva'),
             'image_alt' => $item->attributes['image_alt'],
             'brand' => $item->attributes['brand'],
             '_id' => $item->attributes['_id'],
