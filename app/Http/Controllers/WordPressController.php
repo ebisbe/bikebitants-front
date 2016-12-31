@@ -9,9 +9,16 @@ use App\Http\Requests;
 
 class WordPressController extends Controller
 {
+    public function __construct()
+    {
+        if(config('app.env') == 'production') {
+            abort(404, 'Not found');
+        }
+    }
+
     public function index(WordpressService $wordpressService)
     {
-        $wordpressService->import('products/categories', 'syncCategory');
+        //$wordpressService->import('products/categories', 'syncCategory');
     }
 
     public function show($command, Request $request)

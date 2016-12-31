@@ -1971,7 +1971,8 @@ article.product-item,
     color: #888888;
 }
 
-.widget-categories .widget-body > ul > li > a:before {
+/** Deactivate plus button */
+/*.widget-categories .widget-body > ul > li > a:before {
     content: "\f147";
     margin-right: 7px;
     font-size: 14px;
@@ -1979,7 +1980,7 @@ article.product-item,
 
 .widget-categories .widget-body > ul > li > a.collapsed:before {
     content: "\f196";
-}
+}*/
 
 .widget-categories .widget-body > ul > li > a.collapsed:hover {
     color: #666666;

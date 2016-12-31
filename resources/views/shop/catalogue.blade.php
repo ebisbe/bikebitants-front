@@ -26,19 +26,10 @@ PRODUCTS - START
                                         aria-multiselectable="true">
                                         @foreach($categories as $category)
                                             <li class="panel">
-                                                <a class="{{ $category->_id == $selectedCat ? '' : 'collapsed' }}"
-                                                   {{--role="button"
-                                                   data-toggle="collapse"
-                                                   data-parent="#categories"
-                                                   href="#parent-{{ $loop->iteration }}"
-                                                   aria-expanded="true"
-                                                   aria-controls="parent-{{ $loop->iteration }}"--}}
-                                                   href="{{ route('shop.slug', ['slug' => $category->slug]) }}">{{ $category->name }}
+                                                <a href="{{ route('shop.slug', ['slug' => $category->slug]) }}">{{ $category->name }}
                                                     <span>[{{ $category->products_count }}]</span>
                                                 </a>
-                                                <ul id="parent-{{ $loop->iteration }}"
-                                                    class="list-unstyled panel-collapse collapse {{ $category->_id == $selectedCat ? 'in' : '' }}"
-                                                    role="menu">
+                                                <ul class="list-unstyled">
                                                     @foreach($category->children as $subcategory)
                                                         <li>
                                                             <a href="{{ route('shop.subslug', ['slug' => $category->slug, 'subslug' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>

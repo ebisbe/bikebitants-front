@@ -52,7 +52,7 @@ class ShopController extends Controller
         $layoutHeader = 'navbar-transparent navbar-fixed-top';
         $layoutTopHeader = 'hidden';
 
-        $brands = collect()/*$this->brandRepository->findAll()*/;
+        $brands = collect();/*$this->brandRepository->findAll()*/
         $featuredProducts = $this->productRepository->where('is_featured', true)->limit(10)->findAll();
         $productsLeft = $featuredProducts->splice(0, 2);
         $productsRight = $featuredProducts;
@@ -71,16 +71,16 @@ class ShopController extends Controller
     {
         /** @var Product $product */
         $product = $this->productRepository->with(['category.father', 'brand'])->findBy('slug', $slug);
-        if(!empty($product)) {
+        if (!empty($product)) {
             return $this->product($product);
         }
 
         /** @var Category $cat */
         $cat = $this->categoryRepository->findBy('slug', $slug);
-        if(!empty($cat)) {
+        if (!empty($cat)) {
             return $this->category($cat);
         }
-        
+
         abort(404, 'Not found');
     }
 

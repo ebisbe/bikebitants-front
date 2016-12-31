@@ -33,7 +33,7 @@ trait ProductTrait
         $brand->products()->save($product);
 
         /** @var Category $category */
-        $category = factory(Category::class)->create(['products_count' => 1]);
+        $category = factory(Category::class)->create(['name' => 'Category 1', 'products_count' => 1]);
         $category->products()->save($product);
         return $product;
     }
@@ -44,7 +44,7 @@ trait ProductTrait
     public function createProductWithThreeVariations()
     {
         /** @var Product $product */
-        $product = factory(Product::class)->create();
+        $product = factory(Product::class)->create(['name' => 'Variation Product']);
         $variation1 = factory(Variation::class)->make([
             '_id' => [$product->_id],
             'real_price' => 10,
@@ -61,6 +61,10 @@ trait ProductTrait
             'is_discounted' => false
         ]);
         $product->variations()->saveMany([$variation1, $variation2, $variation3]);
+
+        /** @var Category $category */
+        $category = factory(Category::class)->create(['name' => 'Category 2', 'products_count' => 1]);
+        $category->products()->save($product);
 
         return Product::find($product->_id);
     }

@@ -329,10 +329,12 @@ class WordpressService
      */
     public function syncCategories($categories)
     {
-        collect($categories)->each(function ($category) {
-            $category = $this->syncCategory($category);
-            $category->products()->save($this->product);
-        });
+        collect($categories)
+            ->sortBy('parent')
+            ->each(function ($category) {
+                $category = $this->syncCategory($category);
+                $category->products()->save($this->product);
+            });
     }
 
     /**
