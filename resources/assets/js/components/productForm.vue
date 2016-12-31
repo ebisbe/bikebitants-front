@@ -21,7 +21,7 @@
                   button_class="btn btn-primary add-to-cart">
         </cart-add>
 
-        <span class="help-block" id="helpBlock2">{{ $t('catalogue.max_stock') }}: {{ maxQuantity }}</span>
+        <span class="help-block" id="helpBlock2">{{ stockText }}</span>
     </form>
 </template>
 
@@ -116,6 +116,22 @@
             }
         },
 
-        components: {attributeSelect, quantitySelect}
+        components: {attributeSelect, quantitySelect},
+
+        computed: {
+            stockText: function() {
+                if(this.maxQuantity == 0) {
+                    return Vue.t('catalogue.out_of_stock')
+                }
+                if(this.maxQuantity == 1) {
+                    return Vue.t('catalogue.one_stock') + ' ' + this.maxQuantity;
+                }
+                if(this.maxQuantity <= 5) {
+                    return Vue.t('catalogue.small_stock') + ' ' + this.maxQuantity;
+                }
+
+                return Vue.t('catalogue.in_stock');
+            }
+        }
     };
 </script>

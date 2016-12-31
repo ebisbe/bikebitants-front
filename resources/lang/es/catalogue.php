@@ -16,7 +16,6 @@ return [
     'faq' => 'FAQ',
     'add_review' => 'Añadir comentario',
     'related_products' => 'Productos relacionados',
-    'id' => 'Identificador',
     'availability' => 'Disponibilidad',
     'brand' => 'Marca',
     'tags' => 'Etiquetas',
@@ -35,7 +34,9 @@ return [
     //lost things
     'max_stock' => 'Cantidad de stock',
     //'add_to_stock' => '<i class="fa fa-shopping-cart"></i>&nbsp;Añadir',
-    'in_stock' => 'In Stock',
-    'out_of_stock' => 'Out of Stock',
+    'in_stock' => 'Hay Stock',
+    'out_of_stock' => 'No hay stock',
+    'one_stock' => 'Solo queda',
+    'small_stock' => 'Solo quedan',
     'iva' => 'IVA inc.'
 ];
