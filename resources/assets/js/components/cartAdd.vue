@@ -23,6 +23,12 @@
             }
         },
 
+        watch: {
+            'quantity': function () {
+                this.disabled = this.quantity == 0;
+            }
+        },
+
         methods: {
             addProduct: function () {
                 var product = {

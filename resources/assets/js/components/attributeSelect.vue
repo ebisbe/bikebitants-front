@@ -33,6 +33,10 @@
             changed: function () {
                 this.$emit('changed', this.order, this.selectedElement);
             }
+        },
+
+        updated: function () {
+            this.changed();
         }
     };
 
