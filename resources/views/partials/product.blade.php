@@ -21,7 +21,11 @@
                     <li><span>@lang('catalogue.brand')</span><a
                                 href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
                     </li>
-                    <li><span>@lang('catalogue.tags')</span>{{ $product->tags_list }}</li>
+                    <li><span>@lang('catalogue.tags')</span>
+                        @foreach($product->tags as $tag)
+                            <a href="{{ route('shop.tag', ['slug' => $tag]) }}">{{ $tag }}</a>
+                        @endforeach
+                    </li>
                 </ul>
                 <p>{!! $product->introduction !!}</p>
                 <div class="product-form clearfix">

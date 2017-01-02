@@ -249,17 +249,17 @@ class ShopController extends Controller
      * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function label($slug)
+    public function tag($slug)
     {
-        Breadcrumbs::addCrumb(trans('bargain.title'));
+        Breadcrumbs::addCrumb(trans('tag.title'));
 
         $title = trans('layout.shop');
-        $subtitle = ucfirst($slug);
+        $subtitle = $slug;
 
-        MetaTag::set('title', 'Ofertas accesorios bicicleta y ciclistas urbanos | Bikebitants');
-        MetaTag::set('description', trans('bargain.description'));
+        MetaTag::set('title', trans('tag.title'));
+        MetaTag::set('description', trans('tag.description'));
 
-        $products = $this->productRepository->whereIn('tags', [strtolower($slug)])->findAll();
+        $products = $this->productRepository->whereIn('tags', [$slug])->findAll();
 
         return view('shop.bargain', compact('products', 'title', 'subtitle'));
     }

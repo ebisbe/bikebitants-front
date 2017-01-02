@@ -14,7 +14,7 @@ class LabelsTest extends TestCase
     {
         $this->visit('/etiqueta-producto/label')
             ->seePageIs($this->link('etiqueta-producto/label'))
-            ->seeRouteIs('shop.label', ['slug' => 'label'])
+            ->seeRouteIs('shop.tag', ['slug' => 'label'])
         ;
     }
 
@@ -27,5 +27,19 @@ class LabelsTest extends TestCase
         $this->visit('/etiqueta-producto/label1')
             ->see('Simple Product')
             ->dontSee('Variation product');
+    }
+
+    /** @test */
+    public function see_label_in_product_page()
+    {
+        $this->createTax();
+        $this->createSimpleProduct();
+
+        $this->visit('/simple-product')
+            ->see('label1')
+            ->click('label1')
+            ->seePageIs($this->link('etiqueta-producto/label1'))
+            ->seeRouteIs('shop.tag', ['slug' => 'label1'])
+            ;
     }
 }

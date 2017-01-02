@@ -36,7 +36,7 @@ Route::get('/', 'ShopController@home')->name('shop.home');
 Route::get('/brand/{slug}', 'ShopController@brand')->name('shop.brand');
 Route::get('/tienda/', 'ShopController@shop')->name('shop.catalogue');
 Route::get('/ofertas', 'ShopController@bargain')->name('shop.bargain');
-Route::get('/etiqueta-producto/{slug}', 'ShopController@label')->name('shop.label');
+Route::get('/etiqueta-producto/{slug}', 'ShopController@tag')->name('shop.tag');
 Route::resource('cart', 'CartController', ['only' => ['index', 'destroy']]);
 
 Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
