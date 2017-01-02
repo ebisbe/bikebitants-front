@@ -43,7 +43,7 @@
     <div class="top-header hidden-xs {{ StaticVars::layoutTopHeader(!empty($layoutTopHeader) ? $layoutTopHeader : '') }}">
         <div class="container">
             <div class="row">
-                <div class="col-sm-7">
+                <div>
                     <ul class="list-inline contacts">
                         <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
                         <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>

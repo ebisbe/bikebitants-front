@@ -78,11 +78,11 @@ PRODUCTS - START
                 <div class="col-sm-9">
                     <div class="products-header">
                         <div class="row">
-                            <div class="col-xs-6 col-sm-4">
+                            <div class="col-xs-6 col-sm-2">
 
                             </div>
 
-                            <div class="col-xs-6 col-sm-8">
+                            <div class="col-xs-6 col-sm-10">
                                 <div class="btn-group toggle-list-grid hidden-xs" role="group">
                                     <button type="button" class="btn btn-default active" id="toggle-grid">
                                         <i class="fa fa-th"></i>
@@ -92,7 +92,7 @@ PRODUCTS - START
                                     </button>
                                 </div>
                                 <div class="form-inline order-by">
-                                    <div class="form-group hidden-sm">
+                                    <div class="form-group hidden-sm hidden-xs">
                                         <label>@lang('catalogue.sort_by')</label>
                                     </div>
                                     <div class="form-group">
