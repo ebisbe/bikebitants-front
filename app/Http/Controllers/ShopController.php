@@ -244,4 +244,23 @@ class ShopController extends Controller
 
         return view('shop.bargain', compact('products', 'title', 'subtitle'));
     }
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function label($slug)
+    {
+        Breadcrumbs::addCrumb(trans('bargain.title'));
+
+        $title = trans('layout.shop');
+        $subtitle = ucfirst($slug);
+
+        MetaTag::set('title', 'Ofertas accesorios bicicleta y ciclistas urbanos | Bikebitants');
+        MetaTag::set('description', trans('bargain.description'));
+
+        $products = $this->productRepository->whereIn('tags', [strtolower($slug)])->findAll();
+
+        return view('shop.bargain', compact('products', 'title', 'subtitle'));
+    }
 }

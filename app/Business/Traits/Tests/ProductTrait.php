@@ -18,7 +18,8 @@ trait ProductTrait
     {
         $product = factory(Product::class)->states('featured')->create([
             '_id' => 'simple-product',
-            'name' => 'Simple Product'
+            'name' => 'Simple Product',
+            'tags' => ['label1', 'label2']
         ]);
         $variation = factory(Variation::class)->make([
             '_id' => [$product->_id],
@@ -47,7 +48,8 @@ trait ProductTrait
         /** @var Product $product */
         $product = factory(Product::class)->create([
             '_id' => 'variation-product',
-            'name' => 'Variation Product'
+            'name' => 'Variation Product',
+            'tags' => ['label2']
         ]);
         $variation1 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'RED'],
