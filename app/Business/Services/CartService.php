@@ -80,6 +80,9 @@ class CartService
         $variationProperties = array_merge([$this->product_id], $this->properties);
         /** @var Variation $variation */
         $variation = $product->productVariation($variationProperties);
+        if(is_null($variation)) {
+            return $cartMapper->mapNotFoundItem(trans('api.variation_not_found'));
+        }
         $this->stock = $variation->stock;
 
         $item = Cart::get($variation->sku);

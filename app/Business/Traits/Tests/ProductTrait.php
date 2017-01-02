@@ -22,6 +22,7 @@ trait ProductTrait
         ]);
         $variation = factory(Variation::class)->make([
             '_id' => [$product->_id],
+            'sku' => $product->_id,
             'real_price' => 10,
             'is_discounted' => false,
             'stock' => 10
@@ -44,19 +45,25 @@ trait ProductTrait
     public function createProductWithThreeVariations()
     {
         /** @var Product $product */
-        $product = factory(Product::class)->create(['name' => 'Variation Product']);
+        $product = factory(Product::class)->create([
+            '_id' => 'variation-product',
+            'name' => 'Variation Product'
+        ]);
         $variation1 = factory(Variation::class)->make([
-            '_id' => [$product->_id],
+            '_id' => [$product->_id, 'RED'],
+            'sku' => $product->_id.'-RED',
             'real_price' => 10,
             'is_discounted' => false
         ]);
         $variation2 = factory(Variation::class)->make([
-            '_id' => [$product->_id],
+            '_id' => [$product->_id, 'GREEN'],
+            'sku' => $product->_id.'-GREEN',
             'real_price' => 15,
             'is_discounted' => false
         ]);
         $variation3 = factory(Variation::class)->make([
-            '_id' => [$product->_id],
+            '_id' => [$product->_id, 'BLUE'],
+            'sku' => $product->_id.'-BLUE',
             'real_price' => 20,
             'is_discounted' => false
         ]);
@@ -91,15 +98,40 @@ trait ProductTrait
      */
     public function addSimpleProduct(int $quantity = 1)
     {
+        return $this->addProduct("simple-product", $quantity);
+    }
+
+    /**
+     * @param int $quantity
+     * @param array $properties
+     * @return $this
+     */
+    public function addVariationProduct(int $quantity = 1, array $properties)
+    {
+        return $this->addProduct("variation-product", $quantity, $properties);
+    }
+
+    /**
+     * @param string $product_id
+     * @param int $quantity
+     * @param array $properties
+     * @return $this
+     */
+    public function addProduct(string $product_id, int $quantity = 1, array $properties = [])
+    {
         $this
             ->postJson('/api/cart', [
-                'product_id' => "simple-product",
-                'quantity' => $quantity
+                'product_id' => $product_id,
+                'quantity' => $quantity,
+                'properties' => $properties
             ]);
 
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getProductResponse() :array
     {
         return [

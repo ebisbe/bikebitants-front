@@ -92,7 +92,19 @@ class CartController extends ApiController implements CartMapper
             'currency' => $item->attributes['currency']. ' '. trans('catalogue.iva'),
             'image_alt' => $item->attributes['image_alt'],
             'brand' => $item->attributes['brand'],
-            '_id' => $item->attributes['_id'],
+            '_id' => $item->id,
         ];
+    }
+
+    /**
+     * @param string $message
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function mapNotFoundItem(string $message)
+    {
+        return \Response::json([
+            'success' => false,
+            'message' => $message
+        ]);
     }
 }
