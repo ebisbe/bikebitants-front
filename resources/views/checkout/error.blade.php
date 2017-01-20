@@ -11,7 +11,7 @@
                 <div class="error-wrapper">
                     <div class="error-number">404</div>
                     <div class="error-text">
-                        <h1>Error on the payment</h1>
+                        <h1>Error during the checkout</h1>
                         <p>{{ $message }}</p>
                         <p> @lang('layout.go_back') <a
                                     href="{{ route('shop.catalogue') }}">@lang('layout.shop')</a></p>

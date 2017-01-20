@@ -3,23 +3,21 @@
 namespace App\Business\Services;
 
 use App\Billing;
-use App\Business\Models\Shop\Product;
-use App\Business\Repositories\CouponRepository;
+use App\Business\Status\CancelledOrder;
+use App\Business\Status\Status;
+use App\Business\Status\UndefinedOrder;
 use App\Business\Repositories\ProductRepository;
-use App\Country;
-use App\Business\Models\Shop\Coupon;
 use App\Events\CancelOrder;
 use App\Events\ConfirmedOrder;
 use App\Events\NewOrder;
+use App\Exceptions\OutOfStockException;
 use App\Order;
 use App\PaymentMethod;
 use App\Shipping;
 use App\Customer;
 use Carbon\Carbon;
-use Darryldecode\Cart\CartCondition;
 use Darryldecode\Cart\ItemCollection;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Cache;
 use Omnipay;
 use Cart;
 use Event;
@@ -37,9 +35,6 @@ class OrderService
 
     protected $response;
 
-    protected $country;
-    protected $paymentMethod;
-
     protected $payment_type;
     protected $coupon;
     protected $session_id;
@@ -51,24 +46,25 @@ class OrderService
 
     /**
      * OrderService constructor.
-     * @param Country $country
-     * @param PaymentMethod $paymentMethod
      * @param CouponService $couponService
+     * @param ProductRepository $productRepository
      */
-    public function __construct(Country $country, PaymentMethod $paymentMethod, CouponService $couponService, ProductRepository $productRepository)
+    public function __construct(CouponService $couponService, ProductRepository $productRepository)
     {
-        $this->country = $country;
-        $this->paymentMethod = $paymentMethod;
         $this->couponService = $couponService;
         $this->productRepository = $productRepository;
     }
 
-    public function checkoutOrder($avoidLoop = false)
+    /**
+     * @param bool $avoidLoop
+     * @return Status
+     */
+    public function checkoutOrder($avoidLoop = false) :Status
     {
         $this->getOrder();
         switch (true) {
             case $this->order->status == Order::New :
-                $this->orderNew();
+                return \App::make('NewOrder');
                 break;
             case $this->order->status == Order::ToRedirect :
                 $this->order->status = Order::Redirected;
@@ -77,23 +73,23 @@ class OrderService
                 $this->response->redirect();
                 break;
             case $this->order->status == Order::Redirected && !$avoidLoop :
-                $this->confirmPayment();
+                return $this->confirmPayment();
                 break;
             case $this->order->status == Order::Confirmed :
-                $this->orderConfirmed();
+                return new \App\Business\Status\ConfirmedOrder($this->order);
                 break;
             case $this->order->status == Order::Cancelled :
-                $this->orderCancelled();
+                return new CancelledOrder();
                 break;
-            case $this->order->status == Order::Error :
+            case $this->order->status == Order::Undefined :
             default:
-                $this->orderError();
+                return new UndefinedOrder($this->order);
                 break;
         }
     }
 
     /**
-     * @param
+     * @return Status
      */
     private function confirmPayment()
     {
@@ -104,7 +100,7 @@ class OrderService
             $this->validateResponse();
         }
 
-        $this->checkoutOrder(true);
+        return $this->checkoutOrder(true);
     }
 
     /**
@@ -141,7 +137,7 @@ class OrderService
 
     /**
      * @param
-     * @return void
+     * @return Status
      */
     public function pay()
     {
@@ -152,7 +148,7 @@ class OrderService
 
         $this->response = $gateway->purchase($this->getPurchaseParams())->send();
         $this->validateResponse();
-        $this->checkoutOrder();
+        return $this->checkoutOrder();
     }
 
     /**
@@ -174,26 +170,6 @@ class OrderService
         }
     }
 
-    private function orderConfirmed()
-    {
-        $items = $this->getCart();
-        $order = $this->order;
-
-        Cart::clear();
-        Cart::clearCartConditions();
-
-        $this->setView('checkout.confirmation');
-        $this->setViewVars(compact('items', 'order'));
-    }
-
-    private function orderCancelled()
-    {
-        $message = $this->order->error_message ? $this->order->error_message : trans('checkout.order_cancelled');
-
-        $this->setView('checkout.cancel');
-        $this->setViewVars(compact('message'));
-    }
-
     /**
      * @param null $orderId
      */
@@ -210,7 +186,7 @@ class OrderService
             $this->order->save();
             //Event::fire('order.to_redirect', [$this->order]);
         } else {
-            $this->order->status = Order::Error;
+            $this->order->status = Order::Undefined;
             $this->order->error_message = $this->response->getMessage();
             $this->order->save();
             //Event::fire('order.error', [$this->order]);
@@ -239,28 +215,6 @@ class OrderService
     }
 
     /**
-     * TODO Create Repositories
-     */
-    private function orderNew()
-    {
-        $countries = Cache::remember('countries_list', 5, function () {
-            return $this->country->all()->pluck('name', '_id');
-        });
-
-        $states = Cache::remember('states_list', 5, function () {
-            return $this->country->first()->states->pluck('name', '_id');
-        });
-
-        $paymentMethods = Cache::remember('payment_methods', 5, function () {
-            return $this->paymentMethod->all();
-        });
-        $items = Cart::getContent();
-
-        $this->setView('checkout.index');
-        $this->setViewVars(compact('countries', 'states', 'items', 'paymentMethods'));
-    }
-
-    /**
      * Creates a new order for the current session if not exists. Relates all the products
      * from that session to the order.
      */
@@ -271,9 +225,11 @@ class OrderService
             $order = new Order();
             $order->token = Carbon::now()->timestamp;
             $order->session_id = $this->getSessionId();
-            $this->updateOrder($order);
+            $order = $this->updateOrder($order);
 
-            Event::fire(new NewOrder($order));
+            if($order->status == Order::New) {
+                Event::fire(new NewOrder($order));
+            }
             $this->order = $order;
         }
     }
@@ -290,7 +246,7 @@ class OrderService
      * @param Order $order
      * @return Order
      */
-    protected function updateOrder(Order $order)
+    protected function updateOrder(Order $order) : Order
     {
         if ($order->status == Order::New) {
 
@@ -317,7 +273,12 @@ class OrderService
                 $order->cart()->associate($cart);
             });
 
-            $order->save();
+            try {
+                $order->save();
+            } catch (OutOfStockException $exception) {
+                $order->status = Order::Undefined;
+                $order->message = $exception->getMessage();
+            }
         }
         return $order;
     }
@@ -388,18 +349,6 @@ class OrderService
         $customer->save();
 
         return $customer;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function getCart()
-    {
-        if (empty($this->order)) {
-            $this->getOrder();
-        }
-
-        return $this->order->cart;
     }
 
     /**

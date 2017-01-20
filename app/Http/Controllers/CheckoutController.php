@@ -51,11 +51,12 @@ class CheckoutController extends Controller
         }
         $this->orderService->setSessionId($this->request->session()->getId());
 
-        $this->orderService->checkoutOrder();
+        $order = $this->orderService->checkoutOrder();
+        $order->index();
 
         $this->request->session()->set('order', $this->orderService->getToken());
 
-        return view($this->orderService->getView(), $this->orderService->getViewVars());
+        return view($order->getView(), $order->getViewVars());
     }
 
     /**

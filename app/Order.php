@@ -21,7 +21,7 @@ class Order extends Model
     const Redirected = 4;
     const Confirmed = 5;
     const Cancelled = -1;
-    const Error = -2;
+    const Undefined = -2;
 
     protected $fillable = [
         'billing_id', 'shipping_id', 'user_id', 'status', 'payment_method', 'external_id'
@@ -43,7 +43,7 @@ class Order extends Model
                     ->productVariation(array_merge([$cart->product_id], $cart->properties));
 
                 if($variation->stock - $cart->quantity < 0 ) {
-                    throw new OutOfStockException(trans('exceptions.out_of_stock', ['product' => $variation->name]));
+                    throw new OutOfStockException(trans('exceptions.out_of_stock', ['product' => $variation->sku]));
                 }
             });
         });
