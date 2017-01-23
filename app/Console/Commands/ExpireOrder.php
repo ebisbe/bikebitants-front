@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Business\Services\CheckoutOrderService;
 use App\Business\Services\OrderService;
 use App\Order;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
 
 class ExpireOrder extends Command
 {
@@ -24,14 +26,21 @@ class ExpireOrder extends Command
     protected $description = 'Expire all orders that have not been updated for an hour.';
 
     protected $orderService;
+    /**
+     * @var CheckoutOrderService
+     */
+    private $checkoutOrderService;
+
 
     /**
      * ExpireOrder constructor.
+     * @param CheckoutOrderService $checkoutOrderService
      * @param OrderService $orderService
      */
-    public function __construct(OrderService $orderService)
+    public function __construct(CheckoutOrderService $checkoutOrderService, OrderService $orderService)
     {
         parent::__construct();
+        $this->checkoutOrderService = $checkoutOrderService;
         $this->orderService = $orderService;
     }
 
@@ -42,16 +51,11 @@ class ExpireOrder extends Command
      */
     public function handle()
     {
-        $breakPoint = Carbon::now()->addSeconds(env('ORDER_EXPIRE_TIME', -3600));
-        $orders = Order::where('created_at', '<', $breakPoint)
-            ->where('status', '>', Order::Cancelled)
-            ->get();
         $bar = $this->output->createProgressBar($orders->count());
 
-        foreach($orders as $order){
-            $this->orderService->cancel($order);
-            $order->error_message = trans('checkout.order_cancelled_inactivity');
-            $order->save();
+        foreach ($this->orderService->toCancelByInactivity() as $order) {
+            $this->checkoutOrderService->setOrder($order);
+            $this->checkoutOrderService->cancel(trans('checkout.order_cancelled_inactivity'));
             $bar->advance();
         }
 

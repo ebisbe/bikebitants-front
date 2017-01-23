@@ -52,7 +52,7 @@ trait ImageTrait
             ->fit($width, (int)$width + 30)
             ->interlace();
 
-        if (env('APP_ENV') == 'local') {
+        if (config('app.env') == 'local') {
             $image->text($width, 50, 10, function ($font) {
                 $font->file(5);
                 $font->size(60);

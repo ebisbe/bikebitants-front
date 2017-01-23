@@ -5,7 +5,7 @@ namespace App\Business\Status;
 use App\Order;
 use Cart;
 
-class ConfirmedOrder extends Status
+class ConfirmedOrder implements Status
 {
     protected $order;
 
@@ -14,6 +14,9 @@ class ConfirmedOrder extends Status
         $this->order = $order;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $items = $this->order->cart;
@@ -22,7 +25,6 @@ class ConfirmedOrder extends Status
         Cart::clear();
         Cart::clearCartConditions();
 
-        $this->setView('checkout.confirmation');
-        $this->setViewVars(compact('items', 'order'));
+        return view('checkout.confirmation', compact('items', 'order'));
     }
 }

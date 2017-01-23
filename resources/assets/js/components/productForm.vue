@@ -61,7 +61,7 @@
                     break;
                 case 1:
                     this.firstSelected = this.properties[0].properties_values[0]._id;
-                    this.emitChangedValue(2, this.properties[0].properties_values[0]._id);
+                    this.emitChangedValue(1, this.properties[0].properties_values[0]._id);
                     break;
                 case 0:
                     this.maxQuantity = this.variations[0].stock;

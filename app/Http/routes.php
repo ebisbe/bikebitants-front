@@ -40,7 +40,6 @@ Route::get('/etiqueta-producto/{slug}', 'ShopController@tag')->name('shop.tag');
 Route::resource('cart', 'CartController', ['only' => ['index', 'destroy']]);
 
 Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
-Route::post('/checkout/callback', 'CheckoutCallbackController@store')->name('shop.callback');
 Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store', 'show']]);
 
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);

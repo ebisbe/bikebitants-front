@@ -248,5 +248,7 @@ return [
     ],
 
 
-    'cdn' => env('CDN')
+    'cdn' => env('CDN'),
+
+    'order_expire_time' => env('ORDER_EXPIRE_TIME', -3600)
 ];

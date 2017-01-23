@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Business\Services\OrderService;
+use App\Business\Services\CheckoutOrderService;
 use App\Http\Middleware\CheckoutMiddleware;
 use App\Order;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class CheckoutController extends Controller
 {
     /**
-     * @var OrderService
+     * @var CheckoutOrderService
      */
     protected $orderService;
 
@@ -25,10 +25,10 @@ class CheckoutController extends Controller
 
     /**
      * CheckoutController constructor.
-     * @param OrderService $orderService
+     * @param CheckoutOrderService $orderService
      * @param Request $request
      */
-    public function __construct(OrderService $orderService, Request $request)
+    public function __construct(CheckoutOrderService $orderService, Request $request)
     {
         $this->middleware([CheckoutMiddleware::class]);
 
@@ -52,11 +52,9 @@ class CheckoutController extends Controller
         $this->orderService->setSessionId($this->request->session()->getId());
 
         $order = $this->orderService->checkoutOrder();
-        $order->index();
 
         $this->request->session()->set('order', $this->orderService->getToken());
-
-        return view($order->getView(), $order->getViewVars());
+        return $order->index();
     }
 
     /**
@@ -116,7 +114,7 @@ class CheckoutController extends Controller
             $this->orderService->setOrder($currentOrder->first());
         }
 
-        $this->orderService->cancel();
+        $this->orderService->cancel(trans('checkout.order_cancelled_by_user'));
         $this->request->session()->remove('order');
         return redirect(route('cart.index'));
     }

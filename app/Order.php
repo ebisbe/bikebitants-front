@@ -17,7 +17,6 @@ class Order extends Model
 
     const New = 1;
     const ValidData = 2;
-    const ToRedirect = 3;
     const Redirected = 4;
     const Confirmed = 5;
     const Cancelled = -1;

@@ -2,46 +2,10 @@
 
 namespace App\Business\Status;
 
-abstract class Status
+interface Status
 {
-    /** @var  String $view */
-    protected $view;
-    /** @var  array $viewVars */
-    protected $viewVars = [];
-
-    public function index()
-    {
-    }
-
     /**
-     * @param $view
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function setView($view)
-    {
-        $this->view = $view;
-    }
-
-    /**
-     * @return String
-     */
-    public function getView()
-    {
-        return $this->view;
-    }
-
-    /**
-     * @param array $viewVars
-     */
-    public function setViewVars($viewVars = [])
-    {
-        $this->viewVars = $viewVars;
-    }
-
-    /**
-     * @return array
-     */
-    public function getViewVars()
-    {
-        return $this->viewVars;
-    }
+    public function index();
 }
