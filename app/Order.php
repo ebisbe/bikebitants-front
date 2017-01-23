@@ -17,8 +17,8 @@ class Order extends Model
 
     const New = 1;
     const ValidData = 2;
-    const Redirected = 4;
-    const Confirmed = 5;
+    const Redirected = 3;
+    const Confirmed = 4;
     const Cancelled = -1;
     const Undefined = -2;
 

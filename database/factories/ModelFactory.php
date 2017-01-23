@@ -11,6 +11,7 @@
 |
 */
 
+use App\Order;
 use App\Property;
 use App\PropertyValue;
 use App\Billing;
@@ -36,7 +37,7 @@ use \Faker\Generator;
 use MongoDB\BSON\UTCDatetime;
 
 
-$files = collect(Storage::files('wp_files'))->map(function($string) {
+$files = collect(Storage::files('wp_files'))->map(function ($string) {
     return str_replace('wp_files', '', $string);
 });
 
@@ -311,9 +312,39 @@ $factory->define(Tax::class, function (Generator $faker) {
         'state' => '',
         'postcode' => $faker->postcode,
         'city' => $faker->citySuffix,
-        'rate' => $faker->numberBetween(10,25),
+        'rate' => $faker->numberBetween(10, 25),
         'name' => 'Iva',
         'order' => $faker->randomNumber(),
         'external_id' => $faker->randomNumber()
     ];
+});
+
+$factory->define(Order::class, function (Generator $faker) {
+    return [
+        'status' => Order::New,
+        "token" => Carbon::now()->timestamp,
+        "session_id" => $faker->randomAscii,
+        "subtotal" => $faker->randomFloat(2, 0, 25),
+        "total" => $faker->randomFloat(2, 0, 25),
+        "total_items" => $faker->numberBetween(0, 5),
+    ];
+});
+
+$factory->state(Order::class, 'New', function () {
+    return [ 'status' => Order::New ];
+});
+$factory->state(Order::class, 'ValidData', function () {
+    return [ 'status' => Order::ValidData ];
+});
+$factory->state(Order::class, 'Redirected', function () {
+    return [ 'status' => Order::Redirected ];
+});
+$factory->state(Order::class, 'Confirmed', function () {
+    return [ 'status' => Order::Confirmed ];
+});
+$factory->state(Order::class, 'Cancelled', function () {
+    return [ 'status' => Order::Cancelled ];
+});
+$factory->state(Order::class, 'Undefined', function () {
+    return [ 'status' => Order::Undefined ];
 });

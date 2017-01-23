@@ -232,6 +232,7 @@ return [
         'BreadCrumbLinks' => App\Business\Facades\BreadCrumbLinks::class,
         'StaticVars' => App\Business\Facades\StaticVars::class,
         'TaxService' => App\Business\Facades\TaxService::class,
+        'OrderService' => App\Business\Facades\OrderService::class,
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,

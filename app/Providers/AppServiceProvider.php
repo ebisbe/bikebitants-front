@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        if(env('APP_ENV') != 'production') {
+        if($this->app->environment() != 'production') {
             DB::connection('mongodb')->enableQueryLog();
         }
 
@@ -50,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('breadcrumblinks', 'App\Business\Admin\BreadCrumbLinks');
         $this->app->bind('staticvars', 'App\Business\StaticVars');
         $this->app->bind('taxservice', 'App\Business\Services\TaxService');
+        $this->app->bind('orderservice', 'App\Business\Services\OrderService');
 
         $this->app->bind('App\Business\Services\TwitterService', \App\Business\Services\TwitterService::class);
         $this->app->bind('NewOrder', \App\Business\Status\NewOrder::class);

@@ -191,6 +191,14 @@ class CheckoutOrderService
      */
     public function setOrder(Order $order)
     {
+        $this->order = $order;
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function setOrderAndUpdate(Order $order)
+    {
         $this->order = $this->updateOrder($order);
     }
 

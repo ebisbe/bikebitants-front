@@ -51,9 +51,10 @@ class ExpireOrder extends Command
      */
     public function handle()
     {
+        $orders = $this->orderService->cancelByInactivity();
         $bar = $this->output->createProgressBar($orders->count());
 
-        foreach ($this->orderService->toCancelByInactivity() as $order) {
+        foreach ($orders as $order) {
             $this->checkoutOrderService->setOrder($order);
             $this->checkoutOrderService->cancel(trans('checkout.order_cancelled_inactivity'));
             $bar->advance();
