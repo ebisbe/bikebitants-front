@@ -43,9 +43,8 @@ class EventServiceProvider extends ServiceProvider
             }
         });
 
-        Product::updated(function($product) {
+        Product::updated(function ($product) {
             \Cache::tags($product->categories)->flush();
         });
-
     }
 }

@@ -23,11 +23,13 @@ class CartConditionsControllerTest extends TestCase
     public function add_new_shipping_to_cart()
     {
         $this->createTax();
-        $this->postJson('/api/cart-conditions',
+        $this->postJson(
+            '/api/cart-conditions',
             [
                 'country' => 'ES',
                 'state' => 'B'
-            ])
+            ]
+        )
             ->seeJson([
                 'name' => 'checkout.total',
                 'value' => '3.31 &euro;'

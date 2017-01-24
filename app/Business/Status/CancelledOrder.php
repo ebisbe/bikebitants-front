@@ -2,7 +2,6 @@
 
 namespace App\Business\Status;
 
-
 use App\Order;
 
 class CancelledOrder implements Status

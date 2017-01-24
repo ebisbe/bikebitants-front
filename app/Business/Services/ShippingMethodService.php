@@ -2,7 +2,6 @@
 
 namespace App\Business\Services;
 
-
 use App\ShippingMethod;
 use App\Zone;
 

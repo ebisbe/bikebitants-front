@@ -37,7 +37,8 @@ class BreadCrumbLinks
      * Define the main css clas for the breadcrumb list
      * @param $cssClass
      */
-    public function setCssClasses($cssClass) {
+    public function setCssClasses($cssClass)
+    {
         $this->cssClass = $cssClass;
     }
 

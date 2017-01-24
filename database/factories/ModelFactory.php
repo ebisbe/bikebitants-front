@@ -36,7 +36,6 @@ use Carbon\Carbon;
 use \Faker\Generator;
 use MongoDB\BSON\UTCDatetime;
 
-
 $files = collect(Storage::files('wp_files'))->map(function ($string) {
     return str_replace('wp_files', '', $string);
 });
@@ -273,7 +272,7 @@ $factory->define(Coupon::class, function (Generator $faker) {
         'type' => $type,
         'description' => $faker->paragraph(),
         //'value' => "{$magnitude}{$type}",
-        'expired_at' => New UTCDatetime(Carbon::now()->addDays(4)->timestamp * 1000),
+        'expired_at' => new UTCDatetime(Carbon::now()->addDays(4)->timestamp * 1000),
         'minimum_cart' => 0,
         'maximum_cart' => null,
 

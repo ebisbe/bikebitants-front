@@ -121,7 +121,6 @@ class CheckoutControllerTest extends TestCase
         $this->press('checkout.confirm_order')
             ->see('validation.exists')
         ;
-
     } /** @test */
     public function try_to_checkout_with_valid_coupon_code()
     {
@@ -155,7 +154,6 @@ class CheckoutControllerTest extends TestCase
             ->dontSee('shipping.city')
             ->dontSee('shipping.postcode')
         ;
-
     }
 
     public function postAndCheckin()

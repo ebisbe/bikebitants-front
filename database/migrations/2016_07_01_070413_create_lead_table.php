@@ -13,7 +13,7 @@ class CreateLeadTable extends Migration
      */
     public function up()
     {
-        Schema::create('leads', function(Blueprint $blueprint) {
+        Schema::create('leads', function (Blueprint $blueprint) {
             $blueprint->unique('email');
         });
     }

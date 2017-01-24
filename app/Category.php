@@ -84,7 +84,8 @@ class Category extends Model
      * @param bool $delete
      * @return string
      */
-    public static function actionButtons($id, $edit = true, $delete = true) {
+    public static function actionButtons($id, $edit = true, $delete = true)
+    {
         $buttons = collect();
 
         $edit ? $buttons->push('<a href="'.route('category.edit', ['id' => $id]).'" class=""><i class="icon-pencil4"></i></a>') : null ;

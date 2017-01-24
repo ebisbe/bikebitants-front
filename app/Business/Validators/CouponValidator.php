@@ -17,7 +17,7 @@ class CouponValidator
     private function getCoupon($attribute, $validator)
     {
         $couponName = $validator->getData()[$attribute];
-        return Cache::remember('coupon_'.$attribute, 10*60, function() use ($couponName){
+        return Cache::remember('coupon_'.$attribute, 10*60, function () use ($couponName) {
             return Coupon::whereName($couponName)->first();
         });
     }
@@ -33,11 +33,11 @@ class CouponValidator
     {
         return true;
         $coupon = $this->getCoupon($attribute, $validator);
-        if(is_null($coupon->expired_at)) {
+        if (is_null($coupon->expired_at)) {
             return true;
         }
 
-        $expiryDate = Carbon::createFromFormat('Y-m-d H:i:s',$coupon->expired_at);
+        $expiryDate = Carbon::createFromFormat('Y-m-d H:i:s', $coupon->expired_at);
         return Carbon::now()->diffInSeconds($expiryDate, false) > 0 ? true : false;
     }
 
@@ -64,7 +64,7 @@ class CouponValidator
     public function maximum_cart($attribute, $value, $parameters, $validator)
     {
         $coupon = $this->getCoupon($attribute, $validator);
-        if(is_null($coupon->maximum_cart) || $coupon->maximum_cart == 0) {
+        if (is_null($coupon->maximum_cart) || $coupon->maximum_cart == 0) {
             return true;
         }
         return Cart::getSubTotal() <= $coupon->maximum_cart;
@@ -80,10 +80,9 @@ class CouponValidator
     public function not_repeated($attribute, $value, $parameters, $validator)
     {
         $coupon = $this->getCoupon($attribute, $validator);
-        if(is_null($coupon->maximum_cart) || $coupon->maximum_cart == 0) {
+        if (is_null($coupon->maximum_cart) || $coupon->maximum_cart == 0) {
             return true;
         }
         return Cart::getSubTotal() <= $coupon->maximum_cart;
     }
-
 }

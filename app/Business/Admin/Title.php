@@ -28,8 +28,9 @@ class Title
      * @param $bool
      * @throws \Exception
      */
-    public function useLeftArrow($bool) {
-        if(!is_bool($bool)) {
+    public function useLeftArrow($bool)
+    {
+        if (!is_bool($bool)) {
             throw new \Exception('This value should be a boolean');
         }
         $this->use_left_arrow = $bool;
@@ -38,8 +39,9 @@ class Title
     /**
      * @return string
      */
-    public function getLeftArrow() {
-        if($this->use_left_arrow) {
+    public function getLeftArrow()
+    {
+        if ($this->use_left_arrow) {
             return '<i class="icon-arrow-left52 position-left"></i>';
         }
         return '';

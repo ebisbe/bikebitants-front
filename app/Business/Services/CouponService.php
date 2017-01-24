@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use \Cart;
 use Illuminate\Support\Collection;
 
-class CouponService {
+class CouponService
+{
 
     public $couponRepository;
 

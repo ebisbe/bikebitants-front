@@ -63,8 +63,8 @@ class Cart extends Model
      */
     public static function empty()
     {
-        self::all()->map(function($item) {
-           $item->delete();
+        self::all()->map(function ($item) {
+            $item->delete();
         });
     }
 }

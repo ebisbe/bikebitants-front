@@ -22,7 +22,7 @@ class TaxService
     public function getTax()
     {
         $tax = $this->taxRepository->orderBy('order')->findAll();
-        if($tax->isEmpty()) {
+        if ($tax->isEmpty()) {
             throw new TaxNotFoundException('Tax not found.');
         }
         return $tax->first();

@@ -41,7 +41,8 @@ class FaqController extends AdminController
     *
     * @return array
     */
-    public function dataTable() {
+    public function dataTable()
+    {
         //$this->isAuthorized('faq.data-table');
         return ['data' => Faq::all()];
     }
@@ -150,5 +151,4 @@ class FaqController extends AdminController
 
         return redirect('faq');
     }
-
 }

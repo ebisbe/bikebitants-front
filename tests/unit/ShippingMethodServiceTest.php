@@ -26,6 +26,5 @@ class ShippingMethodServiceTest extends TestCase
         $shippingMethods = $zone->shipping_methods()->get();
         $this->assertEquals($shippingMethods->shift(), $nonFreeShipping);
         $this->assertEquals($shippingMethods->shift(), $freeShipping);
-
     }
 }

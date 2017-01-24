@@ -26,7 +26,7 @@ class Product extends \App\Product
      */
     public function getReviewsVerifiedAttribute()
     {
-        return $this->reviews()->filter(function($review) {
+        return $this->reviews()->filter(function ($review) {
             return $review->verified;
         });
     }

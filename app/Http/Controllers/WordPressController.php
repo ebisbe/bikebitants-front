@@ -11,7 +11,7 @@ class WordPressController extends Controller
 {
     public function __construct()
     {
-        if(config('app.env') == 'production') {
+        if (config('app.env') == 'production') {
             abort(404, 'Not found');
         }
     }
@@ -23,7 +23,7 @@ class WordPressController extends Controller
 
     public function show($command, Request $request)
     {
-        if($command == '-') {
+        if ($command == '-') {
             $command = '';
         }
         dd(\Woocommerce::get($command, ['page' => $request->get('page', 1), 'search' => $request->get('search', '')]));

@@ -14,9 +14,9 @@ class Variation extends Model
     {
         parent::boot();
 
-        static::saving(function($variation) {
+        static::saving(function ($variation) {
             //TODO check for stock lower than 0 and deny it
-            if($variation->is_discounted) {
+            if ($variation->is_discounted) {
                 $variation->price = $variation->discounted_price;
             } else {
                 $variation->price = $variation->real_price;
@@ -28,6 +28,5 @@ class Variation extends Model
             $product = (new ProductRepository())->find($model->_id[0]);
             dispatch(new ProductVariations($product));
         });
-
     }
 }

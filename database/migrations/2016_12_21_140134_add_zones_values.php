@@ -24,7 +24,6 @@ class AddZonesValues extends Migration
      */
     public function down()
     {
-
     }
 
     /**

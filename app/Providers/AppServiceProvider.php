@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        if($this->app->environment() != 'production') {
+        if ($this->app->environment() != 'production') {
             DB::connection('mongodb')->enableQueryLog();
         }
 

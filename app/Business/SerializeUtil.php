@@ -18,18 +18,18 @@ class SerializeUtil
      * @param bool   $strict Optional. Whether to be strict about the end of the string. Default true.
      * @return bool False if not serialized and true if it was.
      */
-    public static function is_serialized( $data) {
+    public static function is_serialized($data)
+    {
         // if it isn't a string, it isn't serialized.
-        if ( ! is_string( $data ) ) {
+        if (! is_string($data)) {
             return false;
         }
         //this piece of code is for checking boolean value. In case of boolean, unserialize return false - which causing wrong.
         //So, this trick is used to pass by that case.
-        if(strlen($data) ===4 && preg_match('/b:\d;/', $data)) {
+        if (strlen($data) ===4 && preg_match('/b:\d;/', $data)) {
             return true;
         }
-        if (@unserialize($data) === false)
-        {
+        if (@unserialize($data) === false) {
             return false;
         }
         return true;
@@ -39,14 +39,15 @@ class SerializeUtil
      * @param $object
      * @return string
      */
-    public static function serialize($object) {
-        if(is_array($object)) {
+    public static function serialize($object)
+    {
+        if (is_array($object)) {
             return self::serializeArray($object);
         }
-        if($object instanceof UTCDatetime) {
+        if ($object instanceof UTCDatetime) {
             return $object->toDateTime()->format('Y-m-d H:i:s');
         }
-        if($object instanceof ObjectID) {
+        if ($object instanceof ObjectID) {
             return serialize((string) $object);
         }
         return serialize($object);
@@ -56,22 +57,19 @@ class SerializeUtil
      * @param $array
      * @return string
      */
-    public static function serializeArray($array) {
+    public static function serializeArray($array)
+    {
         $dataToSerialize = [];
-        foreach($array as $key => $value) {
-            if(is_array($value)) {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
                 $dataToSerialize[$key] = self::serializeArray($value);
-            }
-            else if($value instanceof UTCDatetime) {
+            } else if ($value instanceof UTCDatetime) {
                 $dataToSerialize[$key] =  $value->toDateTime()->format('Y-m-d H:i:s');
-            }
-            else if($value instanceof ObjectID) {
+            } else if ($value instanceof ObjectID) {
                 $dataToSerialize[$key] = (string) $value;
-            }
-            else if($value instanceof BSONArray || $value instanceof BSONDocument) {
+            } else if ($value instanceof BSONArray || $value instanceof BSONDocument) {
                 $dataToSerialize[$key] = self::serializeArray($value->bsonSerialize());
-            }
-            else {
+            } else {
                 $dataToSerialize[$key] = $value;
             }
         }
@@ -84,14 +82,13 @@ class SerializeUtil
      */
     public static function unserialize($serialized)
     {
-        if(is_array($serialized)) {
+        if (is_array($serialized)) {
             return self::unserializeArray($serialized);
-        }
-        else if(is_string($serialized) && self::is_serialized($serialized)) {
+        } else if (is_string($serialized) && self::is_serialized($serialized)) {
             $unserializedData = unserialize($serialized);
-            if(is_array($unserializedData)) {
+            if (is_array($unserializedData)) {
                 return self::unserializeArray($unserializedData);
-            } else if(self::is_serialized($unserializedData)) {
+            } else if (self::is_serialized($unserializedData)) {
                 return self::unserialize($unserializedData);
             }
             return $unserializedData;
@@ -103,11 +100,12 @@ class SerializeUtil
      * @param array $arrayData
      * @return array
      */
-    public static function unserializeArray(array $arrayData) {
+    public static function unserializeArray(array $arrayData)
+    {
         $arrayAfterUnserializing = [];
-        foreach($arrayData as $key => $arrayElement) {
+        foreach ($arrayData as $key => $arrayElement) {
             $unserializedElement = self::unserialize($arrayElement);
-            if($key === '_id' && ctype_xdigit($unserializedElement) && strlen($unserializedElement) == 24) {
+            if ($key === '_id' && ctype_xdigit($unserializedElement) && strlen($unserializedElement) == 24) {
                 $arrayAfterUnserializing[$key] = new ObjectID($unserializedElement);
             } else {
                 $arrayAfterUnserializing[$key] = $unserializedElement;
