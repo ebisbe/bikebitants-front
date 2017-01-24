@@ -4,6 +4,7 @@ namespace App\Business\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Collection;
+
 /**
  * Class StaticVars
  * @package App\Business

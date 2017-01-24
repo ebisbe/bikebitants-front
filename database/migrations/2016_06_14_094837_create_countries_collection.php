@@ -17,7 +17,6 @@ class CreateCountriesCollection extends Migration
         });
 
         DB::collection('countries')->insert($this->data);
-
     }
 
     /**

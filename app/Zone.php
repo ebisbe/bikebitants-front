@@ -13,7 +13,8 @@ class Zone extends Model
     /**
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany|Collection
      */
-    public function shipping_methods() {
+    public function shipping_methods()
+    {
         return $this->embedsMany(ShippingMethod::class);
     }
 

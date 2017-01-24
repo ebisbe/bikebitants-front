@@ -17,7 +17,6 @@ class AddNameToPaymentMethod extends Migration
         DB::collection('payment_methods')->where('code', 'redsys')->update(['slug' => 'redsys']);
         DB::collection('payment_methods')->where('name', 'Pago contra reembolso')->update(['slug' => 'delayed-delivery']);
         DB::collection('payment_methods')->where('name', 'Pago via transferencia bancaria')->update(['slug' => 'bank-transfer']);
-
     }
 
     /**

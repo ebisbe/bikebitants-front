@@ -41,7 +41,7 @@ class CrudViewCommandCustom extends CrudViewCommand
             }
         }
 
-        for($cont = -1; $cont > (-1 * count($this->formFields)) + $this->defaultColumnsToShow; $cont --) {
+        for ($cont = -1; $cont > (-1 * count($this->formFields)) + $this->defaultColumnsToShow; $cont --) {
             $columnsToHide[] = $cont;
         }
 
@@ -55,9 +55,9 @@ class CrudViewCommandCustom extends CrudViewCommand
     public function templateShowVars($newShowFile)
     {
         $formFieldsHtml = '';
-        foreach($this->formFields as $item) {
+        foreach ($this->formFields as $item) {
             $label = "'".ucwords(strtolower(str_replace('_', ' ', $item['name'])))."'";
-            if($this->option('localize') == 'yes') {
+            if ($this->option('localize') == 'yes') {
                 $label = 'trans(\'' . $this->crudName . '.' . $item['name'] . '\')';
             }
             $str = "

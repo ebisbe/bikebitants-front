@@ -128,13 +128,11 @@ class ProductSearch
     private function applyDecoratorsFromRequest($query)
     {
         foreach ($this->getFilters() as $filterName => $value) {
-
             $decorator = $this->createFilterDecorator($filterName);
 
             if ($this->isValidDecorator($decorator)) {
                 array_push($query, $decorator::apply($value));
             }
-
         }
         $filters = array_merge($query, [
             ['status' => 2],

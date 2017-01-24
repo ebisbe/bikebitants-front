@@ -18,34 +18,34 @@ class GeoIpTaxScope implements Scope
     {
         return $builder
             ->orWhere(function ($query) {
-                $query->where('country',GeoIP::getCountryCode())
-                    ->where('state',GeoIP::getRegionCode())
-                    ->where('postcode',GeoIP::getPostalCode())
-                    ->where('city',GeoIP::getCity());
+                $query->where('country', GeoIP::getCountryCode())
+                    ->where('state', GeoIP::getRegionCode())
+                    ->where('postcode', GeoIP::getPostalCode())
+                    ->where('city', GeoIP::getCity());
             })
             ->orWhere(function ($query) {
-                $query->where('country',GeoIP::getCountryCode())
-                    ->where('state',GeoIP::getRegionCode())
-                    ->where('postcode',GeoIP::getPostalCode())
-                    ->where('city','');
+                $query->where('country', GeoIP::getCountryCode())
+                    ->where('state', GeoIP::getRegionCode())
+                    ->where('postcode', GeoIP::getPostalCode())
+                    ->where('city', '');
             })
             ->orWhere(function ($query) {
-                $query->where('country',GeoIP::getCountryCode())
-                    ->where('state',GeoIP::getRegionCode())
-                    ->where('postcode','')
-                    ->where('city','');
+                $query->where('country', GeoIP::getCountryCode())
+                    ->where('state', GeoIP::getRegionCode())
+                    ->where('postcode', '')
+                    ->where('city', '');
             })
             ->orWhere(function ($query) {
-                $query->where('country',GeoIP::getCountryCode())
-                    ->where('state','')
-                    ->where('postcode','')
-                    ->where('city','');
+                $query->where('country', GeoIP::getCountryCode())
+                    ->where('state', '')
+                    ->where('postcode', '')
+                    ->where('city', '');
             })
             ->orWhere(function ($query) {
-                $query->where('country','')
-                    ->where('state','')
-                    ->where('postcode','')
-                    ->where('city','');
+                $query->where('country', '')
+                    ->where('state', '')
+                    ->where('postcode', '')
+                    ->where('city', '');
             });
     }
 }

@@ -41,7 +41,8 @@ class LeadController extends AdminController
     *
     * @return array
     */
-    public function dataTable() {
+    public function dataTable()
+    {
         //$this->isAuthorized('lead.data-table');
         return ['data' => Lead::all()];
     }
@@ -149,5 +150,4 @@ class LeadController extends AdminController
 
         return redirect('lead');
     }
-
 }

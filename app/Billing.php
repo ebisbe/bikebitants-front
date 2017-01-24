@@ -17,7 +17,7 @@ class Billing extends Model
 
     public function states()
     {
-        return $this->country->states->first(function($state) {
+        return $this->country->states->first(function ($state) {
             return $state->_id == $this->state;
         });
     }

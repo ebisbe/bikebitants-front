@@ -28,9 +28,9 @@ class Category extends Model
     use SluggableTrait;
 
     // TODO Trigger update when category saved
-    protected $attributes = array(
+    protected $attributes = [
         'products_count' => 0
-    );
+    ];
 
     protected $fillable = ['name', 'slug', 'filename', 'products_count', 'meta_title', 'meta_description' , 'meta_slug', 'external_id'];
     /**
@@ -84,7 +84,8 @@ class Category extends Model
      * @param bool $delete
      * @return string
      */
-    public static function actionButtons($id, $edit = true, $delete = true) {
+    public static function actionButtons($id, $edit = true, $delete = true)
+    {
         $buttons = collect();
 
         $edit ? $buttons->push('<a href="'.route('category.edit', ['id' => $id]).'" class=""><i class="icon-pencil4"></i></a>') : null ;

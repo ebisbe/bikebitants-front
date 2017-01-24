@@ -60,7 +60,7 @@ Route::get('/preguntas-frequentes', 'StaticPagesController@faq')->name('faq');
 // End Static Pages
 
 Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
-    ->where(array('filename' => '[ \w\\.\\/\\-\\@]+', 'filter' => 'original|download|[0-9]+\/[0-9]+|[0-9]+'))
+    ->where(['filename' => '[ \w\\.\\/\\-\\@]+', 'filter' => 'original|download|[0-9]+\/[0-9]+|[0-9]+'])
     ->name('shop.image');
 /** END shop */
 

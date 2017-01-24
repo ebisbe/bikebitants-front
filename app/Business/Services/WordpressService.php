@@ -23,7 +23,6 @@ use StaticVars;
 use Storage;
 use Pixelpeter\Woocommerce\Facades\Woocommerce;
 
-
 class WordpressService
 {
     /** @var  Product $product */

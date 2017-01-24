@@ -2,7 +2,6 @@
 
 namespace App\Business\Status;
 
-
 use App\Order;
 
 class UndefinedOrder implements Status

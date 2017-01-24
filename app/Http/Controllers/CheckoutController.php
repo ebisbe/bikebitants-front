@@ -42,10 +42,10 @@ class CheckoutController extends Controller
     public function index()
     {
         $currentOrder = Order::currentOrder()->get();
-        if(!$currentOrder->isEmpty()) {
+        if (!$currentOrder->isEmpty()) {
             $order = $currentOrder->first();
             $this->orderService->setOrderAndUpdate($order);
-            if(!empty($order->payment_method)) {
+            if (!empty($order->payment_method)) {
                 $this->orderService->setPaymentType($order->payment_method->slug);
             }
         }
@@ -90,7 +90,7 @@ class CheckoutController extends Controller
         ]);
 
         $currentOrder = Order::currentOrder()->get();
-        if(!$currentOrder->isEmpty()) {
+        if (!$currentOrder->isEmpty()) {
             $this->orderService->setOrderAndUpdate($currentOrder->first());
         }
 
@@ -110,7 +110,7 @@ class CheckoutController extends Controller
     public function cancel()
     {
         $currentOrder = Order::currentOrder()->get();
-        if(!$currentOrder->isEmpty()) {
+        if (!$currentOrder->isEmpty()) {
             $this->orderService->setOrderAndUpdate($currentOrder->first());
         }
 

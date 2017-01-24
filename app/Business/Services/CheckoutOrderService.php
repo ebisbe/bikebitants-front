@@ -62,19 +62,19 @@ class CheckoutOrderService
     {
         $this->getOrder();
         switch ($this->order->status) {
-            case Order::New :
+            case Order::New:
                 return \App::make('NewOrder');
                 break;
-            case Order::Redirected :
+            case Order::Redirected:
                 return $this->confirmPayment();
                 break;
-            case Order::Confirmed :
+            case Order::Confirmed:
                 return new \App\Business\Status\ConfirmedOrder($this->order);
                 break;
-            case Order::Cancelled :
+            case Order::Cancelled:
                 return new CancelledOrder($this->order);
                 break;
-            case Order::Undefined :
+            case Order::Undefined:
             default:
                 return new UndefinedOrder($this->order);
                 break;
@@ -209,7 +209,6 @@ class CheckoutOrderService
     protected function updateOrder(Order $order): Order
     {
         if ($order->status == Order::New) {
-
             $order->subtotal = Cart::getSubTotal();
             $order->total = Cart::getTotal();
             $order->total_items = Cart::getTotalQuantity();

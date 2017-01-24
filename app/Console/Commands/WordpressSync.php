@@ -63,7 +63,7 @@ class WordpressSync extends Command
         $this->info('');
 
         $this->info('Sync products:');
-        $this->wordpressService->inspector(function($page) {
+        $this->wordpressService->inspector(function ($page) {
             $products = collect(Woocommerce::get('products', ['page' => $page]));
             $products->each(function ($product) {
                 $this->wordpressService->syncProduct($product);
@@ -77,6 +77,4 @@ class WordpressSync extends Command
             return $products->count();
         });
     }
-
-
 }

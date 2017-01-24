@@ -25,7 +25,7 @@ class Country extends Model
     {
         parent::boot();
         
-        static::addGlobalScope('active', function(Builder $builder) {
+        static::addGlobalScope('active', function (Builder $builder) {
             $builder->where('active', '=', 1);
         });
     }

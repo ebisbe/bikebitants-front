@@ -3,7 +3,8 @@ namespace App\Business\Search\Filters;
 
 use Jenssegers\Mongodb\Eloquent\Builder;
 
-class SubSlug implements Filter {
+class SubSlug implements Filter
+{
 
     /**
      * @param mixed $value

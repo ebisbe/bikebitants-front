@@ -26,7 +26,6 @@ class ShopProductTest extends TestCase
         $this->assertEquals('not-found.jpg', $front_image_hover->filename);
         $this->assertEquals('Image not found', $front_image->name);
         $this->assertEquals('Image not found', $front_image_hover->name);
-
     }
 
     /** @test */
@@ -135,7 +134,6 @@ class ShopProductTest extends TestCase
 
         $this->assertEquals('10.00&euro; - 20.00&euro;', $product->range_price);
         $this->assertEquals('10.00&euro; - 20.00&euro;', $product->range_real_price);
-
     }
 
     /** @test */

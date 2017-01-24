@@ -41,7 +41,8 @@ class CountryController extends AdminController
     *
     * @return array
     */
-    public function dataTable() {
+    public function dataTable()
+    {
         //$this->isAuthorized('country.data-table');
         return ['data' => Country::withoutGlobalScope('active')->get()];
     }
@@ -148,5 +149,4 @@ class CountryController extends AdminController
 
         return redirect('country');
     }*/
-
 }

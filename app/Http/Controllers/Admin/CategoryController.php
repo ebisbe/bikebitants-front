@@ -180,7 +180,7 @@ class CategoryController extends AdminController
         $restartOrder = 1;
         Category::when(!empty($target->father_id), function ($query) use ($target) {
                 return $query->where('father_id', $target->father_id);
-            })
+        })
             ->where('father_id', 'exists', !empty($target->father_id))
             ->orderBy('order')
             ->get()
@@ -206,5 +206,4 @@ class CategoryController extends AdminController
 
         return redirect('category');
     }
-
 }

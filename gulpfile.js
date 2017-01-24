@@ -13,7 +13,7 @@ require('laravel-elixir-vue-2');
  |
  */
 
-elixir(mix => {
+elixir((mix) => {
     mix
     //css
         .copy('resources/assets/css/bower/font-awesome/fonts', 'public/build/fonts')
