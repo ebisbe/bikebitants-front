@@ -11,7 +11,5 @@ class VerifyCsrfToken extends BaseVerifier
      *
      * @var array
      */
-    protected $except = [
-        'shop.callback'
-    ];
+    protected $except = [];
 }
