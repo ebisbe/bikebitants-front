@@ -53,7 +53,7 @@ class CheckoutController extends Controller
 
         $order = $this->orderService->checkoutOrder();
 
-        $this->request->session()->set('order', $this->orderService->getToken());
+        $this->request->session()->set('order', $this->orderService->token());
         return $order->index();
     }
 
