@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -20,6 +21,7 @@ class User extends Model implements
     AuthorizableContract,
     CanResetPasswordContract
 {
+    use Notifiable;
     use Authenticatable, Authorizable, CanResetPassword;
 
     /**
