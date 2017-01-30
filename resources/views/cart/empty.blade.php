@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="error-wrapper">
-                    <div class="error-number"><i class="fa {{ StaticVars::emptyCart()->random() }}"></i></div>
+                    <div class="error-number"><i class="fa {{ StaticVars::emptyCart()->random()->first() }}"></i></div>
                     <div class="error-text">
                         <h1>@lang('cart.empty_cart_h1')</h1>
                         <p>@lang('cart.empty_cart_message', ['route' => route('shop.catalogue')])</p>
