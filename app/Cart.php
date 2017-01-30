@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Business\Models\Shop\Product as ProductShop;
-use Jenssegers\Mongodb\Eloquent\Model;
+use Moloquent\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use \Request;
 

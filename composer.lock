@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "425718f4478738d3551ced8919e09c2a",
-    "content-hash": "ef19382cbc5cf1f04618bba52973b3b3",
+    "hash": "96b59363126887efe0780261488f0812",
+    "content-hash": "c0bd0aa7fde6d873eb288dc8ca177a16",
     "packages": [
         {
             "name": "automattic/woocommerce",
@@ -1717,67 +1717,6 @@
             "time": "2017-01-25 18:52:04"
         },
         {
-            "name": "jenssegers/mongodb",
-            "version": "v3.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jenssegers/laravel-mongodb.git",
-                "reference": "02ca494f0a6e6c2d0dcca9edd36ae5f377205ac3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/laravel-mongodb/zipball/02ca494f0a6e6c2d0dcca9edd36ae5f377205ac3",
-                "reference": "02ca494f0a6e6c2d0dcca9edd36ae5f377205ac3",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/container": "^5.1",
-                "illuminate/database": "^5.1",
-                "illuminate/events": "^5.1",
-                "illuminate/support": "^5.1",
-                "mongodb/mongodb": "^1.0.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9",
-                "orchestra/testbench": "^3.1",
-                "phpunit/phpunit": "^4.0|^5.0",
-                "satooshi/php-coveralls": "^0.6"
-            },
-            "suggest": {
-                "jenssegers/mongodb-sentry": "Add Sentry support to Laravel-MongoDB",
-                "jenssegers/mongodb-session": "Add MongoDB session support to Laravel-MongoDB"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Jenssegers\\Mongodb": "src/",
-                    "Jenssegers\\Eloquent": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jens Segers",
-                    "homepage": "https://jenssegers.com"
-                }
-            ],
-            "description": "A MongoDB based Eloquent model and Query builder for Laravel (Moloquent)",
-            "homepage": "https://github.com/jenssegers/laravel-mongodb",
-            "keywords": [
-                "database",
-                "eloquent",
-                "laravel",
-                "model",
-                "moloquent",
-                "mongo",
-                "mongodb"
-            ],
-            "time": "2016-11-04 18:10:36"
-        },
-        {
             "name": "laravel/framework",
             "version": "v5.4.6",
             "source": {
@@ -1962,16 +1901,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.33",
+            "version": "1.0.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "5c7f98498b12d47f9de90ec9186a90000125777c"
+                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/5c7f98498b12d47f9de90ec9186a90000125777c",
-                "reference": "5c7f98498b12d47f9de90ec9186a90000125777c",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
+                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
                 "shasum": ""
             },
             "require": {
@@ -2041,7 +1980,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-01-23 10:32:09"
+            "time": "2017-01-30 17:41:17"
         },
         {
             "name": "maxmind-db/reader",
@@ -2141,6 +2080,67 @@
             "description": "Internal MaxMind Web Service API",
             "homepage": "https://github.com/maxmind/mm-web-service-api-php",
             "time": "2016-08-18 16:36:52"
+        },
+        {
+            "name": "moloquent/moloquent",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moloquent/moloquent.git",
+                "reference": "5fc814f8983187af6f0244d5037590fa2de51945"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moloquent/moloquent/zipball/5fc814f8983187af6f0244d5037590fa2de51945",
+                "reference": "5fc814f8983187af6f0244d5037590fa2de51945",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "^5.1",
+                "illuminate/database": "^5.1",
+                "illuminate/events": "^5.1",
+                "illuminate/support": "^5.1",
+                "mongodb/mongodb": "^1.0.0"
+            },
+            "require-dev": {
+                "laravel/passport": "^1.0",
+                "mockery/mockery": "^0.9",
+                "orchestra/testbench": "^3.1",
+                "phpunit/phpunit": "^4.0|^5.0",
+                "satooshi/php-coveralls": "^0.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Moloquent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Segers",
+                    "homepage": "https://jenssegers.com"
+                },
+                {
+                    "name": "Moloquent",
+                    "homepage": "https://moloquent.github.io"
+                }
+            ],
+            "description": "A MongoDB based Eloquent model and Query builder for Laravel (Moloquent)",
+            "homepage": "https://github.com/moloquent/moloquent",
+            "keywords": [
+                "database",
+                "eloquent",
+                "laravel",
+                "model",
+                "moloquent",
+                "mongo",
+                "mongodb"
+            ],
+            "time": "2017-01-25 18:56:47"
         },
         {
             "name": "mongodb/mongodb",
@@ -4296,12 +4296,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ebisbe/laravel-meta-tags.git",
-                "reference": "59fa98416f00fb6fbf85903903519b3dbc1fc0af"
+                "reference": "d963087185c9d9a91d9af858dfe5f0b07d9c3d69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ebisbe/laravel-meta-tags/zipball/59fa98416f00fb6fbf85903903519b3dbc1fc0af",
-                "reference": "59fa98416f00fb6fbf85903903519b3dbc1fc0af",
+                "url": "https://api.github.com/repos/ebisbe/laravel-meta-tags/zipball/d963087185c9d9a91d9af858dfe5f0b07d9c3d69",
+                "reference": "d963087185c9d9a91d9af858dfe5f0b07d9c3d69",
                 "shasum": ""
             },
             "require": {
@@ -4342,7 +4342,7 @@
             "support": {
                 "source": "https://github.com/ebisbe/laravel-meta-tags/tree/master"
             },
-            "time": "2017-01-30 08:04:39"
+            "time": "2017-01-30 12:24:50"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -6506,7 +6506,8 @@
         "darryldecode/cart": 20,
         "rinvex/repository": 20,
         "thujohn/twitter": 20,
-        "ebisbe/fake-omnipay": 20
+        "ebisbe/fake-omnipay": 20,
+        "moloquent/moloquent": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

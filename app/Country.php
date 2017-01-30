@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
-use Jenssegers\Mongodb\Eloquent\Model;
+use Moloquent\Eloquent\Model;
 
 class Country extends Model
 {

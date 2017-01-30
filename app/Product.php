@@ -3,10 +3,10 @@
 namespace App;
 
 use App\Business\Traits\UpdateCategoriesTrait;
-use Jenssegers\Mongodb\Eloquent\Model;
+use Moloquent\Eloquent\Model;
 use App\Business\Traits\SluggableTrait;
 use Jenssegers\Mongodb\Eloquent\Builder;
-use Jenssegers\Mongodb\Eloquent\SoftDeletes;
+use Moloquent\Eloquent\SoftDeletes;
 
 /**
  * Class Product
