@@ -10,38 +10,37 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.6.4",
-        "laravel/framework": "5.4.x-dev",
+        "php": ">=7.0",
+        "laravel/framework": "5.4.*",
         "jenssegers/mongodb": "^3.0",
         "predis/predis": "^1.0",
-        "laravelcollective/html": "5.3.*",
+        "laravelcollective/html": "v5.4.1",
         "omnipay/paypal": "*",
         "nazka/sermepa-omnipay": "dev-master",
         "creitive/laravel5-breadcrumbs": "^2.0",
         "intervention/image": "^2.3",
         "spatie/laravel-cookie-consent": "^1.2",
-        "torann/laravel-meta-tags": "^3.0",
-        "ignited/laravel-omnipay": "^2.1",
+        "torann/laravel-meta-tags": "dev-master",
+        "ignited/laravel-omnipay": "dev-support_54",
         "awjudd/feed-reader": "1.3.*",
         "darryldecode/cart": "dev-master",
-        "appzcoder/crud-generator": "^1.1",
         "hoa/math": "1.16.08.29",
-        "rinvex/repository": "^2.0",
+        "rinvex/repository": "dev-develop",
         "pixelpeter/laravel5-woocommerce-api-client": "^2.0",
         "pulkitjalan/geoip": "2.*",
-        "martinlindhe/laravel-vue-i18n-generator": "^0.1.7",
-        "thujohn/twitter": "^2.2",
-        "sentry/sentry-laravel": "^0.5",
+        "thujohn/twitter": "dev-master",
+        "sentry/sentry-laravel": "^0.6",
         "graham-campbell/htmlmin": "^4.4",
-        "ebisbe/fake-omnipay": "dev-master",
-        "laravel/tinker": "~1.0"
+        "ebisbe/fake-omnipay": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.0",
+        "laravel/tinker": "~1.0",
         "barryvdh/laravel-debugbar": "^2.2",
-        "barryvdh/laravel-ide-helper": "^2.2"
+        "barryvdh/laravel-ide-helper": "^2.2.3",
+        "martinlindhe/laravel-vue-i18n-generator": "^0.1.10"
     },
     "autoload": {
         "classmap": [
@@ -86,6 +85,18 @@
         {
             "type": "vcs",
             "url": "https://github.com/ebisbe/laravelshoppingcart"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ebisbe/laravel-omnipay"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ebisbe/twitter"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ebisbe/laravel-meta-tags"
         }
     ]
 }

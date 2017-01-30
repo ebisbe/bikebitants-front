@@ -188,7 +188,6 @@ return [
         Awjudd\FeedReader\FeedReaderServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         App\Providers\CustomValidationsProvider::class,
-        Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         Rinvex\Repository\Providers\RepositoryServiceProvider::class,
         Pixelpeter\Woocommerce\WoocommerceServiceProvider::class,
         PulkitJalan\GeoIP\GeoIPServiceProvider::class,
