@@ -9,11 +9,8 @@ use App\Business\Repositories\BrandRepository;
 use App\Business\Repositories\CategoryRepository;
 use App\Business\Search\ProductSearch;
 use App\Business\Repositories\ProductRepository;
-use Illuminate\Http\Request;
 use MetaTag;
 use Breadcrumbs;
-use App\Http\Requests;
-use Illuminate\Routing\Route;
 use \FeedReader;
 
 class ShopController extends Controller
