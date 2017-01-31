@@ -27,7 +27,7 @@
 =========================== -->
 
 <div id="page-wrapper"> <!-- PAGE - START -->
-
+@include('googletagmanager::script')
     <!-- ==========================
         HEADER - START
     =========================== -->

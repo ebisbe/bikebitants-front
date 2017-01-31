@@ -33,7 +33,8 @@
         "thujohn/twitter": "^2.2",
         "sentry/sentry-laravel": "^0.5",
         "graham-campbell/htmlmin": "^4.4",
-        "ebisbe/fake-omnipay": "dev-master"
+        "ebisbe/fake-omnipay": "dev-master",
+        "spatie/laravel-googletagmanager": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

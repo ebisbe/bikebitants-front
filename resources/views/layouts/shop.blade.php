@@ -26,7 +26,7 @@
     @include('scripts.gtm')
 </head>
 <body>
-
+@include('googletagmanager::script')
 <!-- ==========================
     SCROLL TOP - START
 =========================== -->

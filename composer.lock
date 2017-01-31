@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a2850e99ca57df6fbd7fe7642a081228",
-    "content-hash": "7dccb80c9ca10f2f00e176c2a0171a8a",
+    "hash": "4800eace6cc0f839b6fc3bfba4be976e",
+    "content-hash": "5b85e65d4c14575a9cafd8733f8f2917",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
@@ -3769,6 +3769,56 @@
                 "spatie"
             ],
             "time": "2016-11-07 13:55:51"
+        },
+        {
+            "name": "spatie/laravel-googletagmanager",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-googletagmanager.git",
+                "reference": "fa238db653481f86324e09a8993364fb6452915e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-googletagmanager/zipball/fa238db653481f86324e09a8993364fb6452915e",
+                "reference": "fa238db653481f86324e09a8993364fb6452915e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\GoogleTagManager\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Google Tag Manager integration for Laravel",
+            "homepage": "https://github.com/spatie/laravel-googletagmanager",
+            "keywords": [
+                "Google Tag Manager",
+                "laravel",
+                "laravel-googletagmanager",
+                "spatie"
+            ],
+            "time": "2016-06-22 13:01:37"
         },
         {
             "name": "swiftmailer/swiftmailer",
