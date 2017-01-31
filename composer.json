@@ -31,7 +31,8 @@
         "sentry/sentry-laravel": "^0.6",
         "graham-campbell/htmlmin": "^4.4",
         "ebisbe/fake-omnipay": "dev-master",
-        "moloquent/moloquent": "dev-master"
+        "moloquent/moloquent": "dev-master",
+        "laravel/browser-kit-testing": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -56,7 +57,8 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php"
+            "tests/TestCase.php",
+            "tests/BrowserKitTest.php"
         ]
     },
     "scripts": {

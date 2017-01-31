@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class SimpleProductTest extends TestCase
+class SimpleProductTest extends BrowserKitTest
 {
     use ProductTrait, DatabaseMigrations;
 
