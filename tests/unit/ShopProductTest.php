@@ -144,4 +144,20 @@ class ShopProductTest extends TestCase
         $this->assertEquals('-', $product->range_price);
         $this->assertEquals('-', $product->range_real_price);
     }
+
+    /** @test */
+    public function product_without_meta_title()
+    {
+        $product = factory(Product::class)->create(['name' => 'Product 1', 'meta_title' => null]);
+
+        $this->assertEquals('Product 1 | Bikebitants', $product->title);
+    }
+
+    /** @test */
+    public function product_with_meta_title()
+    {
+        $product = factory(Product::class)->create(['name' => 'Product 1', 'meta_title' => 'Meta title']);
+
+        $this->assertEquals('Meta title | Bikebitants', $product->title);
+    }
 }
