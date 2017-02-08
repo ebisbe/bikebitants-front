@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-
-    <link rel="stylesheet" async href="{{ elixir('css/all.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/vendor.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     <title>{{ MetaTag::get('title') }}</title>
 
@@ -107,7 +107,7 @@
  JS
 =========================== -->
 @include('partials.js_vars')
-<script src="{{ elixir('js/app.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
 @stack('footer.scripts')
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
