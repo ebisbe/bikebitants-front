@@ -15,8 +15,8 @@ require('./bower/owl.carousel.js');
 require('bootstrap-hover-dropdown');
 
 //require('./jquery.card.js');
-require('./custom.js');
 require('./shop.js');
+require('./custom.js');
 
 require('lazysizes');
 
