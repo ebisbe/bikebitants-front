@@ -110,7 +110,7 @@ class ShopController extends Controller
         Breadcrumbs::addCrumb($product->category->name, route($routeName, $routeParams));
         Breadcrumbs::addCrumb($product->name);
 
-        MetaTag::set('title', $product->meta_title);
+        MetaTag::set('title', $product->title);
         MetaTag::set('description', $product->meta_description);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $product->front_image->filename]));
 
@@ -135,7 +135,7 @@ class ShopController extends Controller
         $brand = $this->brandRepository->findBy('slug', $slug);
         $products = $this->productRepository->where('brand_id', $brand->_id)->findAll();
 
-        MetaTag::set('title', $brand->meta_title);
+        MetaTag::set('title', $brand->title);
         MetaTag::set('description', $brand->meta_description);
         MetaTag::set('slug', $brand->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
@@ -176,7 +176,7 @@ class ShopController extends Controller
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['category' => $cat->slug]));
 
-        MetaTag::set('title', $cat->meta_title);
+        MetaTag::set('title', $cat->title);
         MetaTag::set('description', $cat->meta_description);
         MetaTag::set('slug', $cat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->filename]));
@@ -208,7 +208,7 @@ class ShopController extends Controller
         Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['slug' => $cat->slug]));
         Breadcrumbs::addCrumb($subCat->name);
 
-        MetaTag::set('title', $subCat->meta_title);
+        MetaTag::set('title', $subCat->title);
         MetaTag::set('description', $subCat->meta_description);
         MetaTag::set('slug', $subCat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $subCat->filename]));

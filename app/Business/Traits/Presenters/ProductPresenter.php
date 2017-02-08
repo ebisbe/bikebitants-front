@@ -46,10 +46,10 @@ trait ProductPresenter
         return $minTax . $this->currency;
     }
 
-   /* public function getStatusTextAttribute()
-    {
-        return trans('Product.' . $this->status);
-    }*/
+    /* public function getStatusTextAttribute()
+     {
+         return trans('Product.' . $this->status);
+     }*/
 
     /**
      * While we have just one currency we set a default value.
@@ -112,5 +112,12 @@ trait ProductPresenter
         }
 
         return $this->stock != 0 ? trans('catalogue.in_stock') . $add : trans('catalogue.out_of_stock');
+    }
+
+    public function getTitleAttribute()
+    {
+        $title = isset($this->meta_title) && !is_null($this->meta_title) ? $this->meta_title : $this->name;
+
+        return $title . ' | ' . config('app.name');
     }
 }

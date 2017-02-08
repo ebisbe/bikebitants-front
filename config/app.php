@@ -196,6 +196,7 @@ return [
         Thujohn\Twitter\TwitterServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        Spatie\GoogleTagManager\GoogleTagManagerServiceProvider::class,
     ],
 
     /*
@@ -263,6 +264,7 @@ return [
         'GeoIP' => PulkitJalan\GeoIP\Facades\GeoIP::class,
         'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        'GoogleTagManager' => Spatie\GoogleTagManager\GoogleTagManagerFacade::class,
     ],
 
 

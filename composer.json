@@ -12,6 +12,7 @@
     "require": {
         "php": ">=7.0",
         "laravel/framework": "5.4.*",
+        "laravel/browser-kit-testing": "^1.0",
         "predis/predis": "^1.0",
         "laravelcollective/html": "v5.4.1",
         "omnipay/paypal": "*",
@@ -32,7 +33,7 @@
         "graham-campbell/htmlmin": "^4.4",
         "ebisbe/fake-omnipay": "dev-master",
         "jenssegers/mongodb": "dev-master",
-        "laravel/browser-kit-testing": "^1.0"
+        "spatie/laravel-googletagmanager": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
