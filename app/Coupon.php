@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Moloquent\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use MongoDB\BSON\UTCDatetime;
 
 /**

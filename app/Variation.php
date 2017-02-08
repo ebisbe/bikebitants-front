@@ -4,7 +4,7 @@ namespace App;
 
 use App\Business\Repositories\ProductRepository;
 use App\Jobs\ProductVariations;
-use Moloquent\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 
 class Variation extends Model
 {

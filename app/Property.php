@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Moloquent\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 
 class Property extends Model
 {

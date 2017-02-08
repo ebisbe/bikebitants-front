@@ -27,11 +27,11 @@
         "rinvex/repository": "dev-develop",
         "pixelpeter/laravel5-woocommerce-api-client": "^2.0",
         "pulkitjalan/geoip": "2.*",
-        "thujohn/twitter": "dev-master",
+        "thujohn/twitter": "^2.2",
         "sentry/sentry-laravel": "^0.6",
         "graham-campbell/htmlmin": "^4.4",
         "ebisbe/fake-omnipay": "dev-master",
-        "moloquent/moloquent": "dev-master",
+        "jenssegers/mongodb": "dev-master",
         "laravel/browser-kit-testing": "^1.0"
     },
     "require-dev": {
@@ -94,11 +94,11 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/ebisbe/twitter"
+            "url": "https://github.com/ebisbe/laravel-meta-tags"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/ebisbe/laravel-meta-tags"
+            "url": "https://github.com/mean-cj/laravel-mongodb"
         }
     ]
 }
