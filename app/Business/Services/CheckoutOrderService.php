@@ -320,10 +320,10 @@ class CheckoutOrderService
     }
 
     /**
-     * @param string $coupon
+     * @param $coupon
      * @return bool
      */
-    public function setCoupon(string $coupon)
+    public function setCoupon($coupon)
     {
         if (empty($coupon)) {
             return false;
