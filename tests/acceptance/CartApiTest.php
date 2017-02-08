@@ -4,7 +4,7 @@ use App\Business\Traits\Tests\ProductTrait;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class CartApiTest extends TestCase
+class CartApiTest extends BrowserKitTest
 {
     use ProductTrait, DatabaseMigrations;
 

@@ -14,5 +14,5 @@ class ProductRepository extends EloquentRepository
 {
     protected $repositoryId = 'rinvex.repository.shop.product';
 
-    protected $model = 'App\Business\Models\Shop\Product';
+    protected $model = \App\Business\Models\Shop\Product::class;
 }

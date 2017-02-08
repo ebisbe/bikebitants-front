@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class CheckoutControllerTest extends TestCase
+class CheckoutControllerTest extends BrowserKitTest
 {
     use ProductTrait, DatabaseMigrations;
 
@@ -19,6 +19,7 @@ class CheckoutControllerTest extends TestCase
     /** @test */
     public function add_product_and_see_checkout()
     {
+        $this->disableExceptionHandling();
         $this->postAndCheckin();
 
         $this->see('Simple Product')
@@ -47,7 +48,6 @@ class CheckoutControllerTest extends TestCase
             ->see('Simple Product')
             ->see('10.00€')
             ->see('30.00€')
-            ->see('IVA<span>0')
             ->see('billing.first_name')
             ->see('billing.last_name')
             ->see('billing.email')
@@ -91,7 +91,6 @@ class CheckoutControllerTest extends TestCase
             ->see('Simple Product')
             ->see('10.00€')
             ->see('30.00€')
-            ->see('IVA<span>0')
             ->see('billing.first_name')
             ->see('billing.last_name')
             ->dontSee('billing.email')
@@ -138,7 +137,6 @@ class CheckoutControllerTest extends TestCase
             ->see('DISCOUNT10')
             ->see('9.00€')
             ->see('27.00€')
-            ->see('IVA<span>0')
             ->see('billing.first_name')
             ->see('billing.last_name')
             ->see('billing.email')

@@ -3,7 +3,7 @@
 use App\Business\Traits\Tests\ProductTrait;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class CartControllerTest extends TestCase
+class CartControllerTest extends BrowserKitTest
 {
 
     use ProductTrait, DatabaseMigrations;

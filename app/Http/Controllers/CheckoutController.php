@@ -53,7 +53,7 @@ class CheckoutController extends Controller
 
         $order = $this->orderService->checkoutOrder();
 
-        $this->request->session()->set('order', $this->orderService->getToken());
+        $this->request->session()->put('order', $this->orderService->getToken());
         return $order->index();
     }
 
@@ -86,7 +86,7 @@ class CheckoutController extends Controller
             'payment' => 'required',
             'checkout-terms-conditions' => 'required',
 
-            'coupon' => 'bail|present|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
+            'coupon' => 'bail|nullable|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
         ]);
 
         $currentOrder = Order::currentOrder()->get();
@@ -96,7 +96,7 @@ class CheckoutController extends Controller
 
         $this->orderService->setPaymentType($this->request->input('payment'));
         $this->orderService->setFormParams($this->request->all());
-        $this->orderService->setCoupon($this->request->input('coupon', ''));
+        $this->orderService->setCoupon($this->request->input('coupon'));
 
         /** Posible redirection inside pay() method. It depends on the gateway used. */
         $this->orderService->pay();

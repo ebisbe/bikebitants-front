@@ -157,6 +157,7 @@ return [
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
@@ -177,6 +178,7 @@ return [
          * Bikebitants services
          */
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        //Moloquent\MongodbServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
@@ -187,7 +189,6 @@ return [
         Awjudd\FeedReader\FeedReaderServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         App\Providers\CustomValidationsProvider::class,
-        Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         Rinvex\Repository\Providers\RepositoryServiceProvider::class,
         Pixelpeter\Woocommerce\WoocommerceServiceProvider::class,
         PulkitJalan\GeoIP\GeoIPServiceProvider::class,
@@ -215,6 +216,7 @@ return [
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
+        'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
