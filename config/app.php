@@ -192,7 +192,6 @@ return [
         Rinvex\Repository\Providers\RepositoryServiceProvider::class,
         Pixelpeter\Woocommerce\WoocommerceServiceProvider::class,
         PulkitJalan\GeoIP\GeoIPServiceProvider::class,
-        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Thujohn\Twitter\TwitterServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
