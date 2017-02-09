@@ -160,4 +160,20 @@ class ShopProductTest extends TestCase
 
         $this->assertEquals('Meta title | Bikebitants', $product->title);
     }
+
+    /** @test */
+    public function product_withou_meta_description()
+    {
+        $product = factory(Product::class)->create(['introduction' => 'Product 1', 'meta_description' => null]);
+
+        $this->assertEquals('Product 1', $product->meta_desc);
+    }
+
+    /** @test */
+    public function product_with_meta_description()
+    {
+        $product = factory(Product::class)->create(['name' => 'Product 1', 'meta_description' => 'Meta description']);
+
+        $this->assertEquals('Meta description', $product->meta_desc);
+    }
 }

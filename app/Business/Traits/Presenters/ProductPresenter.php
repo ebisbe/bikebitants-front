@@ -120,4 +120,11 @@ trait ProductPresenter
 
         return $title . ' | ' . config('app.name');
     }
+
+    public function getMetaDescAttribute()
+    {
+        return isset($this->meta_description) && !is_null($this->meta_description)
+            ? $this->meta_description
+            : $this->introduction;
+    }
 }
