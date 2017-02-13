@@ -31,8 +31,8 @@ trait ProductPresenter
      */
     private function getRangePriceLabel($price)
     {
-        $min = $this->variations->min($price);
-        $max = $this->variations->max($price);
+        $min = $this->variations->where('stock', '>', 0)->min($price);
+        $max = $this->variations->where('stock', '>', 0)->max($price);
 
         if (is_null($min) || is_null($max)) {
             return '-';

@@ -127,6 +127,16 @@ class ShopProductTest extends TestCase
     }
 
     /** @test */
+    public function product_prices_with_one_variation_withou_stock()
+    {
+        $this->createTax();
+        $product = $this->createSimpleProduct(0);
+
+        $this->assertEquals('-', $product->range_price);
+        $this->assertEquals('-', $product->range_real_price);
+    }
+
+    /** @test */
     public function product_prices_with_three_variation()
     {
         $this->createTax();
@@ -134,6 +144,16 @@ class ShopProductTest extends TestCase
 
         $this->assertEquals('10.00&euro; - 20.00&euro;', $product->range_price);
         $this->assertEquals('10.00&euro; - 20.00&euro;', $product->range_real_price);
+    }
+
+    /** @test */
+    public function product_prices_with_three_variations_and_without_stock()
+    {
+        $this->createTax();
+        $product = $this->createProductWithThreeVariations(0,10,10);
+
+        $this->assertEquals('15.00&euro; - 20.00&euro;', $product->range_price);
+        $this->assertEquals('15.00&euro; - 20.00&euro;', $product->range_real_price);
     }
 
     /** @test */
