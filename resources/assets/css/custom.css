@@ -95,8 +95,7 @@ h6 {
 }
 
 .page-boxed {
-    background-color: #DDDDDD;
-    background-image: none;
+    background: #DDDDDD none;
 }
 
 @media (min-width: 768px) {
@@ -303,11 +302,9 @@ span.required {
 
 select.form-control {
     color: #CCCCCC;
-    background-image: url(../images/angle-down.png);
-    background-repeat: no-repeat;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-position: right center;
+    background: url(../images/angle-down.png) no-repeat right center;
     background-size: contain;
     padding-right: 25px;
 }
@@ -919,7 +916,6 @@ textarea {
 /* OWL - NAV */
 
 .owl-theme .owl-controls .owl-nav div {
-    margin: 0;
     width: 40px;
     height: 40px;
     padding: 4px 0 0;
@@ -930,7 +926,7 @@ textarea {
     color: #FFFFFF;
     position: absolute;
     top: 50%;
-    margin-top: -20px;
+    margin: -20px 0 0;
 }
 
 .owl-theme .owl-controls .owl-nav div.owl-prev {
@@ -2045,10 +2041,9 @@ article.product-item,
 }
 
 .widget-price .widget-body .ui-widget-content {
-    background: none;
+    background: none #E0E0E0;
     border: 0;
     border-radius: 10px;
-    background-color: #E0E0E0;
     height: 18px;
     clear: both;
 }
@@ -2060,9 +2055,8 @@ article.product-item,
 
 .widget-price .widget-body .ui-slider .ui-slider-handle {
     border-radius: 50%;
-    background: none;
+    background: none  #FFFFFF;
     border: 2px solid #E87169;
-    background-color: #FFFFFF;
     top: 0;
     width: 18px;
     height: 18px;
@@ -4141,10 +4135,8 @@ footer.navbar a:hover {
 /* SECTION - OUR STORES */
 
 .our-stores {
-    background-image: url(/images/map.jpg);
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 0 -100px;
+    background: url(/images/map.jpg) no-repeat 0 -100px;
     padding: 60px 0;
     position: relative;
 }
@@ -4315,7 +4307,7 @@ footer.navbar a:hover {
 }
 
 .post > img {
-    height:155px;
+    height: 155px;
     margin: 0 auto 20px;
 }
 
@@ -5547,15 +5539,13 @@ footer.navbar a:hover {
     }
 
     .pagination > li > a,
-    .pagination > li > span
-
-2 {
-    margin: 0 3px 3px;
-    width: 34px;
-    height: 34px;
-    font-size: 14px;
-    padding-top: 5px;
-}
+    .pagination > li > span {
+        margin: 0 3px 3px;
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+        padding-top: 5px;
+    }
 
     #homepage-2-carousel .slide-1 h1 {
         margin: 80px 0 0;

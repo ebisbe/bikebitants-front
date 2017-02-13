@@ -39,9 +39,11 @@
 
                 this.prePost();
                 this.$http.post('/api/cart/', product)
-                        .then(function (response) {
+                        .then(response => {
                             this.postPost();
                             Bus.$emit('addProduct', response.data);
+                        }, response => {
+                            this.postPost();
                         });
             },
 
