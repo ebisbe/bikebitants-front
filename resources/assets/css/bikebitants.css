@@ -18,7 +18,7 @@
 .lazyloading, .lazyload {
     opacity: 1;
     transition: opacity 300ms;
-    background: #f7f7f7 url(/build/images/rings.svg) no-repeat center;
+    background: #f7f7f7 url(/images/rings.svg) no-repeat center;
     height: 200px;
 }
 

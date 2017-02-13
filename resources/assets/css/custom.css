@@ -304,7 +304,7 @@ select.form-control {
     color: #CCCCCC;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: url(../images/angle-down.png) no-repeat right center;
+    background: url(/images/angle-down.png) no-repeat right center;
     background-size: contain;
     padding-right: 25px;
 }
