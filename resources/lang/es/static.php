@@ -1,4 +1,4 @@
 <?php
 return [
-    'faq' => 'Preguntas frequentes'
+    'faq' => 'Preguntas frecuentes'
 ];
