@@ -1,4 +1,31 @@
-/*------------------------------
+.no-padding {
+    padding: 0px;
+}
+.no-margin {
+    margin: 0px;
+}
+
+.widget-price .widget-body .price-slider .fake-input {
+    background-color: transparent;
+    border: 0;
+    width: 50%;
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #999999;
+    display: inline-block;
+}
+
+.lazyloading, .lazyload {
+    opacity: 1;
+    transition: opacity 300ms;
+    background: #f7f7f7 url(/images/rings.svg) no-repeat center;
+    height: 200px;
+}
+
+.blocked{
+    display: block;
+    height: 50px;
+}/*------------------------------
  * Copyright 2016 Pixelized
  * http://www.pixelized.cz
  *
@@ -358,7 +385,7 @@ textarea {
 .radio > input[type=radio]:checked + label:before {
     color: rgba(0, 0, 0, 0.2);
     border-color: rgba(0, 0, 0, 0.1);
-    content: "\f00d";
+    content: "\F00D";
     padding-top: 1px;
     text-align: center;
     font-size: 13px;
@@ -436,7 +463,7 @@ textarea {
 }
 
 .panel .panel-heading h4.panel-title a:before {
-    content: "\f056";
+    content: "\F056";
     margin-top: -9px;
     position: absolute;
     left: -25px;
@@ -444,7 +471,7 @@ textarea {
 }
 
 .panel .panel-heading h4.panel-title a.collapsed:before {
-    content: "\f055";
+    content: "\F055";
 }
 
 .panel-group .panel .panel-collapse > .panel-body {
@@ -1161,7 +1188,7 @@ header.navbar .navbar-nav > li > a span.label {
 }
 
 header.navbar .navbar-nav > li > a.dropdown-toggle:after {
-    content: "\f0d7";
+    content: "\F0D7";
     font-size: 14px;
     color: #CCCCCC;
     margin-left: 6px;
@@ -1201,7 +1228,7 @@ header.navbar .dropdown-menu {
 }
 
 header.navbar .dropdown-menu > li > a:before {
-    content: "\f0da";
+    content: "\F0DA";
     color: #CCCCCC;
     margin-right: 8px;
     font-size: 14px;
@@ -1934,12 +1961,12 @@ article.product-item,
 }
 
 .sidebar .widget h3 a:after {
-    content: "\f0d7";
+    content: "\F0D7";
     float: right;
 }
 
 .sidebar .widget h3 a.collapsed:after {
-    content: "\f0da";
+    content: "\F0DA";
 }
 
 .widget .widget-body {
@@ -2231,7 +2258,7 @@ article.product-item,
 }
 
 .widget-recent-comments ul li:before {
-    content: "\f075";
+    content: "\F075";
     position: absolute;
     color: #DDDDDD;
     left: 0;
@@ -2880,7 +2907,7 @@ footer.navbar a:hover {
 }
 
 .sidebar .nav-pills > li > a:after {
-    content: "\f0da";
+    content: "\F0DA";
     float: right;
     margin-top: 3px;
 }
@@ -5898,3 +5925,168 @@ footer.navbar a:hover {
         content: "" !important;
     }
 }
+/*------------------------------
+ * Copyright 2016 Pixelized
+ * http://www.pixelized.cz
+ *
+ * umarket theme v1.1
+------------------------------*/
+
+/*------------------------------
+	GREEN Bikebitants
+------------------------------*/
+
+.color,
+a,
+.btn-default.active, 
+.btn-default:active,
+.btn-default.active:hover,
+.btn-default.active:focus,
+.btn-default:active:hover,
+.btn-default:active:focus,
+.btn-transparent,
+.btn-transparent.active,
+.btn-transparent:active,
+.btn-transparent.active:hover,
+.btn-transparent.active:focus,
+.btn-transparent:active:hover,
+.btn-transparent:active:focus,
+.form-control:focus,
+.breadcrumb > li > a:hover,
+.breadcrumb > li > a:focus,
+.pagination > li.active > a,
+.pagination > li.active > span,
+.pagination > li.active > a:hover,
+.pagination > li.active > a:focus,
+.top-header .contacts li i,
+.vertical-menu-bottom .contacts li i,
+.top-header .links a:hover,
+header.navbar .navbar-brand,
+header.navbar .navbar-brand:hover span,
+header.navbar .navbar-nav > li > a:hover,
+header.navbar .navbar-nav > li > a:focus,
+header.navbar .navbar-nav > li.dropdown.open > a,
+header.navbar .dropdown-menu > li > a:hover,
+header.navbar .dropdown-menu > li > a:focus,
+header.navbar .dropdown-menu > li > a:hover:before,
+header.navbar .megamenu .dropdown-menu li ul li a:hover,
+header.navbar .megamenu .dropdown-menu li ul li a:focus,
+header.navbar li.navbar-cart .dropdown-menu a.remove:hover,
+.tabs.vertical-tabs .nav-tabs > li.active > a, 
+.tabs.vertical-tabs .nav-tabs > li.active > a:focus, 
+.tabs.vertical-tabs .nav-tabs > li.active > a:hover,
+.widget-categories .widget-body > ul > li > a,
+.widget-categories .widget-body > ul > li > ul > li.active > a,
+.widget-post-categories ul li a:hover,
+article.product-item .price ins,
+.small-product li .price ins,
+article.product-item.product-single .product-info li,
+article.product-item.product-single .product-links a i,
+.account-content h3 span,
+.account-content .products-order.shipping-method .shipping-method-description p,
+.error-wrapper .error-text h1,
+.jumbotron a.btn-default:hover,
+.grid-products .product-item h3 a:hover,
+.services .service:hover h3,
+.recent-blog-posts .post h3 a:hover,
+.recent-blog-posts .post span.date,
+.our-stores .store h3,
+.small-product li h3:hover,
+.blog article.post h3 a:hover,
+.blog article.post .post-left .author span.name,
+.blog article.post .meta .date,
+.blog article.post .meta .category,
+.eshop ul li i,
+.text-primary,
+.downloads .table i {
+	color:#00cc00;
+}
+
+.btn-primary,
+.checkbox > input[type=checkbox]:checked + label:before,
+.radio > input[type=radio]:checked + label:before,
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.panel-primary > .panel-heading,
+.tags span.label:hover,
+.tabs .nav-tabs > li.active > a, 
+.tabs .nav-tabs > li.active > a:focus, 
+.tabs .nav-tabs > li.active > a:hover,
+.modal .modal-header .close:hover,
+.owl-theme.nav-inside .owl-controls .owl-nav div:hover,
+.owl-theme .owl-controls .owl-dot.active,
+#scrolltop:hover,
+.separator-newsletter .newsletter-badge,
+.icon-nav a:hover,
+.sidebar .widget h3,
+.widget-price .widget-body .ui-slider .ui-slider-range,
+.widget-post-categories ul li a .badge,
+.tabs.product-tabs .nav-tabs > li,
+.sidebar .nav-pills > li.active > a,
+.account-content .checkout-step.active .number,
+.account-content .checkout-progress .progress-bar,
+.brands .item a:before {
+	background-color:#00cc00;
+}
+
+.btn-default.active, 
+.btn-default:active,
+.btn-default.active:hover,
+.btn-default.active:focus,
+.btn-default:active:hover,
+.btn-default:active:focus,
+.btn-transparent,
+.btn-transparent.active,
+.btn-transparent:active,
+.btn-transparent.active:hover,
+.btn-transparent.active:focus,
+.btn-transparent:active:hover,
+.btn-transparent:active:focus,
+.form-control:focus,
+.tabs .nav-tabs,
+.pagination > li.active > a,
+.pagination > li.active > span,
+.pagination > li.active > a:hover,
+.pagination > li.active > a:focus,
+.top-header .contacts li i,
+.vertical-menu-bottom .contacts li i,
+.widget-price .widget-body .ui-slider .ui-slider-handle,
+.account-content .checkout-step.active:after,
+.jumbotron a.btn-default:hover,
+.recent-blog-posts .post span.date,
+.blog article.post .meta .date,
+.blog article.post .meta .category,
+.store .store-body ul li i {
+	border-color:#00cc00;
+}
+
+.tabs.vertical-tabs .nav-tabs > li.active > a, 
+.tabs.vertical-tabs .nav-tabs > li.active > a:focus, 
+.tabs.vertical-tabs .nav-tabs > li.active > a:hover {
+	border-left-color:#00cc00;
+}
+
+.tabs.product-tabs .nav-tabs > li.active > a, 
+.tabs.product-tabs .nav-tabs > li.active > a:focus, 
+.tabs.product-tabs .nav-tabs > li.active > a:hover {
+	border-top-color:#00cc00;
+}
+
+.jumbotron .color-background {
+	background-color:rgba(0,204,0,0.65);
+}
+
+#map-tooltip,
+.store .store-opening-hours {
+	background-color:rgba(0,204,0,0.8);
+}
+
+@media (max-width:767px) {
+	header.navbar .navbar-toggle {
+		color:#00cc00;
+	}
+	
+	header.navbar .navbar-collapse {
+		border-bottom-color:#00cc00;
+	}
+}/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiL1VzZXJzL2VucmljdS9EZXZlbG9wbWVudC9iaWtlYml0YW50cy9iaWtlYml0YW50cy9yZXNvdXJjZXMvYXNzZXRzL2Nzcy9hcHAuc2NzcyIsInNvdXJjZXMiOlsiL1VzZXJzL2VucmljdS9EZXZlbG9wbWVudC9iaWtlYml0YW50cy9iaWtlYml0YW50cy9yZXNvdXJjZXMvYXNzZXRzL2Nzcy9hcHAuc2NzcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBCaWtlYml0YW50c1xuQGltcG9ydCBcImJpa2ViaXRhbnRzLmNzc1wiO1xuQGltcG9ydCBcImN1c3RvbS5jc3NcIjtcbkBpbXBvcnQgXCJjb2xvci9iaWtlYml0YW50c19ncmVlbi5jc3NcIjtcbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQSxPQUFPLENBQVAsb0JBQU87QUFDUCxPQUFPLENBQVAsZUFBTztBQUNQLE9BQU8sQ0FBUCxnQ0FBTyJ9 */

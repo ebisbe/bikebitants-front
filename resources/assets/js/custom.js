@@ -174,10 +174,10 @@ $(document).ready(function () {
 
     $("#homepage-2-carousel").owlCarousel({
         items: 1,
-        loop: true,
+        loop: false,
         lazyLoad: true,
-        autoplay: true,
-        nav: true,
+        autoplay: false,
+        nav: false,
         navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
         animateOut: 'fadeOut',
         animateIn: 'fadeIn'

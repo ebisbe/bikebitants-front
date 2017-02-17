@@ -11,79 +11,57 @@
             <div class="slide-mask"></div>
             <div class="slide-body">
                 <div class="container">
-                    <h1>Welcome to <span class="color">uMarket</span></h1>
-                    <h2>Beautiful E-Commerce Website Theme with 30+ HTML Pages</h2>
-                    <a href="https://wrapbootstrap.com/theme/umarket-modern-responsive-ecommerce-WB054TF88?ref=themejumbo"
-                       class="btn btn-default btn-lg">Show More</a>
-                    <a href="https://wrapbootstrap.com/theme/umarket-modern-responsive-ecommerce-WB054TF88?ref=themejumbo"
-                       class="btn btn-inverse btn-lg">Purchase Now</a>
+                    <h1>Tu bici, <span class="color">tu ciudad</span></h1>
+                    <h2>Accesorios innovadores para ciclistas urbanos</h2>
+                    <a href="{{ route('shop.catalogue') }}"
+                       class="btn btn-default btn-lg">Visita nuestra tienda</a>
+
+                    <div class="content services services-3x">
+                        <div class="row row-no-padding">
+
+                            <!-- SERVICE - START -->
+                            <div class="col-xs-4 col-sm-4">
+                                <div class="service">
+                                    <i class="@lang('home.first_box_i')"></i>
+                                    <h3>@lang('home.first_box_h3')</h3>
+                                    <p>@lang('home.first_box_p')</p>
+                                </div>
+                            </div>
+                            <!-- SERVICE - END -->
+
+                            <!-- SERVICE - START -->
+                            <div class="col-xs-4 col-sm-4">
+                                <div class="service">
+                                    <i class="@lang('home.second_box_i')"></i>
+                                    <h3>@lang('home.second_box_h3')</h3>
+                                    <p>@lang('home.second_box_p')</p>
+                                </div>
+                            </div>
+                            <!-- SERVICE - END -->
+
+                            <!-- SERVICE - START -->
+                            <div class="col-xs-4 col-sm-4">
+                                <div class="service">
+                                    <i class="@lang('home.third_box_i')"></i>
+                                    <h3>@lang('home.third_box_h3')</h3>
+                                    <p>@lang('home.third_box_p')</p>
+                                </div>
+                            </div>
+                            <!-- SERVICE - END -->
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
         </div>
-        <div class="item slide-2">
-            <div class="slide-mask"></div>
-            <div class="slide-body">
-                <div class="container">
-                    <h1 class="grey-background">Awesome Theme Features</h1>
-                    <div><h2 class="color-background">Version 1.1</h2></div>
-                    <ul class="list-unstyled">
-                        <li><i class="fa fa-check"></i>Free Shipping On All Orders</li>
-                        <li><i class="fa fa-check"></i>Amazing Customer Service</li>
-                        <li><i class="fa fa-check"></i>No Customs Or Duty Fees!</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
 
     </div>
 </section>
 <!-- ==========================
     JUMBOTRON - END
-=========================== -->
-
-<!-- ==========================
-    SERVICES - START
-=========================== -->
-<section class="content services services-3x border-top border-bottom">
-    <div class="container">
-        <div class="row row-no-padding">
-
-            <!-- SERVICE - START -->
-            <div class="col-xs-4 col-sm-4">
-                <div class="service">
-                    <i class="@lang('home.first_box_i')"></i>
-                    <h3>@lang('home.first_box_h3')</h3>
-                    <p>@lang('home.first_box_p')</p>
-                </div>
-            </div>
-            <!-- SERVICE - END -->
-
-            <!-- SERVICE - START -->
-            <div class="col-xs-4 col-sm-4">
-                <div class="service">
-                    <i class="@lang('home.second_box_i')"></i>
-                    <h3>@lang('home.second_box_h3')</h3>
-                    <p>@lang('home.second_box_p')</p>
-                </div>
-            </div>
-            <!-- SERVICE - END -->
-
-            <!-- SERVICE - START -->
-            <div class="col-xs-4 col-sm-4">
-                <div class="service">
-                    <i class="@lang('home.third_box_i')"></i>
-                    <h3>@lang('home.third_box_h3')</h3>
-                    <p>@lang('home.third_box_p')</p>
-                </div>
-            </div>
-            <!-- SERVICE - END -->
-
-        </div>
-
-    </div>
-</section>
-<!-- ==========================
-    SERVICES - END
 =========================== -->
 
 <!-- ==========================
