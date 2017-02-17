@@ -4,7 +4,7 @@
         <!-- ==========================
        JUMBOTRON - START
    =========================== -->
-<section class="content jumbotron ">
+<section class="content jumbotron jumbotron-full-height">
     <div id="homepage-2-carousel" class="nav-inside">
 
         <div class="item slide-1">
@@ -16,7 +16,7 @@
                     <a href="{{ route('shop.catalogue') }}"
                        class="btn btn-default btn-lg">Visita nuestra tienda</a>
 
-                    <div class="content services services-3x">
+                    <div class="content services services-3x hidden-xs">
                         <div class="row row-no-padding">
 
                             <!-- SERVICE - START -->

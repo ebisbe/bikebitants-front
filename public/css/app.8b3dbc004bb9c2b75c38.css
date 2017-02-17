@@ -4693,8 +4693,8 @@ footer.navbar a:hover {
     }
 
     #homepage-2-carousel .slide-1 h2 {
-        font-size: 60px;
-        line-height: 80px;
+        font-size: 16px;
+        line-height: 17px;
     }
 
     #homepage-2-carousel .slide-2 h1 {
@@ -4741,7 +4741,7 @@ footer.navbar a:hover {
     }
 
     body.page-boxed #homepage-1-carousel .item {
-        height: 496px;
+        height: 800px;
     }
 
     .jumbotron .owl-theme .owl-controls .owl-nav div {
@@ -4972,13 +4972,13 @@ footer.navbar a:hover {
     }
 
     #homepage-2-carousel .slide-1 h1 {
-        margin-top: 100px;
+        margin-top: 200px;
     }
 
     #homepage-2-carousel .slide-1 h2 {
-        font-size: 50px;
-        line-height: 70px;
-        margin: 30px 0;
+        font-size: 16px;
+        line-height: 17px;
+        margin: 15px 0;
     }
 
     #homepage-2-carousel .slide-2 h1 {
@@ -5046,7 +5046,7 @@ footer.navbar a:hover {
     }
 
     .jumbotron h1 {
-        font-size: 50px;
+        font-size: 16px;
     }
 
     .jumbotron p {
@@ -5077,14 +5077,14 @@ footer.navbar a:hover {
     }
 
     #homepage-2-carousel .slide-1 h1 {
-        font-size: 24px;
+        font-size: 16px;
         margin: 70px 0 0;
     }
 
     #homepage-2-carousel .slide-1 h2 {
-        font-size: 34px;
-        line-height: 44px;
-        margin: 25px 0;
+        font-size: 16px;
+        line-height: 17px;
+        margin: 15px 0;
     }
 
     #homepage-2-carousel .slide-1 .btn {
@@ -5584,9 +5584,9 @@ footer.navbar a:hover {
     }
 
     #homepage-2-carousel .slide-1 h2 {
-        font-size: 28px;
-        line-height: 40px;
-        margin: 20px 0;
+        font-size: 16px;
+        line-height: 17px;
+        margin: 15px 0;
     }
 
     #homepage-3-carousel .slide-1 h1 {
@@ -5731,6 +5731,10 @@ footer.navbar a:hover {
         font-size: 24px;
     }
 
+    .jumbotron .owl-carousel .item {
+        height: 250px;
+    }
+
     #homepage-2-carousel .slide-1 h1 {
         font-size: 20px;
         margin-top: 70px;
@@ -5873,6 +5877,11 @@ footer.navbar a:hover {
 
     .categories .category .category-title span {
         font-size: 18px;
+    }
+
+
+    .jumbotron .owl-carousel .item {
+        height: 250px;
     }
 
     .icon-nav a {
