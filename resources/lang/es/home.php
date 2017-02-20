@@ -12,6 +12,6 @@ return [
     'third_box_h3' => 'Devolución Fácil',
     'third_box_p' => 'Aceptamos tu devoluci&oacute;n<br/> hasta 30 dias despues de la compra',
 
-    'blog_h2' => 'Lo último de nuestro blog',
+    'blog_h2' => 'Blog Bikebitants',
     'blog_p' => 'Lee sobre como la tecnología y la innovación pueden ayudar al ciclista urbano... y más!'
 ];
