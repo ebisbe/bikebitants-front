@@ -6,7 +6,7 @@
         <span class="label label-info">Oferta Bikebitants</span>
     @endif
     @if($product->stock == 0)
-        <span class="label label-danger">Out of stock</span>
+        <span class="label label-danger">@lang('layout.out_of_stock')</span>
     @endif
     @foreach($product->labels as $label)
         <span class="label label-{{ $label->css }}">{{ $label->name }}</span>

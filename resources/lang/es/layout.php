@@ -15,5 +15,6 @@ return [
     'delivery' => 'Entrega y plazos',
     'recent_tweets' => 'Ultimos tweets',
     'go_back' => 'Volver a',
-    'see' => 'Ver'
+    'see' => 'Ver',
+    'out_of_stock' => 'Sin stock'
 ];
