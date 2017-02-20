@@ -1,6 +1,6 @@
 <div class="product-labels">
     @if($product->is_featured)
-        <span class="label label-info"><span class="fa fa-star"></span> </span>
+        <span class="label label-success"><span class="fa fa-star"></span> </span>
     @endif
     @if($product->is_discounted)
         <span class="label label-info">Oferta Bikebitants</span>
