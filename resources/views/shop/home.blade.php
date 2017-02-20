@@ -223,7 +223,7 @@
     <section class="content recent-blog-posts">
         <div class="container">
             <div class="section-title">
-                <h2>@lang('home.blog_h2')</h2>
+                <h2><a href="{{ config('app.app_blog_url') }}" target="_blank">@lang('home.blog_h2')</a></h2>
                 <p>@lang('home.blog_p')</p>
             </div>
             <div class="row">
