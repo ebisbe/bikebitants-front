@@ -31,7 +31,7 @@ trait ProductPresenter
      */
     private function getRangePriceLabel($price)
     {
-        $min = $this->variations->where('stock', '>', 0)->min($price);
+        $min = $this->lowerPrice($price);
         $max = $this->variations->where('stock', '>', 0)->max($price);
 
         if (is_null($min) || is_null($max)) {
@@ -41,9 +41,19 @@ trait ProductPresenter
         $minTax = TaxService::applyTax($min);
         $maxTax = TaxService::applyTax($max);
         if ($min != $max) {
-            return $minTax . $this->currency . ' - ' . $maxTax . $this->currency;
+            return $minTax . $this->html_currency . ' - ' . $maxTax . $this->html_currency;
         }
-        return $minTax . $this->currency;
+        return $minTax . $this->html_currency;
+    }
+
+    private function lowerPrice($price)
+    {
+        return $this->variations->where('stock', '>', 0)->min($price);
+    }
+    
+    public function getLowerPriceAttribute()
+    {
+        return TaxService::applyTax($this->lowerPrice('price'));
     }
 
     /* public function getStatusTextAttribute()
@@ -55,9 +65,17 @@ trait ProductPresenter
      * While we have just one currency we set a default value.
      * @return string
      */
-    public function getCurrencyAttribute()
+    public function getHtmlCurrencyAttribute()
     {
         return '&euro;';
+    }
+    /**
+     * While we have just one currency we set a default value.
+     * @return string
+     */
+    public function getCurrencyAttribute()
+    {
+        return 'EUR';
     }
 
     /**

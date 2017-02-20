@@ -14,7 +14,7 @@ trait ProductTrait
     /**
      * @return Product
      */
-    public function createSimpleProduct( $stock = 10)
+    public function createSimpleProduct($stock = 10)
     {
         $product = factory(Product::class)->states('featured')->create([
             '_id' => 'simple-product',
@@ -43,8 +43,11 @@ trait ProductTrait
     /**
      * @return Product
      */
-    public function createProductWithThreeVariations($variation1Stock = 10, $variation2Stock = 10, $variation3Stock = 10)
-    {
+    public function createProductWithThreeVariations(
+        $variation1Stock = 10,
+        $variation2Stock = 10,
+        $variation3Stock = 10
+    ) {
         /** @var Product $product */
         $product = factory(Product::class)->create([
             '_id' => 'variation-product',
@@ -53,21 +56,21 @@ trait ProductTrait
         ]);
         $variation1 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'RED'],
-            'sku' => $product->_id.'-RED',
+            'sku' => $product->_id . '-RED',
             'real_price' => 10,
             'is_discounted' => false,
             'stock' => $variation1Stock
         ]);
         $variation2 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'GREEN'],
-            'sku' => $product->_id.'-GREEN',
+            'sku' => $product->_id . '-GREEN',
             'real_price' => 15,
             'is_discounted' => false,
             'stock' => $variation2Stock
         ]);
         $variation3 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'BLUE'],
-            'sku' => $product->_id.'-BLUE',
+            'sku' => $product->_id . '-BLUE',
             'real_price' => 20,
             'is_discounted' => false,
             'stock' => $variation3Stock
@@ -137,7 +140,7 @@ trait ProductTrait
     /**
      * @return array
      */
-    public function getProductResponse() :array
+    public function getProductResponse(): array
     {
         return [
             'filename',

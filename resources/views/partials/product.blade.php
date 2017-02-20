@@ -13,10 +13,11 @@
         </div>
         <div class="col-{{ $col_size }}-8">
             <div class="product-body">
-                <h1>{{ $product->name }}</h1>
+                <h1 itemprop="name">{{ $product->name }}</h1>
                 @include('partials.labels')
-                @include('partials.rating', ['rating' => $product->rating])
+                @include('partials.rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                 @include('partials.price')
+                <link itemprop="availability" href="http://schema.org/{{ $product->stock > 0 ? 'InStock' : 'OutOfStock' }}" />
                 <ul class="list-unstyled product-info">
                     <li><span>@lang('catalogue.brand')</span><a
                                 href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
@@ -27,7 +28,7 @@
                         @endforeach
                     </li>
                 </ul>
-                <p>{!! $product->introduction !!}</p>
+                <p itemprop="description">{!! $product->introduction !!}</p>
                 <div class="product-form clearfix">
                     <product-form
                             product_id="{{ $product->_id }}"

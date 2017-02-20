@@ -150,7 +150,7 @@ class ShopProductTest extends TestCase
     public function product_prices_with_three_variations_and_without_stock()
     {
         $this->createTax();
-        $product = $this->createProductWithThreeVariations(0,10,10);
+        $product = $this->createProductWithThreeVariations(0, 10, 10);
 
         $this->assertEquals('15.00&euro; - 20.00&euro;', $product->range_price);
         $this->assertEquals('15.00&euro; - 20.00&euro;', $product->range_real_price);
@@ -182,7 +182,7 @@ class ShopProductTest extends TestCase
     }
 
     /** @test */
-    public function product_withou_meta_description()
+    public function product_without_meta_description()
     {
         $product = factory(Product::class)->create(['introduction' => 'Product 1', 'meta_description' => null]);
 
@@ -195,5 +195,14 @@ class ShopProductTest extends TestCase
         $product = factory(Product::class)->create(['name' => 'Product 1', 'meta_description' => 'Meta description']);
 
         $this->assertEquals('Meta description', $product->meta_desc);
+    }
+
+    /** @test */
+    public function get_lower_price()
+    {
+        $this->createTax();
+        $product = $this->createProductWithThreeVariations(10, 10, 10);
+
+        $this->assertEquals(10, $product->lower_price);
     }
 }

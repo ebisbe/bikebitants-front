@@ -4,4 +4,6 @@
     @endif
     <ins><span class="amount">{{ $product->range_price }}</span></ins>
     <small>{{ trans('catalogue.iva') }}</small>
+    <meta itemprop="price" content="{{ $product->lower_price }}"/>
+        <meta itemprop="priceCurrency" content="{{ $product->currency }}"/>
 </span>
