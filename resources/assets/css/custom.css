@@ -3619,6 +3619,7 @@ footer.navbar a:hover {
 #homepage-2-carousel .slide-1 .container {
     position:absolute;
     bottom:0;
+    width: 92%;
 }
 
 #homepage-2-carousel .slide-1 .slide-mask {
