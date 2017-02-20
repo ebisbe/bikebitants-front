@@ -4042,8 +4042,12 @@ footer.navbar a:hover {
 /* SECTION - SERVICES */
 
 .services {
-    background-color: transparent;
+    background-color: #ffffff;
     padding: 20px 0 0;
+}
+
+.services.transparent {
+    background-color: transparent;
 }
 
 .services .service {
@@ -5335,9 +5339,9 @@ footer.navbar a:hover {
         padding-bottom: 30px;
     }
 
-    .services.services-3x .row > div:first-child .service {
+    /*.services.services-3x .row > div:first-child .service {
         border-bottom: 1px solid #F0F0F0;
-    }
+    }*/
 
     .tabs.vertical-tabs .nav-tabs {
         margin-bottom: 15px;
