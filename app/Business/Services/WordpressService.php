@@ -456,7 +456,7 @@ class WordpressService
         }
 
         return $statusValues[$status] == Product::PUBLISHED
-        && $catalog_visibility == 'hidden'
+        && in_array($catalog_visibility, ['hidden', 'search'])
             ? Product::HIDDEN
             : $statusValues[$status];
     }
