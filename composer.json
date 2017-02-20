@@ -33,7 +33,7 @@
         "sentry/sentry-laravel": "^0.6",
         "graham-campbell/htmlmin": "^4.4",
         "ebisbe/fake-omnipay": "dev-master",
-        "jenssegers/mongodb": "dev-master",
+        "jenssegers/mongodb": "3.2",
         "spatie/laravel-googletagmanager": "^2.2"
     },
     "require-dev": {
