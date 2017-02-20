@@ -201,8 +201,17 @@ class ShopProductTest extends TestCase
     public function get_lower_price()
     {
         $this->createTax();
-        $product = $this->createProductWithThreeVariations(10, 10, 10);
+        $product = $this->createProductWithThreeVariations(0, 10, 10);
 
-        $this->assertEquals(10, $product->lower_price);
+        $this->assertEquals(15, $product->lower_price);
+    }
+
+    /** @test */
+    public function get_lower_price_without_stock()
+    {
+        $this->createTax();
+        $product = $this->createProductWithThreeVariations(0, 0, 0);
+
+        $this->assertEquals('-', $product->lower_price);
     }
 }

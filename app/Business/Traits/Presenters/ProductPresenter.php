@@ -50,10 +50,16 @@ trait ProductPresenter
     {
         return $this->variations->where('stock', '>', 0)->min($price);
     }
-    
+
     public function getLowerPriceAttribute()
     {
-        return TaxService::applyTax($this->lowerPrice('price'));
+        $lowest_price = $this->lowerPrice('price');
+
+        if (is_null($lowest_price)) {
+            return '-';
+        }
+
+        return TaxService::applyTax($lowest_price);
     }
 
     /* public function getStatusTextAttribute()
@@ -69,6 +75,7 @@ trait ProductPresenter
     {
         return '&euro;';
     }
+
     /**
      * While we have just one currency we set a default value.
      * @return string

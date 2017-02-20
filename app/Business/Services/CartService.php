@@ -128,7 +128,7 @@ class CartService
             'attributes' => [
                 'is_max_stock' => $this->isMaxStock(),
                 'slug' => $product->slug,
-                'currency' => $product->currency,
+                'currency' => $product->html_currency,
                 'variation_id' => $variation->external_id,
                 'properties' => $this->properties,
                 'filename' => $variation->filename,

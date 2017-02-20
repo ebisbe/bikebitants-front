@@ -129,7 +129,7 @@
                             <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
                                 <h3>{{ $product->name }}</h3>
                             </a>
-                            @include('partials.rating', ['rating' => $product->rating])
+                            @include('partials.rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                             @include('partials.price')
                         </article>
                     </div>
@@ -152,7 +152,7 @@
                                     <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
                                         <h3>{{ $product->name }}</h3>
                                     </a>
-                                    @include('partials.rating', ['rating' => $product->rating])
+                                    @include('partials.rating', ['product' => $product->rating, 'total_reviews' => count($product->reviews)])
                                     @include('partials.price')
                                 </li>
                                 <!-- PRODUCT - END -->

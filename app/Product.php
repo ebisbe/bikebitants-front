@@ -16,6 +16,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $description
  * @property string $currency
+ * @property string $html_currency
  * @property Brand $brand
  * @property string $tags_list
  * @property-read Image $front_image
