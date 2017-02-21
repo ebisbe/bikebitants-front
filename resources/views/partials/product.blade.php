@@ -1,4 +1,4 @@
-<article class="product-item product-single">
+<article class="product-item product-single" >
     <div class="row">
         <div class="col-{{ $col_size }}-4">
             <div class="product-carousel-wrapper {{ !empty($hidden) ? 'hidden' : '' }}">
@@ -15,9 +15,8 @@
             <div class="product-body">
                 <h1 itemprop="name">{{ $product->name }}</h1>
                 @include('partials.labels')
-                @include('partials.rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
+                @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                 @include('partials.price')
-                <link itemprop="availability" href="http://schema.org/{{ $product->stock > 0 ? 'InStock' : 'OutOfStock' }}" />
                 <ul class="list-unstyled product-info">
                     <li><span>@lang('catalogue.brand')</span><a
                                 href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
@@ -28,7 +27,7 @@
                         @endforeach
                     </li>
                 </ul>
-                <p itemprop="description">{!! $product->introduction !!}</p>
+                <div itemprop="description">{!! $product->introduction !!}</div>
                 <div class="product-form clearfix">
                     <product-form
                             product_id="{{ $product->_id }}"
@@ -44,4 +43,6 @@
             </div>
         </div>
     </div>
+    <meta itemprop="url" content="{{ route('shop.slug', ['slug' => $product->slug]) }}" />
+    <meta itemprop="sku" content="{{ $product->_id }}" />
 </article>

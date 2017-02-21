@@ -1,15 +1,12 @@
 <?php
+namespace Test\Unit;
 
 use App\Business\Models\Shop\Product;
 use App\Business\Traits\Tests\ProductTrait;
 use App\Image;
-use App\Tax;
-use App\Variation;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ShopProductTest extends TestCase
+class ShopProductTest extends \TestCase
 {
     use DatabaseMigrations, ProductTrait;
 
