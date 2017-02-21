@@ -26,7 +26,7 @@
                         </a>
                     </h1>
                     @include('partials.labels')
-                    @include('partials.rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
+                    @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                     @include('partials.price', ['class' => 'blocked'])
                     <div class="p">{!! $product->introduction !!}</div>
                     <div class="buttons">

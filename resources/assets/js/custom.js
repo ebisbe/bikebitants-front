@@ -234,7 +234,9 @@ $(document).ready(function () {
         loop: true,
         lazyLoad: true,
         animateOut: 'fadeOut',
-        animateIn: 'fadeIn'
+        animateIn: 'fadeIn',
+        nav : true,
+        navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"]
     });
 
     $('.modal-quickview').on('shown.bs.modal', function (e) {
@@ -245,6 +247,8 @@ $(document).ready(function () {
             items: 1,
             animateOut: 'fadeOut',
             animateIn: 'fadeIn',
+            nav : true,
+            navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"]
         });
     })
 

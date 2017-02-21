@@ -55,7 +55,7 @@ $(document).ready(function () {
         $("#product-carousel-modal").owlCarousel({
             items: 1,
             animateOut: 'fadeOut',
-            animateIn: 'fadeIn'
+            animateIn: 'fadeIn',
         });
     });
 

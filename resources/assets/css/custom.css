@@ -930,11 +930,11 @@ textarea {
 }
 
 .owl-theme .owl-controls .owl-nav div.owl-prev {
-    left: -37px;
+    left: 0px;
 }
 
 .owl-theme .owl-controls .owl-nav div.owl-next {
-    right: -37px;
+    right: 0px;
 }
 
 .owl-theme.nav-inside .owl-controls .owl-nav div {
