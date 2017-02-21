@@ -71,4 +71,8 @@ $(document).ready(function () {
 
         Bus.$emit('shippingDestinationUpdate', { state: state, country: country});
     });
+
+    if($(window).width() <= 767) {
+        $('#widget-categories-collapse, #widget-price-collapse').collapse('hide');
+    }
 });
