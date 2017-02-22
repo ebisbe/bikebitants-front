@@ -62,11 +62,6 @@ trait ProductPresenter
         return TaxService::applyTax($lowest_price);
     }
 
-    /* public function getStatusTextAttribute()
-     {
-         return trans('Product.' . $this->status);
-     }*/
-
     /**
      * While we have just one currency we set a default value.
      * @return string
