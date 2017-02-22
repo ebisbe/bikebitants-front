@@ -31,7 +31,7 @@
                 <div class="product-form clearfix">
                     <product-form
                             product_id="{{ $product->_id }}"
-                            v-bind:properties='{!! json_encode($product->properties()->sortBy('order')->all()) !!}'
+                            v-bind:properties='{!! json_encode($product->properties()->sortBy('order')->values()->all()) !!}'
                             v-bind:variations='{!! json_encode($product->variations()->all()) !!}'
                     ></product-form>
                 </div>
