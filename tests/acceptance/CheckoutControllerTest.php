@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CheckoutControllerTest extends BrowserKitTest
 {
-    use ProductTrait, DatabaseMigrations;
+    use ProductTrait;
 
     /** @test */
     public function dont_add_product_and_redirect_to_shop()

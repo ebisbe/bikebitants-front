@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class CartApiTest extends BrowserKitTest
 {
-    use ProductTrait, DatabaseMigrations;
+    use ProductTrait;
 
     /** @test */
     public function add_one_simple_product_to_cart()

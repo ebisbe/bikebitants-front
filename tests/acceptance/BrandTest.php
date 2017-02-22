@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BrandTest extends BrowserKitTest
 {
-    use ProductTrait, DatabaseMigrations;
+    use ProductTrait;
 
     /** @test */
     public function find_brand_and_see_simple_product()

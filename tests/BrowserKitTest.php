@@ -1,5 +1,6 @@
 <?php
 
+use App\Business\Traits\DatabaseSetup;
 use App\Exceptions\Handler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
@@ -28,6 +29,13 @@ abstract class BrowserKitTest extends BaseTestCase
         //disabled FALLBACK_LOCALE through phpunit env variables. All translation return their code
 
         return $app;
+    }
+
+    protected function refreshApplication()
+    {
+        parent::refreshApplication();
+
+        $this->artisan('migrate');
     }
 
     protected function link($url)

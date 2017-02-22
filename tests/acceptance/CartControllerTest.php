@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class CartControllerTest extends BrowserKitTest
 {
 
-    use ProductTrait, DatabaseMigrations;
+    use ProductTrait;
 
     /** @test */
     public function see_empty_cart()

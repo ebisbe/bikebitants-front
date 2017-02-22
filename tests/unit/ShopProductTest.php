@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ShopProductTest extends \TestCase
 {
-    use DatabaseMigrations, ProductTrait;
+    use ProductTrait;
 
     /** @test */
     public function product_does_not_have_images()

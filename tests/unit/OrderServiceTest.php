@@ -2,13 +2,13 @@
 
 use App\Order;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class OrderServiceTest extends TestCase
 {
-    use DatabaseMigrations;
+    protected function tearDown()
+    {
+        Order::truncate();
+    }
 
     /**
      * @test

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SimpleProductTest extends BrowserKitTest
 {
-    use ProductTrait, DatabaseMigrations;
+    use ProductTrait;
 
     /** @test */
     public function find_simple_product_at_home()

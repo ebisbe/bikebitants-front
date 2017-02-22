@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CartConditionsControllerTest extends BrowserKitTest
 {
-    use ProductTrait, DatabaseMigrations;
+    use ProductTrait;
 
     /** @test */
     public function add_new_shipping_to_cart_without_state_expecting_error()

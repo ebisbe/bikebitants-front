@@ -2,13 +2,9 @@
 
 use App\Business\Services\ShippingMethodService;
 use App\Zone;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ShippingMethodServiceTest extends TestCase
 {
-    use DatabaseMigrations;
 
     /** @test */
     public function find_shipping_method_by_total_cart_value()

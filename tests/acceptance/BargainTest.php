@@ -7,7 +7,10 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BargainTest extends BrowserKitTest
 {
-    use DatabaseMigrations;
+    public function tearDown()
+    {
+        Product::truncate();
+    }
 
     /** @test */
     public function view_bargains()

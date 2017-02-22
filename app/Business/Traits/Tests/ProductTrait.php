@@ -6,11 +6,24 @@ use App\Brand;
 use App\Business\Models\Shop\Product;
 use App\Category;
 use App\Coupon;
+use App\Order;
+use App\PaymentMethod;
 use App\Tax;
 use App\Variation;
 
 trait ProductTrait
 {
+
+    public function tearDown()
+    {
+        Product::truncate();
+        Brand::truncate();
+        Category::truncate();
+        Tax::truncate();
+        Coupon::truncate();
+        Order::truncate();
+    }
+
     /**
      * @return Product
      */
