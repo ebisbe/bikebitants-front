@@ -427,14 +427,24 @@ class WordpressService
      */
     public function saveImage($image)
     {
-        if (!empty($image['src'])) {
-            $name = basename($image['src']);
-            if (!Storage::exists(static::$WP_FILE . '/' . $name)) {
-                Storage::put(static::$WP_FILE . '/' . $name, file_get_contents($image['src']));
+        try {
+            if (!empty($image['src'])) {
+                list($url, $name) = $this->encodeSrc($image['src']);
+                if (!Storage::exists(static::$WP_FILE . '/' . $name)) {
+                    Storage::put(static::$WP_FILE . '/' . $name, file_get_contents($url . $name));
+                }
+                return $name;
             }
-            return $name;
+        } catch (\ErrorException $e) {
+            return '';
         }
-        return '';
+    }
+
+    public function encodeSrc($source)
+    {
+        $name = basename($source);
+
+        return [str_replace($name, '', $source), urlencode($name)];
     }
 
     /**
@@ -577,11 +587,13 @@ class WordpressService
         if (!empty($couponCondition)) {
             $couponRaw = Coupon::whereName($couponCondition['name'])->first();
 
-            $coupon = [[
-                'code' => $couponRaw->name,
-                'id' => $couponRaw->external_id,
-                'discount' => 0
-            ]];
+            $coupon = [
+                [
+                    'code' => $couponRaw->name,
+                    'id' => $couponRaw->external_id,
+                    'discount' => 0
+                ]
+            ];
         }
 
         $items = $order->cart->map(function ($cart) {
