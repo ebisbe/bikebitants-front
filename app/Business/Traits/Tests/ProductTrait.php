@@ -27,7 +27,7 @@ trait ProductTrait
     /**
      * @return Product
      */
-    public function createSimpleProduct($stock = 10)
+    public function createSimpleProduct($stock = 10, $real_price = 10)
     {
         $product = factory(Product::class)->states('featured')->create([
             '_id' => 'simple-product',
@@ -37,7 +37,7 @@ trait ProductTrait
         $variation = factory(Variation::class)->make([
             '_id' => [$product->_id],
             'sku' => $product->_id,
-            'real_price' => 10,
+            'real_price' => $real_price,
             'is_discounted' => false,
             'stock' => $stock
         ]);
@@ -54,12 +54,12 @@ trait ProductTrait
     }
 
     /**
+     * @param array $variationStock
+     * @param array $realPrice
      * @return Product
      */
     public function createProductWithThreeVariations(
-        $variation1Stock = 10,
-        $variation2Stock = 10,
-        $variation3Stock = 10
+        array $realPrice = [10, 15, 20]
     ) {
         /** @var Product $product */
         $product = factory(Product::class)->create([
@@ -70,23 +70,23 @@ trait ProductTrait
         $variation1 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'RED'],
             'sku' => $product->_id . '-RED',
-            'real_price' => 10,
+            'real_price' => $realPrice[0],
             'is_discounted' => false,
-            'stock' => $variation1Stock
+            'stock' => 10
         ]);
         $variation2 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'GREEN'],
             'sku' => $product->_id . '-GREEN',
-            'real_price' => 15,
+            'real_price' => $realPrice[1],
             'is_discounted' => false,
-            'stock' => $variation2Stock
+            'stock' => 10
         ]);
         $variation3 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'BLUE'],
             'sku' => $product->_id . '-BLUE',
-            'real_price' => 20,
+            'real_price' => $realPrice[2],
             'is_discounted' => false,
-            'stock' => $variation3Stock
+            'stock' => 10
         ]);
         $product->variations()->saveMany([$variation1, $variation2, $variation3]);
 

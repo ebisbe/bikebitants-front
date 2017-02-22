@@ -48,7 +48,7 @@ trait ProductPresenter
 
     private function lowerPrice($price)
     {
-        return $this->variations->min($price);
+        return $this->variations->where('price', '>', 0)->min($price);
     }
 
     public function getLowerPriceAttribute()

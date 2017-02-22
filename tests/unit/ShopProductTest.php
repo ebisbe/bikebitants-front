@@ -124,13 +124,13 @@ class ShopProductTest extends \TestCase
     }
 
     /** @test */
-    public function product_prices_with_one_variation_withou_stock()
+    public function product_prices_with_one_variation_without_price()
     {
         $this->createTax();
-        $product = $this->createSimpleProduct(0);
+        $product = $this->createSimpleProduct(10, 0);
 
-        $this->assertEquals('10.00&euro;', $product->range_price);
-        $this->assertEquals('10.00&euro;', $product->range_real_price);
+        $this->assertEquals('-', $product->range_price);
+        $this->assertEquals('-', $product->range_real_price);
     }
 
     /** @test */
@@ -144,13 +144,13 @@ class ShopProductTest extends \TestCase
     }
 
     /** @test */
-    public function product_prices_with_three_variations_and_without_stock()
+    public function product_prices_with_three_variations_and_without_lower_price()
     {
         $this->createTax();
-        $product = $this->createProductWithThreeVariations(0, 10, 10);
+        $product = $this->createProductWithThreeVariations([0, 15, 20]);
 
-        $this->assertEquals('10.00&euro; - 20.00&euro;', $product->range_price);
-        $this->assertEquals('10.00&euro; - 20.00&euro;', $product->range_real_price);
+        $this->assertEquals('15.00&euro; - 20.00&euro;', $product->range_price);
+        $this->assertEquals('15.00&euro; - 20.00&euro;', $product->range_real_price);
     }
 
     /** @test */
@@ -198,17 +198,17 @@ class ShopProductTest extends \TestCase
     public function get_lower_price()
     {
         $this->createTax();
-        $product = $this->createProductWithThreeVariations(0, 10, 10);
+        $product = $this->createProductWithThreeVariations([0, 15, 20]);
 
-        $this->assertEquals(10, $product->lower_price);
+        $this->assertEquals(15, $product->lower_price);
     }
 
     /** @test */
-    public function get_lower_price_without_stock()
+    public function get_lower_price_with_product_without_price()
     {
         $this->createTax();
-        $product = $this->createProductWithThreeVariations(0, 0, 0);
+        $product = $this->createProductWithThreeVariations([0, 0, 0]);
 
-        $this->assertEquals('10.00', $product->lower_price);
+        $this->assertEquals('-', $product->lower_price);
     }
 }
