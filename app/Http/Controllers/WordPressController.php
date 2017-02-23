@@ -26,6 +26,17 @@ class WordPressController extends Controller
         if ($command == '-') {
             $command = '';
         }
-        dd(\Woocommerce::get($command, ['page' => $request->get('page', 1), 'search' => $request->get('search', '')]));
+
+        $response = \Woocommerce::get(
+            $command,
+            ['page' => $request->get('page', 1), 'search' => $request->get('search', '')]
+        );
+        
+        $item = $request->get('item', null);
+        if (!is_null($item)) {
+            dd($response[$item]);
+        } else {
+            dd($response);
+        }
     }
 }

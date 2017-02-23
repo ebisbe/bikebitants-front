@@ -26,7 +26,18 @@
         },
 
         created: function () {
-            this.selectedElement = this.options[0]._id;
+            let selected = _.head(_.filter(
+                this.options,
+                function (variation) {
+                    return variation.selected;
+                }
+            ));
+
+            if(typeof selected === "undefined") {
+                selected = this.options[0];
+            }
+            this.selectedElement = selected._id;
+            this.changed();
         },
 
         methods: {
@@ -36,6 +47,7 @@
         },
 
         updated: function () {
+            //triggered when we change de attributes related with the parent
             this.changed();
         }
     };

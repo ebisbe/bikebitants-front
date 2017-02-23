@@ -119,7 +119,7 @@ class WordpressService
             })->toArray();
         (new ProductRepository)->update($this->product, $this->product->toArray());
 
-        $this->syncProperties($wpProduct['attributes']);
+        $this->syncProperties($wpProduct['attributes'], $wpProduct['default_attributes']);
         $this->syncCategories($wpProduct['categories']);
         $this->syncImages($wpProduct['images']);
         $variations = !empty($wpProduct['variations']) ? $wpProduct['variations'] : [$wpProduct];
@@ -135,58 +135,72 @@ class WordpressService
      */
     public function syncVariations($variations)
     {
-        collect($variations)->each(function ($wpVariation) {
-            $variation = $this->product
-                ->variations()
-                ->filter(function ($variation) use ($wpVariation) {
-                    return $variation->external_id == $wpVariation['id'];
-                })->first();
+        collect($variations)
+            ->each(function ($wpVariation) {
+                $variation = $this->product
+                    ->variations()
+                    ->filter(function ($variation) use ($wpVariation) {
+                        return $variation->external_id == $wpVariation['id'];
+                    })->first();
 
-            $new = false;
-            if (empty($variation)) {
-                $variation = new Variation();
-                $new = true;
-            }
+                $_id = $this->variationsAttributes($wpVariation);
 
-            $variationsAtt = collect($wpVariation['attributes'])
-                ->filter(function ($att) {
-                    return isset($att['option']);
-                })
-                ->map(function ($att) {
-                    return str_slug(strtolower($att['option']));
-                })
-                ->toArray();
+                $new = false;
+                if (empty($variation)) {
+                    $variation = new Variation();
+                    $new = true;
+                } elseif ($_id != $variation->_id) {
+                    $variation->delete();
+                    $new = true;
+                }
 
-            $variation->_id = array_merge([$this->product->_id], $variationsAtt);
-            $variation->sku = $wpVariation['sku'];
-            $variation->external_id = $wpVariation['id'];
-            $variation->real_price = (float)$wpVariation['regular_price'];
-            $variation->discounted_price = (float)$wpVariation['sale_price'];
-            $variation->is_discounted = $wpVariation['on_sale'];
-            $variation->stock = is_null($wpVariation['stock_quantity']) ? 25 : $wpVariation['stock_quantity'];
-            $variation->filename = $this->saveImage($wpVariation[isset($wpVariation['image']) ? 'image' : 'images'][0]);
+                $variation->_id = $_id;
+                $variation->sku = $wpVariation['sku'];
+                $variation->external_id = $wpVariation['id'];
+                $variation->real_price = (float)$wpVariation['regular_price'];
+                $variation->discounted_price = (float)$wpVariation['sale_price'];
+                $variation->is_discounted = $wpVariation['on_sale'];
+                $variation->stock = is_null($wpVariation['stock_quantity']) ? 25 : $wpVariation['stock_quantity'];
+                $variation->filename = $this->saveImage($wpVariation[isset($wpVariation['image']) ? 'image' : 'images'][0]);
 
-            if ($new) {
-                $this->product->variations()->save($variation);
-            } else {
-                $variation->save();
-            }
-        });
+                if ($new) {
+                    $this->product->variations()->save($variation);
+                } else {
+                    $variation->save();
+                }
+            });
+    }
+
+    /**
+     * @param $wpVariation
+     * @return array
+     */
+    private function variationsAttributes($wpVariation): array
+    {
+        $variationsAtt = collect($wpVariation['attributes'])
+            ->filter(function ($att) {
+                return isset($att['option']);
+            })
+            ->map(function ($att) {
+                return str_slug(strtolower($att['option']));
+            })
+            ->toArray();
+        return array_merge([$this->product->_id], $variationsAtt);
     }
 
     /**
      * Import Properties from products if they have. Properties can be from variations or product properties
      * @param $properties
      */
-    public function syncProperties($properties)
+    public function syncProperties($properties, $defaultAttributes)
     {
         $order = 1;
         $ids = [];
         collect($properties)
             ->sortBy('position')
-            ->each(function ($attribute) use (&$order, &$ids) {
+            ->each(function ($attribute) use (&$order, &$ids, $defaultAttributes) {
                 if ($attribute['variation']) {
-                    $ids[] = $this->syncVariationProperties($attribute, $order);
+                    $ids[] = $this->syncVariationProperties($attribute, $order, $defaultAttributes);
                     $order++;
                 } else {
                     $this->syncAttribute($attribute);
@@ -227,8 +241,11 @@ class WordpressService
     /**
      * Import variations from product. They are used to handle modifications of the same product
      * @param $variation
+     * @param $order
+     * @param $defaultAttributes
+     * @return String
      */
-    public function syncVariationProperties($variation, $order)
+    public function syncVariationProperties($variation, $order, $defaultAttributes)
     {
         $attribute = $this->product
             ->properties()
@@ -252,17 +269,26 @@ class WordpressService
             $attribute->save();
         }
 
-        collect($variation['options'])->each(function ($option) use ($attribute) {
+        collect($variation['options'])->each(function ($option) use ($attribute, $defaultAttributes, $variation) {
             $value = new PropertyValue();
-            $value->_id = str_slug(strtolower($option));
-            $value->sku = str_slug(strtolower($option));
+            $sku = str_slug(strtolower($option));
+            $value->_id = $sku;
+            $value->sku = $sku;
             $value->name = $option;
+            $value->selected = collect($defaultAttributes)
+                ->where('id', '=', $variation['id'])
+                ->where('option', '=', $sku)->count() == 1;
             $value->complementary_text = '';
             $attribute->properties_values()->save($value);
         });
 
         $attribute->save();
         return $variation['id'];
+    }
+
+    private function defaultVariation()
+    {
+
     }
 
     /**

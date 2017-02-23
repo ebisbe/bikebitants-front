@@ -9,7 +9,7 @@
         </attribute-select>
 
         <quantity-select
-                :max-quantity="maxQuantity"
+                :max-quantity="max_quantity"
                 @changedQuantity="updateQuantity">
         </quantity-select>
 
@@ -32,102 +32,56 @@
     export default {
         props: ['properties', 'variations', 'product_id'],
 
+        components: {attributeSelect, quantitySelect},
+
         data() {
             return {
-                firstSelected: '',
-                variationsFilter: [],
-                maxQuantity: -1,
-
-                quantity:1,
-                cart_properties: {}
+                max_quantity: -1,
+                quantity: 1,
+                cart_properties: []
             }
         },
 
         created: function () {
-            var filter = [];
-            this.variations.forEach(function (variation) {
-                if (typeof filter[variation._id[1]] === 'undefined') {
-                    filter[variation._id[1]] = [];
-                }
-                filter[variation._id[1]].push(variation._id[2]);
-            });
-            this.variationsFilter = filter;
+            this.cart_properties[0] = this.product_id;
 
-            switch (this.properties.length) {
-                case 2:
-                    this.secondSetValues = this.properties[1].properties_values;
-                    this.emitChangedValue(1, this.properties[0].properties_values[0]._id);
-                    this.emitChangedValue(2, this.properties[1].properties_values[0]._id);
-                    break;
-                case 1:
-                    this.firstSelected = this.properties[0].properties_values[0]._id;
-                    this.emitChangedValue(1, this.properties[0].properties_values[0]._id);
-                    break;
-                case 0:
-                    this.maxQuantity = this.variations[0].stock;
-                    break;
+            if (this.properties.length == 0) {
+                this.max_quantity = this.variations[0].stock;
             }
         },
 
         methods: {
             emitChangedValue: function (order, selectedValue) {
                 this.cart_properties[order] = selectedValue;
-                switch (this.properties.length) {
-                    case 1:
-                        this.firstSelected = selectedValue;
-                        this.secondOptionUpdated(selectedValue);
-                        break;
-                    case 2:
-                        switch (order) {
-                            case 1:
-                                this.firstOptionUpdated(selectedValue);
-                                this.firstSelected = selectedValue;
-                                break;
-                            case 2:
-                                this.secondOptionUpdated(selectedValue);
-                                break;
-                        }
-                        break;
+
+                let properties = this.cart_properties;
+                //iterate through all variations to find the selected one
+                let variation = _.filter(this.variations, function (variation) {
+                    return _.isEmpty(_.difference(variation._id, properties));
+                });
+                
+                if (variation.length == 0) {
+                    this.max_quantity = 0;
+                } else {
+                    this.max_quantity = variation[0].stock;
                 }
             },
 
-            firstOptionUpdated: function (selectedValue) {
-                var filters = this.variationsFilter;
-                this.properties[1].properties_values
-                        = this.secondSetValues.filter(
-                        function (attribute) {
-                            return filters[selectedValue].indexOf(attribute._id) >= 0
-                        });
-            },
-
-            secondOptionUpdated: function (selectedValue) {
-                var firstSelected = this.firstSelected;
-                var selectedVariation = this.variations.filter(
-                        function (variation) {
-                            return variation._id.indexOf(firstSelected) >= 1 &&
-                                    variation._id.indexOf(selectedValue) >= 1;
-                        }
-                ).shift();
-                this.maxQuantity = selectedVariation.stock;
-            },
-
-            updateQuantity: function(quantity) {
+            updateQuantity: function (quantity) {
                 this.quantity = quantity;
             }
         },
 
-        components: {attributeSelect, quantitySelect},
-
         computed: {
-            stockText: function() {
-                if(this.maxQuantity == 0) {
+            stockText: function () {
+                if (this.max_quantity <= 0) {
                     return Vue.t('catalogue.out_of_stock')
                 }
-                if(this.maxQuantity == 1) {
-                    return Vue.t('catalogue.one_stock') + ' ' + this.maxQuantity;
+                if (this.max_quantity == 1) {
+                    return Vue.t('catalogue.one_stock') + ' ' + this.max_quantity;
                 }
-                if(this.maxQuantity <= 5) {
-                    return Vue.t('catalogue.small_stock') + ' ' + this.maxQuantity;
+                if (this.max_quantity <= 5) {
+                    return Vue.t('catalogue.small_stock') + ' ' + this.max_quantity;
                 }
 
                 return Vue.t('catalogue.in_stock');
