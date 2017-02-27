@@ -1,6 +1,8 @@
 <?php
 namespace Test\Unit;
 
+use App\Brand;
+use App\Business\Models\Shop\Category;
 use App\Business\Models\Shop\Product;
 use App\Business\Traits\Tests\ProductTrait;
 use App\Image;
@@ -210,5 +212,77 @@ class ShopProductTest extends \TestCase
         $product = $this->createProductWithThreeVariations([0, 0, 0]);
 
         $this->assertEquals('-', $product->lower_price);
+    }
+
+    /** @test */
+    public function convert_product_to_ga_object_without_viewname_and_position()
+    {
+        $product = $this->createSimpleProduct();
+
+        $expected = [
+            'id' => 'simple-product',
+            'name' => 'Simple Product',
+            'brand' => 'Simple Brand',
+            'category' => 'Category 1',
+        ];
+
+        $this->assertEquals(json_encode($expected), $product->gaProduct());
+    }
+
+    /** @test */
+    public function convert_product_to_ga_object_with_viewname_and_position()
+    {
+        $product = $this->createSimpleProduct();
+
+        $expected = [
+            'id' => 'simple-product',
+            'name' => 'Simple Product',
+            'brand' => 'Simple Brand',
+            'category' => 'Category 1',
+            'list' => 'test',
+            'position' => 2
+        ];
+
+        $this->assertEquals(json_encode($expected), $product->gaProduct('test', 2));
+    }
+
+    /** @test */
+    public function convert_product_to_ga_object_without_brand()
+    {
+        $product = factory(Product::class)->create([
+            '_id' => 'simple-product',
+            'name' => 'Simple Product'
+        ]);
+
+        $category = factory(\App\Category::class)->create(['name' => 'Simple Category', 'products_count' => 1]);
+        $category->products()->save($product);
+
+        $expected = [
+            'id' => 'simple-product',
+            'name' => 'Simple Product',
+            'category' => 'Simple Category',
+        ];
+
+        $this->assertEquals(json_encode($expected), $product->gaProduct());
+    }
+
+    /** @test */
+    public function convert_product_to_ga_object_without_category()
+    {
+        $product = factory(Product::class)->create([
+            '_id' => 'simple-product',
+            'name' => 'Simple Product'
+        ]);
+
+        $brand = factory(Brand::class)->create(['name' => 'Simple Brand']);
+        $brand->products()->save($product);
+
+        $expected = [
+            'id' => 'simple-product',
+            'name' => 'Simple Product',
+            'brand' => 'Simple Brand',
+        ];
+
+        $this->assertEquals(json_encode($expected), $product->gaProduct());
     }
 }

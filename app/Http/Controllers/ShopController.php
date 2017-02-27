@@ -50,7 +50,7 @@ class ShopController extends Controller
         $layoutTopHeader = 'hidden';
 
         $brands = collect();/*$this->brandRepository->findAll()*/
-        $featuredProducts = $this->productRepository->where('is_featured', true)->limit(10)->findAll();
+        $featuredProducts = $this->productRepository->with(['category', 'brand'])->where('is_featured', true)->limit(10)->findAll();
         $productsLeft = $featuredProducts->splice(0, 2);
         $productsRight = $featuredProducts;
         $categories = $this->categoryRepository
@@ -118,6 +118,7 @@ class ShopController extends Controller
         $subtitle = $product->name;
 
         $relatedProducts = $this->productRepository
+            ->with('brand', 'category')
             ->where('brand_id', $product->brand_id)
             ->where('_id', '!=', $product->_id)
             ->limit(4)
@@ -133,7 +134,10 @@ class ShopController extends Controller
     {
         /** @var Brand $brand */
         $brand = $this->brandRepository->findBy('slug', $slug);
-        $products = $this->productRepository->where('brand_id', $brand->_id)->findAll();
+        $products = $this->productRepository
+            ->with('brand', 'category')
+            ->where('brand_id', $brand->_id)
+            ->findAll();
 
         MetaTag::set('title', $brand->title);
         MetaTag::set('description', $brand->meta_desc);
@@ -248,12 +252,12 @@ class ShopController extends Controller
      */
     public function tag($slug)
     {
-        Breadcrumbs::addCrumb(trans('tag.title'));
+        Breadcrumbs::addCrumb(trans('layout.tag'));
 
         $title = trans('layout.shop');
         $subtitle = $slug;
 
-        MetaTag::set('title', trans('tag.title'));
+        MetaTag::set('title', trans('layout.tag'));
         MetaTag::set('description', trans('tag.description'));
 
         $products = $this->productRepository->whereIn('tags', [$slug])->findAll();

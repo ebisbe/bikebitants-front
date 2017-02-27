@@ -1,31 +1,32 @@
 @extends('layouts.shop')
 
 @section('content')
-@include('partials.breadcrumb')
+    @include('partials.breadcrumb')
 
-        <!-- ==========================
+    <!-- ==========================
 PRODUCTS - START
 =========================== -->
-<section class="content products">
-    <div class="container">
-        <h2 class="hidden">Products</h2>
-        <div class="row">
-            <div class="col-sm-12">
-                <h3>{{ trans('bargain.description') }}</h3>
-                <div class="row grid" id="products">
+    <section class="content products">
+        <div class="container">
+            <h2 class="hidden">Products</h2>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>{{ trans('bargain.description') }}</h3>
+                    <div class="row grid" id="products">
 
-                    <!-- PRODUCT - START -->
+                        <!-- PRODUCT - START -->
                     @foreach($products as $product)
-                    @include('partials.catalogue_product', compact('product'))
+                        @include('partials.catalogue_product', compact('product'))
+                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
                     @endforeach
-                            <!-- PRODUCT - END -->
+                    <!-- PRODUCT - END -->
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- ==========================
-    PRODUCTS - END
-=========================== -->
+    </section>
+    <!-- ==========================
+        PRODUCTS - END
+    =========================== -->
 @endsection

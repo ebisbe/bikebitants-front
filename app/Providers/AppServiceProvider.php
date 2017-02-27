@@ -32,6 +32,11 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('injectCss', function ($cssRoute) {
             return "<style><?php echo file_get_contents(resource_path({$cssRoute})); ?></style>";
         });
+
+        view()->composer('*', function ($view) {
+            $view_name = str_replace('.', '_', $view->getName());
+            view()->share('view_name', $view_name);
+        });
     }
 
     /**

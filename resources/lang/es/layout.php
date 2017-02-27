@@ -16,5 +16,6 @@ return [
     'recent_tweets' => 'Ultimos tweets',
     'go_back' => 'Volver a',
     'see' => 'Ver',
-    'out_of_stock' => 'Sin stock'
+    'out_of_stock' => 'Sin stock',
+    'tag' => 'Etiqueta'
 ];

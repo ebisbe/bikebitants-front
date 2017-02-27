@@ -25,6 +25,8 @@ trait ProductTrait
     }
 
     /**
+     * @param int $stock
+     * @param int $real_price
      * @return Product
      */
     public function createSimpleProduct($stock = 10, $real_price = 10)

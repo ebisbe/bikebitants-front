@@ -147,4 +147,22 @@ trait ProductPresenter
             ? $this->meta_description
             : $this->introduction;
     }
+
+    /**
+     * @param string $view_name
+     * @param null $position
+     * @return array
+     * @internal param $iteration
+     */
+    public function gaProduct($view_name = '', $position = null)
+    {
+        return collect([
+            'id' => $this->_id,
+            'name' => $this->name,
+            'brand' => isset($this->brand->name) ? $this->brand->name : '',
+            'category' => isset($this->category->name) ? $this->category->name : '',
+            'list' => $view_name,
+            'position' => $position
+        ])->filter()->toJson();
+    }
 }

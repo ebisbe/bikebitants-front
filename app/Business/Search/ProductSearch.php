@@ -3,6 +3,7 @@
 namespace App\Business\Search;
 
 use App\Business\Models\Shop\Product;
+use App\Business\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Jenssegers\Mongodb\Eloquent\Builder;
@@ -26,11 +27,22 @@ class ProductSearch
 
     /** @var  Route $route */
     protected $route;
+    /**
+     * @var ProductRepository
+     */
+    private $productRepository;
 
-    public function __construct(Request $filters, Route $route)
+    /**
+     * ProductSearch constructor.
+     * @param Request $filters
+     * @param Route $route
+     * @param ProductRepository $productRepository
+     */
+    public function __construct(Request $filters, Route $route, ProductRepository $productRepository)
     {
         $this->filters = $filters;
         $this->route = $route;
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -39,11 +51,16 @@ class ProductSearch
      */
     public function apply()
     {
-        return Cache::tags($this->getCacheTags())
+        $products = Cache::tags($this->getCacheTags())
             ->rememberForever($this->getCacheKey(), function () {
                 list($filters, $sort) = $this->applyDecoratorsFromRequest([]);
                 return $this->query($filters, $sort);
             });
+
+        return $this->productRepository
+            ->with('brand', 'category')
+            ->whereIn('_id', $products->pluck('_id'))
+            ->findAll();
     }
 
     /**
@@ -59,32 +76,35 @@ class ProductSearch
     private function query($filters, $sort)
     {
         return (new Product())->newQuery()
-            ->with('brand')
             ->raw(function ($collection) use ($filters, $sort) {
-                return $collection->aggregate([
-                    //['$project' => ['name' => 1, 'prices' => 1, 'status' => 1, 'is_featured' => 1]],
-                    ['$unwind' => '$prices'],
-                    ['$match' =>
-                        ['$and' => $filters]
-                    ],
-                    ['$group' => [
-                        '_id' => '$_id',
-                        'prices' => ['$first' => '$prices'],
-                        'name' => ['$first' => '$name'],
-                        'status' => ['$first' => '$status'],
-                        'is_featured' => ['$first' => '$is_featured'],
-                        'images' => ['$first' => '$images'],
-                        'labels' => ['$first' => '$labels'],
-                        'is_discounted' => ['$first' => '$is_discounted'],
-                        'stock' => ['$first' => '$stock'],
-                        'description' => ['$first' => '$description'],
-                        'slug' => ['$first' => '$slug'],
-                        'variations' => ['$first' => '$variations'],
-                        'introduction' => ['$first' => '$introduction'],
-                        'rating' => ['$first' => '$rating'],
-                    ]],
-                    ['$sort' => $sort]
-                ]);
+                return $collection
+                    ->aggregate([
+                        //['$project' => ['name' => 1, 'prices' => 1, 'status' => 1, 'is_featured' => 1]],
+                        ['$unwind' => '$prices'],
+                        [
+                            '$match' =>
+                                ['$and' => $filters]
+                        ],
+                        [
+                            '$group' => [
+                                '_id' => '$_id',
+                                'prices' => ['$first' => '$prices'],
+                                'name' => ['$first' => '$name'],
+                                'status' => ['$first' => '$status'],
+                                'is_featured' => ['$first' => '$is_featured'],
+                                'images' => ['$first' => '$images'],
+                                'labels' => ['$first' => '$labels'],
+                                'is_discounted' => ['$first' => '$is_discounted'],
+                                'stock' => ['$first' => '$stock'],
+                                'description' => ['$first' => '$description'],
+                                'slug' => ['$first' => '$slug'],
+                                'variations' => ['$first' => '$variations'],
+                                'introduction' => ['$first' => '$introduction'],
+                                'rating' => ['$first' => '$rating'],
+                            ]
+                        ],
+                        ['$sort' => $sort]
+                    ]);
             });
     }
 

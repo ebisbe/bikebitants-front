@@ -10,6 +10,7 @@ PRODUCTS - START
         <div class="container">
             <div itemscope itemtype="http://schema.org/Product" id="{{ $product->_id }}">
                 @include('partials.product', ['col_size' => 'xs'])
+                @include('scripts.addImpression', ['product' => $product, 'iteration' => null])
 
                 <div class="tabs product-tabs">
                     <ul class="nav nav-tabs" role="tablist">
@@ -137,6 +138,8 @@ PRODUCTS - START
                                     </div>
                                 </article>
                             </div>
+                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
+
                     @endforeach
                     <!-- PRODUCT - END -->
                     </div>
@@ -160,7 +163,8 @@ PRODUCTS - START
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
                                     class="fa fa-times"></i></button>
                     </div>
-                    <div class="modal-body" itemscope itemtype="http://schema.org/Product" id="{{ $relatedProduct->_id }}">
+                    <div class="modal-body" itemscope itemtype="http://schema.org/Product"
+                         id="{{ $relatedProduct->_id }}">
                         @include('partials.product', ['product' => $relatedProduct, 'col_size' => 'sm', 'hidden' => true, 'modal' => true])
                     </div>
                 </div>
@@ -196,5 +200,8 @@ PRODUCTS - START
     <!-- ==========================
         ADD REVIEW - END
     =========================== -->
-
+    <script type="text/javascript">
+        ga('ec:addProduct', {!! $product->gaProduct($view_name, null) !!});
+        ga('ec:setAction', 'detail');
+    </script>
 @endsection

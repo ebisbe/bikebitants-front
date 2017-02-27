@@ -132,6 +132,7 @@
                             @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                             @include('partials.price')
                         </article>
+                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
                     </div>
                 @endforeach
                 @foreach ($productsRight->chunk(4) as $chunk)
@@ -154,6 +155,7 @@
                                     </a>
                                     @include('partials.product_rating', ['product' => $product->rating, 'total_reviews' => count($product->reviews)])
                                     @include('partials.price')
+                                    @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration + 2])
                                 </li>
                                 <!-- PRODUCT - END -->
                             @endforeach

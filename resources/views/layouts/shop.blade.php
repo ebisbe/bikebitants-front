@@ -186,6 +186,9 @@
 
     @include('partials.discount_popup')
     {{--@include('partials.product_popup')--}}
+    <script type="application/javascript">
+        ga('send', 'pageview');
+    </script>
 </div> <!-- PAGE - END -->
 <!-- ==========================
  JS
