@@ -180,7 +180,7 @@ class ShopController extends Controller
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['category' => $cat->slug]));
 
-        MetaTag::set('title', $cat->title);
+        MetaTag::set('title', $cat->name);
         MetaTag::set('description', $cat->meta_desc);
         MetaTag::set('slug', $cat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->filename]));
@@ -212,7 +212,7 @@ class ShopController extends Controller
         Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['slug' => $cat->slug]));
         Breadcrumbs::addCrumb($subCat->name);
 
-        MetaTag::set('title', $subCat->title);
+        MetaTag::set('title', $subCat->name);
         MetaTag::set('description', $subCat->meta_desc);
         MetaTag::set('slug', $subCat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $subCat->filename]));
