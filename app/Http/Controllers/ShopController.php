@@ -28,8 +28,12 @@ class ShopController extends Controller
      * @param BrandRepository $brandRepository
      * @param ProductRepository $productRepository
      */
-    public function __construct(ProductSearch $productSearch, CategoryRepository $categoryRepository, BrandRepository $brandRepository, ProductRepository $productRepository)
-    {
+    public function __construct(
+        ProductSearch $productSearch,
+        CategoryRepository $categoryRepository,
+        BrandRepository $brandRepository,
+        ProductRepository $productRepository
+    ) {
         $this->productSearch = $productSearch;
         $this->categoryRepository = $categoryRepository;
         $this->brandRepository = $brandRepository;
@@ -50,7 +54,10 @@ class ShopController extends Controller
         $layoutTopHeader = 'hidden';
 
         $brands = collect();/*$this->brandRepository->findAll()*/
-        $featuredProducts = $this->productRepository->with(['category', 'brand'])->where('is_featured', true)->limit(10)->findAll();
+        $featuredProducts = $this->productRepository
+            ->with(['category', 'brand'])
+            ->where('is_featured', true)
+            ->limit(10)->findAll();
         $productsLeft = $featuredProducts->splice(0, 2);
         $productsRight = $featuredProducts;
         $categories = $this->categoryRepository
@@ -60,7 +67,9 @@ class ShopController extends Controller
 
         $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);
 
-        return view('shop.home', compact('layoutHeader', 'layoutTopHeader', 'brands', 'productsLeft', 'productsRight', 'categories', 'feed'));
+        return view('shop.home',
+            compact('layoutHeader', 'layoutTopHeader', 'brands', 'productsLeft', 'productsRight', 'categories',
+                'feed'));
     }
 
     /**
@@ -160,7 +169,11 @@ class ShopController extends Controller
 
         $products = $this->productSearch->apply();
         $filters = $this->productSearch->getFilters();
-        $categories = $this->categoryRepository->with(['children'])->where('father_id', null)->orderBy('name', 'asc')->findAll();
+        $categories = $this->categoryRepository
+            ->with(['children'])
+            ->where('father_id', null)
+            ->orderBy('name', 'asc')
+            ->findAll();
 
 
         MetaTag::set('title', 'Bikebitants shop');
@@ -171,8 +184,9 @@ class ShopController extends Controller
     }
 
     /**
-     * @param Category $slugCategory
+     * @param Category $cat
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @internal param Category $slugCategory
      */
     public function category(Category $cat)
     {
@@ -191,7 +205,11 @@ class ShopController extends Controller
 
         $products = $this->productSearch->apply();
         $filters = $this->productSearch->getFilters();
-        $categories = $this->categoryRepository->with(['children'])->where('father_id', null)->orderBy('name', 'asc')->findAll();
+        $categories = $this->categoryRepository
+            ->with(['children'])
+            ->where('father_id', null)
+            ->orderBy('name', 'asc')
+            ->findAll();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
@@ -223,7 +241,11 @@ class ShopController extends Controller
 
         $products = $this->productSearch->apply();
         $filters = $this->productSearch->getFilters();
-        $categories = $this->categoryRepository->with(['children'])->where('father_id', null)->orderBy('name', 'asc')->findAll();
+        $categories = $this->categoryRepository
+            ->with(['children'])
+            ->where('father_id', null)
+            ->orderBy('name', 'asc')
+            ->findAll();
 
         return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
     }

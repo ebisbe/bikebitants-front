@@ -284,11 +284,24 @@
                                                         <span>
                                                             <b>{{ $item->getPriceSumWithConditions() }}{{ $item['attributes']['currency'] }}</b>
                                                         </span>
+                                                        <script type="application/javascript">
+                                                            ga('ec:addProduct', {
+                                                                'id': '{{ $item['id'] }}',
+                                                                'name': '{{ $item['name'] }}',
+                                                                'brand': '{{ $item['attributes']['brand'] }}',
+                                                                'variant': '{{ collect($item->attributes->properties)->implode(', ') }}',
+                                                                'price': '{{ $item->getPriceWithConditions() }}',
+                                                                'quantity': '{{ $item->quantity }}'
+                                                            });
+                                                        </script>
                                                     </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
                                         </table>
+                                        <script type="application/javascript">
+                                            ga('ec:setAction', 'checkout', {'step': 1});
+                                        </script>
                                         <total-checkout
                                                 country="ES"
                                                 state="B"
@@ -336,5 +349,4 @@
             </div>
         </div>
     </section>
-
 @endsection

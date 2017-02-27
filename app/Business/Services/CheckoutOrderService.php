@@ -209,7 +209,7 @@ class CheckoutOrderService
     protected function updateOrder(Order $order): Order
     {
         if ($order->status == Order::New) {
-            $order->subtotal = Cart::getSubTotal();
+            $order->subtotal = Cart::getSubTotalWithoutConditions();
             $order->total = Cart::getTotal();
             $order->total_items = Cart::getTotalQuantity();
             $order->conditions = $this->updateOrderConditions();

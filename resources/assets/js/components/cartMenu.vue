@@ -85,6 +85,7 @@
                 this.$http.delete('/api/cart/' + product._id)
                         .then(function () {
                             $('#js-cart').dropdown('toggle');
+                            this.notifyGA('remove', product)
                         });
 
             },
@@ -100,6 +101,20 @@
                 });
                 this.products.push(product);
                 $('#js-cart').dropdown('toggle');
+                this.notifyGA('add', product)
+            },
+
+            notifyGA: function(type, product) {
+                ga('ec:addProduct', {
+                    'id': product._id,
+                    'name': product.name,
+                    'category': product.category,
+                    'brand': product.brand,
+                    'price': product.price,
+                    'quantity': product.quantity
+                });
+                ga('ec:setAction', type);
+                ga('send', 'event', 'UX', 'click', type + ' to cart');
             }
         }
     };

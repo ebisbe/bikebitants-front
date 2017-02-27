@@ -10,7 +10,10 @@ PRODUCTS - START
         <div class="container">
             <div itemscope itemtype="http://schema.org/Product" id="{{ $product->_id }}">
                 @include('partials.product', ['col_size' => 'xs'])
-                @include('scripts.addImpression', ['product' => $product, 'iteration' => null])
+                <script type="text/javascript">
+                    ga('ec:addProduct', {!! $product->gaProduct($view_name) !!});
+                    ga('ec:setAction', 'detail');
+                </script>
 
                 <div class="tabs product-tabs">
                     <ul class="nav nav-tabs" role="tablist">
