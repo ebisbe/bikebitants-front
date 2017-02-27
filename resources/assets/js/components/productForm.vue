@@ -13,13 +13,15 @@
                 @changedQuantity="updateQuantity">
         </quantity-select>
 
-        <cart-add :quantity="quantity"
-                  :product_id="product_id"
-                  :properties="cart_properties"
-                  text="catalogue.add"
-                  :show_icon="true"
-                  button_class="btn btn-primary add-to-cart">
-        </cart-add>
+        <div class="form-group product-size">
+            <cart-add :quantity="quantity"
+                      :product_id="product_id"
+                      :properties="cart_properties"
+                      text="catalogue.add"
+                      :show_icon="true"
+                      button_class="btn btn-primary add-to-cart">
+            </cart-add>
+        </div>
 
         <span class="help-block" id="helpBlock2">{{ stockText }}</span>
     </form>
@@ -59,7 +61,7 @@
                 let variation = _.filter(this.variations, function (variation) {
                     return _.isEmpty(_.difference(variation._id, properties));
                 });
-                
+
                 if (variation.length == 0) {
                     this.max_quantity = 0;
                 } else {

@@ -2560,22 +2560,22 @@ article.product-item.product-single .product-color {
 
 article.product-item.product-single .product-quantity .btn {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     width: 40px;
-    float: left;
-    background-color: #F0F0F0;
+    background-color: #f0f0f0;
     z-index: 500;
     padding: 6px 12px;
+    vertical-align: top;
 }
 
 article.product-item.product-single .product-quantity .form-control {
     display: inline-block;
     width: 44px;
     text-align: center;
-    height: 38px;
-    float: left;
-    margin-left: -2px;
+    height: 39px;
+    margin: 0px -3px 0px -5px;
     z-index: 510;
+    vertical-align: top;
 }
 
 article.product-item.product-single .product-quantity .btn:last-child {
@@ -5484,6 +5484,12 @@ footer.navbar a:hover {
     .form-text {
         margin: 0;
     }
+    
+    article.product-item .product-labels {
+        position: relative;
+        padding:0 0 10px;
+        right: 0px !important;
+    }
 }
 
 @media (max-width: 600px) {
@@ -5521,6 +5527,12 @@ footer.navbar a:hover {
 
     .categories .category .category-title span {
         font-size: 14px;
+    }
+
+    article.product-item .product-labels {
+        position: relative;
+        padding:0 0 10px;
+        right: 0px !important;
     }
 }
 
@@ -5682,6 +5694,12 @@ footer.navbar a:hover {
         font-size: 16px;
         line-height: 22px;
     }
+
+    article.product-item .product-labels {
+        position: relative;
+        padding:0 0 10px;
+        right: 0px !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -5813,6 +5831,12 @@ footer.navbar a:hover {
         text-align: center;
         padding: 20px 0;
     }
+
+    article.product-item .product-labels {
+        position: relative;
+        padding:0 0 10px;
+        right: 0px !important;
+    }
 }
 
 @media (max-width: 360px) {
@@ -5885,6 +5909,11 @@ footer.navbar a:hover {
         font-size: 12px;
         display: block;
         margin: 0 0 10px;
+    }
+
+    article.product-item .product-labels {
+        position: relative;
+        padding:0px;
     }
 }
 
