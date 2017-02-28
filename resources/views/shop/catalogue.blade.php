@@ -78,11 +78,11 @@ PRODUCTS - START
                 <div class="col-sm-9">
                     <div class="products-header">
                         <div class="row">
-                            <div class="col-xs-6 col-sm-2">
+                            <div class="col-xs-2 col-sm-2">
 
                             </div>
 
-                            <div class="col-xs-6 col-sm-10">
+                            <div class="col-xs-10 col-sm-10">
                                 <div class="btn-group toggle-list-grid hidden-xs" role="group">
                                     <button type="button" class="btn btn-default active" id="toggle-grid">
                                         <i class="fa fa-th"></i>

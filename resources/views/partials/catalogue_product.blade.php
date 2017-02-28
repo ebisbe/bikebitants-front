@@ -1,4 +1,4 @@
-<div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
+<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
     <article class="product-item">
         <div class="row">
             <div class="col-sm-3">

@@ -5217,6 +5217,10 @@ footer.navbar a:hover {
         margin-left: 0;
     }
 
+    .products-header .order-by .form-group {
+        margin-bottom:0;
+    }
+
     article.product-item .product-quickview {
         display: none;
     }
@@ -5484,7 +5488,7 @@ footer.navbar a:hover {
     .form-text {
         margin: 0;
     }
-    
+
     article.product-item .product-labels {
         position: relative;
         padding:0 0 10px;
@@ -5703,7 +5707,7 @@ footer.navbar a:hover {
 }
 
 @media (max-width: 480px) {
-    #products > div,
+
     .recent-blog-posts > .container > .row > div,
     .categories-2 .category > .row > div {
         width: 100%;
