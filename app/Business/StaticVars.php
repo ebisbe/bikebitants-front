@@ -61,27 +61,6 @@ class StaticVars
     }
 
     /**
-     * @param string $layoutStyle
-     * @return string
-     */
-    public function layoutHeader($layoutStyle = 'navbar-default navbar-static-top')
-    {
-        if (empty($layoutStyle)) {
-            $layoutStyle = 'navbar-default navbar-static-top';
-        }
-        return $layoutStyle;
-    }
-
-    /**
-     * @param string $layoutStyle
-     * @return string
-     */
-    public function layoutTopHeader($layoutStyle = '')
-    {
-        return $layoutStyle;
-    }
-
-    /**
      * @param $name
      * @param $arguments
      * @return \Illuminate\Support\Collection|string

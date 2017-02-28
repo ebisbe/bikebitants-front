@@ -43,33 +43,34 @@
     <!-- ==========================
         HEADER - START
     =========================== -->
-    <div class="top-header hidden-xs {{ StaticVars::layoutTopHeader(!empty($layoutTopHeader) ? $layoutTopHeader : '') }}">
+    <div class="top-header hidden-xs">
         <div class="container">
             <div class="row">
-                <div>
+                <div class="clo-sm-9">
                     <ul class="list-inline contacts">
-                        <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
-                        <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
+                        <li><i class="fa fa-envelope"></i> <a href="mailto:{{ StaticVars::email() }}">{{ StaticVars::email() }}</a></li>
+                        <li><i class="fa fa-phone"></i> <a href="tel:{{ StaticVars::telephone() }}">{{ StaticVars::telephone() }}</a> @lang('layout.telephone_schedule')</li>
                     </ul>
                 </div>
-                {{--<div class="col-sm-7 text-right">
+                <div class="col-sm-3 text-right">
                     <ul class="list-inline links">
-                        <li><a href="my-account.html">My account</a></li>
+                        <li><a href="{{ config('APP_BLOG_URL') }}/contacto">@lang('layout.contact')</a></li>
+                        {{--<li><a href="my-account.html">My account</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="wishlist.html">Wishlist (5)</a></li>
                         <li><a href="compare.html">Compare (3)</a></li>
-                        <li><a href="signin.html">Logout</a></li>
-                    </ul>--}}
+                        <li><a href="signin.html">Logout</a></li>--}}
+                    </ul>
                 {{--<ul class="list-inline languages hidden-sm">
                     <li><a href="#"><img src="/images/flags/es.png" alt="cs_CZ"></a></li>
                     <li><a href="#"><img src="/images/flags/us.png" alt="en_US"></a></li>
                     <li><a href="#"><img src="/images/flags/de.png" alt="de_DE"></a></li>
-                </ul>
-            </div>--}}
+                </ul>--}}
+            </div>
             </div>
         </div>
     </div>
-    <header class="navbar {{ StaticVars::layoutHeader(!empty($layoutHeader) ? $layoutHeader : '') }}">
+    <header class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
                 <a href="{{ route('shop.home') }}" class="navbar-brand">

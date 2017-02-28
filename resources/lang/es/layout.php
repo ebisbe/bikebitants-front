@@ -17,5 +17,6 @@ return [
     'go_back' => 'Volver a',
     'see' => 'Ver',
     'out_of_stock' => 'Sin stock',
-    'tag' => 'Etiqueta'
+    'tag' => 'Etiqueta',
+    'telephone_schedule' => '(Lunes a viernes, 9h - 19h)'
 ];

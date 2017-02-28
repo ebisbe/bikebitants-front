@@ -35,9 +35,6 @@ use Illuminate\Support\Collection;
  *
  * @method static string imgWrapper()
  *
- * @method static string layoutHeader($layoutHeader)
- * @method static string layoutTopHeader($layoutTopHeader)
- *
  * @method static string emailValidation()
  *
  * @method static string wordpressDateTime()

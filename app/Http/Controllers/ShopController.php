@@ -50,9 +50,6 @@ class ShopController extends Controller
      */
     public function home()
     {
-        $layoutHeader = 'navbar-transparent navbar-fixed-top';
-        $layoutTopHeader = 'hidden';
-
         $brands = collect();/*$this->brandRepository->findAll()*/
         $featuredProducts = $this->productRepository
             ->with(['category', 'brand'])
@@ -67,9 +64,10 @@ class ShopController extends Controller
 
         $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);
 
-        return view('shop.home',
-            compact('layoutHeader', 'layoutTopHeader', 'brands', 'productsLeft', 'productsRight', 'categories',
-                'feed'));
+        return view(
+            'shop.home',
+            compact('brands', 'productsLeft', 'productsRight', 'categories', 'feed')
+        );
     }
 
     /**
