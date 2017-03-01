@@ -12,8 +12,6 @@ services:
     extends:
       file: docker-compose.base.yml
       service: mongodb
-    ports:
-      - "${DB_PORT}:27017"
   redis:
     extends:
       file: docker-compose.base.yml
