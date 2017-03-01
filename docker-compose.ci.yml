@@ -1,0 +1,28 @@
+version: '2'
+services:
+  app:
+    extends:
+      file: docker-compose.base.yml
+      service: app
+  node:
+    extends:
+      file: docker-compose.base.yml
+      service: node
+  mongodb:
+    extends:
+      file: docker-compose.base.yml
+      service: mongodb
+    ports:
+      - "${DB_PORT}:27017"
+  redis:
+    extends:
+      file: docker-compose.base.yml
+      service: redis
+networks:
+  skynet:
+    driver: "bridge"
+volumes:
+  mongodata:
+    driver: "local"
+  redisdata:
+    driver: "local"

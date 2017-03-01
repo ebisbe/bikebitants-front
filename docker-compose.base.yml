@@ -1,0 +1,32 @@
+version: '2'
+services:
+  app:
+    build:
+      context: ./docker/app
+      dockerfile: Dockerfile
+    image: bikebitants/app
+    volumes:
+     - .:/var/www/html
+    networks:
+     - skynet
+  node:
+    build:
+      context: ./docker/node
+      dockerfile: Dockerfile
+    image: bikebitants/node
+    volumes:
+     - .:/var/www/html
+    networks:
+     - skynet
+  mongodb:
+    image: mongo:3.4.2
+    volumes:
+     - mongodata:/data/db
+    networks:
+     - skynet
+  redis:
+    image: redis:alpine
+    volumes:
+     - redisdata:/data
+    networks:
+     - skynet
