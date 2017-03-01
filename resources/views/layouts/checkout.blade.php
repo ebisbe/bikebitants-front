@@ -41,7 +41,7 @@
     <!-- ==========================
         HEADER - START
     =========================== -->
-    <div class="top-header hidden-xs {{ StaticVars::layoutTopHeader(!empty($layoutTopHeader) ? $layoutTopHeader : '') }}">
+    <div class="top-header hidden-xs">
         <div class="container">
             <div class="row">
                 <div class="col-sm-5">
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <header class="navbar {{ StaticVars::layoutHeader(!empty($layoutHeader) ? $layoutHeader : '') }}">
+    <header class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
                 <a href="{{ route('shop.home') }}" class="navbar-brand">

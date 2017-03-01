@@ -5114,7 +5114,8 @@ footer.navbar a:hover {
         background-color: transparent;
         border: 0;
         font-size: 26px;
-        margin: 3px 15px 0 0;
+        margin: 3px 5px 0 0;
+        float: none;
     }
 
     .navbar .navbar-toggle:focus,
@@ -5215,6 +5216,10 @@ footer.navbar a:hover {
     .products-header .order-by {
         display: block;
         margin-left: 0;
+    }
+
+    .products-header .order-by .form-group {
+        margin-bottom:0;
     }
 
     article.product-item .product-quickview {
@@ -5484,7 +5489,7 @@ footer.navbar a:hover {
     .form-text {
         margin: 0;
     }
-    
+
     article.product-item .product-labels {
         position: relative;
         padding:0 0 10px;
@@ -5703,7 +5708,7 @@ footer.navbar a:hover {
 }
 
 @media (max-width: 480px) {
-    #products > div,
+
     .recent-blog-posts > .container > .row > div,
     .categories-2 .category > .row > div {
         width: 100%;

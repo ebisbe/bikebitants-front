@@ -43,40 +43,48 @@
     <!-- ==========================
         HEADER - START
     =========================== -->
-    <div class="top-header hidden-xs {{ StaticVars::layoutTopHeader(!empty($layoutTopHeader) ? $layoutTopHeader : '') }}">
+    <div class="top-header hidden-xs">
         <div class="container">
             <div class="row">
-                <div>
+                <div class="col-sm-9">
                     <ul class="list-inline contacts">
-                        <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
-                        <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
+                        <li><i class="fa fa-envelope"></i> <a
+                                    href="mailto:{{ StaticVars::email() }}">{{ StaticVars::email() }}</a></li>
+                        <li><i class="fa fa-phone"></i> <a
+                                    href="tel:{{ StaticVars::telephone() }}">{{ StaticVars::telephone() }}</a> @lang('layout.telephone_schedule')
+                        </li>
                     </ul>
                 </div>
-                {{--<div class="col-sm-7 text-right">
+                <div class="col-sm-3 text-right">
                     <ul class="list-inline links">
-                        <li><a href="my-account.html">My account</a></li>
+                        <li><a href="{{ config('APP_BLOG_URL') }}/contacto">@lang('layout.contact')</a></li>
+                        {{--<li><a href="my-account.html">My account</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="wishlist.html">Wishlist (5)</a></li>
                         <li><a href="compare.html">Compare (3)</a></li>
-                        <li><a href="signin.html">Logout</a></li>
+                        <li><a href="signin.html">Logout</a></li>--}}
+                    </ul>
+                    {{--<ul class="list-inline languages hidden-sm">
+                        <li><a href="#"><img src="/images/flags/es.png" alt="cs_CZ"></a></li>
+                        <li><a href="#"><img src="/images/flags/us.png" alt="en_US"></a></li>
+                        <li><a href="#"><img src="/images/flags/de.png" alt="de_DE"></a></li>
                     </ul>--}}
-                {{--<ul class="list-inline languages hidden-sm">
-                    <li><a href="#"><img src="/images/flags/es.png" alt="cs_CZ"></a></li>
-                    <li><a href="#"><img src="/images/flags/us.png" alt="en_US"></a></li>
-                    <li><a href="#"><img src="/images/flags/de.png" alt="de_DE"></a></li>
-                </ul>
-            </div>--}}
+                </div>
             </div>
         </div>
     </div>
-    <header class="navbar {{ StaticVars::layoutHeader(!empty($layoutHeader) ? $layoutHeader : '') }}">
+    <header class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
                 <a href="{{ route('shop.home') }}" class="navbar-brand">
-                    <img height="36" alt="Bikebitants Logo" src='{{ StaticVars::logo() }}' />
+                    <img height="36" alt="Bikebitants Logo" src='{{ StaticVars::logo() }}'/>
                 </a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i
-                            class="fa fa-bars"></i></button>
+                <a href="{{ route('cart.index') }}" class="navbar-toggle">
+                    <i class="fa fa-shopping-cart"></i>
+                </a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
             </div>
             <div class="navbar-collapse collapse">
                 <p class="navbar-text hidden-xs hidden-sm">{{ StaticVars::slogan() }}</p>
@@ -89,6 +97,19 @@
                     </li>
                     <li>
                         <a href="{{ route('faq') }}">@lang('static.faq')</a>
+                    </li>
+                    <li class="visible-xs">
+                        <a href="mailto:{{ StaticVars::email() }}">
+                            <i class="fa fa-envelope"></i> {{ StaticVars::email() }}
+                        </a>
+                    </li>
+                    <li class="visible-xs">
+                        <a href="tel:{{ StaticVars::telephone() }}">
+                            <i class="fa fa-phone"></i> {{ StaticVars::telephone() }}
+                        </a>
+                    </li>
+                    <li class="visible-xs">
+                        <a href="{{ config('APP_BLOG_URL') }}/contacto">@lang('layout.contact')</a>
                     </li>
                     <cart-menu
                             cart="{{ route('cart.index') }}"
@@ -103,9 +124,9 @@
         HEADER - END
     =========================== -->
 
-    @yield('content')
+@yield('content')
 
-    <!-- ==========================
+<!-- ==========================
         FOOTER - START
     =========================== -->
     <footer class="navbar navbar-default">
