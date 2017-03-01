@@ -3632,7 +3632,7 @@ footer.navbar a:hover {
 
 #homepage-2-carousel .slide-1 h1 {
     font-weight: 300;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 #homepage-2-carousel .slide-1 h2 {
@@ -5064,7 +5064,6 @@ footer.navbar a:hover {
     }
 
     #homepage-2-carousel .slide-1 h1 {
-        font-size: 16px;
         margin: 70px 0 0;
     }
 
@@ -5750,7 +5749,6 @@ footer.navbar a:hover {
     }
 
     #homepage-2-carousel .slide-1 h1 {
-        font-size: 20px;
         margin-top: 70px;
     }
 
@@ -5908,9 +5906,9 @@ footer.navbar a:hover {
         font-size: 16px;
     }
 
-    #homepage-2-carousel .slide-1 h1 {
+    /*#homepage-2-carousel .slide-1 h1 {
         font-size: 18px;
-    }
+    }*/
 
     #homepage-2-carousel .slide-1 h2 {
         font-size: 24px;

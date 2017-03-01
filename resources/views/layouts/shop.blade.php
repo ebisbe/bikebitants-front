@@ -79,12 +79,12 @@
                 <a href="{{ route('shop.home') }}" class="navbar-brand">
                     <img height="36" alt="Bikebitants Logo" src='{{ StaticVars::logo() }}'/>
                 </a>
-                <a href="{{ route('cart.index') }}" class="navbar-toggle">
-                    <i class="fa fa-shopping-cart"></i>
-                </a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
+                <a href="{{ route('cart.index') }}" class="navbar-toggle pull-right">
+                    <i class="fa fa-shopping-cart"></i>
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <p class="navbar-text hidden-xs hidden-sm">{{ StaticVars::slogan() }}</p>
