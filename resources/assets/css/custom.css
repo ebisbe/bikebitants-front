@@ -2300,6 +2300,10 @@ article.product-item .product-overlay .product-mask, .product-overlay .product-m
     z-index: 110;
 }
 
+.small-product .product-overlay .product-mask {
+    left:15px;
+}
+
 article.product-item:hover .product-overlay .product-mask, .product-overlay .product-mask:hover {
     opacity: 1;
     filter: alpha(opacity=100);
@@ -4214,8 +4218,8 @@ footer.navbar a:hover {
 }
 
 .small-product li .product-overlay {
-    margin-right: 15px;
-    float: left;
+    /*margin-right: 15px;*/
+    /*float: left;*/
 }
 
 .small-product li .product-overlay img {
@@ -5346,8 +5350,9 @@ footer.navbar a:hover {
 
     .services.services-3x .service {
         border-right: 0;
-        margin-bottom: 15px;
-        padding-bottom: 30px;
+        margin-bottom: 0;
+        padding-bottom: 5px;
+        border-bottom: 0;
     }
 
     /*.services.services-3x .row > div:first-child .service {
@@ -5405,7 +5410,11 @@ footer.navbar a:hover {
     }
 
     .services {
-        padding-top: 30px;
+        padding-top: 0;
+    }
+
+    .services .service h3 {
+        font-size:16px;
     }
 
     .our-stores {
@@ -5547,7 +5556,6 @@ footer.navbar a:hover {
     .product-item.product-single > .row > div,
     .checkout-steps > .row > div,
     .services > .row > div,
-    .services > .container > .row > div,
     .categories > .row > div,
     .order-meta > .row > div,
     .login-form-wrapper > .row > div,

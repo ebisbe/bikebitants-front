@@ -67,7 +67,7 @@
     <!-- ==========================
         SERVICES - START
     =========================== -->
-    <section class="content services services-3x border-top border-bottom hidden-sm hidden-md hidden-lg">
+    <section class="content services services-3x border-top border-bottom visible-xs">
         <div class="container">
             <div class="row row-no-padding">
 
@@ -76,7 +76,6 @@
                     <div class="service">
                         <i class="@lang('home.first_box_i')"></i>
                         <h3>@lang('home.first_box_h3')</h3>
-                        <p>@lang('home.first_box_p')</p>
                     </div>
                 </div>
                 <!-- SERVICE - END -->
@@ -86,7 +85,6 @@
                     <div class="service">
                         <i class="@lang('home.second_box_i')"></i>
                         <h3>@lang('home.second_box_h3')</h3>
-                        <p>@lang('home.second_box_p')</p>
                     </div>
                 </div>
                 <!-- SERVICE - END -->
@@ -96,7 +94,6 @@
                     <div class="service">
                         <i class="@lang('home.third_box_i')"></i>
                         <h3>@lang('home.third_box_h3')</h3>
-                        <p>@lang('home.third_box_p')</p>
                     </div>
                 </div>
                 <!-- SERVICE - END -->
@@ -141,21 +138,24 @@
                         @foreach ($chunk as $product)
                             <!-- PRODUCT - START -->
                                 <li class="clearfix">
-
-                                    <div class="product-overlay">
-                                        <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
-                                            <div class="product-mask">
-                                                {!! Form::img($product->front_image_hover->filename, StaticVars::homeLeft(), $product->front_image_hover->alt) !!}
-                                            </div>
-                                            {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
-                                        </a>
+                                    <div class="row">
+                                        <div class="col-xs-4 product-overlay">
+                                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
+                                                <div class="product-mask">
+                                                    {!! Form::img($product->front_image_hover->filename, StaticVars::homeLeft(), $product->front_image_hover->alt) !!}
+                                                </div>
+                                                {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
+                                            </a>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
+                                                <h3>{{ $product->name }}</h3>
+                                            </a>
+                                            @include('partials.product_rating', ['product' => $product->rating, 'total_reviews' => count($product->reviews)])
+                                            @include('partials.price')
+                                            @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration + 2])
+                                        </div>
                                     </div>
-                                    <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
-                                        <h3>{{ $product->name }}</h3>
-                                    </a>
-                                    @include('partials.product_rating', ['product' => $product->rating, 'total_reviews' => count($product->reviews)])
-                                    @include('partials.price')
-                                    @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration + 2])
                                 </li>
                                 <!-- PRODUCT - END -->
                             @endforeach
