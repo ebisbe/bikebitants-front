@@ -10,6 +10,10 @@ class TaxService
 {
     protected $taxRepository;
 
+    /**
+     * TaxService constructor.
+     * @param TaxRepository $taxRepository
+     */
     public function __construct(TaxRepository $taxRepository)
     {
         $this->taxRepository = $taxRepository;

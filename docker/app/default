@@ -5,7 +5,7 @@ server {
 
     index index.html index.htm index.php;
 
-    server_name _;
+    server_name www.bikebitants.dev;
 
     charset utf-8;
 
