@@ -20,6 +20,12 @@ services:
     extends:
       file: docker-compose.base.yml
       service: redis
+    ports:
+     - "${REDIS_PORT}:6379"
+  cronjobs:
+    extends:
+      file: docker-compose.base.yml
+      service: cronjobs
 networks:
   skynet:
     driver: "bridge"

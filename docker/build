@@ -2,4 +2,5 @@
 
 docker build -f app/Dockerfile -t bikebitants/app:latest ./app
 docker build -f node/Dockerfile -t bikebitants/node:latest ./node
+docker build -f cronjobs/Dockerfile -t bikebitants/cronjobs:latest ./cronjobs
 
