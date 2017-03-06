@@ -99,6 +99,9 @@
                         <a href="{{ route('faq') }}">@lang('static.faq')</a>
                     </li>
                     <li class="visible-xs">
+                        <a href="{{ config('APP_BLOG_URL') }}/contacto">@lang('layout.contact')</a>
+                    </li>
+                    <li class="visible-xs">
                         <a href="mailto:{{ StaticVars::email() }}">
                             <i class="fa fa-envelope"></i> {{ StaticVars::email() }}
                         </a>
@@ -107,9 +110,6 @@
                         <a href="tel:{{ StaticVars::telephone() }}">
                             <i class="fa fa-phone"></i> {{ StaticVars::telephone() }}
                         </a>
-                    </li>
-                    <li class="visible-xs">
-                        <a href="{{ config('APP_BLOG_URL') }}/contacto">@lang('layout.contact')</a>
                     </li>
                     <cart-menu
                             cart="{{ route('cart.index') }}"
