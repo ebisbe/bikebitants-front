@@ -2363,7 +2363,7 @@ article.product-item .product-permalink {
 
 article.product-item h1 {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 24px;
     margin-top: 15px;
     letter-spacing: 0;
@@ -2384,7 +2384,7 @@ article.product-item .product-rating i,
 
 article.product-item .price,
 .small-product li .price {
-    font-size: 18px;
+    font-size: 15px;
     color: #888888;
 }
 
@@ -2398,7 +2398,7 @@ article.product-item .price ins,
 article.product-item .price ins,
 .small-product li .price ins {
     text-decoration: none;
-    font-size: 22px;
+    font-size: 18px;
     margin-left: 3px;
     font-weight: 400;
 }
@@ -4761,7 +4761,6 @@ footer.navbar a:hover {
     }
 
     article.product-item h1 {
-        font-size: 16px;
         line-height: 22px;
     }
 
@@ -5497,12 +5496,6 @@ footer.navbar a:hover {
     .form-text {
         margin: 0;
     }
-
-    article.product-item .product-labels {
-        position: relative;
-        padding:0 0 10px;
-        right: 0px !important;
-    }
 }
 
 @media (max-width: 600px) {
@@ -5540,12 +5533,6 @@ footer.navbar a:hover {
 
     .categories .category .category-title span {
         font-size: 14px;
-    }
-
-    article.product-item .product-labels {
-        position: relative;
-        padding:0 0 10px;
-        right: 0px !important;
     }
 }
 
@@ -5705,12 +5692,6 @@ footer.navbar a:hover {
         font-size: 16px;
         line-height: 22px;
     }
-
-    article.product-item .product-labels {
-        position: relative;
-        padding:0 0 10px;
-        right: 0px !important;
-    }
 }
 
 @media (max-width: 480px) {
@@ -5841,12 +5822,6 @@ footer.navbar a:hover {
         text-align: center;
         padding: 20px 0;
     }
-
-    article.product-item .product-labels {
-        position: relative;
-        padding:0 0 10px;
-        right: 0px !important;
-    }
 }
 
 @media (max-width: 360px) {
@@ -5919,11 +5894,6 @@ footer.navbar a:hover {
         font-size: 12px;
         display: block;
         margin: 0 0 10px;
-    }
-
-    article.product-item .product-labels {
-        position: relative;
-        padding:0px;
     }
 }
 
