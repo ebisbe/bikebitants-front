@@ -13,6 +13,7 @@ node('master') {
         // Create .env file for testing
         sh '/var/lib/jenkins/.venv/bin/aws s3 cp s3://bikebitants-secrets/env-ci .env'
         sh './develop art key:generate'
+        sh './develop art geoip:update'
     }
     stage('test') {
         sh "APP_ENV=testing ./develop test"
