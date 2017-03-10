@@ -29,8 +29,11 @@ cd $DIR/app/packaged
 # Build the Docker image with latest code
 cd $DIR/app
 docker build \
-    -t shippingdocker.com/app:latest \
-    -t shippingdocker.com/app:$HASH .
+    -t bikebitants.com/app:latest \
+    -t bikebitants.com/app:$HASH .
+
+docker push localhost:5000/bikebitants.com/app:latest
+docker push localhost:5000/bikebitants.com/app:$HASH
 
 # Clean up packaged directory
 cd $DIR/app/packaged
