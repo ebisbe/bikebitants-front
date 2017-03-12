@@ -30,12 +30,3 @@ services:
      - redisdata:/data
     networks:
      - skynet
-  cronjobs:
-    build:
-      context: ./docker/cronjobs
-      dockerfile: Dockerfile
-    image: bikebitants/cronjobs
-    volumes:
-     - .:/var/www/html
-    networks:
-     - skynet

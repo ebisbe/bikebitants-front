@@ -9,7 +9,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN apt-get update \
-    && apt-get install -y nginx curl zip unzip git software-properties-common supervisor \
+    && apt-get install -y nginx curl zip unzip git software-properties-common supervisor cron \
     && add-apt-repository -y ppa:ondrej/php \
     && apt-get update \
     && apt-get install -y php7.0-fpm php7.0-cli php7.0-mcrypt php7.0-gd php7.0-redis \
@@ -34,7 +34,13 @@ EXPOSE 80
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-CMD ["/usr/bin/supervisord"]
-
 COPY packaged /var/www/html
 RUN chown -R www-data: /var/www/html
+
+COPY cronjobs.conf /var/home/
+
+COPY start.sh /var/home/
+
+RUN chmod +x /var/home/start.sh
+
+CMD ["./var/home/start.sh"]
