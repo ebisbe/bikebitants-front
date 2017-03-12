@@ -18,7 +18,7 @@
 | loading any of our classes later on. It feels nice to relax.
 |
 */
-
+echo "<pre>".print_r($_SERVER,true)."</pre>";
 require __DIR__.'/../bootstrap/autoload.php';
 
 /*
