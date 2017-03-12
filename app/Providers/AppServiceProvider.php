@@ -37,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
             $view_name = str_replace('.', '_', $view->getName());
             view()->share('view_name', $view_name);
         });
+
+        \Request::setTrustedProxies(['172.18.0.0']);
     }
 
     /**

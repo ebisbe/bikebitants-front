@@ -30,11 +30,11 @@ sudo docker stop $QUEUE_CONTAINER
 sudo docker rm -v $QUEUE_CONTAINER
 echo "Removed old queue container $QUEUE_CONTAINER"
 
-SHARED_PATHS="-v /var/www/bikebitants_files/public/img:/var/www/html/public/img -v /var/www/bikebitants_file/storage:/var/www/html/storage"
+SHARED_PATHS="-v /var/www/bikebitants_file/app:/var/www/html/storage/app"
 
 # Start new instances
-NEW_APP_CONTAINER=$(sudo docker run -d --network=bikebitants -e CONTAINER_ENV=production --restart=always --name="$NEW_CONTAINER" $SHARED_PATHS localhost:5000/bikebitants.com/app)
-NEW_QUEUE_CONTAINER=$(sudo docker run -d --network=bikebitants --name="queueit" -e CONTAINER_ENV=production --restart=always $SHARED_PATHS -w /var/www/html localhost:5000/bikebitants.com/cronjobs-)
+NEW_APP_CONTAINER=$(sudo docker run -d --network=bikebitants -e CONTAINER_ENV=production --restart=always --name="$NEW_CONTAINER" $SHARED_PATHS $SHARED_PATHS localhost:5000/bikebitants.com/app)
+NEW_QUEUE_CONTAINER=$(sudo docker run -d --network=bikebitants --name="queueit" -e CONTAINER_ENV=production $SHARED_PATHS --restart=always $SHARED_PATHS localhost:5000/bikebitants.com/cronjobs)
 
 # Wait for processes to boot up
 sleep 5
