@@ -17,8 +17,8 @@ NEW_CONTAINER="shipit`date +"%s"`"
 sudo docker pull localhost:5000/bikebitants.com/app
 
 # Don't deploy if latest image is running
-RUNNING_IMAGE=$(docker inspect $APP_CONTAINER | jq ".[0].Image")
-CURRENT_IMAGE=$(docker image inspect localhost:5000/bikebitants.com/app:latest | jq ".[0].Id")
+RUNNING_IMAGE=$(sudo ocker inspect $APP_CONTAINER | jq ".[0].Image")
+CURRENT_IMAGE=$(sudo docker image inspect localhost:5000/bikebitants.com/app:latest | jq ".[0].Id")
 
 if [ "$CURRENT_IMAGE" == "$RUNNING_IMAGE" ]; then
     echo ">>> Most recent image is already in use"
@@ -45,7 +45,7 @@ echo "Started new container $NEW_APP_CONTAINER"
 sudo sed -i "s/server shipit.*/server $NEW_CONTAINER:80;/" /opt/conf.d/default.conf
 
 # Configtest Nginx
-sudo docker exec -it nginx nginx -t
+sudo docker exec nginx nginx -t
 NGINX_STABLE=$?
 
 if [ $NGINX_STABLE -eq 0 ]; then

@@ -25,6 +25,10 @@ node('master') {
            stage('package') {
                sh './docker/build'
            }
+
+            stage('deploy') {
+               sh 'ssh -i ~/.ssh/id_sd enricu@10.1.1.13 /opt/deploy'
+            }
        }
    } catch(error) {
        // Maybe some alerting?
