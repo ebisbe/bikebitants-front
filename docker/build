@@ -35,6 +35,13 @@ docker build \
 docker push localhost:5000/bikebitants.com/app:latest
 docker push localhost:5000/bikebitants.com/app:$HASH
 
+docker build \
+    -t localhost:5000/bikebitants.com/cronjobs:latest \
+    -t localhost:5000/bikebitants.com/cronjobs:$HASH .
+
+docker push localhost:5000/bikebitants.com/cronjobs:latest
+docker push localhost:5000/bikebitants.com/cronjobs:$HASH
+
 # Clean up packaged directory
 cd $DIR/app/packaged
 PWD=$(pwd)
