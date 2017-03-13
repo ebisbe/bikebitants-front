@@ -83,7 +83,7 @@ if [ $# -gt 0 ];then
         $COMPOSE run --rm $TTY \
             -w /var/www/html \
             node \
-            bower "$@"
+            bower --allow-root "$@"
     # Else, pass-thru args to docker-compose
     else
         $COMPOSE "$@"

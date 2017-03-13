@@ -5,7 +5,10 @@ node('master') {
        stage('build') {
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
 
-           // Start services (Let docker-compose build containers for testing)
+            //Build containers again to build changes
+            sh './develop build'
+
+            // Start services (Let docker-compose build containers for testing)
            sh "./develop up -d"
 
            // Get composer dependencies
