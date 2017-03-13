@@ -19,11 +19,12 @@ git archive --format=tar --worktree-attributes $HASH | tar -xf -  -C $DIR/app/pa
 ## (Decision between export-ignore'ing docker/develop command or not)
 cd $DIR/app/packaged
 ./develop composer install --no-dev
+#./develop art key:generate
 
 ## OPTIMIZATIONS
-./develop art config:cache
-./develop art route:cache
-./develop art optimize
+#./develop art config:cache
+#./develop art route:cache
+#./develop art optimize
 
 ## ASSETS
 ./develop npm install
