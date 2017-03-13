@@ -14,7 +14,7 @@
                 <div class="col-xs-6">
                     <ol class="breadcrumb">
                         <li><a href="{{ route('shop.home') }}">Home</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
+                        <li><a>Checkout</a></li>
                         <li class="active">Review</li>
                     </ol>
                 </div>
@@ -191,4 +191,24 @@
             'tax': '{{ $order->total - $order->subtotal }}'
         });
     </script>
+    <!-- Google Code for Venta Conversion Page -->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 946537783;
+        var google_conversion_language = "en";
+        var google_conversion_format = "3";
+        var google_conversion_color = "ffffff";
+        var google_conversion_label = "LYoZCOCioGAQt4qswwM";
+        var google_conversion_value = 1.00;
+        var google_conversion_currency = "EUR";
+        var google_remarketing_only = false;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/946537783/?value=1.00&amp;currency_code=EUR&amp;label=LYoZCOCioGAQt4qswwM&amp;guid=ON&amp;script=0"/>
+        </div>
+    </noscript>
 @endsection
