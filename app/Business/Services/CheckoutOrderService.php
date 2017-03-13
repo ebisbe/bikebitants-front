@@ -266,7 +266,7 @@ class CheckoutOrderService
             'cancelUrl' => route('shop.cancellation'),
             'transactionId' => $this->order->token,
             'description' => config('app.name'),
-            'testMode' => config('app.env') == 'production' ? true : false,
+            'testMode' => config('app.env') == 'production' ? false : true,
             //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
         ];
     }
