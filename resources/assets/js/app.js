@@ -26,7 +26,7 @@ Vue.component('add-review' , require('./components/addReview.vue'));
 Vue.component('cart-menu' , require('./components/cartMenu.vue'));
 Vue.component('cart-add' , require('./components/cartAdd.vue'));
 
-var VueInternalization = require('vue-i18n');
+const VueInternalization = require('vue-i18n');
 import Locales from './vue-i18n-locales.generated.js';
 Vue.use(VueInternalization);
 Vue.config.lang = Laravel.language;
@@ -34,7 +34,7 @@ Object.keys(Locales).forEach(function (lang) {
     Vue.locale(lang, Locales[lang])
 });
 
-var WebFont = require('webfontloader');
+const WebFont = require('webfontloader');
 
 WebFont.load({
     google: {

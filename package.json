@@ -15,7 +15,7 @@
     "lodash": "^4.16.2",
     "vue": "^2.1.4",
     "vue-resource": "^1.0.3",
-    "vue-i18n": "4.7.1",
+    "vue-i18n": "5.0.3",
     "google-maps": "3.2.1",
     "jquery-ui-bundle": "1.11.4",
     "bootstrap-hover-dropdown": "2.2.1",
