@@ -26,6 +26,8 @@ cd $DIR/app/packaged
 ./develop art optimize
 
 ## ASSETS
+./develop npm install
+./develop bower install
 ./develop npm run production
 
 # Get the production .env file

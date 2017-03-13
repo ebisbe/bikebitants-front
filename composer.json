@@ -73,10 +73,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize",
             "php artisan geoip:update",
-            "php artisan vue-i18n:generate",
-            "npm install",
-            "bower install",
-            "npm run dev"
+            "php artisan vue-i18n:generate"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
