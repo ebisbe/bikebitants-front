@@ -16,7 +16,7 @@ NEW_CONTAINER="shipit`date +"%s"`"
 sudo docker pull localhost:5000/bikebitants.com/app
 
 # Don't deploy if latest image is running
-RUNNING_IMAGE=$(sudo ocker inspect $APP_CONTAINER | jq ".[0].Image")
+RUNNING_IMAGE=$(sudo docker inspect $APP_CONTAINER | jq ".[0].Image")
 CURRENT_IMAGE=$(sudo docker image inspect localhost:5000/bikebitants.com/app:latest | jq ".[0].Id")
 
 if [ "$CURRENT_IMAGE" == "$RUNNING_IMAGE" ]; then

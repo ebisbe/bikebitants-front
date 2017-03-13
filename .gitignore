@@ -14,3 +14,10 @@ vue.js
 resources/assets/js/vue-i18n-locales.generated.js
 docker/app/packaged/*
 !docker/app/packaged/.gitkeep
+public/mix-manifest.json
+public/css/*
+!public/css/.gitkeep
+public/js/*
+!public/js/.gitkeep
+public/img/*
+!public/img/.gitkeep
