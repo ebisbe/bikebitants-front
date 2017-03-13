@@ -32,7 +32,7 @@ return [
                 'transactionType' => '0',
                 'signatureMode' => 'simple',
                 'consumerLanguage' => '001',
-                'merchantName' => 'Bikebitants. Tu bici, tu ciudad.',
+                'merchantName' => 'Bikebitants',
                 'merchantCode' => '336022801',
                 'merchantURL' => env('OMNIPAY_REDSYS_MERCHANT_URL'),
                 'testMode' => env('OMNIPAY_REDSYS_TESTMODE'),

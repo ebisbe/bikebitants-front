@@ -265,8 +265,8 @@ class CheckoutOrderService
             'returnUrl' => route('checkout.index'),
             'cancelUrl' => route('shop.cancellation'),
             'transactionId' => $this->order->token,
-            'description' => env('OMNIPAY_DESCRIPTION'),
-            'testMode' => true,
+            'description' => config('app.name'),
+            'testMode' => config('app.env') == 'production' ? true : false,
             //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
         ];
     }
