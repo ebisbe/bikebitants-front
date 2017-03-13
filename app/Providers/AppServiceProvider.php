@@ -53,7 +53,6 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment() !== 'production') {
             $this->app->register(IdeHelperServiceProvider::class);
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
-            $this->app->register(\MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class);
         }
 
         $this->app->bind('title', \App\Business\Admin\Title::class);

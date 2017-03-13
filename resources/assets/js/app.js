@@ -11,7 +11,7 @@ require('google-maps');
 require('smoothscroll-for-websites');
 //require('card');
 //require('jgrowl');
-require('./bower/owl.carousel.js');
+require('../css/bower/owl.carousel/dist/owl.carousel.js');
 require('bootstrap-hover-dropdown');
 
 //require('./jquery.card.js');

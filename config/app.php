@@ -197,6 +197,7 @@ return [
         Illuminate\Notifications\NotificationServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
         Spatie\GoogleTagManager\GoogleTagManagerServiceProvider::class,
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class
     ],
 
     /*
