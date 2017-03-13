@@ -5,7 +5,6 @@
 # Get info on currently running "shipit" container
 #
 APP_CONTAINER=$(sudo docker ps -a -q --filter="name=shipit")
-QUEUE_CONTAINER=$(sudo docker ps -a -q --filter="name=queueit")
 NEW_CONTAINER="shipit`date +"%s"`"
 
 ########################################################
@@ -25,16 +24,10 @@ if [ "$CURRENT_IMAGE" == "$RUNNING_IMAGE" ]; then
     exit 0
 fi
 
-# Stop the queue server first, we can afford to stop it for a bit
-sudo docker stop $QUEUE_CONTAINER
-sudo docker rm -v $QUEUE_CONTAINER
-echo "Removed old queue container $QUEUE_CONTAINER"
-
 SHARED_PATHS="-v /var/www/bikebitants_files/app:/var/www/html/storage/app"
 
 # Start new instances
 NEW_APP_CONTAINER=$(sudo docker run -d --network=bikebitants -e CONTAINER_ENV=production --restart=always --name="$NEW_CONTAINER" $SHARED_PATHS localhost:5000/bikebitants.com/app)
-NEW_QUEUE_CONTAINER=$(sudo docker run -d --network=bikebitants --name="queueit" -e CONTAINER_ENV=production $SHARED_PATHS --restart=always localhost:5000/bikebitants.com/cronjobs)
 
 # Wait for processes to boot up
 sleep 5
@@ -62,7 +55,6 @@ if [ $NGINX_STABLE -eq 0 ]; then
     if [ ! -z "$DANGLING_IMAGES" ]; then
         sudo docker image rm $(sudo docker image ls -f "dangling=true" -q)
     fi
-
 
 else
     echo "ERROR: Nginx configuration test failed!"
