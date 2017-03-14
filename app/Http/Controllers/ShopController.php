@@ -88,7 +88,7 @@ class ShopController extends Controller
             return $this->category($cat);
         }
 
-        abort(404, 'Not found');
+        abort(404, trans('exceptions.page_not_found'));
     }
 
     /**
@@ -223,6 +223,10 @@ class ShopController extends Controller
         $cat = $this->categoryRepository->findBy('slug', $slugCategory);
         /** @var Category $subCat */
         $subCat = $this->categoryRepository->findBy('slug', $slugSubCategory);
+
+        if (empty($categories) || empty($subCat)) {
+            abort(404, trans('exceptions.page_not_found'));
+        }
 
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['slug' => $cat->slug]));
