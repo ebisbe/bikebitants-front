@@ -223,7 +223,7 @@ class ShopProductTest extends \TestCase
             'id' => 'simple-product',
             'name' => 'Simple Product',
             'brand' => 'Simple Brand',
-            'category' => 'Category 1',
+            'category' => 'Sub Category 1',
         ];
 
         $this->assertEquals(json_encode($expected), $product->gaProduct());
@@ -238,7 +238,7 @@ class ShopProductTest extends \TestCase
             'id' => 'simple-product',
             'name' => 'Simple Product',
             'brand' => 'Simple Brand',
-            'category' => 'Category 1',
+            'category' => 'Sub Category 1',
             'list' => 'test',
             'position' => 2
         ];
