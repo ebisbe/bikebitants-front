@@ -15,10 +15,10 @@ class BrandTest extends BrowserKitTest
         $this->createTax();
         $this->createSimpleProduct();
 
-        $this->visit($this->link('brand/simple-brand'))
+        $this->visit($this->link('tienda/simple-brand'))
             ->see('Simple Brand')
             ->see('Simple Product')
-            ->seePageIs($this->link('brand/simple-brand'))
+            ->seePageIs($this->link('tienda/simple-brand'))
             ->seeRouteIs('shop.brand', ['slug' => 'simple-brand']);
     }
 }
