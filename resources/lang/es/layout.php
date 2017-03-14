@@ -18,5 +18,6 @@ return [
     'see' => 'Ver',
     'out_of_stock' => 'Sin stock',
     'tag' => 'Etiqueta',
-    'telephone_schedule' => '(Lunes a viernes, 9h - 19h)'
+    'telephone_schedule' => '(Lunes a viernes, 9h - 19h)',
+    'brand_related_products' => 'Productos de esta marca'
 ];

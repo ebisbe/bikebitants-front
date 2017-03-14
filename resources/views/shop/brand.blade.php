@@ -12,7 +12,7 @@
                     {!! Form::img($brand->filename, StaticVars::brandMain(), $brand->filename, '{img}', 'img-responsive center-block') !!}
                 </div>
             </div>
-            <h2>{{ $brand->name }}</h2>
+            <h2>{{ ucfirst($brand->name) }}</h2>
             <p>{{ $brand->description }}</p>
         </div>
     </section>
@@ -57,7 +57,7 @@
     <section class="content featured-products">
         <div class="container">
 
-            <h2>Products with this Brand</h2>
+            <h2>{{ trans('layout.brand_related_products') }}</h2>
             <div class="row">
 
                 <!-- PRODUCT - START -->
