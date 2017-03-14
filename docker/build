@@ -27,6 +27,7 @@ cd $DIR/app/packaged
 #./develop art optimize
 
 ## ASSETS
+./develop npm set progress=false
 ./develop npm install
 ./develop bower install
 ./develop npm run production
