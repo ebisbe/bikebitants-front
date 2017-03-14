@@ -224,7 +224,7 @@ class ShopController extends Controller
         /** @var Category $subCat */
         $subCat = $this->categoryRepository->findBy('slug', $slugSubCategory);
 
-        if (empty($categories) || empty($subCat)) {
+        if (empty($cat) || empty($subCat)) {
             abort(404, trans('exceptions.page_not_found'));
         }
 

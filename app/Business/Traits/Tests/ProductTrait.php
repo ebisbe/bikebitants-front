@@ -51,7 +51,9 @@ trait ProductTrait
 
         /** @var Category $category */
         $category = factory(Category::class)->create(['name' => 'Category 1', 'products_count' => 1]);
-        $category->products()->save($product);
+        $subcategory = factory(Category::class)->create(['name' => 'Sub Category 1', 'products_count' => 1]);
+        $category->children()->save($subcategory);
+        $subcategory->products()->save($product);
         return $product;
     }
 

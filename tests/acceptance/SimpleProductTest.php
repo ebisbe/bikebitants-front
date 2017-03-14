@@ -50,4 +50,18 @@ class SimpleProductTest extends BrowserKitTest
 
         $this->fail('Should receive exception.');
     }
+
+    /** @test */
+    public function find_subcategory()
+    {
+        $this->createTax();
+        $this->createSimpleProduct();
+
+        $this->visit('/category-1/sub-category-1')
+            ->see('Simple Product')
+            ->click('Simple Product')
+            ->see('Simple Product')
+            ->seePageIs($this->link('simple-product'))
+            ->seeRouteIs('shop.slug', ['slug' => 'simple-product']);
+    }
 }
