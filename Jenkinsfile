@@ -20,7 +20,7 @@ node('master') {
        }
 
        stage('test') {
-           sh "npm set progress=false"
+           sh "./develop npm set progress=false"
            sh "./develop npm install "
            sh "./develop bower install"
            sh "./develop npm run production"
