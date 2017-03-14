@@ -48,7 +48,7 @@ class CartConditionsController extends ApiController
             'name' => $shippingMethod->name,
             'type' => Shipping::CART_CONDITION_TYPE,
             'target' => CartModel::CART_CONDITION_TARGET_SUBTOTAL,
-            'value' => number_format($shippingMethod->cost, 2) . ' &euro;',
+            'value' => \TaxService::applyTax($shippingMethod->cost) . ' &euro;',
             'order' => 4
         ]);
         Cart::condition($condition);
