@@ -111,7 +111,7 @@ PRODUCTS - START
 
                         <!-- PRODUCT - START -->
                         @foreach($products as $product)
-                        @include('partials.catalogue_product', compact('product'))
+                        @include('partials.catalogue_product', ['product' => $product, 'iteration' => $loop->iteration])
                         @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
 
                         @endforeach

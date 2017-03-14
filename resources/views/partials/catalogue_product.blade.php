@@ -7,6 +7,7 @@
                         {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt, StaticVars::imgWrapper()) !!}
                     </div>
                     <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
+                       onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;"
                        class="product-permalink"></a>
                     {!! Form::img($product->front_image->filename, StaticVars::productRelated(), $product->front_image->alt, StaticVars::imgWrapper()) !!}
                     {{--<div class="product-quickview">
@@ -22,7 +23,8 @@
                 <div class="product-body">
                     @include('partials.labels')
                     <h1>
-                        <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}">
+                        <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
+                           onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;">
                             {{ str_limit($product->name, 29) }}
                         </a>
                     </h1>
@@ -33,11 +35,13 @@
                         {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
                         @if($product->stock == 0)
                             <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
+                               onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;"
                                class="btn btn-transparent btn-sm add-to-cart">
                                 @lang('catalogue.read_more')
                             </a>
                         @elseif($product->variations->count() > 1)
                             <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
+                               onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;"
                                class="btn btn-transparent btn-sm add-to-cart">
                                 @lang('catalogue.choose_options')
                             </a>

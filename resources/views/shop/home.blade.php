@@ -116,14 +116,18 @@
                     <div class="col-xs-6 col-sm-3">
                         <article class="product-item">
                             <div class="product-overlay">
-                                <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
+                                <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}"
+                                   onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;"
+                                >
                                     <div class="product-mask">
                                         {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt) !!}
                                     </div>
                                     {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
                                 </a>
                             </div>
-                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
+                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}"
+                               onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;"
+                            >
                                 <h3>{{ $product->name }}</h3>
                             </a>
                             @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
@@ -140,7 +144,9 @@
                                 <li class="clearfix">
                                     <div class="row">
                                         <div class="col-xs-4 product-overlay">
-                                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
+                                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}"
+                                               onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;"
+                                            >
                                                 <div class="product-mask">
                                                     {!! Form::img($product->front_image_hover->filename, StaticVars::homeLeft(), $product->front_image_hover->alt) !!}
                                                 </div>
@@ -148,7 +154,9 @@
                                             </a>
                                         </div>
                                         <div class="col-xs-8">
-                                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}">
+                                            <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}"
+                                               onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;"
+                                            >
                                                 <h3>{{ $product->name }}</h3>
                                             </a>
                                             @include('partials.product_rating', ['product' => $product->rating, 'total_reviews' => count($product->reviews)])

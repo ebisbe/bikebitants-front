@@ -105,16 +105,18 @@
             },
 
             notifyGA: function(type, product) {
-                ga('ec:addProduct', {
+                let prod = {
                     'id': product._id,
                     'name': product.name,
                     'category': product.category,
                     'brand': product.brand,
                     'price': product.price,
                     'quantity': product.quantity
-                });
+                };
+                ga('ec:addProduct', prod);
+
                 ga('ec:setAction', type);
-                ga('send', 'event', 'UX', 'click', type + ' to cart');
+                ga('send', 'event', 'UX', 'click', type + ' cart');
             }
         }
     };
