@@ -62,7 +62,7 @@ class ShopController extends Controller
             ->where('father_id', 'exists', false)
             ->orderBy('name', 'asc')->findAll();
 
-        $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);
+        $feed = FeedReader::read(config('app.blog_url').'/feed/')->get_items(0, 4);
 
         return view(
             'shop.home',

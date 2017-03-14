@@ -35,7 +35,7 @@ MY ACCOUNT - START
                                         </td>
                                         <td class="col-xs-4 col-md-5">
                                             <h4>
-                                                <a href="{!! url('product', ['slug' => $item->attributes['slug']]) !!}"> {{ $item->name }}</a>
+                                                <a href="{{ route('shop.slug', ['slug' => $item->attributes['slug']]) }}"> {{ $item->name }}</a>
                                                 <small> {{ $item->attributes['brand'] }}
                                                     @foreach($item->attributes->properties as $property)
                                                         , {{ $property }}
