@@ -160,7 +160,7 @@ class WordpressService
                 $variation->real_price = (float)$wpVariation['regular_price'];
                 $variation->discounted_price = (float)$wpVariation['sale_price'];
                 $variation->is_discounted = $wpVariation['on_sale'];
-                $variation->stock = is_null($wpVariation['stock_quantity']) ? 25 : $wpVariation['stock_quantity'];
+                $variation->stock = $this->variationStock($wpVariation);
                 $variation->filename = $this->saveImage($wpVariation[isset($wpVariation['image']) ? 'image' : 'images'][0]);
 
                 if ($new) {
@@ -169,6 +169,14 @@ class WordpressService
                     $variation->save();
                 }
             });
+    }
+
+    private function variationStock($variation)
+    {
+        if ($variation['in_stock'] == false) {
+            return 0;
+        }
+        return is_null($variation['stock_quantity']) ? 25 : $variation['stock_quantity'];
     }
 
     /**
@@ -276,19 +284,14 @@ class WordpressService
             $value->sku = $sku;
             $value->name = $option;
             $value->selected = collect($defaultAttributes)
-                ->where('id', '=', $variation['id'])
-                ->where('option', '=', $sku)->count() == 1;
+                    ->where('id', '=', $variation['id'])
+                    ->where('option', '=', $sku)->count() == 1;
             $value->complementary_text = '';
             $attribute->properties_values()->save($value);
         });
 
         $attribute->save();
         return $variation['id'];
-    }
-
-    private function defaultVariation()
-    {
-
     }
 
     /**
