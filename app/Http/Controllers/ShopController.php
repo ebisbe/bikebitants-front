@@ -62,7 +62,7 @@ class ShopController extends Controller
             ->where('father_id', 'exists', false)
             ->orderBy('name', 'asc')->findAll();
 
-        $feed = FeedReader::read('https://bikebitants.com/feed/')->get_items(0, 4);
+        $feed = FeedReader::read(config('app.blog_url') . '/feed/')->get_items(0, 4);
 
         return view(
             'shop.home',
@@ -141,6 +141,8 @@ class ShopController extends Controller
     {
         /** @var Brand $brand */
         $brand = $this->brandRepository->findBy('slug', $slug);
+        $this->abortIfEmpty($brand);
+
         $products = $this->productRepository
             ->with('brand', 'category')
             ->where('brand_id', $brand->_id)
@@ -224,9 +226,8 @@ class ShopController extends Controller
         /** @var Category $subCat */
         $subCat = $this->categoryRepository->findBy('slug', $slugSubCategory);
 
-        if (empty($cat) || empty($subCat)) {
-            abort(404, trans('exceptions.page_not_found'));
-        }
+        $this->abortIfEmpty($cat);
+        $this->abortIfEmpty($subCat);
 
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['slug' => $cat->slug]));
@@ -287,5 +288,17 @@ class ShopController extends Controller
         $products = $this->productRepository->whereIn('tags', [$slug])->findAll();
 
         return view('shop.bargain', compact('products', 'title', 'subtitle'));
+    }
+
+
+    /**
+     * Abort if entity received is empty
+     * @param $entity
+     */
+    public function abortIfEmpty($entity)
+    {
+        if (empty($entity)) {
+            abort(404, trans('exceptions.page_not_found'));
+        }
     }
 }

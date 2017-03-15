@@ -24,7 +24,7 @@
     {{--Set default share picture after custom section pictures--}}
     {!! MetaTag::tag('image', assetCDN('logo.png')) !!}
 
-    @include('scripts.gtm')
+    @include('layouts.partials.gtm')
 </head>
 <body>
 @include('googletagmanager::script')
@@ -76,25 +76,7 @@
     <footer class="navbar navbar-default">
         <div class="container">
             <div class="footer-bottom">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p class="copyright">© Umarket 2015 All right reserved.</p>
-                        <p class="copyright">Designed by <a href="http://www.pixelized.cz/" target="_blank">Pixelized
-                                Studio.</a></p>
-                    </div>
-                    <div class="col-sm-6">
-                        <ul class="list-inline payment-methods">
-                            <li><i class="fa fa-cc-amex"></i></li>
-                            <li><i class="fa fa-cc-diners-club"></i></li>
-                            <li><i class="fa fa-cc-discover"></i></li>
-                            <li><i class="fa fa-cc-jcb"></i></li>
-                            <li><i class="fa fa-cc-mastercard"></i></li>
-                            <li><i class="fa fa-cc-paypal"></i></li>
-                            <li><i class="fa fa-cc-stripe"></i></li>
-                            <li><i class="fa fa-cc-visa"></i></li>
-                        </ul>
-                    </div>
-                </div>
+                @include('layouts.partials.footer')
             </div>
         </div>
     </footer>
@@ -106,7 +88,7 @@
 <!-- ==========================
  JS
 =========================== -->
-@include('partials.js_vars')
+@include('layouts.partials.js_vars')
 <script src="{{ mix('js/app.js') }}"></script>
 @stack('footer.scripts')
 <!--[if lt IE 9]>

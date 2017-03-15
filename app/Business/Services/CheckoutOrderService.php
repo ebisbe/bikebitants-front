@@ -224,6 +224,7 @@ class CheckoutOrderService
                 $cart->price = $item->getPriceWithConditions();
                 $cart->quantity = $item['quantity'];
                 $cart->total = $item->getPriceSumWithConditions();
+                $cart->total_without_iva = $item->getPriceSumWithConditions() / 1.21;
                 $cart->properties = $item['attributes']['properties'];
                 $cart->variation_id = $item['attributes']['variation_id'];
                 $cart->product_id = $item['attributes']['_id'];

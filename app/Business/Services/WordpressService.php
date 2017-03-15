@@ -625,7 +625,7 @@ class WordpressService
         $items = $order->cart->map(function ($cart) {
             $item = [];
             $item['product_id'] = $cart->product_id;
-            $item['total'] = $cart->total;
+            $item['total'] = $cart->total_without_iva;
             $item['quantity'] = $cart->quantity;
             if (!empty($cart->product->properties)) {
                 $item['variation_id'] = $cart->variation_id;
@@ -666,8 +666,7 @@ class WordpressService
                 [
                     'method_id' => 'flat_rate',
                     'method_title' => $shipping['name'],
-                    'total' => $shipping['value'],
-                    'total_taxes' => $shipping['value'] * 0.21
+                    'total' => $shipping['value'] / 1.21,
                 ]
             ],
             "coupon_lines" => $coupon

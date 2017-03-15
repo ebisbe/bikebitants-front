@@ -24,9 +24,9 @@
     {{--Set default share picture after custom section pictures--}}
     {!! MetaTag::tag('image', StaticVars::logo()) !!}
 
-    @include('scripts.microdata')
+    @include('layouts.partials.microdata')
 
-    @include('scripts.gtm')
+    @include('layouts.partials.gtm')
 </head>
 <body>
 @include('googletagmanager::script')
@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-sm-3 text-right">
                     <ul class="list-inline links">
-                        <li><a href="{{ config('APP_BLOG_URL') }}/contacto">@lang('layout.contact')</a></li>
+                        <li><a href="{{ config('app.blog_url') }}/contacto">@lang('layout.contact')</a></li>
                         {{--<li><a href="my-account.html">My account</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="wishlist.html">Wishlist (5)</a></li>
@@ -99,7 +99,7 @@
                         <a href="{{ route('faq') }}">@lang('static.faq')</a>
                     </li>
                     <li class="visible-xs">
-                        <a href="{{ config('APP_BLOG_URL') }}/contacto">@lang('layout.contact')</a>
+                        <a href="{{ config('app.blog_url') }}/contacto">@lang('layout.contact')</a>
                     </li>
                     <li class="visible-xs">
                         <a href="mailto:{{ StaticVars::email() }}">
@@ -181,23 +181,7 @@
                 @include('partials.twitter')
             </div>
             <div class="footer-bottom footer-line">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p class="copyright">&copy; Bikebitants SL 2015</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <ul class="list-inline payment-methods">
-                            {{--<li><i class="fa fa-cc-amex"></i></li>--}}
-                            {{--<li><i class="fa fa-cc-diners-club"></i></li>--}}
-                            {{--<li><i class="fa fa-cc-discover"></i></li>
-                            <li><i class="fa fa-cc-jcb"></i></li>--}}
-                            <li><i class="fa fa-cc-mastercard"></i></li>
-                            <li><i class="fa fa-cc-paypal"></i></li>
-                            {{--<li><i class="fa fa-cc-stripe"></i></li>--}}
-                            <li><i class="fa fa-cc-visa"></i></li>
-                        </ul>
-                    </div>
-                </div>
+                @include('layouts.partials.footer')
             </div>
         </div>
     </footer>
@@ -213,7 +197,7 @@
 <!-- ==========================
  JS
 =========================== -->
-@include('partials.js_vars')
+@include('layouts.partials.js_vars')
 <script src="{{ mix('js/app.js') }}" async></script>
 @stack('footer.scripts')
 <!--[if lt IE 9]>
