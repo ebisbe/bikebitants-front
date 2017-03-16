@@ -11,7 +11,7 @@ class CouponController extends Controller
     public function store(Request $request, CouponService $couponService)
     {
         $this->validate($request, [
-            'coupon' => 'bail|required|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
+            'coupon' => 'bail|required|coupon_exists|not_expired|minimum_cart|maximum_cart'
         ]);
 
         $couponName = $request->input('coupon');

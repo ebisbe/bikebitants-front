@@ -13,6 +13,7 @@ class CustomValidationsProvider extends ServiceProvider
      */
     public function boot()
     {
+        Validator::extend('coupon_exists', 'App\Business\Validators\CouponValidator@coupon_exists');
         Validator::extend('not_expired', 'App\Business\Validators\CouponValidator@not_expired');
         Validator::extend('minimum_cart', 'App\Business\Validators\CouponValidator@minimum_cart');
         Validator::extend('maximum_cart', 'App\Business\Validators\CouponValidator@maximum_cart');

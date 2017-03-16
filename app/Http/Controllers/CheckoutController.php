@@ -86,7 +86,7 @@ class CheckoutController extends Controller
             'payment' => 'required',
             'checkout-terms-conditions' => 'required',
 
-            'coupon' => 'bail|nullable|exists:coupons,name|not_expired|minimum_cart|maximum_cart'
+            'coupon' => 'bail|nullable|coupon_exists|not_expired|minimum_cart|maximum_cart'
         ]);
 
         $currentOrder = Order::currentOrder()->get();

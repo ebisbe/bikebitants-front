@@ -29,9 +29,11 @@ class CouponService
      */
     public function addCoupon($name)
     {
+        $name = strtolower($name);
         $response = Cart::getContent()
             ->map(function ($item) use ($name) {
                 $coupon = $this->createCoupon($name);
+                Cart::removeItemCondition($item->id, $coupon->getName());
                 return Cart::addItemCondition($item->id, $coupon);
             })
             ->unique();
