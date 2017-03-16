@@ -14,12 +14,17 @@ class CouponValidator
      * @param $validator
      * @return Coupon
      */
-    private function getCoupon($attribute, $validator)
+    public function getCoupon($attribute, $validator)
     {
-        $couponName = $validator->getData()[$attribute];
+        $couponName = strtolower($validator->getData()[$attribute]);
         return Cache::remember('coupon_'.$attribute, 10*60, function () use ($couponName) {
             return Coupon::whereName($couponName)->first();
         });
+    }
+
+    public function coupon_exists($attribute, $value, $parameters, $validator)
+    {
+        return !is_null($this->getCoupon($attribute, $validator)) ? true : false;
     }
 
     /**
