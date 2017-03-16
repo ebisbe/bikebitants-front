@@ -118,7 +118,7 @@ class CheckoutControllerTest extends BrowserKitTest
         $this->type('INVALIDCOUPON', 'coupon');
 
         $this->press('checkout.confirm_order')
-            ->see('validation.exists')
+            ->see('validation.coupon_exists')
         ;
     } /** @test */
     public function try_to_checkout_with_valid_coupon_code()

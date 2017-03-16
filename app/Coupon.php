@@ -22,13 +22,37 @@ class Coupon extends Model
     const PERCENTAGE = '%';
     const DIRECT = '&euro;';
 
-    protected $fillable = ['name', 'value', 'magnitude', 'type', 'expired_at', 'minimum_cart', 'maximum_cart', 'limit_usage_by_coupon', 'limit_usage_by_user', 'single_use', 'emails', 'external_id'];
+    protected $fillable = [
+        'name',
+        'value',
+        'magnitude',
+        'type',
+        'expired_at',
+        'minimum_cart',
+        'maximum_cart',
+        'limit_usage_by_coupon',
+        'limit_usage_by_user',
+        'single_use',
+        'emails',
+        'external_id'
+    ];
 
     protected $dates = ['created_at', 'updated_at', 'expired_at'];
 
     protected $casts = [
         'single_use' => 'boolean',
     ];
+
+    /**
+     * Set the user's first name.
+     *
+     * @param  string $value
+     * @return void
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }
 
     public static function boot()
     {
@@ -51,6 +75,7 @@ class Coupon extends Model
     {
         return [self::DIRECT => self::DIRECT, self::PERCENTAGE => self::PERCENTAGE];
     }
+
     /**
      * Array list of coupon types
      * @return array
