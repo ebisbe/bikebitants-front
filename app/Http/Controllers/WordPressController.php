@@ -28,7 +28,7 @@ class WordPressController extends Controller
         }
 
         $response = \Woocommerce::get(
-            $command,
+            str_replace('_', '/', $command),
             ['page' => $request->get('page', 1), 'search' => $request->get('search', '')]
         );
         

@@ -2,20 +2,24 @@
 
 namespace App\Listeners;
 
+use App\Business\Integration\Wordpress\Order;
 use App\Business\Services\WordpressService;
 use App\Events\ConfirmedOrder;
 
 class CreateOrder
 {
-    protected $wordpressService;
+    /**
+     * @var Order
+     */
+    private $order;
 
     /**
      * CreateOrder constructor.
-     * @param WordpressService $wordpressService
+     * @param Order $order
      */
-    public function __construct(WordpressService $wordpressService)
+    public function __construct(Order $order)
     {
-        $this->wordpressService = $wordpressService;
+        $this->order = $order;
     }
 
     /**
@@ -27,7 +31,7 @@ class CreateOrder
     public function handle(ConfirmedOrder $event)
     {
         if (config('app.env') == 'production') {
-            $this->wordpressService->createOrder($event->order);
+            $this->order->create($event->order);
         }
     }
 }
