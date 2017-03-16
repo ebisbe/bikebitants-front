@@ -22,6 +22,13 @@ class CouponValidator
         });
     }
 
+    /**
+     * @param $attribute
+     * @param $value
+     * @param $parameters
+     * @param $validator
+     * @return bool
+     */
     public function coupon_exists($attribute, $value, $parameters, $validator)
     {
         return !is_null($this->getCoupon($attribute, $validator)) ? true : false;
@@ -36,7 +43,6 @@ class CouponValidator
      */
     public function not_expired($attribute, $value, $parameters, $validator)
     {
-        return true;
         $coupon = $this->getCoupon($attribute, $validator);
         if (is_null($coupon->expired_at)) {
             return true;

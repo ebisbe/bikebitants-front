@@ -47,7 +47,7 @@
                         <div class="col-md-3">
                             <div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
                                 {!! Form::label('type', 'Type', ['class' => 'control-label text-semibold']) !!}
-                                {!! Form::select('type', App\Coupon::TypeOptions(), null, ['class' => 'form-control', 'id' => 'type']) !!}
+                                {!! Form::select('type', App\Coupon::typeOptions(), null, ['class' => 'form-control', 'id' => 'type']) !!}
                             </div>
                         </div>
                     </div>
