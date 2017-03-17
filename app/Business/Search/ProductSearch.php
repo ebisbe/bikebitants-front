@@ -51,16 +51,16 @@ class ProductSearch
      */
     public function apply()
     {
-        $products = Cache::tags($this->getCacheTags())
+        return Cache::tags($this->getCacheTags())
             ->rememberForever($this->getCacheKey(), function () {
                 list($filters, $sort) = $this->applyDecoratorsFromRequest([]);
                 return $this->query($filters, $sort);
             });
 
-        return $this->productRepository
+        /*return $this->productRepository
             ->with('brand', 'category')
             ->whereIn('_id', $products->pluck('_id'))
-            ->findAll();
+            ->findAll();*/
     }
 
     /**
