@@ -21,8 +21,28 @@ class ShopProductTest extends \TestCase
         $front_image = $product->front_image;
         $front_image_hover = $product->front_image_hover;
         //assert
-        $this->assertEquals('not-found.jpg', $front_image->filename);
-        $this->assertEquals('not-found.jpg', $front_image_hover->filename);
+        $this->assertEquals('not-found.jpeg', $front_image->filename);
+        $this->assertEquals('not-found.jpeg', $front_image_hover->filename);
+        $this->assertEquals('Image not found', $front_image->name);
+        $this->assertEquals('Image not found', $front_image_hover->name);
+    }
+
+    /** @test */
+    public function product_has_no_filename_in_image()
+    {
+        /** @var Product $product */
+        $product = factory(Product::class)->create();
+        $image = factory(Image::class)->make(['name' => 'Front', 'filename' => '']);
+        $product->images()->save($image);
+        $image = factory(Image::class)->make(['name' => 'Hover', 'filename' => '']);
+        $product->images()->save($image);
+
+        //act
+        $front_image = $product->front_image;
+        $front_image_hover = $product->front_image_hover;
+
+        $this->assertEquals('not-found.jpeg', $front_image->filename);
+        $this->assertEquals('not-found.jpeg', $front_image_hover->filename);
         $this->assertEquals('Image not found', $front_image->name);
         $this->assertEquals('Image not found', $front_image_hover->name);
     }

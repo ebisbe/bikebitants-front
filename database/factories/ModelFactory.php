@@ -227,6 +227,20 @@ $factory->define(Category::class, function (Generator $faker) use ($files) {
     ];
 });
 
+$factory->define(\App\Business\Models\Shop\Category::class, function (Generator $faker) use ($files) {
+    $name = $faker->words(3, true);
+    return [
+        'name' => $name,
+        //'slug' => str_slug($name)
+        'filename' => $files->random(),
+        'products' => 0,
+        'featured' => false,
+        'meta_title' => $name,
+        'meta_description' => $faker->paragraphs(1, true),
+        'meta_slug' => $faker->words(6, true)
+    ];
+});
+
 $factory->define(Billing::class, function (Generator $faker) {
     return [
         'first_name' => $faker->firstName,
