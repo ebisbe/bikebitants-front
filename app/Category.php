@@ -32,7 +32,17 @@ class Category extends Model
         'products_count' => 0
     ];
 
-    protected $fillable = ['name', 'slug', 'filename', 'products_count', 'meta_title', 'meta_description' , 'meta_slug', 'external_id'];
+    protected $fillable = [
+        'name',
+        'slug',
+        'filename',
+        'products_count',
+        'meta_title',
+        'meta_description',
+        'meta_slug',
+        'external_id'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -50,11 +60,11 @@ class Category extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 
     /**
@@ -88,14 +98,16 @@ class Category extends Model
     {
         $buttons = collect();
 
-        $edit ? $buttons->push('<a href="'.route('category.edit', ['id' => $id]).'" class=""><i class="icon-pencil4"></i></a>') : null ;
-        $deleteButton = '<form method="POST" action="'. route('category.destroy', ['id' => $id]).'" accept-charset="UTF-8" style="display:inline">
+        $edit ? $buttons->push(
+            '<a href="' . route('category.edit', ['id' => $id]) . '" class=""><i class="icon-pencil4"></i></a>'
+        ) : null;
+        $deleteButton = '<form method="POST" action="' . route('category.destroy', ['id' => $id]) . '" accept-charset="UTF-8" style="display:inline">
             <input name="_method" value="DELETE" type="hidden">
-            <input name="_token" value="'.csrf_token().'" type="hidden">
+            <input name="_token" value="' . csrf_token() . '" type="hidden">
             <button type="submit" class="btn-link"><i class="icon-bin" alt="edit"></i></button>
         </form>';
-        $delete ? $buttons->push($deleteButton) : null ;
+        $delete ? $buttons->push($deleteButton) : null;
 
-        return '<ul class="icons-list no-padding"><li>'.$buttons->implode('</li><li>').'</li></ul>';
+        return '<ul class="icons-list no-padding"><li>' . $buttons->implode('</li><li>') . '</li></ul>';
     }
 }

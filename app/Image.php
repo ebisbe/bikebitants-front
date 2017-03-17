@@ -21,7 +21,7 @@ class Image extends Model
     public static function notFound()
     {
         $name = 'Image not found';
-        $file = 'not-found.jpg';
+        $file = 'not-found.jpeg';
         return new self([
             'name' => $name,
             'alt' => $name,

@@ -31,11 +31,6 @@ class Product extends \App\Product
         });
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
     /**
      * @param $query
      * @param bool $is_featured

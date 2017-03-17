@@ -99,29 +99,30 @@ class ShopController extends Controller
     {
 
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
-        if (!empty($product->category->father)) {
-            Breadcrumbs::addCrumb($product->category->father->name, route('shop.slug', [
-                'category' => $product->category->father->slug
+        $category = $product->category->first();
+        if (!empty($category->father)) {
+            Breadcrumbs::addCrumb($category->father->name, route('shop.slug', [
+                'category' => $category->father->slug
             ]));
             $routeName = 'shop.subslug';
             $routeParams = [
-                'slug' => $product->category->father->slug,
-                'subslug' => $product->category->slug
+                'slug' => $category->father->slug,
+                'subslug' => $category->slug
             ];
         } else {
             $routeName = 'shop.slug';
             $routeParams = [
-                'slug' => $product->category->slug
+                'slug' => $category->slug
             ];
         }
-        Breadcrumbs::addCrumb($product->category->name, route($routeName, $routeParams));
+        Breadcrumbs::addCrumb($category->name, route($routeName, $routeParams));
         Breadcrumbs::addCrumb($product->name);
 
         MetaTag::set('title', $product->title);
         MetaTag::set('description', $product->meta_desc);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $product->front_image->filename]));
 
-        $title = $product->category->name;
+        $title = $category->name;
         $subtitle = $product->name;
 
         $relatedProducts = $this->productRepository

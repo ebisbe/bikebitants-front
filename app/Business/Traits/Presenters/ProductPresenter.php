@@ -105,7 +105,9 @@ trait ProductPresenter
      */
     public function getFrontImageAttribute()
     {
-        return $this->images()->first() ?? Image::notFound();
+        return $this->images()->first() && $this->images()->first()->filename != ''
+            ? $this->images()->first()
+            : Image::notFound();
     }
 
     /**
@@ -115,7 +117,7 @@ trait ProductPresenter
     public function getFrontImageHoverAttribute()
     {
         $hover = $this->images()->slice(1, 1)->first();
-        if (is_null($hover)) {
+        if (is_null($hover) || empty($hover->filename)) {
             return $this->front_image;
         }
         return $hover;

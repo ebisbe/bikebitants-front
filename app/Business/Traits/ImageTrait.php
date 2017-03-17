@@ -2,11 +2,13 @@
 
 namespace App\Business\Traits;
 
-use App\Business\Services\WordpressService;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Response as IlluminateResponse;
 use \Image;
 use Storage;
 use \File;
+use \App\Business\Integration\Wordpress\Image as WordpressImage;
+use App\Image as AppImage;
 
 trait ImageTrait
 {
@@ -47,7 +49,13 @@ trait ImageTrait
         } else {
             $width = $filter;
         }
-        $wp_file = Storage::get(WordpressService::$WP_FILE . '/' . $filename);
+
+        try {
+            $wp_file = Storage::get(WordpressImage::$WP_FILE . '/' . $filename);
+        } catch (FileNotFoundException $e) {
+            $wp_file = Storage::get(WordpressImage::$WP_FILE . '/' . AppImage::notFound()->filename);
+        }
+
         $image = Image::make($wp_file)
             ->fit($width, (int)$width + 30)
             ->interlace();

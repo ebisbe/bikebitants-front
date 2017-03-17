@@ -42,9 +42,23 @@ class Product extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'generic_name', 'slug', 'status', 'introduction', 'description', 'is_featured', 'tags',
-        'meta_title', 'meta_description', 'meta_slug', 'external_id', 'prices', 'stock', 'is_discounted',
-        'categories', 'rating'
+        'name',
+        'generic_name',
+        'slug',
+        'status',
+        'introduction',
+        'description',
+        'is_featured',
+        'tags',
+        'meta_title',
+        'meta_description',
+        'meta_slug',
+        'external_id',
+        'prices',
+        'stock',
+        'is_discounted',
+        'categories',
+        'rating'
     ];
 
     protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean', 'review_allowed' => 'boolean'];
@@ -103,11 +117,11 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     /**
