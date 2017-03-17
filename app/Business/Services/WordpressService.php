@@ -109,7 +109,8 @@ class WordpressService
         $this->product->name = $wpProduct['name'];
         $this->product->status = $status;
         $this->product->is_featured = $wpProduct['featured'];
-        $this->product->slug = $wpProduct['slug'];
+        /** Never use slug again. It doesn't updates correctly */
+        $this->product->slug = collect(explode('/', $wpProduct['permalink']))->filter()->last();
         $this->product->description = $this->stripVCRow($wpProduct['description']);
         $this->product->introduction = $wpProduct['short_description'];
         $this->product->reviews_allowed = $wpProduct['reviews_allowed'];
