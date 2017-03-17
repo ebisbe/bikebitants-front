@@ -162,7 +162,7 @@ trait ProductPresenter
             'id' => $this->_id,
             'name' => $this->name,
             'brand' => isset($this->brand->name) ? $this->brand->name : '',
-            'category' => isset($this->category->name) ? $this->category->name : '',
+            'category' => isset($this->category->first()->name) ? $this->category->first()->name : '',
             'list' => $view_name,
             'position' => $position
         ])->filter()->toJson();
