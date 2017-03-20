@@ -62,7 +62,7 @@ class Product extends Importer
         $product->status = $status;
         $product->is_featured = $entity['featured'];
         /** Never use slug again. It doesn't updates correctly */
-        $this->product->slug = collect(explode('/', $entity['permalink']))->filter()->last();
+        $product->slug = collect(explode('/', $entity['permalink']))->filter()->last();
         $product->description = $this->stripVCRow($entity['description']);
         $product->introduction = $entity['short_description'];
         $product->reviews_allowed = $entity['reviews_allowed'];
