@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Business\Integration\Wordpress\Order;
-use App\Business\Services\WordpressService;
 use App\Events\ConfirmedOrder;
 
 class CreateOrder
