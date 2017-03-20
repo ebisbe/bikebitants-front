@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Business\Integration\Wordpress\Customer;
 use App\Business\Integration\Wordpress\Exception\EntityNotFoundException;
 use App\Business\Integration\Wordpress\Factory;
-use App\Business\Services\WordpressService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
@@ -22,9 +20,6 @@ class WordpressSync extends Command
      * @var string
      */
     protected $description = 'Syncronize website with wordpress data.';
-
-    /** @var  WordpressService $wordpressService */
-    protected $wordpressService;
 
     public function handle()
     {
