@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Business\Services\WordpressService;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class WordPressController extends Controller
 {
@@ -14,11 +11,6 @@ class WordPressController extends Controller
         if (config('app.env') == 'production') {
             abort(404, 'Not found');
         }
-    }
-
-    public function index(WordpressService $wordpressService)
-    {
-        //$wordpressService->import('products/categories', 'syncCategory');
     }
 
     public function show($command, Request $request)
