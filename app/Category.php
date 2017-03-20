@@ -13,6 +13,7 @@ use App\Business\Traits\SluggableTrait;
  * @property $products_count
  * @property $name
  * @property $slug
+ * @property Category $father
  * @property $filename
  * @property $meta_title
  * @property $meta_description

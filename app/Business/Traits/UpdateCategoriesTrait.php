@@ -11,20 +11,20 @@ trait UpdateCategoriesTrait
     {
         static::saving(function ($product) {
             /** @var Product $product */
-            $categories = [];
-            /** @var Category $category */
-            $category = $product->category()->first();
-
-            if (is_null($category)) {
-                return ;
+            if ($product->category->isEmpty()) {
+                return;
             }
 
-            if (!empty($category->father->slug)) {
-                $categories[] = $category->father->slug;
-            }
+            $categories = collect();
+            $product->category->each(function ($category) use ($categories) {
+                /** @var Category $category */
+                $categories->push($category->slug);
+                if (!empty($category->father->slug)) {
+                    $categories->push($category->father->slug);
+                }
+            });
 
-            $categories[] = $category->slug;
-            $product->categories = $categories;
+            $product->categories = $categories->unique()->toArray();
         });
     }
 }
