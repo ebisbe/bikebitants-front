@@ -4,6 +4,7 @@ namespace App\Business\Integration\Wordpress;
 
 use App\Coupon;
 use App\Shipping;
+use App\Order as AppOrder;
 
 class Order
 {
@@ -11,7 +12,7 @@ class Order
      * Create order in WooCommerce
      * @param $order
      */
-    public function create(Order $order)
+    public function create(AppOrder $order)
     {
 
         $coupon = [];
