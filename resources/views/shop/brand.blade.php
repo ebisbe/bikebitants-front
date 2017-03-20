@@ -73,7 +73,10 @@
                                 </a>
                             </div>
                             <h3>
-                                <a href="{!! route('shop.slug', ['slug' => $product->slug]) !!}">{{ str_limit($product->name, 30) }}</a>
+                                <a
+                                        href="{!! route('shop.slug', ['slug' => $product->slug]) !!}"
+                                        onclick="onProduct{{ $loop->iteration }}Click(); return !ga.loaded;"
+                                >{{ str_limit($product->name, 30) }}</a>
                             </h3>
                             @if(isset($product->rating))
                                 <div class="product-rating">
@@ -87,7 +90,7 @@
                             @include('partials.price')
                         </article>
                     </div>
-                    @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
+                @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
             @endforeach
             <!-- PRODUCT - END -->
             </div>

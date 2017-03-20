@@ -114,7 +114,7 @@ PRODUCTS - START
                                             <div class="product-overlay">
                                                 <div class="product-mask"></div>
                                                 <a href="{{ route('shop.slug', $relatedProduct->slug) }}"
-                                                   onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;"
+                                                   onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
                                                    class="product-permalink"></a>
                                                 {!! Form::img($relatedProduct->front_image->filename, StaticVars::productRelated(), $relatedProduct->front_image->filename) !!}
                                                 <div class="product-quickview">
@@ -127,7 +127,7 @@ PRODUCTS - START
                                             <div class="product-body">
                                                 <h3>
                                                     <a href="{{ route('shop.slug', $relatedProduct->slug) }}"
-                                                       onclick="onProduct{{$product->external_id}}Click(); return !ga.loaded;"
+                                                       onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
                                                     >
                                                         {{ $relatedProduct->name }}
                                                     </a>
