@@ -11,10 +11,6 @@ trait UpdateCategoriesTrait
     {
         static::saving(function ($product) {
             /** @var Product $product */
-            if ($product->category->isEmpty()) {
-                return;
-            }
-
             $categories = collect();
             $product->category->each(function ($category) use ($categories) {
                 /** @var Category $category */

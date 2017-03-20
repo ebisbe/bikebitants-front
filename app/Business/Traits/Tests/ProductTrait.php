@@ -55,12 +55,11 @@ trait ProductTrait
         $category->children()->save($subcategory);
         $subcategory->products()->save($product);
 
-        $product->save();
-        return $product;
+        $product->fresh()->save();
+        return $product->fresh();
     }
 
     /**
-     * @param array $variationStock
      * @param array $realPrice
      * @return Product
      */
@@ -100,7 +99,7 @@ trait ProductTrait
         $category = factory(Category::class)->create(['name' => 'Category 2', 'products_count' => 1]);
         $category->products()->save($product);
 
-        $product->save();
+        $product->fresh()->save();
         return Product::find($product->_id);
     }
 

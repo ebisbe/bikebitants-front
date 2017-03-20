@@ -17,6 +17,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * @property string $description
  * @property string $currency
  * @property string $html_currency
+ * @property array $categories
  * @property Brand $brand
  * @property string $tags_list
  * @property-read Image $front_image
@@ -59,6 +60,10 @@ class Product extends Model
         'is_discounted',
         'categories',
         'rating'
+    ];
+
+    protected $attributes = [
+        'categories' => []
     ];
 
     protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean', 'review_allowed' => 'boolean'];

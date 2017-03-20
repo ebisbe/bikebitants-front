@@ -32,6 +32,8 @@ class ProductSearch
      */
     private $productRepository;
 
+    const GLOBAL_CACHE_TAG = 'shop_search';
+
     /**
      * ProductSearch constructor.
      * @param Request $filters
@@ -111,16 +113,21 @@ class ProductSearch
     /**
      * @return array
      */
-    private function getCacheTags()
+    private function getCacheTags(): array
     {
-        return array_values($this->route->parameters());
+        $params = $this->route->parameters();
+        if ($params) {
+            return array_values($params);
+        } else {
+            return [self::GLOBAL_CACHE_TAG];
+        }
     }
 
     /**
      * Generate Cache Key
      * @return string
      */
-    private function getCacheKey()
+    private function getCacheKey(): string
     {
         return md5(json_encode($this->filters->all() + $this->route->parameters()));
     }
@@ -129,7 +136,7 @@ class ProductSearch
      * Get default filtering values
      * @return Collection
      */
-    private function getDefaultFilters()
+    private function getDefaultFilters(): Collection
     {
         return collect([
             'sort' => StaticVars::filterSortingTypeSelected(),
@@ -140,12 +147,10 @@ class ProductSearch
 
     /**
      * For each input received from the request apply it's own filter.
-     * @param Request $filters
      * @param $query
-     * @param Route $route
-     * @return Builder
+     * @return array
      */
-    private function applyDecoratorsFromRequest($query)
+    private function applyDecoratorsFromRequest($query): array
     {
         foreach ($this->getFilters() as $filterName => $value) {
             $decorator = $this->createFilterDecorator($filterName);
@@ -165,9 +170,9 @@ class ProductSearch
 
     /**
      * Return applied filters. Whether are the default or the requested.
-     * @return static
+     * @return Collection
      */
-    public function getFilters()
+    public function getFilters(): Collection
     {
         return $this->getDefaultFilters()
             ->merge($this->filters->all())

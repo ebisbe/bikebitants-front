@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\Business\Models\Shop\Product;
-use Request;
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
+use App\Business\Search\ProductSearch;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Event;
 use Cart;
+use Cache;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -43,8 +43,8 @@ class EventServiceProvider extends ServiceProvider
             }
         });
 
-        Product::updated(function ($product) {
-            \Cache::tags($product->categories)->flush();
+        Product::updated(function (Product $product) {
+            Cache::tags(array_merge($product->categories, [ProductSearch::GLOBAL_CACHE_TAG]))->flush();
         });
     }
 }

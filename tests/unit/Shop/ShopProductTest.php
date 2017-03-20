@@ -283,7 +283,7 @@ class ShopProductTest extends \TestCase
             'category' => 'Simple Category',
         ];
 
-        $this->assertEquals(json_encode($expected), $product->gaProduct());
+        $this->assertEquals(json_encode($expected), $product->fresh()->gaProduct());
     }
 
     /** @test */
