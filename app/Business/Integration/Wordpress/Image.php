@@ -103,7 +103,7 @@ class Image
      * @param $source
      * @return array
      */
-    public function encodeSrc($source)
+    public static function encodeSrc($source)
     {
         $name = basename($source);
 
