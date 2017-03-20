@@ -37,7 +37,6 @@ return [
     'distinct'             => 'The :attribute field has a duplicate value.',
     'email'                => 'The :attribute must be a valid email address.',
     'exists'               => 'The selected :attribute is invalid.',
-    'coupon_exists'        => 'The selected :attribute is invalid.',
     'filled'               => 'The :attribute field is required.',
     'image'                => 'The :attribute must be an image.',
     'in'                   => 'The selected :attribute is invalid.',
@@ -93,8 +92,12 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'coupon' => [
+            'not_expired' => 'El código de descuento no es válido.',
+            'coupon_exists'  => 'El código de descuento no existe.',
+            'minimum_cart'  => 'El código de descuento no es válido.',
+            'maximum_cart'  => 'El código de descuento no es válido.',
+            'not_repeated'  => 'El código de descuento no es válido.',
         ],
     ],
 
