@@ -18,9 +18,11 @@
                 @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                 @include('partials.price')
                 <ul class="list-unstyled product-info">
+                    @if(isset($product->brand))
                     <li><span>@lang('catalogue.brand')</span><a
                                 href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
                     </li>
+                    @endif
                     <li><span>@lang('catalogue.tags')</span>
                         @foreach($product->tags as $tag)
                             <a href="{{ route('shop.tag', ['slug' => $tag]) }}">{{ $tag }}</a>

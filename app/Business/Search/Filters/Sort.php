@@ -13,23 +13,23 @@ class Sort implements Filter
     public static function apply($value)
     {
         switch ($value) {
-            case 'low_to_high';
+            case 'low_to_high':
                 $sort = ['prices' => 1];
                 break;
 
-            case 'high_to_low';
+            case 'high_to_low':
                 $sort = ['prices' => -1];
                 break;
 
-            case 'newness';
+            case 'newness':
                 $sort = ['created_at' => -1];
                 break;
 
-            case 'featured';
+            case 'featured':
                 $sort = ['is_featured' => -1];
                 break;
 
-            case 'discounted';
+            case 'discounted':
                 $sort = ['is_discounted' => -1];
                 break;
 
@@ -42,6 +42,7 @@ class Sort implements Filter
 //                break;
 
             default:
+                // TODO define own exception
                 throw new \Exception('No sorting option found for ['.$value.']');
         }
         return $sort;

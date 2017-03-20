@@ -53,7 +53,7 @@ class Variation
                 $variation->real_price = (float)$wpVariation['regular_price'];
                 $variation->discounted_price = (float)$wpVariation['sale_price'];
                 $variation->is_discounted = $wpVariation['on_sale'];
-                $variation->stock = is_null($wpVariation['stock_quantity']) ? 25 : $wpVariation['stock_quantity'];
+                $variation->stock = $this->variationStock($wpVariation);
                 $img = $wpVariation[isset($wpVariation['image']) ? 'image' : 'images'][0];
                 $variation->filename = Image::saveImage($img);
 
@@ -63,6 +63,14 @@ class Variation
                     $variation->save();
                 }
             });
+    }
+
+    private function variationStock($variation)
+    {
+        if (!$variation['in_stock']) {
+            return 0;
+        }
+        return is_null($variation['stock_quantity']) ? 25 : $variation['stock_quantity'];
     }
 
     /**
