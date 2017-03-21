@@ -9,7 +9,7 @@
 </template>
 <script>
     export default {
-        props: ['quantity', 'product_id', 'properties', 'text', 'show_icon', 'button_class'],
+        props: ['quantity', 'product_id', 'properties', 'text', 'show_icon', 'button_class', 'checkout'],
 
         data() {
             return {
@@ -41,7 +41,11 @@
                 this.$http.post('/api/cart/', product)
                         .then(response => {
                             this.postPost();
-                            Bus.$emit('addProduct', response.data);
+                            if(this.checkout) {
+                                window.location.href = '/checkout';
+                            } else {
+                                Bus.$emit('addProduct', response.data);
+                            }
                         }, response => {
                             this.postPost();
                         });

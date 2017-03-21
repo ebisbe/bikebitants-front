@@ -17,8 +17,9 @@
             <cart-add :quantity="quantity"
                       :product_id="product_id"
                       :properties="cart_properties"
-                      text="catalogue.add"
+                      text="catalogue.add_and_buy"
                       :show_icon="true"
+                      :checkout="true"
                       button_class="btn btn-primary add-to-cart">
             </cart-add>
         </div>
