@@ -646,7 +646,7 @@ textarea {
     letter-spacing: -1px;
 }
 
-.breadcrumb-wrapper p {
+.breadcrumb-wrapper h1 {
     margin: 0;
     font-size: 32px;
     font-weight: 100;
@@ -2361,7 +2361,7 @@ article.product-item .product-permalink {
     z-index: 120;
 }
 
-article.product-item h1 {
+article.product-item h3 {
     font-weight: 600;
     font-size: 15px;
     line-height: 24px;

@@ -22,12 +22,12 @@
             <div class="col-sm-9">
                 <div class="product-body">
                     @include('partials.labels')
-                    <h1>
+                    <h3>
                         <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
                            onclick="onProduct{{ $iteration }}Click(); return !ga.loaded;">
                             {{ str_limit($product->name, 29) }}
                         </a>
-                    </h1>
+                    </h3>
                     @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                     @include('partials.price', ['class' => 'blocked'])
                     <div class="p">{!! $product->introduction !!}</div>
