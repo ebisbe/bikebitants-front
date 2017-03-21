@@ -5,6 +5,7 @@ namespace App\Business\Services;
 use App\Business\Interfaces\CartMapper;
 use App\Business\Models\Shop\Product;
 use App\Business\Repositories\ProductRepository;
+use App\Exceptions\VariationNotFoundException;
 use App\Variation;
 use \Cart;
 use Darryldecode\Cart\ItemCollection;
@@ -81,7 +82,7 @@ class CartService
         /** @var Variation $variation */
         $variation = $product->productVariation($variationProperties);
         if (is_null($variation)) {
-            return $cartMapper->mapNotFoundItem(trans('api.variation_not_found'));
+            throw new VariationNotFoundException(trans('api.variation_not_found'));
         }
         $this->stock = $variation->stock;
 
