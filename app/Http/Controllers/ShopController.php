@@ -283,7 +283,12 @@ class ShopController extends Controller
         MetaTag::set('title', 'Ofertas accesorios bicicleta y ciclistas urbanos | Bikebitants');
         MetaTag::set('description', trans('bargain.description'));
 
-        $products = $this->productRepository->findWhere(['is_discounted', '=', true]);
+        $products = $this->productRepository
+            ->with(['brand', 'category'])
+            ->findWhere(['is_discounted', '=', true])
+            ->sortBy(function ($product) {
+                return min($product->prices);
+            });
 
         return view('shop.bargain', compact('products', 'title', 'subtitle'));
     }

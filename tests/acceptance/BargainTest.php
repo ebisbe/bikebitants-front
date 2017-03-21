@@ -16,7 +16,9 @@ class BargainTest extends BrowserKitTest
     public function view_bargains()
     {
         //arrange
-        factory(Product::class)->states('bargain')->create(['name' => 'Variable Product 2']);
+        /** We are sending the array prices just because we need to filter through the prices and we need some.
+         * Otherwise is generated correctly when you ad variations with prices */
+        factory(Product::class)->states('bargain')->create(['name' => 'Variable Product 2', 'prices' => [1]]);
         factory(Product::class)->create(['name' => 'Simple Product']);
 
         //act
