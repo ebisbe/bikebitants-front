@@ -3,11 +3,13 @@
 namespace App\Business\Search;
 
 use App\Business\Models\Shop\Product;
-use App\Business\Repositories\ProductRepository;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+use App\Business\Search\Filters\Filter;
+use App\Business\Search\Filters\MaxPrice;
+use App\Business\Search\Filters\MinPrice;
+use App\Business\Search\Filters\Slug;
+use App\Business\Search\Filters\Sort;
+use App\Business\Search\Filters\SubSlug;
 use Jenssegers\Mongodb\Eloquent\Builder;
-use StaticVars;
 use Illuminate\Support\Collection;
 use Cache;
 
@@ -22,47 +24,46 @@ use Cache;
  */
 class ProductSearch
 {
-    /** @var  Request $filters */
+    protected $applied_filters = [];
+    /** @var  Collection */
     protected $filters;
+    const SLUG = 'slug';
+    const SUBSLUG = 'subslug';
 
-    /** @var  Route $route */
-    protected $route;
-    /**
-     * @var ProductRepository
-     */
-    private $productRepository;
+
+    /** Filters for product page */
+    const MIN_PRICE = 1;
+    const MAX_PRICE = 500;
+    //protected $show = [8 => 8, 12 => 12, 18 => 18, 24 => 24, 'all' => 'all'];
+    //protected $filterPage = 1;
+
+    const FEATURED = 'featured';
+    const NEWNESS = 'newness';
+    const LOW_TO_HIGH = 'low_to_high';
+    const HIGH_TO_LOW = 'high_to_low';
+    const DISCOUNTED = 'discounted';
 
     const GLOBAL_CACHE_TAG = 'shop_search';
 
     /**
-     * ProductSearch constructor.
-     * @param Request $filters
-     * @param Route $route
-     * @param ProductRepository $productRepository
-     */
-    public function __construct(Request $filters, Route $route, ProductRepository $productRepository)
-    {
-        $this->filters = $filters;
-        $this->route = $route;
-        $this->productRepository = $productRepository;
-    }
-
-    /**
      * Check if query already saved to cache and if not generate a new one
-     * @return Builder
+     * @return ProductSearchResult
      */
-    public function apply()
+    public function apply(): ProductSearchResult
     {
-        return Cache::tags($this->getCacheTags())
+        $result =  Cache::tags($this->getCacheTags())
             ->rememberForever($this->getCacheKey(), function () {
-                list($filters, $sort) = $this->applyDecoratorsFromRequest([]);
-                return $this->query($filters, $sort);
+                $query_params = $this->applyDecoratorsFromRequest();
+                return $this->query($query_params);
             });
 
-        /*return $this->productRepository
-            ->with('brand', 'category')
-            ->whereIn('_id', $products->pluck('_id'))
-            ->findAll();*/
+        return new ProductSearchResult(
+            $result,
+            $this->getFilters(),
+            self::MIN_PRICE,
+            self::MAX_PRICE,
+            self::sortingTypes()
+        );
     }
 
     /**
@@ -72,20 +73,20 @@ class ProductSearch
      * Before unwind filter with $categories, $status and $deleted_at. After unwind use $prices
      *
      * @param $filters
-     * @param $sort
      * @return mixed
      */
-    private function query($filters, $sort)
+    private function query(Collection $filters)
     {
         return (new Product())->newQuery()
-            ->raw(function ($collection) use ($filters, $sort) {
+            ->raw(function ($collection) use ($filters) {
+                $sort = $filters->shift();
                 return $collection
                     ->aggregate([
                         //['$project' => ['name' => 1, 'prices' => 1, 'status' => 1, 'is_featured' => 1]],
                         ['$unwind' => '$prices'],
                         [
                             '$match' =>
-                                ['$and' => $filters]
+                                ['$and' => $filters->toArray()]
                         ],
                         [
                             '$group' => [
@@ -111,16 +112,85 @@ class ProductSearch
     }
 
     /**
-     * @return array
+     * For each input received from the request apply it's own filter.
+     * @return Collection
      */
-    private function getCacheTags(): array
+    public function applyDecoratorsFromRequest(): Collection
     {
-        $params = $this->route->parameters();
-        if ($params) {
-            return array_values($params);
-        } else {
-            return [self::GLOBAL_CACHE_TAG];
+        $query = collect([]);
+
+        foreach ($this->getFilters() as $filterName => $value) {
+            /** @var Filter|MaxPrice|MinPrice|Slug|Sort|SubSlug $decorator */
+            $decorator = $this->createFilterDecorator($filterName);
+
+            if ($this->isValidDecorator($decorator)) {
+                $query->push($decorator::apply($value));
+            }
         }
+
+        $query->push(['status' => 2]);
+        $query->push(['deleted_at' => null]);
+
+        return $query;
+    }
+
+    /**
+     * @param array $filters
+     */
+    public function applyFilters(array $filters)
+    {
+        $this->filters = null;
+        $this->applied_filters = $filters;
+    }
+
+    /**
+     * Get default filtering values
+     * @return Collection
+     */
+    public function getDefaultFilters(): Collection
+    {
+        return collect([
+            'sort' => self::FEATURED,
+            'min_price' => self::MIN_PRICE,
+            'max_price' => self::MAX_PRICE,
+            self::SLUG => '',
+            self::SUBSLUG => ''
+        ]);
+    }
+
+
+    /**
+     * Return applied filters. Whether are the default or the requested.
+     * @return Collection
+     */
+    public function getFilters(): Collection
+    {
+        if (!is_null($this->filters)) {
+            return $this->filters;
+        }
+
+        $this->filters = $this->getDefaultFilters()
+            ->merge($this->applied_filters)
+            ->filter();
+
+        return $this->filters;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCacheTags(): Collection
+    {
+        $tags = $this->getFilters()
+            ->filter(function ($params, $key) {
+                return in_array($key, [self::SLUG, self::SUBSLUG]);
+            });
+
+        if ($tags->isEmpty()) {
+            return collect([self::GLOBAL_CACHE_TAG]);
+        }
+
+        return $tags->values();
     }
 
     /**
@@ -129,54 +199,7 @@ class ProductSearch
      */
     private function getCacheKey(): string
     {
-        return md5(json_encode($this->filters->all() + $this->route->parameters()));
-    }
-
-    /**
-     * Get default filtering values
-     * @return Collection
-     */
-    private function getDefaultFilters(): Collection
-    {
-        return collect([
-            'sort' => StaticVars::filterSortingTypeSelected(),
-            'min_price' => StaticVars::filterMinimumValue(),
-            'max_price' => StaticVars::filterMaximumValue(),
-        ]);
-    }
-
-    /**
-     * For each input received from the request apply it's own filter.
-     * @param $query
-     * @return array
-     */
-    private function applyDecoratorsFromRequest($query): array
-    {
-        foreach ($this->getFilters() as $filterName => $value) {
-            $decorator = $this->createFilterDecorator($filterName);
-
-            if ($this->isValidDecorator($decorator)) {
-                array_push($query, $decorator::apply($value));
-            }
-        }
-        $filters = array_merge($query, [
-            ['status' => 2],
-            ['deleted_at' => null]
-        ]);
-        $sort = array_shift($filters);
-
-        return [$filters, $sort];
-    }
-
-    /**
-     * Return applied filters. Whether are the default or the requested.
-     * @return Collection
-     */
-    public function getFilters(): Collection
-    {
-        return $this->getDefaultFilters()
-            ->merge($this->filters->all())
-            ->merge($this->route->parameters());
+        return md5($this->getFilters()->toJson());
     }
 
     /**
@@ -184,7 +207,7 @@ class ProductSearch
      * @param $name
      * @return string
      */
-    private function createFilterDecorator($name)
+    private function createFilterDecorator($name): string
     {
         return __NAMESPACE__ . '\\Filters\\' . studly_case($name);
     }
@@ -197,5 +220,16 @@ class ProductSearch
     private function isValidDecorator($decorator)
     {
         return class_exists($decorator);
+    }
+
+    public static function sortingTypes()
+    {
+        return collect([
+            self::NEWNESS,
+            self::LOW_TO_HIGH,
+            self::HIGH_TO_LOW,
+            'selected' => self::FEATURED,
+            self::DISCOUNTED
+        ]);
     }
 }

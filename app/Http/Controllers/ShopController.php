@@ -9,6 +9,8 @@ use App\Business\Repositories\BrandRepository;
 use App\Business\Repositories\CategoryRepository;
 use App\Business\Search\ProductSearch;
 use App\Business\Repositories\ProductRepository;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use MetaTag;
 use Breadcrumbs;
 use \FeedReader;
@@ -72,9 +74,11 @@ class ShopController extends Controller
 
     /**
      * @param string $slug
+     * @param Request $request
+     * @param Route $route
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function slug($slug)
+    public function slug($slug, Request $request, Route $route)
     {
         /** @var Product $product */
         $product = $this->productRepository->with(['category.father', 'brand'])->findBy('slug', $slug);
@@ -85,7 +89,7 @@ class ShopController extends Controller
         /** @var Category $cat */
         $cat = $this->categoryRepository->findBy('slug', $slug);
         if (!empty($cat)) {
-            return $this->category($cat);
+            return $this->category($cat, $request, $route);
         }
 
         abort(404, trans('exceptions.page_not_found'));
@@ -158,9 +162,11 @@ class ShopController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param Route $route
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function shop()
+    public function shop(Request $request, Route $route)
     {
         Breadcrumbs::addCrumb(trans('layout.shop'));
 
@@ -168,28 +174,35 @@ class ShopController extends Controller
         $subtitle = trans('layout.shop');
         $selectedCat = '';
 
-        $products = $this->productSearch->apply();
-        $filters = $this->productSearch->getFilters();
+        MetaTag::set('title', 'Bikebitants shop');
+        MetaTag::set('description', 'This is the meta description');
+        MetaTag::set('slug', 'some meta tags here');
+
+        $this->productSearch->applyFilters($request->all() + $route->parameters());
+        $productsResult = $this->productSearch->apply();
         $categories = $this->categoryRepository
             ->with(['children'])
             ->where('father_id', null)
             ->orderBy('name', 'asc')
             ->findAll();
 
-
-        MetaTag::set('title', 'Bikebitants shop');
-        MetaTag::set('description', 'This is the meta description');
-        MetaTag::set('slug', 'some meta tags here');
-
-        return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
+        return view('shop.catalogue', compact(
+            'productsResult',
+            'categories',
+            'title',
+            'subtitle',
+            'selectedCat'
+        ));
     }
 
     /**
      * @param Category $cat
+     * @param Request $request
+     * @param Route $route
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @internal param Category $slugCategory
      */
-    public function category(Category $cat)
+    public function category(Category $cat, Request $request, Route $route)
     {
 
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
@@ -204,23 +217,26 @@ class ShopController extends Controller
         $subtitle = $cat->name;
         $selectedCat = $cat->_id;
 
-        $products = $this->productSearch->apply();
-        $filters = $this->productSearch->getFilters();
+        $this->productSearch->applyFilters($request->all() + $route->parameters());
+        $productsResult = $this->productSearch->apply();
+
         $categories = $this->categoryRepository
             ->with(['children'])
             ->where('father_id', null)
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
+        return view('shop.catalogue', compact('productsResult', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
 
     /**
      * @param string $slugCategory
      * @param string $slugSubCategory
+     * @param Request $request
+     * @param Route $route
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function subslug($slugCategory, $slugSubCategory)
+    public function subslug($slugCategory, $slugSubCategory, Request $request, Route $route)
     {
         /** @var Category $cat */
         $cat = $this->categoryRepository->findBy('slug', $slugCategory);
@@ -243,15 +259,15 @@ class ShopController extends Controller
         $subtitle = $subCat->name;
         $selectedCat = $cat->_id;
 
-        $products = $this->productSearch->apply();
-        $filters = $this->productSearch->getFilters();
+        $this->productSearch->applyFilters($request->all() + $route->parameters());
+        $productsResult = $this->productSearch->apply();
         $categories = $this->categoryRepository
             ->with(['children'])
             ->where('father_id', null)
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return view('shop.catalogue', compact('products', 'filters', 'categories', 'title', 'subtitle', 'selectedCat'));
+        return view('shop.catalogue', compact('productsResult', 'categories', 'title', 'subtitle', 'selectedCat'));
     }
 
     /**

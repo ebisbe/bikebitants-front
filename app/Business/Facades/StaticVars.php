@@ -26,13 +26,6 @@ use Illuminate\Support\Collection;
  *
  * @method static Collection emptyCart()
  *
- * @method static integer filterMinimumValue()
- * @method static integer filterMaximumValue()
- * @method static Collection filterSortingType()
- * @method static string filterSortingTypeSelected()
- * @method static Collection filterShow()
- * @method static string filterShowSelected()
- *
  * @method static string imgWrapper()
  *
  * @method static string emailValidation()

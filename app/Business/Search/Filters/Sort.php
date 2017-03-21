@@ -1,49 +1,41 @@
 <?php
 namespace App\Business\Search\Filters;
 
+use App\Business\Search\ProductSearch;
+
 class Sort implements Filter
 {
 
     /**
-     * TODO refactor to decorator pattern
      * @param mixed $value
      * @return array
-     * @throws \Exception
+     * @throws SortFilterNotFound
      */
-    public static function apply($value)
+    public static function apply($value): array
     {
         switch ($value) {
-            case 'low_to_high':
+            case ProductSearch::LOW_TO_HIGH:
                 $sort = ['prices' => 1];
                 break;
 
-            case 'high_to_low':
+            case ProductSearch::HIGH_TO_LOW:
                 $sort = ['prices' => -1];
                 break;
 
-            case 'newness':
-                $sort = ['created_at' => -1];
+            case ProductSearch::NEWNESS:
+                $sort = ['created_at' => -1, 'prices' => 1];
                 break;
 
-            case 'featured':
-                $sort = ['is_featured' => -1];
+            case ProductSearch::FEATURED:
+                $sort = ['is_featured' => -1, 'prices' => 1];
                 break;
 
-            case 'discounted':
-                $sort = ['is_discounted' => -1];
+            case ProductSearch::DISCOUNTED:
+                $sort = ['is_discounted' => -1, 'prices' => 1];
                 break;
-
-//            case 'popularity';
-//                return $builder->orderBy('created_at', 'desc');
-//                break;
-//
-//            case 'average_rating';
-//                return $builder->orderBy('created_at', 'desc');
-//                break;
 
             default:
-                // TODO define own exception
-                throw new \Exception('No sorting option found for ['.$value.']');
+                throw new SortFilterNotFound('No sorting option found for [' . $value . ']');
         }
         return $sort;
     }

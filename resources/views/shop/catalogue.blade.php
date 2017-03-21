@@ -56,11 +56,11 @@ PRODUCTS - START
                                 <div class="widget-body">
                                     <div class="price-slider">
                                         <input type="hidden" class="min" name="min_price"
-                                               data-min="{{ StaticVars::filterMinimumValue() }}"
-                                               data-value="{{ $filters->get('min_price') }}" readonly>
+                                               data-min="{{ $productsResult->minPrice() }}"
+                                               data-value="{{ $productsResult->filters('min_price') }}" readonly>
                                         <input type="hidden" class="max" name="max_price"
-                                               data-max="{{ StaticVars::filterMaximumValue() }}"
-                                               data-value="{{ $filters->get('max_price') }}" readonly>
+                                               data-max="{{ $productsResult->maxPrice() }}"
+                                               data-value="{{ $productsResult->filters('max_price') }}" readonly>
                                         <span class="fake-input pull-left">
                                             <span class="min"></span>&euro;
                                         </span>
@@ -97,8 +97,8 @@ PRODUCTS - START
                                     </div>
                                     <div class="form-group">
                                         <select class="form-control js-change" name="sort">
-                                            @foreach(StaticVars::filterSortingType() as $isSelected => $option)
-                                                <option value="{{ $option }}" {!! $filters->get('sort') == $option ? 'selected="selected"' : '' !!}>{{ trans('filters.sorting.'.$option) }}</option>
+                                            @foreach($productsResult->sortingTypes() as $isSelected => $option)
+                                                <option value="{{ $option }}" {!! $productsResult->filters('sort') == $option ? 'selected="selected"' : '' !!}>{{ trans('filters.sorting.'.$option) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -110,7 +110,7 @@ PRODUCTS - START
                     <div class="row grid" id="products">
 
                         <!-- PRODUCT - START -->
-                        @foreach($products as $product)
+                        @foreach($productsResult->products() as $product)
                         @include('partials.catalogue_product', ['product' => $product, 'iteration' => $loop->iteration])
                         @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
 

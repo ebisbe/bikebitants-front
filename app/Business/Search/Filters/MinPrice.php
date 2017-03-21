@@ -7,9 +7,9 @@ class MinPrice implements Filter
      * Apply a given search value to the builder instance.
      *
      * @param mixed $value
-     * @return array $builder
+     * @return array
      */
-    public static function apply($value)
+    public static function apply($value): array
     {
         return ['prices' => ['$gte' => (int)$value]];
     }

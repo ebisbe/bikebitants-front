@@ -8,9 +8,9 @@ class SubSlug implements Filter
 
     /**
      * @param mixed $value
-     * @return Builder
+     * @return array
      */
-    public static function apply($value)
+    public static function apply($value): array
     {
         return ['categories' => ['$in' => [$value]]];
     }
