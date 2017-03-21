@@ -69,8 +69,7 @@ MY ACCOUNT - START
                                 </tbody>
                             </table>
                         </div>
-                        <a href="{{ route('shop.catalogue') }}"
-                           class="btn btn-inverse">@lang('cart.continue_shopping')</a>
+
                         {{--<a href="" class="btn btn-inverse update-cart">Update Shopping Cart</a>--}}
                     </div>
 
@@ -106,6 +105,9 @@ MY ACCOUNT - START
                         </div>
                     </div>
                     <div class="clearfix">
+                        <a href="{{ route('shop.catalogue') }}"
+                           class="btn btn-inverse">@lang('cart.continue_shopping')</a>
+
                         <a href="{{ route('checkout.index') }}"
                            class="btn btn-primary btn-lg pull-right ">@lang('cart.checkout')</a>
                     </div>
