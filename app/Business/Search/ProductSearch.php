@@ -177,9 +177,9 @@ class ProductSearch
     }
 
     /**
-     * @return Collection
+     * @return array
      */
-    public function getCacheTags(): Collection
+    public function getCacheTags(): array
     {
         $tags = $this->getFilters()
             ->filter(function ($params, $key) {
@@ -187,10 +187,10 @@ class ProductSearch
             });
 
         if ($tags->isEmpty()) {
-            return collect([self::GLOBAL_CACHE_TAG]);
+            return [self::GLOBAL_CACHE_TAG];
         }
 
-        return $tags->values();
+        return $tags->values()->toArray();
     }
 
     /**

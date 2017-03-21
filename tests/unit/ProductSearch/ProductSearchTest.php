@@ -47,7 +47,7 @@ class ProductSearchTest extends TestCase
     /** @test */
     public function get_cache_tags_without_filters()
     {
-        $this->assertEquals([ProductSearch::GLOBAL_CACHE_TAG], $this->productSearch->getCacheTags()->toArray());
+        $this->assertEquals([ProductSearch::GLOBAL_CACHE_TAG], $this->productSearch->getCacheTags());
     }
 
     /** @test */
@@ -55,7 +55,7 @@ class ProductSearchTest extends TestCase
     {
         $this->productSearch->applyFilters(['slug' => 'val_slug']);
 
-        $this->assertEquals(['val_slug'], $this->productSearch->getCacheTags()->toArray());
+        $this->assertEquals(['val_slug'], $this->productSearch->getCacheTags());
     }
 
     /** @test */
@@ -63,7 +63,7 @@ class ProductSearchTest extends TestCase
     {
         $this->productSearch->applyFilters(['slug' => 'val_slug', 'subslug' => 'val_subslug']);
 
-        $this->assertEquals(['val_slug', 'val_subslug'], $this->productSearch->getCacheTags()->toArray());
+        $this->assertEquals(['val_slug', 'val_subslug'], $this->productSearch->getCacheTags());
     }
 
     /** @test */
