@@ -32,27 +32,7 @@
                     @include('partials.price', ['class' => 'blocked'])
                     <div class="p">{!! $product->introduction !!}</div>
                     <div class="buttons">
-                        {{--<a href="" class="btn btn-primary btn-sm"><i class="fa fa-exchange"></i></a>--}}
-                        @if($product->stock == 0)
-                            <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
-                               onclick="onProduct{{ $iteration }}Click(); return !ga.loaded;"
-                               class="btn btn-transparent btn-sm add-to-cart">
-                                @lang('catalogue.read_more')
-                            </a>
-                        @elseif($product->variations->count() > 1)
-                            <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
-                               onclick="onProduct{{ $iteration }}Click(); return !ga.loaded;"
-                               class="btn btn-transparent btn-sm add-to-cart">
-                                @lang('catalogue.choose_options')
-                            </a>
-                        @else
-                            <cart-add :quantity="1"
-                                      product_id="{{ $product->_id }}"
-                                      text="catalogue.add"
-                                      :show_icon="true"
-                                      button_class="btn btn-transparent btn-sm">
-                            </cart-add>
-                        @endif
+                        @include('partials.buy_buttons')
                     </div>
                 </div>
             </div>

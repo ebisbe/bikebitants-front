@@ -117,10 +117,10 @@ PRODUCTS - START
                                                    onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
                                                    class="product-permalink"></a>
                                                 {!! Form::img($relatedProduct->front_image->filename, StaticVars::productRelated(), $relatedProduct->front_image->filename) !!}
-                                                <div class="product-quickview">
+                                                {{--<div class="product-quickview">
                                                     <a class="btn btn-quickview" data-toggle="modal"
                                                        data-target="#product-{{ $relatedProduct->slug }}">Quick View</a>
-                                                </div>
+                                                </div>--}}
                                             </div>
                                         </div>
                                         <div class="col-sm-9">
@@ -135,9 +135,7 @@ PRODUCTS - START
                                                 @include('partials.price', ['product' => $relatedProduct])
                                                 <p></p>
                                                 <div class="buttons buttons-simple">
-                                                    {{--<a href=""><i class="fa fa-exchange"></i></a>--}}
-                                                    <a href=""><i class="fa fa-shopping-cart"></i></a>
-                                                    {{--<a href=""><i class="fa fa-heart"></i></a>--}}
+                                                    @include('partials.buy_buttons', ['product' => $relatedProduct, 'iteration' => $loop->iteration])
                                                 </div>
                                             </div>
                                         </div>
@@ -160,7 +158,7 @@ PRODUCTS - START
     <!-- ==========================
        PRODUCT QUICKVIEW - START
     =========================== -->
-    @foreach($relatedProducts as $relatedProduct)
+    {{--@foreach($relatedProducts as $relatedProduct)
 
         <div class="modal fade modal-quickview" id="product-{{ $relatedProduct->slug }}" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -179,7 +177,7 @@ PRODUCTS - START
         <!-- ==========================
             PRODUCT QUICKVIEW - END
         =========================== -->
-    @endforeach
+    @endforeach--}}
 
 
     <!-- ==========================

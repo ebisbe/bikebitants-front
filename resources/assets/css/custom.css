@@ -2416,8 +2416,8 @@ article.product-item .buttons-simple {
 }
 
 article.product-item .buttons-simple a {
-    font-size: 19px;
-    padding: 0 7px;
+    font-size: 12px;
+    padding: 5px 10px;
 }
 
 article.product-item .buttons-simple a:hover {
