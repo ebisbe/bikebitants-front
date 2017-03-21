@@ -33,7 +33,7 @@
             <li>
                 <div class="row">
                     <div class="col-sm-6">
-                        <a :href="cart" class="btn btn-primary btn-block">{{ $t('cart.view_cart') }}</a>
+                        <a :href="cart" class="btn btn-inverse btn-block">{{ $t('cart.view_cart') }}</a>
                     </div>
                     <div class="col-sm-6">
                         <a :href="checkout" class="btn btn-primary btn-block">{{ $t('cart.checkout') }}</a>
