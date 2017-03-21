@@ -1,6 +1,7 @@
 <?php
 
 use App\Business\Traits\Tests\ProductTrait;
+use App\Exceptions\VariationNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
@@ -234,11 +235,15 @@ class CartApiTest extends BrowserKitTest
         $this->createTax();
         $this->createProductWithThreeVariations();
 
-        $this->addVariationProduct(1, ['ORANGE'])
-            ->seeJson([
-                'success' => false,
-                'message' => 'api.variation_not_found'
-            ]);
+        $content = [
+            'product_id' => "variation-product",
+            'quantity' => 1,
+            'properties' => ['ORANGE']
+        ];
+
+        $this->postJson('/api/cart', $content)
+            ->seeStatusCode(500);
+
     }
 
     /** @test */
