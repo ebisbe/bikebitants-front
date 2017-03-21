@@ -43,7 +43,7 @@ class EventServiceProvider extends ServiceProvider
             }
         });
 
-        Product::updated(function (Product $product) {
+        Product::saved(function (Product $product) {
             Cache::tags(array_merge($product->categories, [ProductSearch::GLOBAL_CACHE_TAG]))->flush();
         });
     }
