@@ -41,6 +41,11 @@ class Product extends Importer
      */
     public function sync($entity)
     {
+        $status = $this->statusSyncro($entity['status'], $entity['catalog_visibility']);
+        if ($status == AppProduct::DRAFT) {
+            return false;
+        }
+
         $product = AppProduct::orWhere(function ($query) use ($entity) {
             $query->whereExternalId($entity['id'])
                 ->orWhere('_id', $entity['sku']);
@@ -54,7 +59,7 @@ class Product extends Importer
         $product->_id = $entity['sku'];
         $product->external_id = $entity['id'];
         $product->name = $entity['name'];
-        $product->status = $this->statusSyncro($entity['status'], $entity['catalog_visibility']);
+        $product->status = $status;
         $product->is_featured = $entity['featured'];
         /** Never use slug again. It doesn't updates correctly */
         $product->slug = collect(explode('/', $entity['permalink']))->filter()->last();

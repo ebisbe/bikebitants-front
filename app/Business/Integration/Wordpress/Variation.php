@@ -3,6 +3,7 @@
 namespace App\Business\Integration\Wordpress;
 
 use App\Product;
+use Illuminate\Support\Collection;
 
 class Variation
 {
@@ -26,26 +27,18 @@ class Variation
      */
     public function syncVariations($entity)
     {
-        $variations = !empty($entity['variations']) ? $entity['variations'] : [$entity];
+        $variations = $this->getVariationsFromEntity($entity);
 
-        collect($variations)
+        $this->product->variations()->each(function ($variation) {
+            /** @var \App\Variation $variation */
+            $variation->delete();
+        });
+
+        $variations
             ->each(function ($wpVariation) {
-                $variation = $this->product
-                    ->variations()
-                    ->filter(function ($variation) use ($wpVariation) {
-                        return $variation->external_id == $wpVariation['id'];
-                    })->first();
-
                 $_id = $this->variationsAttributes($wpVariation);
 
-                $new = false;
-                if (empty($variation)) {
-                    $variation = new \App\Variation();
-                    $new = true;
-                } elseif ($_id != $variation->_id) {
-                    $variation->delete();
-                    $new = true;
-                }
+                $variation = new \App\Variation();
 
                 $variation->_id = $_id;
                 $variation->sku = $wpVariation['sku'];
@@ -57,11 +50,7 @@ class Variation
                 $img = $wpVariation[isset($wpVariation['image']) ? 'image' : 'images'][0];
                 $variation->filename = Image::saveImage($img);
 
-                if ($new) {
-                    $this->product->variations()->save($variation);
-                } else {
-                    $variation->save();
-                }
+                $this->product->variations()->save($variation);
             });
     }
 
@@ -88,5 +77,16 @@ class Variation
             })
             ->toArray();
         return array_merge([$this->product->_id], $variationsAtt);
+    }
+
+    /**
+     * If the product has no variation we treat the product as if it was a variation itself
+     * because it has all the params needed
+     * @param $entity
+     * @return Collection
+     */
+    protected function getVariationsFromEntity($entity): Collection
+    {
+        return !empty($entity['variations']) ? collect($entity['variations']) : collect([$entity]);
     }
 }
