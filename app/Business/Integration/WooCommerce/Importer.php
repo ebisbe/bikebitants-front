@@ -76,12 +76,13 @@ abstract class Importer implements SynchronizeEntity
     /**
      * Convert WP date format to a Carbon
      * @param $date
+     * @param bool $return_now Whether to return now() or null
      * @return Carbon
      */
-    protected function convertDate($date)
+    protected function convertDate($date, $return_now = true)
     {
         if (is_null($date)) {
-            return Carbon::now();
+            return $return_now ? Carbon::now() : null;
         }
         return Carbon::createFromFormat(StaticVars::wordpressDateTime(), $date);
     }

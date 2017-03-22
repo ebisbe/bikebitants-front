@@ -21,7 +21,7 @@ class Coupon extends Importer
         $coupon->magnitude = -(float)$entity['amount'];
         $coupon->type = $this->couponStatus($entity['discount_type']);
         $coupon->description = $entity['description'];
-        $coupon->expired_at = $this->convertDate($entity['expiry_date']);
+        $coupon->expired_at = $this->convertDate($entity['expiry_date'], false);
         $coupon->minimum_cart = (float)$entity['minimum_amount'];
         $coupon->maximum_cart = (float)$entity['maximum_amount'];
 
