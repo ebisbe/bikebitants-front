@@ -162,7 +162,7 @@
                                             >
                                                 <h3>{{ $product->name }}</h3>
                                             </a>
-                                            @include('partials.product_rating', ['product' => $product->rating, 'total_reviews' => count($product->reviews)])
+                                            @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                                             @include('partials.price')
                                             @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop_iteration])
                                         </div>
