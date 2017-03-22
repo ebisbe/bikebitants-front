@@ -21,3 +21,5 @@ public/js/*
 !public/js/.gitkeep
 public/img/*
 !public/img/.gitkeep
+public/images/ui-*
+public/images/owl.video.play.png
