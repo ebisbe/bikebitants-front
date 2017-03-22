@@ -93,7 +93,7 @@ return [
 
     'custom' => [
         'coupon' => [
-            'not_expired' => 'El código de descuento no es válido.',
+            'not_expired' => 'El código ha caducado.',
             'coupon_exists'  => 'El código de descuento no existe.',
             'minimum_cart'  => 'El código de descuento no es válido.',
             'maximum_cart'  => 'El código de descuento no es válido.',

@@ -30,7 +30,7 @@
                             <li role="presentation" class="">
                                 <a href="#faq-3" role="tab" data-toggle="tab"
                                    aria-controls="faq-3" aria-expanded="false">
-                                    Devoluciones, anulacines y cambios
+                                    Devoluciones, anulaciones y cambios
                                 </a>
                             </li>
                         </ul>
