@@ -83,6 +83,9 @@
     <!-- ==========================
     	FOOTER - END
     =========================== -->
+    <script type="application/javascript">
+        ga('send', 'pageview');
+    </script>
 </div> <!-- PAGE - END -->
 
 <!-- ==========================
