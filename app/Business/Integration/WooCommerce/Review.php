@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Integration\Wordpress;
+namespace App\Business\Integration\WooCommerce;
 
 use App\Business\Repositories\ProductRepository;
 use App\Product;

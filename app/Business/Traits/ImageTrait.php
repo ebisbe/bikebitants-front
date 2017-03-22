@@ -7,7 +7,7 @@ use Illuminate\Http\Response as IlluminateResponse;
 use \Image;
 use Storage;
 use \File;
-use \App\Business\Integration\Wordpress\Image as WordpressImage;
+use \App\Business\Integration\WooCommerce\Image as WordpressImage;
 use App\Image as AppImage;
 
 trait ImageTrait

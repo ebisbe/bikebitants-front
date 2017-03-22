@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Wordpress;
 
-use App\Business\Integration\Wordpress\Image;
-use App\Business\Integration\Wordpress\Product;
+use App\Business\Integration\WooCommerce\Image;
+use App\Business\Integration\WooCommerce\Product;
 
 class ProductStatysSyncroTest extends \TestCase
 {
@@ -13,7 +13,7 @@ class ProductStatysSyncroTest extends \TestCase
     protected function setUp()
     {
         $app = new \Illuminate\Foundation\Application();
-        $this->service = $app->make('\App\Business\Integration\Wordpress\Product');
+        $this->service = $app->make('\App\Business\Integration\WooCommerce\Product');
     }
 
     /** @test */

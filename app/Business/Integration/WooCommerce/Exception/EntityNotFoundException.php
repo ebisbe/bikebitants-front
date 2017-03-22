@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Integration\Wordpress\Exception;
+namespace App\Business\Integration\WooCommerce\Exception;
 
 class EntityNotFoundException extends \Exception
 {

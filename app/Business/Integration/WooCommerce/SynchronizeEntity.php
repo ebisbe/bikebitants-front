@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Integration\Wordpress;
+namespace App\Business\Integration\WooCommerce;
 
 interface SynchronizeEntity
 {

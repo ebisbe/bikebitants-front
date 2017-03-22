@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Business\Integration\Wordpress;
+namespace App\Business\Integration\WooCommerce;
 
-use App\Business\Integration\Wordpress\Exception\EntityNotFoundException;
+use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
 
 class Factory
 {
@@ -13,7 +13,7 @@ class Factory
      */
     public static function make($entity)
     {
-        $class = '\\App\\Business\\Integration\\Wordpress\\' . ucfirst($entity);
+        $class = '\\App\\Business\\Integration\\WooCommerce\\' . ucfirst($entity);
 
         if (!class_exists($class)) {
             throw new EntityNotFoundException("Entity ". ucfirst($entity). " not found.");

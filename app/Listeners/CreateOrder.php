@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Business\Integration\Wordpress\Order;
+use App\Business\Integration\WooCommerce\Order;
 use App\Events\ConfirmedOrder;
 
 class CreateOrder
