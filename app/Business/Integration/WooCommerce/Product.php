@@ -46,31 +46,22 @@ class Product extends Importer
             return false;
         }
 
-        $product = AppProduct::orWhere(function ($query) use ($entity) {
-            $query->whereExternalId($entity['id'])
-                ->orWhere('_id', $entity['sku']);
-        })
-            ->first();
-
-        if (empty($product)) {
-            $product = new AppProduct();
-        }
-
+        $product = $this->appProduct($entity);
         $product->_id = $entity['sku'];
         $product->external_id = $entity['id'];
         $product->name = $entity['name'];
         $product->status = $status;
         $product->is_featured = $entity['featured'];
-        /** Never use slug again. It doesn't updates correctly */
-        $product->slug = collect(explode('/', $entity['permalink']))->filter()->last();
+        $product->slug = $this->slug($entity);
         $product->description = $this->stripVCRow($entity['description']);
         $product->introduction = $entity['short_description'];
         $product->reviews_allowed = $entity['reviews_allowed'];
-        $product->tags = collect($entity['tags'])
-            ->map(function ($tag) {
-                return $tag['name'];
-            })->toArray();
+        $product->tags = $this->arrayOfTags($entity);
+        $product->meta_title = $entity['yoast']['title'];
+        $product->meta_description = $entity['yoast']['metadesc'];
+
         $this->productRepository->update($product, $product->toArray());
+
 
         $properties = new Properties($product);
         $properties->syncProperties($entity['attributes'], $entity['default_attributes']);
@@ -126,5 +117,39 @@ class Product extends Importer
     public function stripVCRow($text)
     {
         return preg_replace('#\[(/)?vc_.+\]?#', '', $text);
+    }
+
+    /**
+     * @param $entity
+     * @return array
+     */
+    protected function arrayOfTags($entity): array
+    {
+        return collect($entity['tags'])->pluck('name')->toArray();
+    }
+
+    /**
+     * Never use slug again. It doesn't updates correctly
+     * @param $entity
+     * @return string
+     */
+    protected function slug($entity): string
+    {
+        return collect(explode('/', $entity['permalink']))->filter()->last();
+    }
+
+    /**
+     * @param $entity
+     * @return AppProduct
+     */
+    protected function appProduct($entity): AppProduct
+    {
+        $product = AppProduct::orWhere(function ($query) use ($entity) {
+            $query->whereExternalId($entity['id'])
+                ->orWhere('_id', $entity['sku']);
+        })
+            ->first();
+
+        return $product ?? new AppProduct();
     }
 }

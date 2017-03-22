@@ -138,16 +138,18 @@ trait ProductPresenter
 
     public function getTitleAttribute()
     {
-        $title = isset($this->meta_title) && !is_null($this->meta_title) ? $this->meta_title : $this->name;
+        $search = ['%%title%%', '%%sep%%', '%%sitename%%'];
+        $replace = [$this->name, '|', config('app.name')];
 
-        return $title . ' | ' . config('app.name');
+        $title = !empty($this->meta_title) ? $this->meta_title : $this->name;
+        $title_tail = stripos($title, '%%') !== false ? '' : ' %%sep%% %%sitename%%';
+
+        return str_ireplace($search, $replace, $title . $title_tail);
     }
 
     public function getMetaDescAttribute()
     {
-        return isset($this->meta_description) && !is_null($this->meta_description)
-            ? $this->meta_description
-            : $this->introduction;
+        return !empty($this->meta_description) ? $this->meta_description : $this->introduction;
     }
 
     /**

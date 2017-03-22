@@ -187,7 +187,7 @@ class ShopProductTest extends \TestCase
     /** @test */
     public function product_without_meta_title()
     {
-        $product = factory(Product::class)->create(['name' => 'Product 1', 'meta_title' => null]);
+        $product = factory(Product::class)->create(['name' => 'Product 1', 'meta_title' => '']);
 
         $this->assertEquals('Product 1 | Bikebitants', $product->title);
     }
@@ -201,9 +201,20 @@ class ShopProductTest extends \TestCase
     }
 
     /** @test */
+    public function product_with_meta_title_from_yoast()
+    {
+        $product = factory(Product::class)->create([
+            'name' => 'Product 1',
+            'meta_title' => '%%title%%. Tienda Online %%sep%% %%sitename%%'
+        ]);
+
+        $this->assertEquals('Product 1. Tienda Online | Bikebitants', $product->title);
+    }
+
+    /** @test */
     public function product_without_meta_description()
     {
-        $product = factory(Product::class)->create(['introduction' => 'Product 1', 'meta_description' => null]);
+        $product = factory(Product::class)->create(['introduction' => 'Product 1', 'meta_description' => '']);
 
         $this->assertEquals('Product 1', $product->meta_desc);
     }

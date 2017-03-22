@@ -13,11 +13,26 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * @package App
  *
  * @property string $_id
- * @property string $name
- * @property string $description
  * @property string $currency
  * @property string $html_currency
+ * @property string $name
+ * @property string $generic_name
+ * @property string $slug
+ * @property string $status
+ * @property string $introduction
+ * @property string $description
+ * @property string $is_featured
+ * @property array $tags
+ * @property string $meta_title
+ * @property string $meta_description
+ * @property string $meta_slug
+ * @property string $external_id
+ * @property bool $reviews_allowed
+ * @property array $prices
+ * @property string $stock
+ * @property string $is_discounted
  * @property array $categories
+ * @property string $rating
  * @property Brand $brand
  * @property string $tags_list
  * @property-read Image $front_image
