@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cb7149a0e4599c78f54285fd6205d85d",
-    "content-hash": "d38a2b9966e04c981d33d6e7bbc1f491",
+    "hash": "77614f466c91440904557e202eab3501",
+    "content-hash": "4a413ff31ec37486f953731960e4fcf6",
     "packages": [
         {
             "name": "automattic/woocommerce",
@@ -2198,16 +2198,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.36",
+            "version": "1.0.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "d9c1698582dfbfbd092ec9c5c3325f862cdb3297"
+                "reference": "78b5cc4feb61a882302df4fbaf63b7662e5e4ccd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/d9c1698582dfbfbd092ec9c5c3325f862cdb3297",
-                "reference": "d9c1698582dfbfbd092ec9c5c3325f862cdb3297",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/78b5cc4feb61a882302df4fbaf63b7662e5e4ccd",
+                "reference": "78b5cc4feb61a882302df4fbaf63b7662e5e4ccd",
                 "shasum": ""
             },
             "require": {
@@ -2277,7 +2277,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-03-18 16:02:30"
+            "time": "2017-03-22 15:43:14"
         },
         {
             "name": "martinlindhe/laravel-vue-i18n-generator",
@@ -3467,12 +3467,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rinvex/repository.git",
-                "reference": "a793a8a73ce851c7731ed01c572f5c602ec7f827"
+                "reference": "ef157ef5db728a756ecf57cddb8ea02584c42873"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rinvex/repository/zipball/a793a8a73ce851c7731ed01c572f5c602ec7f827",
-                "reference": "a793a8a73ce851c7731ed01c572f5c602ec7f827",
+                "url": "https://api.github.com/repos/rinvex/repository/zipball/ef157ef5db728a756ecf57cddb8ea02584c42873",
+                "reference": "ef157ef5db728a756ecf57cddb8ea02584c42873",
                 "shasum": ""
             },
             "require": {
@@ -3536,7 +3536,7 @@
                 "repository",
                 "rinvex"
             ],
-            "time": "2017-03-14 15:50:26"
+            "time": "2017-03-22 13:52:39"
         },
         {
             "name": "sentry/sentry",
@@ -4706,6 +4706,54 @@
                 "twitter"
             ],
             "time": "2014-08-06 22:29:35"
+        },
+        {
+            "name": "threesquared/laravel-wp-api",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/threesquared/laravel-wp-api.git",
+                "reference": "7297886a2642a06165fd3025ddc409c282ab8b41"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/threesquared/laravel-wp-api/zipball/7297886a2642a06165fd3025ddc409c282ab8b41",
+                "reference": "7297886a2642a06165fd3025ddc409c282ab8b41",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "illuminate/support": "~5.2",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Threesquared\\LaravelWpApi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Speakman",
+                    "email": "ben@3sq.re"
+                }
+            ],
+            "description": "Laravel package for the Wordpress JSON REST API",
+            "keywords": [
+                "api",
+                "laravel",
+                "package",
+                "rest",
+                "wordpress"
+            ],
+            "time": "2016-04-05 08:13:04"
         },
         {
             "name": "thujohn/twitter",
