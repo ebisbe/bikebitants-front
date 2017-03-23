@@ -57,8 +57,8 @@ class Product extends Importer
         $product->introduction = $entity['short_description'];
         $product->reviews_allowed = $entity['reviews_allowed'];
         $product->tags = $this->arrayOfTags($entity);
-        $product->meta_title = $entity['yoast']['title'];
-        $product->meta_description = $entity['yoast']['metadesc'];
+        $product->meta_title = $entity['yoast']['yoast_wpseo_title'];
+        $product->meta_description = $entity['yoast']['yoast_wpseo_metadesc'];
 
         $this->productRepository->update($product, $product->toArray());
 

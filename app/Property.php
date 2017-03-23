@@ -4,6 +4,14 @@ namespace App;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 
+/**
+ * Class Property
+ * @package App
+ *
+ * @property string $name
+ * @property int $order
+ * @property string $external_id
+ */
 class Property extends Model
 {
 

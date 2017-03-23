@@ -14,6 +14,9 @@ class Properties
      */
     private $product;
 
+    /** @var Int $order Order for variation properties */
+    private $order;
+    
     /**
      * Properties constructor.
      * @param Product $product
@@ -26,32 +29,20 @@ class Properties
     /**
      * Import Properties from products if they have. Properties can be from variations or product properties
      * @param $properties
+     * @param $defaultAttributes
      */
     public function syncProperties($properties, $defaultAttributes)
     {
-        $order = 1;
-        $ids = [];
+        $this->order = 1;
         collect($properties)
             ->sortBy('position')
-            ->each(function ($attribute) use (&$order, &$ids, $defaultAttributes) {
+            ->each(function ($attribute) use ($defaultAttributes) {
                 if ($attribute['variation']) {
-                    $ids[] = $this->syncVariationProperties($attribute, $order, $defaultAttributes);
-                    $order++;
+                    $this->syncVariationProperties($attribute, $defaultAttributes);
                 } else {
                     $this->syncAttribute($attribute);
                 }
             });
-
-        //Find deleted attributes
-        $propertiesToDelete = $this->product
-            ->properties()
-            ->filter(function ($attribute) use ($ids) {
-                return !in_array($attribute['external_id'], $ids);
-            });
-        //Delete attributes
-        $propertiesToDelete->each(function ($attribute) {
-            $this->product->properties()->destroy($attribute);
-        });
     }
 
     /**
@@ -61,44 +52,23 @@ class Properties
      * @param $defaultAttributes
      * @return String
      */
-    public function syncVariationProperties($variation, $order, $defaultAttributes)
+    public function syncVariationProperties($variation, $defaultAttributes)
     {
-        $attribute = $this->product
-            ->properties()
-            ->filter(function ($attribute) use ($variation) {
-                return $attribute->external_id == $variation['id'];
-            })
-            ->first();
-        $new = false;
-        if (empty($attribute)) {
-            $attribute = new Property();
-            $new = true;
-        }
-
-        $attribute->name = $variation['name'];
-        $attribute->order = $order;
-        $attribute->external_id = $variation['id'];
-
-        if ($new) {
-            $this->product->properties()->save($attribute);
-        } else {
-            $attribute->save();
-        }
-
-        collect($variation['options'])->each(function ($option) use ($attribute, $defaultAttributes, $variation) {
-            $value = new PropertyValue();
-            $sku = str_slug(strtolower($option));
-            $value->_id = $sku;
-            $value->sku = $sku;
-            $value->name = $option;
-            $value->selected = collect($defaultAttributes)
-                    ->where('id', '=', $variation['id'])
-                    ->where('option', '=', $sku)->count() == 1;
-            $value->complementary_text = '';
-            $attribute->properties_values()->save($value);
+        $this->product->properties()->each(function ($property) {
+            /** @var \App\Property $property */
+            $property->delete();
         });
 
-        $attribute->save();
+        /** @var Property $property */
+        $property = new Property();
+
+        $property->name = $variation['name'];
+        $property->order = $this->order++;
+        $property->external_id = $variation['id'];
+
+        $this->product->properties()->save($property);
+
+        $this->propertyValues($variation, $defaultAttributes, $property);
         return $variation['id'];
     }
 
@@ -119,5 +89,28 @@ class Properties
         } else {
             $this->product->{$attribute['name']} = $attribute['options'][0];
         }
+    }
+
+    /**
+     * @param $variation
+     * @param $defaultAttributes
+     * @param $property
+     */
+    protected function propertyValues($variation, $defaultAttributes, $property)
+    {
+        collect($variation['options'])->each(function ($option) use ($property, $defaultAttributes, $variation) {
+            $value = new PropertyValue();
+            $sku = str_slug(strtolower($option));
+            $value->_id = $sku;
+            $value->sku = $sku;
+            $value->name = $option;
+            $value->selected = collect($defaultAttributes)
+                    ->where('id', '=', $variation['id'])
+                    ->where('option', '=', $sku)->count() == 1;
+            $value->complementary_text = '';
+            $property->properties_values()->save($value);
+        });
+
+        $property->save();
     }
 }
