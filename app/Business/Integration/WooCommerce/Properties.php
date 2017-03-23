@@ -33,6 +33,11 @@ class Properties
      */
     public function syncProperties($properties, $defaultAttributes)
     {
+        $this->product->properties()->each(function ($property) {
+            /** @var \App\Property $property */
+            $property->delete();
+        });
+
         $this->order = 1;
         collect($properties)
             ->sortBy('position')
@@ -54,11 +59,6 @@ class Properties
      */
     public function syncVariationProperties($variation, $defaultAttributes)
     {
-        $this->product->properties()->each(function ($property) {
-            /** @var \App\Property $property */
-            $property->delete();
-        });
-
         /** @var Property $property */
         $property = new Property();
 
