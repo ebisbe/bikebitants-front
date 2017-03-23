@@ -16,38 +16,10 @@
                         <a href="{{ route('shop.catalogue') }}"
                            class="btn btn-default btn-lg">Visita nuestra tienda</a>
 
-                        <div class="content services transparent services-3x hidden-xs">
+                        <div class="content services transparent margin-top services-3x hidden-xs">
                             <div class="row row-no-padding">
 
-                                <!-- SERVICE - START -->
-                                <div class="col-xs-4 col-sm-4">
-                                    <div class="service">
-                                        <i class="@lang('home.first_box_i')"></i>
-                                        <h3>@lang('home.first_box_h3')</h3>
-                                        <p>@lang('home.first_box_p')</p>
-                                    </div>
-                                </div>
-                                <!-- SERVICE - END -->
-
-                                <!-- SERVICE - START -->
-                                <div class="col-xs-4 col-sm-4">
-                                    <div class="service">
-                                        <i class="@lang('home.second_box_i')"></i>
-                                        <h3>@lang('home.second_box_h3')</h3>
-                                        <p>@lang('home.second_box_p')</p>
-                                    </div>
-                                </div>
-                                <!-- SERVICE - END -->
-
-                                <!-- SERVICE - START -->
-                                <div class="col-xs-4 col-sm-4">
-                                    <div class="service">
-                                        <i class="@lang('home.third_box_i')"></i>
-                                        <h3>@lang('home.third_box_h3')</h3>
-                                        <p>@lang('home.third_box_p')</p>
-                                    </div>
-                                </div>
-                                <!-- SERVICE - END -->
+                                @include('layouts.partials.warranty')
 
                             </div>
                         </div>
@@ -71,32 +43,7 @@
         <div class="container">
             <div class="row row-no-padding">
 
-                <!-- SERVICE - START -->
-                <div class="col-xs-4 col-sm-4">
-                    <div class="service">
-                        <i class="@lang('home.first_box_i')"></i>
-                        <h3>@lang('home.first_box_h3')</h3>
-                    </div>
-                </div>
-                <!-- SERVICE - END -->
-
-                <!-- SERVICE - START -->
-                <div class="col-xs-4 col-sm-4">
-                    <div class="service">
-                        <i class="@lang('home.second_box_i')"></i>
-                        <h3>@lang('home.second_box_h3')</h3>
-                    </div>
-                </div>
-                <!-- SERVICE - END -->
-
-                <!-- SERVICE - START -->
-                <div class="col-xs-4 col-sm-4">
-                    <div class="service">
-                        <i class="@lang('home.third_box_i')"></i>
-                        <h3>@lang('home.third_box_h3')</h3>
-                    </div>
-                </div>
-                <!-- SERVICE - END -->
+                @include('layouts.partials.warranty', ['show_paragraph' => false])
 
             </div>
 
@@ -105,6 +52,8 @@
     <!-- ==========================
         SERVICES - END
     =========================== -->
+
+
 
     <!-- ==========================
         GRID PRODUCTS - START
