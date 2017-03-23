@@ -321,9 +321,9 @@
                                 <h3>@lang('checkout.payment_methods')</h3>
                                 <div class="products-order checkout payment-method">
                                     <div id="payment-methods" class="{{ $errors->has('payment') ? 'has-error' : ''}}">
-                                        @foreach($paymentMethods as $payment)
+                                        @foreach($paymentMethods as $key => $payment)
                                             <div class="panel radio">
-                                                {{ Form::radio('payment', $payment->slug, null, ['id' => $payment->slug]) }}
+                                                {{ Form::radio('payment', $payment->slug, $key == 0 ? true : null, ['id' => $payment->slug]) }}
                                                 {{ Form::label($payment->slug, $payment->name) }}
                                             </div>
                                         @endforeach

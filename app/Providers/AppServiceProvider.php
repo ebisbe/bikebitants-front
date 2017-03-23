@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Business\Checkout\Status\NewOrder;
 use App\Category;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\DB;
@@ -62,6 +63,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('orderservice', \App\Business\Services\OrderService::class);
 
         $this->app->bind(\App\Business\Services\TwitterService::class, \App\Business\Services\TwitterService::class);
-        $this->app->bind('NewOrder', \App\Business\Status\NewOrder::class);
+        $this->app->bind('NewOrder', NewOrder::class);
     }
 }

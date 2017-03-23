@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Events;
+namespace App\Business\Checkout\Events;
 
+use App\Events\Event;
 use App\Order;
 use Illuminate\Queue\SerializesModels;
 
-class NewOrder extends Event
+class Cancel extends Event
 {
     use SerializesModels;
 
-    /** @var  Order $order */
     public $order;
 
     /**
-     * Create a new event instance.
-     *
+     * CancelOrder constructor.
      * @param Order $order
      */
     public function __construct(Order $order)

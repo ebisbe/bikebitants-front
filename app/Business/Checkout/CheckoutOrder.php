@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Business\Services;
+namespace App\Business\Checkout;
 
 use App\Billing;
-use App\Business\Status\CancelledOrder;
-use App\Business\Status\Status;
-use App\Business\Status\ToRedirectOrder;
-use App\Business\Status\UndefinedOrder;
+use App\Business\Checkout\Status\CancelledOrder;
+use App\Business\Checkout\Status\Status;
+use App\Business\Checkout\Status\UndefinedOrder;
+use App\Business\Checkout\Status\ConfirmedOrder;
 use App\Business\Repositories\ProductRepository;
-use App\Events\CancelOrder;
-use App\Events\ConfirmedOrder;
-use App\Events\NewOrder;
+use App\Business\Checkout\Events\Cancel;
+use App\Business\Checkout\Events\Confirm;
+use App\Business\Checkout\Events\Create;
+use App\Business\Services\CouponService;
 use App\Exceptions\OutOfStockException;
 use App\Order;
 use App\PaymentMethod;
@@ -23,7 +24,7 @@ use Omnipay;
 use Cart;
 use Event;
 
-class CheckoutOrderService
+class CheckoutOrder
 {
     /** @var  Order $order */
     protected $order;
@@ -69,7 +70,7 @@ class CheckoutOrderService
                 return $this->confirmPayment();
                 break;
             case Order::Confirmed:
-                return new \App\Business\Status\ConfirmedOrder($this->order);
+                return new ConfirmedOrder($this->order);
                 break;
             case Order::Cancelled:
                 return new CancelledOrder($this->order);
@@ -118,7 +119,7 @@ class CheckoutOrderService
             $this->order->status = Order::Cancelled;
             $this->order->error_message = $message;
             if ($this->order->save()) {
-                Event::fire(new CancelOrder($this->order));
+                Event::fire(new Cancel($this->order));
                 return true;
             } else {
                 // TODO throw some error
@@ -135,7 +136,7 @@ class CheckoutOrderService
             $this->order->status = Order::Confirmed;
             $this->order->save();
             // TODO send email
-            Event::fire(new ConfirmedOrder($this->order));
+            Event::fire(new Confirm($this->order));
         } elseif ($this->response->isRedirect()) {
             $this->order->status = Order::Redirected;
             $this->order->save();
@@ -180,7 +181,7 @@ class CheckoutOrderService
             $order = $this->updateOrder($order);
 
             if ($order->status == Order::New) {
-                Event::fire(new NewOrder($order));
+                Event::fire(new Create($order));
             }
             $this->order = $order;
         }

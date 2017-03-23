@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Events;
+namespace App\Business\Checkout\Events;
 
+use App\Events\Event;
 use App\Order;
 use Illuminate\Queue\SerializesModels;
 
-class ConfirmedOrder extends Event
+class Create extends Event
 {
     use SerializesModels;
 

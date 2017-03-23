@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Status;
+namespace App\Business\Checkout\Status;
 
 use App\Order;
 use Cart;

@@ -2,12 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Business\Services\CheckoutOrderService;
+use App\Business\Checkout\CheckoutOrder;
 use App\Business\Services\OrderService;
-use App\Order;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\App;
 
 class ExpireOrder extends Command
 {
@@ -34,10 +31,10 @@ class ExpireOrder extends Command
 
     /**
      * ExpireOrder constructor.
-     * @param CheckoutOrderService $checkoutOrderService
+     * @param CheckoutOrder $checkoutOrderService
      * @param OrderService $orderService
      */
-    public function __construct(CheckoutOrderService $checkoutOrderService, OrderService $orderService)
+    public function __construct(CheckoutOrder $checkoutOrderService, OrderService $orderService)
     {
         parent::__construct();
         $this->checkoutOrderService = $checkoutOrderService;

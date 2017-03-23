@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Business\Services\CheckoutOrderService;
+use App\Business\Checkout\CheckoutOrder;
 use App\Http\Middleware\CheckoutMiddleware;
 use App\Order;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class CheckoutController extends Controller
 {
     /**
-     * @var CheckoutOrderService
+     * @var CheckoutOrder
      */
     protected $orderService;
 
@@ -25,10 +25,10 @@ class CheckoutController extends Controller
 
     /**
      * CheckoutController constructor.
-     * @param CheckoutOrderService $orderService
+     * @param CheckoutOrder $orderService
      * @param Request $request
      */
-    public function __construct(CheckoutOrderService $orderService, Request $request)
+    public function __construct(CheckoutOrder $orderService, Request $request)
     {
         $this->middleware([CheckoutMiddleware::class]);
 
