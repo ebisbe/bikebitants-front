@@ -9,7 +9,7 @@
 <section class="content eshop">
     <div class="container">
         <div class="default-style faq">
-            <h2>Terminos y condicines</h2>
+            <h2>Terminos y condiciones</h2>
 
             <div class="tabs vertical-tabs">
                 <div class="row">
