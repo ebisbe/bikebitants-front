@@ -60,7 +60,7 @@
                                  aria-valuemax="100" style="width:100%;"></div>
                         </div>
 
-                        <h3>@lang('checkout.cart') {{ $order->token }}</h3>
+                        <h3>@lang('checkout.cart') #{{ $order->external_id }}</h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="box">
