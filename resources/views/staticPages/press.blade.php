@@ -7,7 +7,7 @@
             <div class="default-style privacy-policy">
                 <h2>Los medios ya hablan de nosotros.</h2>
                 <p>A pesar de ser una startup creada hace solamente unos meses, tenemos la suerte de contar ya con algunas menciones en prensa y televisión:</p>
-                <img src="https://bikebitants-bikebitants.netdna-ssl.com/wordpress/wp-content/uploads/2016/01/Medios-color-768x173.png">
+                <img src="https://blog.bikebitants.com/wp-content/uploads/2016/01/Medios-color-768x173.png">
             </div>
         </div>
     </section>
@@ -29,7 +29,7 @@
                                     <td>
                                         <p class="text-right">
                                             <a target="_blank"
-                                               href="https://bikebitants-bikebitants.netdna-ssl.com/wordpress/wp-content/uploads/2016/01/IMG-20151108-WA0005.jpg">
+                                               href="https://blog.bikebitants.com/wp-content/uploads/2016/01/IMG-20151108-WA0005.jpg">
                                                 @lang('layout.see') <i class="fa fa-arrow-circle-o-down"></i></a>
                                         </p>
                                     </td>
@@ -40,7 +40,7 @@
                                     <td><p>21 Diciembre 2015 – EXPANSION</p></td>
                                     <td><p class="text-right">
                                             <a target="_blank"
-                                               href="https://bikebitants-bikebitants.netdna-ssl.com/wordpress/wp-content/uploads/2016/01/Expansion_21_12_2015.png">
+                                               href="https://blog.bikebitants.com/wp-content/uploads/2016/01/Expansion_21_12_2015.png">
                                                 @lang('layout.see') <i class="fa fa-arrow-circle-o-down"></i></a></p>
                                     </td>
                                 </tr>
@@ -50,7 +50,7 @@
                                     <td><p>23 Marzo 2016 – COMPUTER HOY</p></td>
                                     <td><p class="text-right">
                                             <a target="_blank"
-                                               href="https://bikebitants-bikebitants.netdna-ssl.com/wordpress/wp-content/uploads/2016/04/computer-hoy.png">
+                                               href="https://blog.bikebitants.com/wp-content/uploads/2016/04/computer-hoy.png">
                                                 @lang('layout.see') <i class="fa fa-arrow-circle-o-down"></i></a></p>
                                     </td>
                                 </tr>

@@ -24,7 +24,7 @@
                     <p>En la mayoría de ciudades, entregamos nuestros paquetes con bicimensajeros</p>
                 </div>
                 <div class="col-xs-6">
-                    <img src="https://bikebitants-bikebitants.netdna-ssl.com/wordpress/wp-content/uploads/2015/10/foto1-e1445262301444.jpg?id=960" class="img-responsive center-block" alt="">
+                    <img src="https://blog.bikebitants.com/wp-content/uploads/2015/10/foto1-e1445262301444.jpg?id=960" class="img-responsive center-block" alt="">
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-6">
-                    <img src="https://bikebitants-bikebitants.netdna-ssl.com/wordpress/wp-content/uploads/2015/10/IMG-20151016-WA0007.jpg?id=953" class="img-responsive center-block" alt="">
+                    <img src="https://blog.bikebitants.com/wp-content/uploads/2015/10/IMG-20151016-WA0007.jpg?id=953" class="img-responsive center-block" alt="">
                 </div>
                 <div class="col-xs-6">
                     <h3>Materiales y embalajes ecológicos</h3>
