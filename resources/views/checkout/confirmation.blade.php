@@ -186,7 +186,7 @@
     </section>
     <script type="text/javascript">
         ga('ec:setAction', 'purchase', {
-            'id': '{{ $order->_id }}',
+            'id': '{{ $order->external_id }}',
             'revenue': '{{ $order->total }}',
             'tax': '{{ $order->total - $order->subtotal }}'
         });
