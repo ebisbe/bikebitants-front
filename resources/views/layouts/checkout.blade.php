@@ -50,6 +50,9 @@
     <!-- ==========================
         SERVICES - END
     =========================== -->
+
+    @include('layouts.partials.media')
+
     @endif
     <!-- ==========================
         FOOTER - START
