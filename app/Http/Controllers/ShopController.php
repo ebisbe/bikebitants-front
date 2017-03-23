@@ -64,6 +64,8 @@ class ShopController extends Controller
             ->where('father_id', 'exists', false)
             ->orderBy('name', 'asc')->findAll();
 
+        MetaTag::set('title', trans('home.title'));
+
         $feed = FeedReader::read(config('app.blog_url') . '/feed/')->get_items(0, 4);
 
         return view(
@@ -174,9 +176,9 @@ class ShopController extends Controller
         $subtitle = trans('layout.shop');
         $selectedCat = '';
 
-        MetaTag::set('title', 'Bikebitants shop');
-        MetaTag::set('description', 'This is the meta description');
-        MetaTag::set('slug', 'some meta tags here');
+        MetaTag::set('title', trans('layout.shop_title'));
+        MetaTag::set('description', '');
+        //MetaTag::set('slug', 'some meta tags here');
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
@@ -208,9 +210,9 @@ class ShopController extends Controller
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['category' => $cat->slug]));
 
-        MetaTag::set('title', $cat->name);
-        MetaTag::set('description', $cat->meta_desc);
-        MetaTag::set('slug', $cat->meta_slug);
+        MetaTag::set('title', $cat->title);
+        //MetaTag::set('description', $cat->meta_desc);
+        //MetaTag::set('slug', $cat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->filename]));
 
         $title = trans('layout.shop');
@@ -250,9 +252,9 @@ class ShopController extends Controller
         Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['slug' => $cat->slug]));
         Breadcrumbs::addCrumb($subCat->name);
 
-        MetaTag::set('title', $subCat->name);
-        MetaTag::set('description', $subCat->meta_desc);
-        MetaTag::set('slug', $subCat->meta_slug);
+        MetaTag::set('title', $subCat->title);
+        //MetaTag::set('description', $subCat->meta_desc);
+        //MetaTag::set('slug', $subCat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $subCat->filename]));
 
         $title = $cat->name;
@@ -275,12 +277,13 @@ class ShopController extends Controller
      */
     public function bargain()
     {
+        Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         Breadcrumbs::addCrumb(trans('bargain.title'));
 
         $title = trans('layout.shop');
         $subtitle = trans('bargain.title');
 
-        MetaTag::set('title', 'Ofertas accesorios bicicleta y ciclistas urbanos | Bikebitants');
+        MetaTag::set('title', trans('bargain.meta_title'));
         MetaTag::set('description', trans('bargain.description'));
 
         $products = $this->productRepository
@@ -299,13 +302,13 @@ class ShopController extends Controller
      */
     public function tag($slug)
     {
-        Breadcrumbs::addCrumb(trans('layout.tag'));
+        Breadcrumbs::addCrumb(trans('tag.name'));
 
         $title = trans('layout.shop');
         $subtitle = $slug;
 
-        MetaTag::set('title', trans('layout.tag'));
-        MetaTag::set('description', trans('tag.description'));
+        MetaTag::set('title', trans('tag.title', ['name' => $slug]));
+        //MetaTag::set('description', trans('tag.description'));
 
         $products = $this->productRepository->whereIn('tags', [$slug])->findAll();
 

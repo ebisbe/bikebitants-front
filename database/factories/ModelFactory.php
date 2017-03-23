@@ -235,9 +235,9 @@ $factory->define(\App\Business\Models\Shop\Category::class, function (Generator 
         'filename' => $files->random(),
         'products' => 0,
         'featured' => false,
-        'meta_title' => $name,
-        'meta_description' => $faker->paragraphs(1, true),
-        'meta_slug' => $faker->words(6, true)
+        //'meta_title' => $name,
+        //'meta_description' => $faker->paragraphs(1, true),
+        //'meta_slug' => $faker->words(6, true)
     ];
 });
 

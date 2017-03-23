@@ -17,7 +17,8 @@ return [
     'go_back' => 'Volver a',
     'see' => 'Ver',
     'out_of_stock' => 'Sin stock',
-    'tag' => 'Etiqueta',
     'telephone_schedule' => '(Lunes a viernes, 9h - 19h)',
-    'brand_related_products' => 'Productos de esta marca'
+    'brand_related_products' => 'Productos de esta marca',
+
+    'shop_title' => 'Tienda Bikebitants. Tienda online para ciclistas urbanos | Bikebitants',
 ];

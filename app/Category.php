@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Business\Traits\Presenters\CategoryPresenter;
 use Jenssegers\Mongodb\Eloquent\Model;
 use App\Business\Traits\SluggableTrait;
 
@@ -12,6 +13,7 @@ use App\Business\Traits\SluggableTrait;
  * @property string $_id
  * @property $products_count
  * @property $name
+ * @property $title
  * @property $slug
  * @property Category $father
  * @property $filename
