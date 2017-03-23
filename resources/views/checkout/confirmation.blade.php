@@ -187,7 +187,7 @@
     <script type="text/javascript">
         ga('ec:setAction', 'purchase', {
             'id': '{{ $order->_id }}',
-            'revenue': '{{ $order->subtotal }}',
+            'revenue': '{{ $order->total }}',
             'tax': '{{ $order->total - $order->subtotal }}'
         });
     </script>
