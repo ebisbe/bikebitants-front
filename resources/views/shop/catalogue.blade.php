@@ -26,12 +26,12 @@ PRODUCTS - START
                                         aria-multiselectable="true">
                                         @foreach($categories as $category)
                                             <li class="panel">
-                                                <a href="{{ route('shop.slug', ['slug' => $category->slug]) }}">{{ $category->name }}
+                                                <a href="{{ route('shop.slug', ['slug' => $category->slug]) }}" class="{{ $selectedCat == $category->_id ? '' : 'collapsed' }}">{{ $category->name }}
                                                     <span>[{{ $category->products_count }}]</span>
                                                 </a>
                                                 <ul class="list-unstyled">
                                                     @foreach($category->children as $subcategory)
-                                                        <li>
+                                                        <li class="{{ isset($selectedSubCat) && $selectedSubCat == $subcategory->_id ? 'active' : '' }}">
                                                             <a href="{{ route('shop.subslug', ['slug' => $category->slug, 'subslug' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
                                                         </li>
                                                     @endforeach
