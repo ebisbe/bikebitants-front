@@ -4,7 +4,7 @@
         <i class="@lang('home.first_box_i')"></i>
         <h3>@lang('home.first_box_h3')</h3>
         @if(!isset($show_paragraph) || $show_paragraph)
-            <p>@lang('home.first_box_p')</p>
+            <p class="hidden-xs">@lang('home.first_box_p')</p>
         @endif
     </div>
 </div>
@@ -16,7 +16,7 @@
         <i class="@lang('home.second_box_i')"></i>
         <h3>@lang('home.second_box_h3')</h3>
         @if(!isset($show_paragraph) || $show_paragraph)
-            <p>@lang('home.second_box_p')</p>
+            <p class="hidden-xs">@lang('home.second_box_p')</p>
         @endif
     </div>
 </div>
@@ -28,7 +28,7 @@
         <i class="@lang('home.third_box_i')"></i>
         <h3>@lang('home.third_box_h3')</h3>
         @if(!isset($show_paragraph) || $show_paragraph)
-            <p>@lang('home.third_box_p')</p>
+            <p class="hidden-xs">@lang('home.third_box_p')</p>
         @endif
     </div>
 </div>
