@@ -19,6 +19,14 @@ trait CategoryPresenter
     }
 
     /**
+     * @return string
+     */
+    public function getMetaDescriptionAttribute()
+    {
+        return 'La mejor selección en ' . $this->name . ' para cubrir todas la necesidades del ciclista urbano. Envío gratuito y devolución fácil.';
+    }
+
+    /**
      * @param $value
      * @return mixed
      */

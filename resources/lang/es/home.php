@@ -1,6 +1,7 @@
 <?php
 return [
     'title' => 'Bikebitants - Gadgets para ciclistas urbanos',
+    'meta_description' => 'Los gadgets para bicicletas y ciclistas más innovadores en Bikebitants. Nuestra misión es combinar tecnología y ciclismo urbano para contribuir a una movilidad sostenible.',
 
     'first_box_i' => 'fa fa-dropbox',
     'first_box_h3' => 'Envio gratuito',

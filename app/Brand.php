@@ -12,6 +12,7 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  *
  * @property string name
  * @property string title
+ * @property string meta_description
  *
  * @method static Builder whereSlug($slug)
  * @method static Builder featured($is_featured = true)

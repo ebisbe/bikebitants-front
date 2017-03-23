@@ -30,4 +30,16 @@ class CategoryPresenterTest extends \TestCase
             $categoryChild->fresh()->title
         );
     }
+
+    /** @test */
+    public function show_meta_description()
+    {
+        /** @var Category $category */
+        $category = factory(Category::class)->create(['name' => 'Category 1']);
+
+        $this->assertEquals(
+            'La mejor selección en Category 1 para cubrir todas la necesidades del ciclista urbano. Envío gratuito y devolución fácil.',
+            $category->fresh()->meta_description
+        );
+    }
 }

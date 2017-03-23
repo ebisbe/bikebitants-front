@@ -65,6 +65,7 @@ class ShopController extends Controller
             ->orderBy('name', 'asc')->findAll();
 
         MetaTag::set('title', trans('home.title'));
+        MetaTag::set('description', trans('home.meta_description'));
 
         $feed = FeedReader::read(config('app.blog_url') . '/feed/')->get_items(0, 4);
 
@@ -156,8 +157,8 @@ class ShopController extends Controller
             ->findAll();
 
         MetaTag::set('title', $brand->title);
-        MetaTag::set('description', $brand->meta_desc);
-        MetaTag::set('slug', $brand->meta_slug);
+        MetaTag::set('description', $brand->meta_description);
+        //MetaTag::set('slug', $brand->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
 
         return view('shop.brand', compact('brand', 'products'));
@@ -168,7 +169,7 @@ class ShopController extends Controller
      * @param Route $route
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function shop(Request $request, Route $route)
+    public function catalogue(Request $request, Route $route)
     {
         Breadcrumbs::addCrumb(trans('layout.shop'));
 
@@ -177,7 +178,7 @@ class ShopController extends Controller
         $selectedCat = '';
 
         MetaTag::set('title', trans('layout.shop_title'));
-        MetaTag::set('description', '');
+        MetaTag::set('description', trans('layout.shop_meta_description'));
         //MetaTag::set('slug', 'some meta tags here');
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
@@ -211,7 +212,7 @@ class ShopController extends Controller
         Breadcrumbs::addCrumb($cat->name, route('shop.slug', ['category' => $cat->slug]));
 
         MetaTag::set('title', $cat->title);
-        //MetaTag::set('description', $cat->meta_desc);
+        MetaTag::set('description', $cat->meta_description);
         //MetaTag::set('slug', $cat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->filename]));
 
@@ -253,8 +254,7 @@ class ShopController extends Controller
         Breadcrumbs::addCrumb($subCat->name);
 
         MetaTag::set('title', $subCat->title);
-        //MetaTag::set('description', $subCat->meta_desc);
-        //MetaTag::set('slug', $subCat->meta_slug);
+        MetaTag::set('description', $subCat->meta_description);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $subCat->filename]));
 
         $title = $cat->name;
@@ -308,7 +308,7 @@ class ShopController extends Controller
         $subtitle = $slug;
 
         MetaTag::set('title', trans('tag.title', ['name' => $slug]));
-        //MetaTag::set('description', trans('tag.description'));
+        MetaTag::set('description', trans('tag.description', ['name' => $slug]));
 
         $products = $this->productRepository->whereIn('tags', [$slug])->findAll();
 
