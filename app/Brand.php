@@ -11,6 +11,7 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  * @package App
  *
  * @property string name
+ * @property string title
  *
  * @method static Builder whereSlug($slug)
  * @method static Builder featured($is_featured = true)
@@ -51,5 +52,13 @@ class Brand extends Model
     {
         /** @var Builder $query */
         return $query->where('is_featured', $is_featured);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitleAttribute()
+    {
+        return ucfirst($this->name) . '. Tienda online | Bikebitants';
     }
 }

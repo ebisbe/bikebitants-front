@@ -3,7 +3,7 @@
 namespace App\Business\Models\Shop;
 
 use App\Business\Traits\HasProductsTrait;
-use App\Image;
+use App\Business\Traits\Presenters\CategoryPresenter;
 
 /**
  * Class Category
@@ -12,10 +12,5 @@ use App\Image;
  */
 class Category extends \App\Category
 {
-    use HasProductsTrait;
-
-    public function getFileNameAttribute($value)
-    {
-        return !empty($value) ? $value : Image::notFound()->filename;
-    }
+    use HasProductsTrait, CategoryPresenter;
 }

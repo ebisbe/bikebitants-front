@@ -1,5 +1,7 @@
 <?php
 return [
+    'title' => 'Bikebitants - Gadgets para ciclistas urbanos',
+
     'first_box_i' => 'fa fa-dropbox',
     'first_box_h3' => 'Envio gratuito',
     'first_box_p' => 'Envio sin coste <br/>para pedidos superiores a 30&euro;',

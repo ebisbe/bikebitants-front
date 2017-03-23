@@ -44,6 +44,7 @@ Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store', 
 
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 Route::resource('coupon', 'CouponController', ['only' => ['store']]);
+Route::resource('woo', 'WooCommerceController', ['only' => ['index', 'show']]);
 Route::resource('wp', 'WordPressController', ['only' => ['index', 'show']]);
 Route::resource('review', 'ReviewController', ['only' => ['store']]);
 

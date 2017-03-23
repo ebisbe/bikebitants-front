@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use WpApi;
 
-class WordPressController extends Controller
+class WooCommerceController extends Controller
 {
     public function __construct()
     {
@@ -20,7 +19,10 @@ class WordPressController extends Controller
             $command = '';
         }
 
-        $response = WpApi::$command($request->get('page', 1));
+        $response = \Woocommerce::get(
+            str_replace('_', '/', $command),
+            ['page' => $request->get('page', 1), 'search' => $request->get('search', '')]
+        );
         
         $item = $request->get('item', null);
         if (!is_null($item)) {
