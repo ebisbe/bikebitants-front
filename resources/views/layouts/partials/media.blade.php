@@ -4,7 +4,7 @@
 <section class="content press">
     <div class="container">
         <div class="row row-no-padding">
-            <p>Los medios ya hablan de nosotros:</p>
+            <p>@lang('layout.media_head')</p>
             <div class="newspapers"></div>
         </div>
 
