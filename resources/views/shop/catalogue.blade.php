@@ -127,8 +127,8 @@ PRODUCTS - START
                             </div>
                         @endif--}}
 
-                        @if(isset($category))
-                            <h1>{{ $category->name }}</h1>
+                        @if(isset($category) && !empty($category->description))
+                            <h3>@lang('catalogue.title', ['name' => $category->name])</h3>
                             {!! $category->description !!}
                         @endif
                     </div>
