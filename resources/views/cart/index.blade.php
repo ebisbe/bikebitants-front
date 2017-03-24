@@ -85,7 +85,7 @@ MY ACCOUNT - START
                                 <div class="input-group {{ $errors->has('coupon') ? 'has-error' : ''}}">
                                     {{ Form::text('coupon', null, [ 'class' => 'form-control', 'placeholder' => trans('cart.discount_code')] ) }}
                                     <span class="input-group-btn">
-                                            <button class="btn btn-primary"
+                                            <button class="btn btn-transparent"
                                                     type="submit">@lang('cart.apply_coupon')</button>
                                         </span>
                                 </div>
