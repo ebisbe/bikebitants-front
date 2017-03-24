@@ -7,7 +7,17 @@ use Jenssegers\Mongodb\Eloquent\Model;
 class Billing extends Model
 {
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'address_1', 'address_2', 'city', 'postcode', 'phone', 'country', 'state', 'phone'
+        'first_name',
+        'last_name',
+        'email',
+        'address_1',
+        'address_2',
+        'city',
+        'postcode',
+        'phone',
+        'country',
+        'state',
+        'phone'
     ];
 
     public function country()

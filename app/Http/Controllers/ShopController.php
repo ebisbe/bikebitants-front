@@ -84,7 +84,7 @@ class ShopController extends Controller
     public function slug($slug, Request $request, Route $route)
     {
         /** @var Product $product */
-        $product = $this->productRepository->with(['category.father', 'brand'])->findBy('slug', $slug);
+        $product = $this->productRepository->with(['category.father', 'brand', 'up_sell'])->findBy('slug', $slug);
         if (!empty($product)) {
             return $this->product($product);
         }
@@ -132,12 +132,7 @@ class ShopController extends Controller
         $title = $category->name;
         $subtitle = $product->name;
 
-        $relatedProducts = $this->productRepository
-            ->with('brand', 'category')
-            ->where('brand_id', $product->brand_id)
-            ->where('_id', '!=', $product->_id)
-            ->limit(4)
-            ->findAll();
+        $relatedProducts = $product->up_sell_shop;
         return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle'));
     }
 
@@ -219,6 +214,7 @@ class ShopController extends Controller
         $title = trans('layout.shop');
         $subtitle = $cat->name;
         $selectedCat = $cat->_id;
+        $selectedSubCat = null;
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();

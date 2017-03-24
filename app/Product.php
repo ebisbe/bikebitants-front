@@ -153,6 +153,30 @@ class Product extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function related()
+    {
+        return $this->belongsToMany(self::class, null, 'product_ids', 'related_ids');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function up_sell()
+    {
+        return $this->belongsToMany(self::class, null, 'product_ids', 'up_sell_ids');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function cross_sell()
+    {
+        return $this->belongsToMany(self::class, null, 'product_ids', 'cross_sell_ids');
+    }
+
+    /**
      * @param $properties
      * @return Variation
      */

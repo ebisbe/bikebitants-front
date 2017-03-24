@@ -26,7 +26,16 @@ class Brand extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'description', 'filename', 'is_featured', 'meta_title', 'meta_description', 'meta_slug'];
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'filename',
+        'is_featured',
+        'meta_title',
+        'meta_description',
+        'meta_slug'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

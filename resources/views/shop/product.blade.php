@@ -113,7 +113,7 @@ PRODUCTS - START
                                         <div class="col-sm-3">
                                             <div class="product-overlay">
                                                 <div class="product-mask"></div>
-                                                <a href="{{ route('shop.slug', $relatedProduct->slug) }}"
+                                                <a href="{{ route('shop.slug', ['slug' => $relatedProduct->slug]) }}"
                                                    onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
                                                    class="product-permalink"></a>
                                                 {!! Form::img($relatedProduct->front_image->filename, StaticVars::productRelated(), $relatedProduct->front_image->filename) !!}
@@ -142,7 +142,7 @@ PRODUCTS - START
                                     </div>
                                 </article>
                             </div>
-                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
+                        @include('scripts.addImpression', ['product' => $relatedProduct, 'iteration' => $loop->iteration])
 
                     @endforeach
                     <!-- PRODUCT - END -->

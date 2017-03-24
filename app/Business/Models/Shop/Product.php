@@ -22,6 +22,22 @@ class Product extends \App\Product
     const HIDDEN_CLASS = 'bg-info';
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function up_sell_shop()
+    {
+        return $this->belongsToMany(self::class, null, 'product_ids', 'up_sell_ids');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function cross_sell_shop()
+    {
+        return $this->belongsToMany(self::class, null, 'product_ids', 'cross_sell_ids');
+    }
+
+    /**
      * @return mixed
      */
     public function getReviewsVerifiedAttribute()

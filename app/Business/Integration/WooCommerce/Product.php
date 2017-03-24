@@ -4,6 +4,7 @@ namespace App\Business\Integration\WooCommerce;
 
 use App\Business\Repositories\ProductRepository;
 use App\Product as AppProduct;
+use Illuminate\Support\Collection;
 
 class Product extends Importer
 {
@@ -59,6 +60,9 @@ class Product extends Importer
         $product->tags = $this->arrayOfTags($entity);
         $product->meta_title = $entity['yoast']['yoast_wpseo_title'];
         $product->meta_description = $entity['yoast']['yoast_wpseo_metadesc'];
+        //$this->addRelatedProducts($entity, $product);
+        $this->addUpSellProducts($entity, $product);
+        $this->addCrossSellProducts($entity, $product);
 
         $this->productRepository->update($product, $product->toArray());
 
@@ -151,5 +155,47 @@ class Product extends Importer
             ->first();
 
         return $product ?? new AppProduct();
+    }
+
+    /**
+     * Adds random items to related. Not now how they do it.
+     * @param $entity
+     * @param $product
+     */
+    protected function addRelatedProducts($entity, AppProduct $product)
+    {
+        $related_product = $this->productsList($entity['related_ids']);
+        $product->related()->saveMany($related_product);
+    }
+
+    /**
+     * @param $entity
+     * @param $product
+     */
+    protected function addUpSellProducts($entity, AppProduct $product)
+    {
+        $related_product = $this->productsList($entity['upsell_ids']);
+        $product->up_sell()->saveMany($related_product);
+    }
+
+    /**
+     * @param $entity
+     * @param $product
+     */
+    protected function addCrossSellProducts($entity, AppProduct $product)
+    {
+        $related_product = $this->productsList($entity['cross_sell_ids']);
+        $product->cross_sell()->saveMany($related_product);
+    }
+
+    /**
+     * @param $array
+     * @return Collection
+     */
+    protected function productsList($array)
+    {
+        return collect($array)->map(function ($id) {
+            return AppProduct::whereExternalId($id)->first();
+        })->filter();
     }
 }
