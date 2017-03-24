@@ -215,6 +215,7 @@ class ShopController extends Controller
         $subtitle = $cat->name;
         $selectedCat = $cat->_id;
         $selectedSubCat = null;
+        $category = $cat;
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
@@ -225,7 +226,10 @@ class ShopController extends Controller
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return view('shop.catalogue', compact('productsResult', 'categories', 'title', 'subtitle', 'selectedCat', 'selectedSubCat'));
+        return view(
+            'shop.catalogue',
+            compact('category', 'productsResult', 'categories', 'title', 'subtitle', 'selectedCat', 'selectedSubCat')
+        );
     }
 
     /**
@@ -257,6 +261,7 @@ class ShopController extends Controller
         $subtitle = $subCat->name;
         $selectedCat = $cat->_id;
         $selectedSubCat = $subCat->_id;
+        $category = $subCat;
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
@@ -266,7 +271,10 @@ class ShopController extends Controller
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return view('shop.catalogue', compact('productsResult', 'categories', 'title', 'subtitle', 'selectedCat', 'selectedSubCat'));
+        return view(
+            'shop.catalogue',
+            compact('category', 'productsResult', 'categories', 'title', 'subtitle', 'selectedCat', 'selectedSubCat')
+        );
     }
 
     /**
