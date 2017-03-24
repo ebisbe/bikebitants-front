@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
         //Commands\CrudViewCommandCustom::class,
         //Commands\CrudCommandCustom::class,
         Commands\WordpressSync::class,
-        Commands\ExpireOrder::class
+        Commands\ExpireOrder::class,
+        Commands\PushOrder::class
     ];
 
     /**
