@@ -127,10 +127,6 @@ PRODUCTS - START
                             </div>
                         @endif--}}
 
-                        @if(isset($category) && !empty($category->description))
-                            <h3>@lang('catalogue.title', ['name' => $category->name])</h3>
-                            {!! $category->description !!}
-                        @endif
                     </div>
                 </div>
 
@@ -140,5 +136,23 @@ PRODUCTS - START
     <!-- ==========================
         PRODUCTS - END
     =========================== -->
+    @if(isset($category) && !empty($category->description))
+        <section class="separator separator-newsletter">
+        <div class="container">
+
+            <div class="newsletter">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="newsletter-body">
+                            <h3>@lang('catalogue.title', ['name' => $category->name])</h3>
+                            {!! $category->description !!}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
 
 @endsection
