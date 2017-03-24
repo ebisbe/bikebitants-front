@@ -282,6 +282,7 @@
                                                             {{ $item->getPriceWithConditions() }}{{ $item['attributes']['currency'] }}
                                                             x {{ $item->quantity }}</small>
                                                         <span>
+                                                            <br>
                                                             <b>{{ $item->getPriceSumWithConditions() }}{{ $item['attributes']['currency'] }}</b>
                                                         </span>
                                                         <script type="application/javascript">
