@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
+use App\Business\Checkout\Events\Confirm;
 use App\Business\Integration\WooCommerce\Order;
-use App\Events\ConfirmedOrder;
 
 class CreateOrder
 {
@@ -22,12 +22,9 @@ class CreateOrder
     }
 
     /**
-     * Handle the event.
-     *
-     * @param  ConfirmedOrder  $event
-     * @return void
+     * @param Confirm $event
      */
-    public function handle(ConfirmedOrder $event)
+    public function handle(Confirm $event)
     {
         if (config('app.env') == 'production') {
             $this->order->create($event->order);
