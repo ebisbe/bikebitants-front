@@ -61,12 +61,15 @@
     <section class="content grid-products border-top">
         <div class="container">
             <div class="row">
+                @php
+                    $loop_iteration = 1
+                @endphp
                 @foreach($productsLeft as $product)
                     <div class="col-xs-6 col-sm-3">
                         <article class="product-item">
                             <div class="product-overlay">
                                 <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}"
-                                   onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
+                                   onclick="onProduct{{$loop_iteration}}Click(); return !ga.loaded;"
                                 >
                                     <div class="product-mask">
                                         {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt) !!}
@@ -75,23 +78,23 @@
                                 </a>
                             </div>
                             <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}"
-                               onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
+                               onclick="onProduct{{$loop_iteration}}Click(); return !ga.loaded;"
                             >
                                 <h3>{{ $product->name }}</h3>
                             </a>
                             @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                             @include('partials.price')
                         </article>
-                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
+                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop_iteration])
                     </div>
+                    @php
+                        $loop_iteration++;
+                    @endphp
                 @endforeach
                 @foreach ($productsRight->chunk(4) as $chunk)
                     <div class="col-xs-12 col-sm-3">
                         <ul class="list-unstyled small-product">
                         @foreach ($chunk as $product)
-                            @php
-                            $loop_iteration = $loop->iteration + 2
-                            @endphp
                             <!-- PRODUCT - START -->
                                 <li class="clearfix">
                                     <div class="row">
@@ -118,6 +121,9 @@
                                     </div>
                                 </li>
                                 <!-- PRODUCT - END -->
+                                @php
+                                    $loop_iteration++
+                                @endphp
                             @endforeach
                         </ul>
                     </div>
