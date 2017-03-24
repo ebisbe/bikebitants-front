@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Business\Checkout\Events\Cancel;
+use App\Business\Checkout\Events\Confirm;
+use App\Business\Checkout\Events\Create;
 use App\Business\Models\Shop\Product;
 use App\Business\Search\ProductSearch;
+use App\Listeners\CreateOrder;
+use App\Listeners\UpdateStockOrder;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Event;
 use Cart;
@@ -17,14 +22,14 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\NewOrder' => [
-            'App\Listeners\UpdateStockOrder',
+        Create::class => [
+            UpdateStockOrder::class,
         ],
-        'App\Events\ConfirmedOrder' => [
-            'App\Listeners\CreateOrder'
+        Confirm::class => [
+            CreateOrder::class
         ],
-        'App\Events\CancelOrder' => [
-            'App\Listeners\UpdateStockOrder',
+        Cancel::class => [
+            UpdateStockOrder::class,
         ],
     ];
 
