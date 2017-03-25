@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# For parameters/hostnames bash-completion, add to ~/.bashrc :
+#   complete -F _known_hosts knock
+#
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 [user@]hostname"
+  exit 1
+fi
+
+LAST=${*: -1:1}
+HOST=${LAST/*@/}.ovh.bikebitants.com
+
+PORT1="845"
+PORT2="2233"
+PORT3="7254"
+
+for PORT in ${PORT1} ${PORT2} ${PORT3}; do
+  echo -n "penny? (${PORT})... "
+  telnet "${HOST}" ${PORT} &>/dev/null
+done
+echo "please open?!"
+
+ssh $HOST
