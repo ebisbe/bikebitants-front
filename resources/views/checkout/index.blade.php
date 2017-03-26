@@ -9,19 +9,22 @@
                         {!! Form::open() !!}
 
                         <div class="row row-no-padding">
-                            <div class="col-xs-6 col-sm-4">
+                            <div class="col-xs-4 col-sm-4">
                                 <div class="checkout-step active">
                                     <div class="number">1</div>
-                                    <div class="title">@lang('checkout.step1')</div>
+                                    <div class="title">
+                                        <span class="hidden-xs">@lang('checkout.step1')</span>
+                                        <span class="visible-xs">@lang('checkout.step1_short')</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-4">
+                            <div class="col-xs-4 col-sm-4">
                                 <div class="checkout-step">
                                     <div class="number">2</div>
                                     <div class="title">@lang('checkout.step2')</div>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-4">
+                            <div class="col-xs-4 col-sm-4">
                                 <div class="checkout-step">
                                     <div class="number">3</div>
                                     <div class="title">@lang('checkout.step3')</div>

@@ -1,6 +1,7 @@
 <?php
 return [
     'step1' => 'Dirección de facturación y envío',
+    'step1_short' => 'Datos',
     'step2' => 'Pago',
     'step3' => 'Confirmación',
 
