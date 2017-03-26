@@ -9,10 +9,10 @@ use App\Order as AppOrder;
 class Order
 {
     /**
-     * Create order in WooCommerce
-     * @param $order
+     * @param AppOrder $order
+     * @return AppOrder
      */
-    public function create(AppOrder $order)
+    public function create(AppOrder $order): AppOrder
     {
 
         $coupon = [];
@@ -84,5 +84,7 @@ class Order
         $order->external_id = $response['id'];
         $order->response = $response;
         $order->save();
+
+        return $order;
     }
 }

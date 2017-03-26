@@ -13,6 +13,7 @@ use \Request;
  *
  * @property Billing $billing
  * @property Shipping $shipping
+ * @property integer $external_id
  *
  */
 class Order extends Model

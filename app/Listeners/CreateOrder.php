@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Business\Checkout\Events\Confirm;
 use App\Business\Integration\WooCommerce\Order;
+use Slack;
 
 class CreateOrder
 {
@@ -27,7 +28,9 @@ class CreateOrder
     public function handle(Confirm $event)
     {
         if (config('app.env') == 'production') {
-            $this->order->create($event->order);
+            $order = $this->order->create($event->order);
+            //TODO send in a separete event?
+            Slack::send("New order #{$order->external_id}!");
         }
     }
 }
