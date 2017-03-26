@@ -31,7 +31,7 @@ PRODUCTS - START
                                                         <span>[{{ $cat->products_count }}]</span>
                                                     </a>
                                                     <ul class="list-unstyled">
-                                                        @foreach($cat->children as $subcategory)
+                                                        @foreach($cat->children->sortBy('name') as $subcategory)
                                                             <li class="{{ isset($selectedSubCat) && $selectedSubCat == $subcategory->_id ? 'active' : '' }}">
                                                                 <a href="{{ route('shop.subslug', ['slug' => $cat->slug, 'subslug' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
                                                             </li>
