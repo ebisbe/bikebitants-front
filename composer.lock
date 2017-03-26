@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "77614f466c91440904557e202eab3501",
-    "content-hash": "4a413ff31ec37486f953731960e4fcf6",
+    "hash": "aec0b57c68bfa4a0ed7b34aa3711bd3b",
+    "content-hash": "2b9fdf9291b1ada0675224573a7ebc82",
     "packages": [
         {
             "name": "automattic/woocommerce",
@@ -418,6 +418,7 @@
                     "Omnipay\\Fake\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPLv2"
             ],
@@ -429,10 +430,6 @@
                 }
             ],
             "description": "Fake omnipay gateway. It just passes all through",
-            "support": {
-                "source": "https://github.com/ebisbe/fake-omnipay/tree/master",
-                "issues": "https://github.com/ebisbe/fake-omnipay/issues"
-            },
             "time": "2016-12-16 07:00:03"
         },
         {
@@ -1907,6 +1904,47 @@
                 "mongodb"
             ],
             "time": "2017-02-18 13:54:43"
+        },
+        {
+            "name": "jivesh/laravel-slack",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jiveshsg/laravel-slack.git",
+                "reference": "6a9dab0c42aa76988cc4f0a0dc62d4da8106422b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jiveshsg/laravel-slack/zipball/6a9dab0c42aa76988cc4f0a0dc62d4da8106422b",
+                "reference": "6a9dab0c42aa76988cc4f0a0dc62d4da8106422b",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gahlawat\\": "src/Gahlawat"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jivesh S. Gahlawat",
+                    "email": "jiveshsg@gmail.com"
+                }
+            ],
+            "description": "A minimalist laravel integration for Slack",
+            "homepage": "http://github.com/jiveshsg/laravel-slack",
+            "keywords": [
+                "laravel",
+                "slack"
+            ],
+            "time": "2015-12-13 09:31:08"
         },
         {
             "name": "laravel/browser-kit-testing",

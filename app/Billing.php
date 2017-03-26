@@ -4,6 +4,21 @@ namespace App;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 
+/**
+ * Class Billing
+ * @package App
+ *
+ * @property string first_name
+ * @property string last_name
+ * @property string email
+ * @property string address_1
+ * @property string address_2
+ * @property string city
+ * @property string postcode
+ * @property string phone
+ * @property string country
+ * @property string state
+ */
 class Billing extends Model
 {
     protected $fillable = [
@@ -17,7 +32,6 @@ class Billing extends Model
         'phone',
         'country',
         'state',
-        'phone'
     ];
 
     public function country()

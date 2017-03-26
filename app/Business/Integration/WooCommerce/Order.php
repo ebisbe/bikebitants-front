@@ -43,7 +43,7 @@ class Order
         $shipping = $order->conditionsFilter(Shipping::CART_CONDITION_TYPE);
 
         $data = [
-            'payment_method' => $order->payment_method->code,
+            'payment_method' => $order->payment_method->name,
             'payment_method_title' => $order->payment_method->name,
             'set_paid' => $order->payment_method->set_paid,
             'billing' => [

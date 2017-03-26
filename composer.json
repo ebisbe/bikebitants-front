@@ -36,7 +36,8 @@
         "jenssegers/mongodb": "3.2",
         "spatie/laravel-googletagmanager": "^2.2",
         "martinlindhe/laravel-vue-i18n-generator": "^0.1.10",
-        "threesquared/laravel-wp-api": "^2.1"
+        "threesquared/laravel-wp-api": "^2.1",
+        "jivesh/laravel-slack": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

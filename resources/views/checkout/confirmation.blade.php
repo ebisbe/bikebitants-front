@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-xs-6">
                     <h2>Checkout</h2>
-                    <p>Review</p>
+                    <h1>Review</h1>
                 </div>
                 <div class="col-xs-6">
                     <ol class="breadcrumb">
@@ -93,10 +93,15 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="box">
-                                    <h4>@lang('checkout.payment_method')</h4>
+                                    <h4>@lang('checkout.order_details')</h4>
                                     <ul class="list-unstyled">
-                                        <li>{{ $order->payment_method->name }}</li>
+                                        <li><b>@lang('checkout.email_address')
+                                                : </b>{{ $order->shipping->email ?? $order->billing->email }}</li>
+                                        <li><b>@lang('checkout.phone')
+                                                : </b>{{ $order->shipping->phone ?? $order->billing->phone }}</li>
                                     </ul>
+                                    {{--<h5>Addition information:</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue.</p>--}}
                                 </div>
                                 <div class="box">
                                     <h4>@lang('checkout.shipping_method')</h4>
@@ -108,15 +113,11 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="box">
-                                    <h4>@lang('checkout.order_details')</h4>
+                                    <h4>@lang('checkout.payment_method')</h4>
                                     <ul class="list-unstyled">
-                                        <li><b>@lang('checkout.email_address')
-                                                : </b>{{ $order->shipping->email ?? $order->billing->email }}</li>
-                                        <li><b>@lang('checkout.phone')
-                                                : </b>{{ $order->shipping->phone ?? $order->billing->phone }}</li>
+                                        <li><strong>{{ $order->payment_method->name }}</strong></li>
+                                        <li>{!! $order->payment_method->description !!}</li>
                                     </ul>
-                                    {{--<h5>Addition information:</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue.</p>--}}
                                 </div>
                             </div>
                         </div>
@@ -208,7 +209,8 @@
     </script>
     <noscript>
         <div style="display:inline;">
-            <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/946537783/?value=1.00&amp;currency_code=EUR&amp;label=LYoZCOCioGAQt4qswwM&amp;guid=ON&amp;script=0"/>
+            <img height="1" width="1" style="border-style:none;" alt=""
+                 src="//www.googleadservices.com/pagead/conversion/946537783/?value=1.00&amp;currency_code=EUR&amp;label=LYoZCOCioGAQt4qswwM&amp;guid=ON&amp;script=0"/>
         </div>
     </noscript>
 @endsection

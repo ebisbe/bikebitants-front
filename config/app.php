@@ -198,7 +198,8 @@ return [
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
         Spatie\GoogleTagManager\GoogleTagManagerServiceProvider::class,
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
-        Threesquared\LaravelWpApi\LaravelWpApiServiceProvider::class
+        Threesquared\LaravelWpApi\LaravelWpApiServiceProvider::class,
+        Gahlawat\Slack\SlackServiceProvider::class,
     ],
 
     /*
@@ -267,7 +268,8 @@ return [
         'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
         'GoogleTagManager' => Spatie\GoogleTagManager\GoogleTagManagerFacade::class,
-        'WpApi' => Threesquared\LaravelWpApi\Facades\WpApi::class
+        'WpApi' => Threesquared\LaravelWpApi\Facades\WpApi::class,
+        'Slack' => Gahlawat\Slack\Facade\Slack::class,
     ],
 
 

@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use App\Business\Checkout\CheckoutOrder;
 use App\Business\Services\OrderService;
+use App\Order;
 use Illuminate\Console\Command;
+use Slack;
 
 class ExpireOrder extends Command
 {
@@ -24,20 +26,20 @@ class ExpireOrder extends Command
 
     protected $orderService;
     /**
-     * @var CheckoutOrderService
+     * @var CheckoutOrder
      */
-    private $checkoutOrderService;
+    private $checkoutOrder;
 
 
     /**
      * ExpireOrder constructor.
-     * @param CheckoutOrder $checkoutOrderService
+     * @param CheckoutOrder $checkoutOrder
      * @param OrderService $orderService
      */
-    public function __construct(CheckoutOrder $checkoutOrderService, OrderService $orderService)
+    public function __construct(CheckoutOrder $checkoutOrder, OrderService $orderService)
     {
         parent::__construct();
-        $this->checkoutOrderService = $checkoutOrderService;
+        $this->checkoutOrder = $checkoutOrder;
         $this->orderService = $orderService;
     }
 
@@ -52,11 +54,38 @@ class ExpireOrder extends Command
         $bar = $this->output->createProgressBar($orders->count());
 
         foreach ($orders as $order) {
-            $this->checkoutOrderService->setOrder($order);
-            $this->checkoutOrderService->cancel(trans('checkout.order_cancelled_inactivity'));
+            $this->checkoutOrder->setOrder($order);
+            $this->checkoutOrder->cancel(trans('checkout.order_cancelled_inactivity'));
+            Slack::send($this->formatOrder($order));
             $bar->advance();
         }
 
         $bar->finish();
+    }
+
+    private function formatOrder(Order $order)
+    {
+        $items = $order->cart->map(function ($item, $key) {
+            $key++;
+            return "\t$key- {$item->product_id} #{$item->quantity}";
+        });
+
+        $billing = [];
+        if (isset($order->billing)) {
+            $billing = [
+                "Buyer info:",
+                "\tName: {$order->billing->first_name}  {$order->billing->last_name}",
+                "\tEmail: {$order->billing->email}",
+                "\tPhone: {$order->billing->phone}"
+            ];
+        }
+
+        $response = collect([
+            "Expiring order {$order->_id} created {$order->created_at}: ",
+            "Total amount: {$order->total}€",
+            "Total items: {$order->total_items}",
+            "Items: ",
+        ])->merge($items)->merge($billing)->merge(['________________________']);
+        return $response->implode("\n");
     }
 }

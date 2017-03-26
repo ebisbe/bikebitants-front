@@ -10,6 +10,10 @@ use \Request;
 /**
  * Class Order
  * @package App
+ *
+ * @property Billing $billing
+ * @property Shipping $shipping
+ *
  */
 class Order extends Model
 {
