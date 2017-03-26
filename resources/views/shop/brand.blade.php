@@ -62,6 +62,7 @@
 
                 <!-- PRODUCT - START -->
                 @foreach($products as $product)
+                    @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
                     <div class="col-xs-6 col-sm-3">
                         <article class="product-item">
                             <div class="product-overlay">
@@ -90,7 +91,6 @@
                             @include('partials.price')
                         </article>
                     </div>
-                @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
             @endforeach
             <!-- PRODUCT - END -->
             </div>

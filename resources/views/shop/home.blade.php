@@ -66,6 +66,7 @@
                 @endphp
                 @foreach($productsLeft as $product)
                     <div class="col-xs-6 col-sm-3">
+                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop_iteration])
                         <article class="product-item">
                             <div class="product-overlay">
                                 <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}"
@@ -85,7 +86,6 @@
                             @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                             @include('partials.price')
                         </article>
-                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop_iteration])
                     </div>
                     @php
                         $loop_iteration++;
@@ -98,6 +98,7 @@
                             <!-- PRODUCT - START -->
                                 <li class="clearfix">
                                     <div class="row">
+                                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop_iteration])
                                         <div class="col-xs-4 product-overlay">
                                             <a href="{{ route('shop.slug', ['slug' => $product->slug ]) }}"
                                                onclick="onProduct{{$loop_iteration}}Click(); return !ga.loaded;"
@@ -116,7 +117,6 @@
                                             </a>
                                             @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
                                             @include('partials.price')
-                                            @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop_iteration])
                                         </div>
                                     </div>
                                 </li>

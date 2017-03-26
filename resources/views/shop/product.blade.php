@@ -108,6 +108,7 @@ PRODUCTS - START
                         <!-- PRODUCT - START -->
                         @foreach($relatedProducts as $relatedProduct)
                             <div class="col-sm-3 col-xs-6">
+                                @include('scripts.addImpression', ['product' => $relatedProduct, 'iteration' => $loop->iteration])
                                 <article class="product-item">
                                     <div class="row">
                                         <div class="col-sm-3">
@@ -142,9 +143,7 @@ PRODUCTS - START
                                     </div>
                                 </article>
                             </div>
-                        @include('scripts.addImpression', ['product' => $relatedProduct, 'iteration' => $loop->iteration])
-
-                    @endforeach
+                        @endforeach
                     <!-- PRODUCT - END -->
                     </div>
                 </div>
