@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="{{ mix('css/vendor.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ assetCDN(mix('css/vendor.css')) }}">
+    <link rel="stylesheet" href="{{ assetCDN(mix('css/app.css')) }}">
 
     <!-- manifest -->
     <link rel="manifest" href="/manifest.json">
@@ -50,7 +50,7 @@
  JS
 =========================== -->
 @include('layouts.partials.js_vars')
-<script src="{{ mix('js/app.js') }}" async></script>
+<script src="{{ assetCDN(mix('js/app.js')) }}" async></script>
 @stack('footer.scripts')
 <script type="application/javascript">
     ga('send', 'pageview');
