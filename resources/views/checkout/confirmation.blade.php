@@ -8,14 +8,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-6">
-                    <h2>Checkout</h2>
-                    <h1>Review</h1>
+                    <h2>@lang('checkout.checkout')</h2>
+                    <h1>@lang('checkout.review')</h1>
                 </div>
                 <div class="col-xs-6">
                     <ol class="breadcrumb">
-                        <li><a href="{{ route('shop.home') }}">Home</a></li>
-                        <li><a>Checkout</a></li>
-                        <li class="active">Review</li>
+                        <li><a href="{{ route('shop.home') }}">@lang('layout.home')</a></li>
+                        <li><a>@lang('checkout.checkout')</a></li>
+                        <li class="active">@lang('checkout.review')</li>
                     </ol>
                 </div>
             </div>

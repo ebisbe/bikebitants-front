@@ -4,6 +4,8 @@ return [
     'step1_short' => 'Datos',
     'step2' => 'Pago',
     'step3' => 'Confirmación',
+    'checkout' => 'Checkout',
+    'review' => 'Confirmación',
 
     'first_name' => 'Nombre',
     'last_name' => 'Apellidos',
