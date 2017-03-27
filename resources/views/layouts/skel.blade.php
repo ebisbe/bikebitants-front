@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="{{ mix('css/vendor.css') }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+    <!-- manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#00cc00">
+
     <title>{{ MetaTag::get('title') }}</title>
 
     {!! MetaTag::tag('description') !!}
