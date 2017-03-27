@@ -139,16 +139,16 @@
                             <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
                             {{--<li><i class="fa fa-map-marker"></i> 40°44'00.9"N 73°59'43.4"W</li>--}}
                             <li class="social">
-                                <a target="_blank" href="{{ StaticVars::facebook() }}">
+                                <a target="_blank" rel="noopener" href="{{ StaticVars::facebook() }}">
                                     <i class="fa fa-facebook"></i>
                                 </a>
-                                <a target="_blank" href="{{ StaticVars::twitter() }}">
+                                <a target="_blank" rel="noopener" href="{{ StaticVars::twitter() }}">
                                     <i class="fa fa-twitter"></i>
                                 </a>
-                                <a target="_blank" href="{{ StaticVars::instagram() }}">
+                                <a target="_blank" rel="noopener" href="{{ StaticVars::instagram() }}">
                                     <i class="fa fa-instagram"></i>
                                 </a>
-                                <a target="_blank" href="{{ StaticVars::linkedin() }}">
+                                <a target="_blank" rel="noopener" href="{{ StaticVars::linkedin() }}">
                                     <i class="fa fa-linkedin"></i>
                                 </a>
                             </li>
