@@ -9,7 +9,9 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN apt-get update \
-    && apt-get install -y nginx curl zip unzip git software-properties-common supervisor cron \
+    && apt-get install -y nginx curl zip unzip git wget software-properties-common supervisor cron \
+    && echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | tee /etc/apt/sources.list.d/newrelic.list \
+    && wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add -\
     && add-apt-repository -y ppa:ondrej/php \
     && apt-get update \
     && apt-get install -y php7.0-fpm php7.0-cli php7.0-mcrypt php7.0-gd php7.0-redis \
@@ -17,6 +19,12 @@ RUN apt-get update \
        php7.0-xdebug \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
     && mkdir /run/php \
+    && echo newrelic-php5 newrelic-php5/application-name string "Web" | debconf-set-selections \
+    && echo newrelic-php5 newrelic-php5/license-key string "bd50325fb09190d6f55549675175d2765362766e" | debconf-set-selections \
+    && apt-get install -y newrelic-php5 \
+    && newrelic-install install \
+    && rm /etc/php/7.0/cli/conf.d/newrelic.ini \
+    && rm /etc/php/7.0/fpm/conf.d/newrelic.ini \
     && apt-get remove -y --purge software-properties-common \
     && apt-get -y autoremove \
     && apt-get clean \
