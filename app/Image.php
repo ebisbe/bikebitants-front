@@ -8,6 +8,10 @@ use Jenssegers\Mongodb\Eloquent\Model;
  * Class Image
  * @package App
  *
+ * @property string $name
+ * @property string $alt
+ * @property int $external_id
+ * @property int $order
  * @property string $filename
  */
 class Image extends Model

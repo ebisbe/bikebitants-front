@@ -25,58 +25,34 @@ class Image
     /**
      * Import Images
      * @param $images
-     * @param $product
      */
     public function syncImages($images)
     {
-        $ids = collect($images)
-            ->map(function ($wpImage) {
-                return $this->sync($wpImage, $this->product);
-            })
-            ->pluck('external_id')
-            ->toArray();
-
-        //Find deleted images
-        $imagesToDelete = $this->product
-            ->images()
-            ->filter(function ($image) use ($ids) {
-                return !in_array($image['external_id'], $ids);
-            });
-        //Delete attributes
-        $imagesToDelete->each(function ($attribute) {
-            $this->product->images()->destroy($attribute);
+        $this->product->images()->each(function ($image) {
+            /** @var \App\Image $image */
+            $image->delete();
         });
+
+        collect($images)
+            ->each(function ($wpImage) {
+                $this->sync($wpImage);
+            });
     }
 
     /**
      * @param $wpImage
-     * @return Image
+     * @return \App\Image
      */
     public function sync($wpImage)
     {
-        $image = $this->product
-            ->images()
-            ->filter(function ($image) use ($wpImage) {
-                return $image->external_id == $wpImage['id'];
-            })
-            ->first();
-
-        $new = false;
-        if (empty($image)) {
-            $image = new \App\Image();
-            $new = true;
-        }
+        $image = new \App\Image();
         $image->name = $wpImage['name'];
         $image->alt = $wpImage['alt'];
         $image->external_id = $wpImage['id'];
         $image->order = $wpImage['position'];
         $image->filename = self::saveImage($wpImage);
 
-        if ($new) {
-            $this->product->images()->save($image);
-        } else {
-            $image->save();
-        }
+        $this->product->images()->save($image);
         return $image;
     }
 

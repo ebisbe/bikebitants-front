@@ -7,13 +7,13 @@ use App\Business\Integration\WooCommerce\Factory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
-class WordpressSync extends Command
+class WooCommerceSync extends Command
 {
     /**
      * The name and signature of the console command.
      * @var string
      */
-    protected $signature = 'wp:sync {--entity=*}';
+    protected $signature = 'woo:sync {--entity=*}';
 
     /**
      * The console command description.
