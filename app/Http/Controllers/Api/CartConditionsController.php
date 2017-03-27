@@ -48,7 +48,7 @@ class CartConditionsController extends ApiController
             'name' => $shippingMethod->name,
             'type' => Shipping::CART_CONDITION_TYPE,
             'target' => CartModel::CART_CONDITION_TARGET_SUBTOTAL,
-            'value' => \TaxService::applyTax($shippingMethod->cost) . ' &euro;',
+            'value' => $this->getShippingCost($shippingMethod),
             'order' => 4
         ]);
         Cart::condition($condition);
@@ -74,5 +74,18 @@ class CartConditionsController extends ApiController
             $conditions->toArray(),
             [['name' => trans('checkout.total'), 'value' => Cart::getTotal() . ' &euro;']]
         );
+    }
+
+    /**
+     * @param $shippingMethod
+     * @return string
+     */
+    protected function getShippingCost($shippingMethod): string
+    {
+        if ($shippingMethod->cost == 0) {
+            return '<b class="free">' . trans('checkout.free_shipping') . '</b>';
+        }
+
+        return \TaxService::applyTax($shippingMethod->cost) . ' &euro;';
     }
 }

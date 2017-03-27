@@ -71,7 +71,8 @@ article.product-item.product-single .product-links a i,
 .blog article.post .meta .category,
 .eshop ul li i,
 .text-primary,
-.downloads .table i {
+.downloads .table i,
+.account-content b.free {
 	color:#00cc00;
 }
 

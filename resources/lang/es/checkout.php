@@ -34,5 +34,7 @@ return [
     'total' => 'Total',
 
     'order_cancelled' => 'Your order has been cancelled',
-    'order_cancelled_inactivity' => 'Your order has been cancelled due to inactivity'
+    'order_cancelled_inactivity' => 'Your order has been cancelled due to inactivity',
+
+    'free_shipping' => 'Gratis!'
 ];
