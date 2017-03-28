@@ -4,8 +4,8 @@ return [
     'meta_description' => 'Los gadgets para bicicletas y ciclistas más innovadores en Bikebitants. Nuestra misión es combinar tecnología y ciclismo urbano para contribuir a una movilidad sostenible.',
 
     'first_box_i' => 'fa fa-dropbox',
-    'first_box_h3' => 'Envio gratuito',
-    'first_box_p' => 'Envio sin coste <br/>para pedidos superiores a 30&euro;',
+    'first_box_h3' => 'Envio gratuito 24-48H',
+    'first_box_p' => 'Envío en 24-48 horas sin coste<br/>para pedidos superiores a 30&euro;',
 
     'second_box_i' => 'fa fa-bicycle',
     'second_box_h3' => 'Entrega sostenible',
