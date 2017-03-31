@@ -1,6 +1,6 @@
 <script type="application/javascript">
     ga('ec:addImpression', {!! $product->gaProduct($view_name, $iteration) !!});
-    //ga("send", "event", "Enhanced-Ecommerce", "load", "product_impression_{{ $view_name }}", {"nonInteraction": 1});
+    ga("send", "event", "Enhanced-Ecommerce", "load", "product_impression_{{ $view_name }}", {"nonInteraction": 1});
 
     function onProduct{{ $iteration }}Click() {
         ga('ec:addProduct', {!! $product->gaProduct($view_name, $iteration) !!});
