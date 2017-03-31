@@ -1,3 +1,12 @@
+// Bootstrap
+//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import 'bower/jquery-ui/themes/smoothness/jquery-ui.css';
+//@import 'bower/font-awesome/css/font-awesome.css';
+
+@import 'node_modules/owl.carousel/src/scss/owl.carousel.scss';
+@import 'bower/animate.css/animate.css';
+
 // Bikebitants
 @import "bikebitants.css";
 @import "custom.css";

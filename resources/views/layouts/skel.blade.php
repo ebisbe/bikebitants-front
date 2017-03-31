@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="{{ assetCDN(mix('css/vendor.css')) }}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ assetCDN(mix('css/app.css')) }}">
 
     <!-- manifest -->
@@ -25,7 +26,7 @@
 
     {!! MetaTag::twitterCard() !!}
 
-    {!! MetaTag::tag('image', StaticVars::logo()) !!}
+    {!! MetaTag::tag('image', assetCDN(StaticVars::logo())) !!}
 
     @include('layouts.partials.gtm')
 
