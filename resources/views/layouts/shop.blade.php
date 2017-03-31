@@ -32,7 +32,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a href="{{ route('shop.home') }}" class="navbar-brand">
-                    <img height="36" alt="Bikebitants Logo" src='{{ StaticVars::logo() }}'/>
+                    <img height="36" alt="Bikebitants Logo" src='{{ assetCDN(StaticVars::logo()) }}'/>
                 </a>
                 <button type="button" class="navbar-toggle pull-right" data-toggle="collapse"
                         data-target=".navbar-collapse">

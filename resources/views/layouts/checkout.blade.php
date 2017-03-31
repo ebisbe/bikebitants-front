@@ -20,7 +20,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a href="{{ route('shop.home') }}" class="navbar-brand">
-                    <img src="{{ assetCDN('logo.png')  }}" height="36">
+                    <img height="36" alt="Bikebitants Logo" src='{{ assetCDN(StaticVars::logo()) }}'/>
                 </a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i
                             class="fa fa-bars"></i></button>
@@ -34,24 +34,24 @@
     @yield('content')
 
     @if(stripos($view_name, 'checkout') === false)
-    <!-- ==========================
+        <!-- ==========================
         SERVICES - START
     =========================== -->
-    <section class="content services services-3x transparent">
-        <div class="container">
-            <div class="row row-no-padding">
+        <section class="content services services-3x transparent">
+            <div class="container">
+                <div class="row row-no-padding">
 
-                @include('layouts.partials.warranty')
+                    @include('layouts.partials.warranty')
+
+                </div>
 
             </div>
+        </section>
+        <!-- ==========================
+            SERVICES - END
+        =========================== -->
 
-        </div>
-    </section>
-    <!-- ==========================
-        SERVICES - END
-    =========================== -->
-
-    @include('layouts.partials.media')
+        @include('layouts.partials.media')
 
     @endif
     <!-- ==========================
