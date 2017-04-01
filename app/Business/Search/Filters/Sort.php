@@ -1,37 +1,39 @@
 <?php
 namespace App\Business\Search\Filters;
 
+use App\Business\Repositories\ProductRepository;
 use App\Business\Search\ProductSearch;
 
 class Sort implements Filter
 {
 
     /**
+     * @param ProductRepository $query
      * @param mixed $value
-     * @return array
+     * @return ProductRepository
      * @throws SortFilterNotFound
      */
-    public static function apply($value): array
+    public static function apply(ProductRepository $query, $value)
     {
         switch ($value) {
             case ProductSearch::LOW_TO_HIGH:
-                $sort = ['prices' => 1];
+                $sort = $query->orderBy('prices', 'asc');
                 break;
 
             case ProductSearch::HIGH_TO_LOW:
-                $sort = ['prices' => -1];
+                $sort = $query->orderBy('prices', 'desc');
                 break;
 
             case ProductSearch::NEWNESS:
-                $sort = ['created_at' => -1, 'prices' => 1];
+                $sort = $query->orderBy('created_at', 'desc')->orderBy('prices', 'asc');
                 break;
 
             case ProductSearch::FEATURED:
-                $sort = ['is_featured' => -1, 'prices' => 1];
+                $sort = $query->orderBy('is_featured', 'desc')->orderBy('prices', 'asc');
                 break;
 
             case ProductSearch::DISCOUNTED:
-                $sort = ['is_discounted' => -1, 'prices' => 1];
+                $sort = $query->orderBy('is_discounted', 'desc')->orderBy('prices', 'asc');
                 break;
 
             default:

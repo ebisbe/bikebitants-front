@@ -47,9 +47,5 @@ class EventServiceProvider extends ServiceProvider
                 Cart::clearCartConditions();
             }
         });
-
-        Product::saved(function (Product $product) {
-            Cache::tags(array_merge($product->categories, [ProductSearch::GLOBAL_CACHE_TAG]))->flush();
-        });
     }
 }

@@ -5,7 +5,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CartControllerTest extends BrowserKitTest
 {
-
     use ProductTrait;
 
     /** @test */

@@ -3,25 +3,15 @@
 namespace App\Business\Search;
 
 use App\Business\Models\Shop\Product;
+use App\Business\Repositories\ProductRepository;
 use App\Business\Search\Filters\Filter;
 use App\Business\Search\Filters\MaxPrice;
 use App\Business\Search\Filters\MinPrice;
 use App\Business\Search\Filters\Slug;
 use App\Business\Search\Filters\Sort;
 use App\Business\Search\Filters\SubSlug;
-use Jenssegers\Mongodb\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use Cache;
 
-/**
- * [
- * {$project: {name:1, prices:1, status:1, is_featured:1}},
- * {$unwind:'$prices'},
- * {$match:{"$and":[{"prices":{"$lte":100}},{"prices":{"$gte":90}},{"status":2},{"deleted_at":null}]}},
- * {$sort:{age: -1,posts:1}},
- * {$group: {_id:"$_id", name: {"$first": "$name"}, status:  {"$first": "$status"}, is_featured:  {"$first": "$is_featured"}}}
- * ]
- */
 class ProductSearch
 {
     protected $applied_filters = [];
@@ -43,19 +33,19 @@ class ProductSearch
     const HIGH_TO_LOW = 'high_to_low';
     const DISCOUNTED = 'discounted';
 
-    const GLOBAL_CACHE_TAG = 'shop_search';
-
     /**
      * Check if query already saved to cache and if not generate a new one
      * @return ProductSearchResult
      */
-    public function apply(): ProductSearchResult
+    public function apply()
     {
-        $result =  Cache::tags($this->getCacheTags())
-            ->rememberForever($this->getCacheKey(), function () {
-                $query_params = $this->applyDecoratorsFromRequest();
-                return $this->query($query_params);
-            });
+        $limit = $this->getLimit();
+        $page = $this->getPage();
+
+        $result =  $this
+            ->applyDecoratorsFromRequest((new ProductRepository()))
+            ->with(['brand', 'category'])
+            ->paginate($limit, ['*'], 'page', $page);
 
         return new ProductSearchResult(
             $result,
@@ -67,69 +57,20 @@ class ProductSearch
     }
 
     /**
-     * Base query
-     *
-     * TODO Divide filters.
-     * Before unwind filter with $categories, $status and $deleted_at. After unwind use $prices
-     *
-     * @param $filters
-     * @return mixed
-     */
-    private function query(Collection $filters)
-    {
-        return (new Product())->newQuery()
-            ->raw(function ($collection) use ($filters) {
-                $sort = $filters->shift();
-                return $collection
-                    ->aggregate([
-                        //['$project' => ['name' => 1, 'prices' => 1, 'status' => 1, 'is_featured' => 1]],
-                        ['$unwind' => '$prices'],
-                        [
-                            '$match' =>
-                                ['$and' => $filters->toArray()]
-                        ],
-                        [
-                            '$group' => [
-                                '_id' => '$_id',
-                                'prices' => ['$first' => '$prices'],
-                                'name' => ['$first' => '$name'],
-                                'status' => ['$first' => '$status'],
-                                'is_featured' => ['$first' => '$is_featured'],
-                                'images' => ['$first' => '$images'],
-                                'labels' => ['$first' => '$labels'],
-                                'is_discounted' => ['$first' => '$is_discounted'],
-                                'stock' => ['$first' => '$stock'],
-                                'description' => ['$first' => '$description'],
-                                'slug' => ['$first' => '$slug'],
-                                'variations' => ['$first' => '$variations'],
-                                'introduction' => ['$first' => '$introduction'],
-                                'rating' => ['$first' => '$rating'],
-                            ]
-                        ],
-                        ['$sort' => $sort]
-                    ]);
-            });
-    }
-
-    /**
      * For each input received from the request apply it's own filter.
-     * @return Collection
+     * @param ProductRepository $query
+     * @return ProductRepository|Collection
      */
-    public function applyDecoratorsFromRequest(): Collection
+    public function applyDecoratorsFromRequest(ProductRepository $query): ProductRepository
     {
-        $query = collect([]);
-
         foreach ($this->getFilters() as $filterName => $value) {
             /** @var Filter|MaxPrice|MinPrice|Slug|Sort|SubSlug $decorator */
             $decorator = $this->createFilterDecorator($filterName);
 
             if ($this->isValidDecorator($decorator)) {
-                $query->push($decorator::apply($value));
+                $decorator::apply($query, $value);
             }
         }
-
-        $query->push(['status' => 2]);
-        $query->push(['deleted_at' => null]);
 
         return $query;
     }
@@ -153,6 +94,8 @@ class ProductSearch
             'sort' => self::FEATURED,
             'min_price' => self::MIN_PRICE,
             'max_price' => self::MAX_PRICE,
+            'page' => 1,
+            'per_page' => 160,
             self::SLUG => '',
             self::SUBSLUG => ''
         ]);
@@ -174,32 +117,6 @@ class ProductSearch
             ->filter();
 
         return $this->filters;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCacheTags(): array
-    {
-        $tags = $this->getFilters()
-            ->filter(function ($params, $key) {
-                return in_array($key, [self::SLUG, self::SUBSLUG]);
-            });
-
-        if ($tags->isEmpty()) {
-            return [self::GLOBAL_CACHE_TAG];
-        }
-
-        return $tags->values()->toArray();
-    }
-
-    /**
-     * Generate Cache Key
-     * @return string
-     */
-    private function getCacheKey(): string
-    {
-        return md5($this->getFilters()->toJson());
     }
 
     /**
@@ -231,5 +148,15 @@ class ProductSearch
             'selected' => self::FEATURED,
             self::DISCOUNTED
         ]);
+    }
+
+    private function getPage(): int
+    {
+        return $this->getFilters()['page'];
+    }
+
+    private function getLimit(): int
+    {
+        return $this->getFilters()['per_page'];
     }
 }

@@ -1,17 +1,18 @@
 <?php
 namespace App\Business\Search\Filters;
 
-use Jenssegers\Mongodb\Eloquent\Builder;
+use App\Business\Repositories\ProductRepository;
 
 class SubSlug implements Filter
 {
 
     /**
+     * @param ProductRepository $query
      * @param mixed $value
-     * @return array
+     * @return ProductRepository
      */
-    public static function apply($value): array
+    public static function apply(ProductRepository $query, $value)
     {
-        return ['categories' => ['$in' => [$value]]];
+        return $query->whereIn('categories', [$value]);
     }
 }
