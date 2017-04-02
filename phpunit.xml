@@ -28,6 +28,6 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="FALLBACK_LOCALE" value=""/>
-        <env name="WOOCOMMERCE_CONSUMER_SECRET" value="holacaracola"/>
+        <env name="WOOCOMMERCE_WEBHOOK_SECRET" value="holacaracola"/>
     </php>
 </phpunit>
