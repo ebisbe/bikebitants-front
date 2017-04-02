@@ -5,8 +5,7 @@ node('master') {
        color = 'good'
        stage('build') {
            slackSend color: color, message: "*${currentBuild.displayName}* on *'${BRANCH_NAME}'*"
-           slackSend color: 'warning', message: "${currentBuild.changeSets.index}"
-           slackSend color: 'warning', message: "${currentBuild.changeSets.digest}"
+           slackSend color: 'warning', message: "${currentBuild.changeSets.[0].items[0].author.fullName}"
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
 
            //Build containers again to build changes
