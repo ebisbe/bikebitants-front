@@ -3,7 +3,7 @@
 node('master') {
    try {
        stage('build') {
-           slackSend color: 'good', message: 'Starting build'
+           slackSend color: 'good', message: 'Starting build #$currentBuild.number on "$BRANCH_NAME"'
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
 
            //Build containers again to build changes
@@ -36,7 +36,7 @@ node('master') {
            }
 
             stage('deploy') {
-               slackSend color: 'good', message: 'Starting deploy'
+               slackSend color: 'warning', message: 'Starting deploy'
                sh 'ssh -i ~/.ssh/id_sd enricu@10.1.1.13 /opt/deploy'
             }
        }
