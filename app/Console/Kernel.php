@@ -13,8 +13,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //Commands\CrudViewCommandCustom::class,
-        //Commands\CrudCommandCustom::class,
         Commands\WooCommerceSync::class,
         Commands\ExpireOrder::class,
         Commands\PushOrder::class
@@ -29,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
          $schedule->command('order:expire')->everyFiveMinutes();
-         $schedule->command('woo:sync')->everyFiveMinutes();
+         $schedule->command('woo:sync')->daily();
     }
     /**
      * Register the Closure based commands for the application.

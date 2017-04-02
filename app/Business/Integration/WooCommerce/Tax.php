@@ -19,4 +19,9 @@ class Tax extends Importer
         $tax->fill($entity);
         $tax->save();
     }
+
+    public function delete(int $id): bool
+    {
+        // TODO: Implement delete() method.
+    }
 }

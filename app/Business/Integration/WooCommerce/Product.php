@@ -50,7 +50,7 @@ class Product extends Importer
         $product = $this->appProduct($entity);
         $product->_id = $entity['sku'];
         $product->external_id = $entity['id'];
-        $product->name = $entity['name'];
+        $product->name = $entity['name'] ?? $entity['title'];
         $product->status = $status;
         $product->is_featured = $entity['featured'];
         $product->slug = $this->slug($entity);
@@ -58,8 +58,10 @@ class Product extends Importer
         $product->introduction = $entity['short_description'];
         $product->reviews_allowed = $entity['reviews_allowed'];
         $product->tags = $this->arrayOfTags($entity);
-        $product->meta_title = $entity['yoast']['yoast_wpseo_title'];
-        $product->meta_description = $entity['yoast']['yoast_wpseo_metadesc'];
+        if (isset($entity['yoast'])) {
+            $product->meta_title = $entity['yoast']['title'];
+            $product->meta_description = $entity['yoast']['metadesc'];
+        }
         //$this->addRelatedProducts($entity, $product);
         $this->addUpSellProducts($entity, $product);
         $this->addCrossSellProducts($entity, $product);
@@ -68,7 +70,7 @@ class Product extends Importer
 
 
         $properties = new Properties($product);
-        $properties->syncProperties($entity['attributes'], $entity['default_attributes']);
+        $properties->syncProperties($entity['attributes'], $entity['default_attributes'] ?? []);
 
         $this->category->product($product);
         $this->category->syncCategories($entity['categories']);
@@ -148,11 +150,17 @@ class Product extends Importer
      */
     protected function appProduct($entity): AppProduct
     {
-        $product = AppProduct::orWhere(function ($query) use ($entity) {
-            $query->whereExternalId($entity['id'])
-                ->orWhere('_id', $entity['sku']);
-        })
+        $product = AppProduct::withTrashed()
+            ->orWhere(function ($query) use ($entity) {
+                $query->whereExternalId($entity['id'])
+                    ->orWhere('_id', $entity['sku']);
+            })
             ->first();
+
+        if (!is_null($product) && $product->trashed()) {
+            $product->restore();
+            return $product;
+        }
 
         return $product ?? new AppProduct();
     }
@@ -197,5 +205,10 @@ class Product extends Importer
         return collect($array)->map(function ($id) {
             return AppProduct::whereExternalId($id)->first();
         })->filter();
+    }
+
+    public function delete(int $id): bool
+    {
+        return AppProduct::whereExternalId($id)->delete();
     }
 }

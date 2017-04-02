@@ -44,7 +44,7 @@ class Coupon extends Importer
      */
     protected function couponStatus($entity)
     {
-        $status = isset($entity['discount_type']) ? $entity['discount_type'] : $entity['type'];
+        $status = $entity['discount_type'] ?? $entity['type'];
 
         $statusTypes = [
             'fixed_cart' => AppCoupon::DIRECT,

@@ -41,8 +41,8 @@ class WooCommerceController extends Controller
     public function webhook(Request $request)
     {
 
-        Log::info($request->header());
-        Log::info($request->getContent());
+        //Log::info($request->header());
+        //Log::info($request->getContent());
 
         $resource = $request->header('x-wc-webhook-resource');
         $event = $request->header('x-wc-webhook-event');

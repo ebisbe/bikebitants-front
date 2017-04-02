@@ -46,7 +46,7 @@ class Image
     public function sync($wpImage)
     {
         $image = new \App\Image();
-        $image->name = $wpImage['name'];
+        $image->name = $wpImage['name'] ?? $wpImage['title'];
         $image->alt = $wpImage['alt'];
         $image->external_id = $wpImage['id'];
         $image->order = $wpImage['position'];

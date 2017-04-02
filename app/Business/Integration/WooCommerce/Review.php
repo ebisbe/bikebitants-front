@@ -60,4 +60,9 @@ class Review extends Importer
             $review->save();
         }
     }
+
+    public function delete(int $id): bool
+    {
+        // TODO: Implement delete() method.
+    }
 }

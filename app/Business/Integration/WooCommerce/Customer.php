@@ -30,4 +30,9 @@ class Customer extends Importer
 
         $customer->save();
     }
+
+    public function delete(int $id): bool
+    {
+        // TODO: Implement delete() method.
+    }
 }

@@ -91,4 +91,9 @@ class Category extends Importer
         }
         return $category;
     }
+
+    public function delete(int $id): bool
+    {
+        // TODO: Implement delete() method.
+    }
 }

@@ -84,6 +84,10 @@ abstract class Importer implements SynchronizeEntity
         if (is_null($date)) {
             return $return_now ? Carbon::now() : null;
         }
-        return Carbon::createFromFormat(StaticVars::wordpressDateTime(), $date);
+        try {
+            return Carbon::createFromFormat(StaticVars::wordpressDateTimeNew(), $date);
+        } catch (\InvalidArgumentException $e) {
+            return Carbon::createFromFormat(StaticVars::wordpressDateTime(), $date);
+        }
     }
 }

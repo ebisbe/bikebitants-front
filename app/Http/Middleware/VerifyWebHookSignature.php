@@ -24,7 +24,7 @@ class VerifyWebHookSignature
 
             $hook->verifyPayload($payload, $signature);
         } else {
-            // Has no signature but may be the test on a webhook update
+            // Has no signature but may be the test on a webhook creation of update parameters
             $webhook_id = (int)$request->get('webhook_id');
             if (!is_integer($webhook_id)) {
                 abort(404);
