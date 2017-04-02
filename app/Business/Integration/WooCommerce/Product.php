@@ -50,6 +50,7 @@ class Product extends Importer
         $product = $this->appProduct($entity);
         $product->_id = $entity['sku'];
         $product->external_id = $entity['id'];
+        //TODO On WooCommerce 2.7 review WebHook Version
         $product->name = $entity['name'] ?? $entity['title'];
         $product->status = $status;
         $product->is_featured = $entity['featured'];
@@ -70,6 +71,7 @@ class Product extends Importer
 
 
         $properties = new Properties($product);
+        //TODO On WooCommerce 2.7 review WebHook Version
         $properties->syncProperties($entity['attributes'], $entity['default_attributes'] ?? []);
 
         $this->category->product($product);
@@ -131,7 +133,13 @@ class Product extends Importer
      */
     protected function arrayOfTags($entity): array
     {
-        return collect($entity['tags'])->pluck('name')->toArray();
+        $bagTags = collect($entity['tags'])->pluck('name')->filter();
+        if ($bagTags->isNotEmpty()) {
+            return $bagTags->toArray();
+        }
+
+        //TODO On WooCommerce 2.7 review WebHook Version
+        return $entity['tags'];
     }
 
     /**

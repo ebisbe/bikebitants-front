@@ -53,28 +53,29 @@ class Category extends Importer
                 $cat->products()->save($this->product);
             });
     }
+
     /**
      * @param $entity
      * @return AppCategory
      */
     public function sync($entity): AppCategory
     {
-        $category = AppCategory::whereExternalId($entity['id'])->first();
+        if (isset($entity['id'])) {
+            $category = AppCategory::whereExternalId($entity['id'])->first();
+        } else {
+            //TODO On WooCommerce 2.7 review WebHook Version
+            return AppCategory::whereName($entity)->first();
+        }
+
         if (empty($category)) {
             $category = new AppCategory();
         }
 
         $category->name = $entity['name'];
         $category->slug = $entity['slug'];
-        if (!empty($entity['menu_order'])) {
-            $category->order = $entity['menu_order'];
-        }
-        if (!empty($entity['count'])) {
-            $category->products_count = $entity['count'];
-        }
-        if (!empty($entity['description'])) {
-            $category->description = $entity['description'];
-        }
+        $category->order = $entity['menu_order'] ?? '';
+        $category->products_count = $entity['count'] ?? '';
+        $category->description = $entity['description'] ?? '';
         $category->external_id = $entity['id'];
         if (!empty($entity['image'])) {
             $category->filename = Image::saveImage($entity['image']);
