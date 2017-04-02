@@ -2,6 +2,7 @@
 
 node('master') {
    try {
+       color = 'good'
        stage('build') {
            slackSend color: 'good', message: "Starting build *#${BUILD_NUMBER}* on *'${BRANCH_NAME}'*"
            slackSend color: 'warning', message: "${CHANGES}"
@@ -44,10 +45,11 @@ node('master') {
    } catch(error) {
        // Maybe some alerting?
        slackSend color: 'danger', message: 'Something bad happened!'
+       color = 'danger'
        throw error
    } finally {
        // Spin down containers no matter what happens
-       slackSend color: 'good', message: 'Ending build'
+       slackSend color: color, message: 'Ending build'
        sh './develop down'
    }
 }
