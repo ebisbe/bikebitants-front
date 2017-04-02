@@ -43,7 +43,7 @@ node('master') {
        }
    } catch(error) {
        // Maybe some alerting?
-       slackSend color: 'danger', message: error
+       slackSend color: 'danger', message: 'Something bad happened!'
        throw error
    } finally {
        // Spin down containers no matter what happens
