@@ -4,9 +4,9 @@ node('master') {
    try {
        color = 'good'
        stage('build') {
-           slackSend color: 'good', message: "*${currentBuild.displayName}* on *'${BRANCH_NAME}'*"
-           slackSend color: 'warning', message: "${currentBuild.description}"
-           slackSend color: 'warning', message: "${currentBuild.changeSets}"
+           slackSend color: color, message: "*${currentBuild.displayName}* on *'${BRANCH_NAME}'*"
+           slackSend color: 'warning', message: "${currentBuild.changeSets.index}"
+           slackSend color: 'warning', message: "${currentBuild.changeSets.digest}"
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
 
            //Build containers again to build changes
@@ -24,7 +24,7 @@ node('master') {
        }
 
        stage('test') {
-           slackSend color: 'good', message: 'Starting test phase'
+           slackSend color: color, message: 'Starting test phase'
            sh "./develop npm set progress=false"
            sh "./develop npm install "
            sh "./develop bower install"
@@ -34,19 +34,20 @@ node('master') {
 
        if( env.BRANCH_NAME == 'master' ) {
            stage('package') {
-               slackSend color: 'good', message: 'Starting package phase'
+               slackSend color: color, message: 'Starting package phase'
                sh './docker/build'
            }
 
             stage('deploy') {
-               slackSend color: 'warning', message: 'Starting deploy'
-               sh 'ssh -i ~/.ssh/id_sd enricu@10.1.1.13 /opt/deploy'
+                color = 'warning'
+                slackSend color: color, message: 'Starting deploy'
+                sh 'ssh -i ~/.ssh/id_sd enricu@10.1.1.13 /opt/deploy'
             }
        }
    } catch(error) {
        // Maybe some alerting?
-       slackSend color: 'danger', message: 'Something bad happened!'
        color = 'danger'
+       slackSend color: color, message: 'Something bad happened!'
        throw error
    } finally {
        // Spin down containers no matter what happens
