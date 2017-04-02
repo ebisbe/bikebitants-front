@@ -2,19 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
+use App\Business\Integration\WooCommerce\Factory;
+use App\Http\Middleware\VerifyWebHookSignature;
 use Illuminate\Http\Request;
+use Log;
 
 class WooCommerceController extends Controller
 {
     public function __construct()
     {
-        if (config('app.env') == 'production') {
-            abort(404, 'Not found');
-        }
+        $this->middleware(VerifyWebHookSignature::class);
     }
 
     public function show($command, Request $request)
     {
+        if (config('app.env') == 'production') {
+            abort(404, 'Not found');
+        }
+
         if ($command == '-') {
             $command = '';
         }
@@ -23,12 +29,40 @@ class WooCommerceController extends Controller
             str_replace('_', '/', $command),
             ['page' => $request->get('page', 1), 'search' => $request->get('search', '')]
         );
-        
+
         $item = $request->get('item', null);
         if (!is_null($item)) {
             dd($response[$item]);
         } else {
             dd($response);
+        }
+    }
+
+    public function webhook(Request $request)
+    {
+
+        Log::info($request->header());
+        Log::info($request->getContent());
+
+        $resource = $request->header('x-wc-webhook-resource');
+        $event = $request->header('x-wc-webhook-event');
+
+        try {
+            $factoryResource = Factory::make($resource);
+
+            switch ($event) {
+                case 'created':
+                case 'updated':
+                    $response = $factoryResource->sync($request->get($resource));
+                    break;
+                case 'deleted':
+                    $response = $factoryResource->delete($request->get('id'));
+                    break;
+            }
+
+            return [$event => $response];
+        } catch (EntityNotFoundException $e) {
+            return ['error' => $e];
         }
     }
 }

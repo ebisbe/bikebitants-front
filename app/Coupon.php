@@ -9,6 +9,11 @@ use MongoDB\BSON\UTCDatetime;
  * Class Coupon
  * @package App
  *
+ * @property integer external_id
+ * @property string name
+ * @property float magnitude
+ * @property string type
+ * @property string description
  * @property UTCDatetime expired_at
  * @property integer minimum_cart
  * @property integer|null maximum_cart

@@ -29,7 +29,7 @@ class StaticVars
 
     public $emailValidation = '/^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4}(, )?)+$/';
 
-    public $wordpressDateTime = 'Y-m-d\TH:i:s';
+    public $wordpressDateTime = 'Y-m-d\TH:i:s\Z';
 
     public $logo = '/logo.png';
 

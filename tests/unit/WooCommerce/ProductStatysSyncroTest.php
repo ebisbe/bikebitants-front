@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Wordpress;
+namespace Tests\Unit\WooCoomerce;
 
 use App\Business\Integration\WooCommerce\Image;
 use App\Business\Integration\WooCommerce\Product;

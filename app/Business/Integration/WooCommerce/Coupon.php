@@ -19,7 +19,7 @@ class Coupon extends Importer
         $coupon->external_id = $entity['id'];
         $coupon->name = $entity['code'];
         $coupon->magnitude = -(float)$entity['amount'];
-        $coupon->type = $this->couponStatus($entity['discount_type']);
+        $coupon->type = $this->couponStatus($entity);
         $coupon->description = $entity['description'];
         $coupon->expired_at = $this->convertDate($entity['expiry_date'], false);
         $coupon->minimum_cart = (float)$entity['minimum_amount'];
@@ -29,16 +29,23 @@ class Coupon extends Importer
         //$coupon->limit_usage_by_user = 1;
         //$coupon->single_use = 1;
         //$coupon->emails = $faker->email.','.$faker->email.','.$faker->emai;
-        $coupon->save();
+        return $coupon->save();
+    }
+
+    public function delete(int $id):bool
+    {
+        return AppCoupon::whereExternalId($id)->delete();
     }
 
     /**
      * Status mirroring from wp to laravel
-     * @param $status
+     * @param $entity
      * @return mixed
      */
-    protected function couponStatus($status)
+    protected function couponStatus($entity)
     {
+        $status = isset($entity['discount_type']) ? $entity['discount_type'] : $entity['type'];
+
         $statusTypes = [
             'fixed_cart' => AppCoupon::DIRECT,
             'fixed_product' => AppCoupon::DIRECT,
