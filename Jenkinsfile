@@ -3,7 +3,8 @@
 node('master') {
    try {
        stage('build') {
-           slackSend color: 'good', message: "Starting build *#${env.BUILD_NUMBER}* on *'${BRANCH_NAME}'*"
+           slackSend color: 'good', message: "Starting build *#${BUILD_NUMBER}* on *'${BRANCH_NAME}'*"
+           slackSend color: 'warning', message: "${CHANGES}"
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
 
            //Build containers again to build changes
