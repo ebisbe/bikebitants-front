@@ -13,6 +13,7 @@ server {
     location = /robots.txt  { log_not_found off; access_log off; }
 
     location / {
+        rewrite ^/(.*)/$ /$1 permanent;
         try_files $uri $uri/ /index.php$is_args$args;
     }
 
