@@ -6,6 +6,7 @@ use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
 use App\Business\Integration\WooCommerce\Factory;
 use App\Http\Middleware\VerifyWebHookSignature;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Log;
 
 class WooCommerceController extends Controller
@@ -53,7 +54,9 @@ class WooCommerceController extends Controller
             switch ($event) {
                 case 'created':
                 case 'updated':
-                    $response = $factoryResource->sync($request->get($resource));
+                    $id = $request->get($resource)['id'];
+                    $response = \Woocommerce::get(Str::plural($resource) . '/' . $id);
+                    $response = $factoryResource->sync($response);
                     break;
                 case 'deleted':
                     $response = $factoryResource->delete($request->get('id'));
