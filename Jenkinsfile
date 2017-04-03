@@ -47,8 +47,8 @@ node('master') {
    } catch(error) {
        // Maybe some alerting?
        color = 'danger'
-       slackSend color: color, message: 'Something bad happened!'
-       slackSend color: color, message: '/giphy crash'
+       slackSend color: color, message: "Something bad happened! \n ${error}"
+       slackSend color: color, message: "/giphy crash"
        throw error
    } finally {
        // Spin down containers no matter what happens
@@ -65,11 +65,11 @@ def showChangeLogs() {
      def entries = changeLogSets[i].items
      for (int j = 0; j < entries.length; j++) {
           def entry = entries[j]
-          message += "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+          message += "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: *${entry.msg}* \n"
           def files = new ArrayList(entry.affectedFiles)
           for (int k = 0; k < files.size(); k++) {
               def file = files[k]
-              message += "  ${file.editType.name} ${file.path}"
+              message += "  ${file.editType.name} ${file.path}\n"
           }
       }
   }
