@@ -38,7 +38,7 @@
                 };
 
                 this.prePost();
-                this.$http.post('/api/cart/', product)
+                this.$http.post('/api/cart', product)
                         .then(response => {
                             this.postPost();
                             if(this.checkout) {

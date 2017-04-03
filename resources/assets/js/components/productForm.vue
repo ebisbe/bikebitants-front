@@ -17,8 +17,16 @@
             <cart-add :quantity="quantity"
                       :product_id="product_id"
                       :properties="cart_properties"
-                      text="catalogue.add_and_buy"
+                      text="catalogue.add"
                       :show_icon="true"
+                      :checkout="false"
+                      button_class="btn btn-transparent add-to-cart">
+            </cart-add>
+            <cart-add :quantity="quantity"
+                      :product_id="product_id"
+                      :properties="cart_properties"
+                      text="catalogue.add_and_buy"
+                      :show_icon="false"
                       :checkout="true"
                       button_class="btn btn-primary add-to-cart">
             </cart-add>

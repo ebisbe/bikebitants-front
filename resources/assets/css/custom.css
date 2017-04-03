@@ -2596,7 +2596,7 @@ article.product-item.product-single .product-quantity .btn:last-child {
 }
 
 article.product-item.product-single .add-to-cart {
-    float: right;
+    /*float: right;*/
     padding: 7px 12px;
 }
 

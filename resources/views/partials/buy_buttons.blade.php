@@ -13,9 +13,15 @@
 @else
     <cart-add :quantity="1"
               product_id="{{ $product->_id }}"
-              text="catalogue.add_and_buy"
+              text="catalogue.add"
               :show_icon="true"
-              :checkout="true"
               button_class="btn btn-transparent btn-sm">
+    </cart-add>
+    <cart-add :quantity="1"
+              product_id="{{ $product->_id }}"
+              text="catalogue.add_and_buy"
+              :show_icon="false"
+              :checkout="true"
+              button_class="btn btn-primary btn-sm">
     </cart-add>
 @endif
