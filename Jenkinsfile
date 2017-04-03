@@ -7,10 +7,7 @@ node('master') {
            slackSend color: color, message: "*${currentBuild.displayName}* on *'${BRANCH_NAME}'*"
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
 
-           if(changeSets.size() > 0 && changeSets.items.size() > 0) {
-               echo changeSets[0].items[0].author.fullName
-               echo changeSets[0].items[0].msg
-           }
+           slackSend color: 'warning', message: "${currentBuild.changeSets}"
 
            //Build containers again to build changes
            sh './develop build'
