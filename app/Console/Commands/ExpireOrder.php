@@ -73,7 +73,7 @@ class ExpireOrder extends Command
         $billing = [];
         if (isset($order->billing)) {
             $billing = [
-                "Buyer info:",
+                "*Buyer info*:",
                 "\tName: {$order->billing->first_name}  {$order->billing->last_name}",
                 "\tEmail: {$order->billing->email}",
                 "\tPhone: {$order->billing->phone}"
@@ -81,9 +81,9 @@ class ExpireOrder extends Command
         }
 
         $response = collect([
-            "Expiring order {$order->_id}: ",
-            "Total amount: {$order->total}€",
-            "Items: ",
+            "*Expiring order {$order->_id}*: ",
+            "*Total amount*: {$order->total}€",
+            "*Items*: ",
         ])->merge($items)->merge($billing);
         return $response->implode("\n");
     }

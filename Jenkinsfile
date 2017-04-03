@@ -48,7 +48,6 @@ node('master') {
        // Maybe some alerting?
        color = 'danger'
        slackSend color: color, message: "Something bad happened! \n ${error}"
-       slackSend color: color, message: "/giphy crash"
        throw error
    } finally {
        // Spin down containers no matter what happens
