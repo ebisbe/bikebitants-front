@@ -7,8 +7,6 @@ node('master') {
            slackSend color: color, message: "*${currentBuild.displayName}* on *'${BRANCH_NAME}'*"
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
 
-           slackSend color: 'warning', message: "${currentBuild.changeSets}"
-
            showChangeLogs()
 
            //Build containers again to build changes
@@ -50,6 +48,7 @@ node('master') {
        // Maybe some alerting?
        color = 'danger'
        slackSend color: color, message: 'Something bad happened!'
+       slackSend color: color, message: '/giphy crash'
        throw error
    } finally {
        // Spin down containers no matter what happens
@@ -61,16 +60,18 @@ node('master') {
 @NonCPS
 def showChangeLogs() {
   def changeLogSets = currentBuild.changeSets
+  def message = ''
   for (int i = 0; i < changeLogSets.size(); i++) {
      def entries = changeLogSets[i].items
      for (int j = 0; j < entries.length; j++) {
           def entry = entries[j]
-          echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+          message += "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
           def files = new ArrayList(entry.affectedFiles)
           for (int k = 0; k < files.size(); k++) {
               def file = files[k]
-              echo "  ${file.editType.name} ${file.path}"
+              message += "  ${file.editType.name} ${file.path}"
           }
       }
   }
+  slackSend color: 'warning', message: "${message}"
 }
