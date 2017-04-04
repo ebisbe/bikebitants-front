@@ -23,6 +23,5 @@ public/img/*
 !public/img/.gitkeep
 public/images/*
 public/fonts/*
-!public/images/launcher*
 !public/images/default-avatar.png
 !public/images/*/
