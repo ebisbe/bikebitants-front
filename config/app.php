@@ -200,6 +200,7 @@ return [
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Threesquared\LaravelWpApi\LaravelWpApiServiceProvider::class,
         Gahlawat\Slack\SlackServiceProvider::class,
+        Spatie\Sitemap\SitemapServiceProvider::class,
     ],
 
     /*
