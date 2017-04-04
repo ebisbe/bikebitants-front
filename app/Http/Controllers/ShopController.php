@@ -320,6 +320,8 @@ class ShopController extends Controller
 
         $products = $this->productRepository->whereIn('tags', [$slug])->findAll();
 
+        $this->abortIfEmpty($products);
+
         return view('shop.bargain', compact('products', 'title', 'subtitle'));
     }
 
@@ -330,7 +332,9 @@ class ShopController extends Controller
      */
     public function abortIfEmpty($entity)
     {
-        if (empty($entity)) {
+        if (empty($entity) || $entity->isEmpty()) {
+            MetaTag::set('title', trans('exceptions.page_not_found'));
+            MetaTag::set('description', trans('exceptions.description'));
             abort(404, trans('exceptions.page_not_found'));
         }
     }

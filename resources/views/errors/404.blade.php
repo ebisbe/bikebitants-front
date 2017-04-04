@@ -11,9 +11,8 @@
                 <div class="error-wrapper">
                     <div class="error-number">404</div>
                     <div class="error-text">
-                        <h1>PAGE NOT FOUND</h1>
-                        <p>Something went wrong. We couldn't find this page. Go back to <a
-                                    href="http://velvet.pixelized.cz">Homepage</a></p>
+                        <h1>@lang('exceptions.page_not_found')</h1>
+                        <p>@lang('exceptions.description')</p>
                         {{--<form>
                             <div class="input-group input-group-lg">
                                 <input type="email" class="form-control" placeholder="Search ...">
