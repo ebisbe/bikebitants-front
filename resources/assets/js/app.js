@@ -23,16 +23,18 @@ require('lazysizes');
 import Raven from 'raven-js';
 import RavenVue from 'raven-js/plugins/vue';
 
-Raven
-    .config('https://4e9f7f2a307849c890f5bad774d396d9@sentry.io/118946')
-    .addPlugin(RavenVue, Vue)
-    .install();
+if (Laravel.env != 'local') {
+    Raven
+        .config('https://4e9f7f2a307849c890f5bad774d396d9@sentry.io/118946')
+        .addPlugin(RavenVue, Vue)
+        .install();
+}
 
 Vue.component('total-checkout', require('./components/totalCheckout.vue'));
-Vue.component('product-form' , require('./components/productForm.vue'));
-Vue.component('add-review' , require('./components/addReview.vue'));
-Vue.component('cart-menu' , require('./components/cartMenu.vue'));
-Vue.component('cart-add' , require('./components/cartAdd.vue'));
+Vue.component('product-form', require('./components/productForm.vue'));
+Vue.component('add-review', require('./components/addReview.vue'));
+Vue.component('cart-menu', require('./components/cartMenu.vue'));
+Vue.component('cart-add', require('./components/cartAdd.vue'));
 
 const VueInternalization = require('vue-i18n');
 import Locales from './vue-i18n-locales.generated.js';
