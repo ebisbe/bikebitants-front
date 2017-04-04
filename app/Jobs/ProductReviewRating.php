@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Business\Repositories\ProductRepository;
-use App\Jobs\Job;
 use App\Product;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -18,7 +17,7 @@ class ProductReviewRating extends Job implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Product $product
      */
     public function __construct(Product $product)
     {
@@ -28,6 +27,7 @@ class ProductReviewRating extends Job implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @param ProductRepository $productRepository
      * @return void
      */
     public function handle(ProductRepository $productRepository)
@@ -39,10 +39,10 @@ class ProductReviewRating extends Job implements ShouldQueue
         $totalRating = $ratings->sum('rating');
         $totalReviews = $ratings->count();
 
-        if ($totalReviews > 0) {
-            $productRepository->update($this->product, [
-                'rating' => $totalRating / $totalReviews
-            ]);
-        }
+        $rating = $totalReviews > 0 ? $totalRating / $totalReviews : null;
+
+        $productRepository->update($this->product, [
+            'rating' => $rating
+        ]);
     }
 }

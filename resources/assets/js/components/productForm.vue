@@ -32,7 +32,7 @@
             </cart-add>
         </div>
 
-        <span class="help-block" id="helpBlock2">{{ stockText }}</span>
+        <span class="help-block" id="helpBlock2">Precio: <strong>{{ variation_price }}</strong> ({{ stockText }})</span>
     </form>
 </template>
 
@@ -49,6 +49,7 @@
             return {
                 max_quantity: -1,
                 quantity: 1,
+                variation_price: 0,
                 cart_properties: []
             }
         },
@@ -58,6 +59,7 @@
 
             if (this.properties.length == 0) {
                 this.max_quantity = this.variations[0].stock;
+                this.variation_price = this.variations[0].price;
             }
         },
 
@@ -76,6 +78,7 @@
                 } else {
                     this.max_quantity = variation[0].stock;
                 }
+                this.variation_price = variation[0].price;
             },
 
             updateQuantity: function (quantity) {
