@@ -36,6 +36,10 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 
 COPY default /etc/nginx/sites-available/default
 
+COPY marketing.map /etc/nginx/marketing.map
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
 COPY php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
 
 EXPOSE 80
