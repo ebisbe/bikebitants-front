@@ -196,6 +196,7 @@
     <script type="text/javascript">
         /* <![CDATA[ */
         var google_conversion_id = 946537783;
+        var google_conversion_order_id = {{ $order->external_id }};
         var google_conversion_language = "en";
         var google_conversion_format = "3";
         var google_conversion_color = "ffffff";
