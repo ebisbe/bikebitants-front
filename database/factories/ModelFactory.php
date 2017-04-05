@@ -334,7 +334,7 @@ $factory->define(Tax::class, function (Generator $faker) {
 
 $factory->define(Order::class, function (Generator $faker) {
     return [
-        'status' => Order::New,
+        'status' => Order::NEW,
         "token" => Carbon::now()->timestamp,
         "session_id" => $faker->randomAscii,
         "subtotal" => $faker->randomFloat(2, 0, 25),
@@ -344,20 +344,20 @@ $factory->define(Order::class, function (Generator $faker) {
 });
 
 $factory->state(Order::class, 'New', function () {
-    return [ 'status' => Order::New ];
+    return [ 'status' => Order::NEW ];
 });
 $factory->state(Order::class, 'ValidData', function () {
-    return [ 'status' => Order::ValidData ];
+    return [ 'status' => Order::VALID_DATA ];
 });
 $factory->state(Order::class, 'Redirected', function () {
-    return [ 'status' => Order::Redirected ];
+    return [ 'status' => Order::REDIRECTED ];
 });
 $factory->state(Order::class, 'Confirmed', function () {
-    return [ 'status' => Order::Confirmed ];
+    return [ 'status' => Order::CONFIRMED ];
 });
 $factory->state(Order::class, 'Cancelled', function () {
-    return [ 'status' => Order::Cancelled ];
+    return [ 'status' => Order::CANCELLED ];
 });
 $factory->state(Order::class, 'Undefined', function () {
-    return [ 'status' => Order::Undefined ];
+    return [ 'status' => Order::UNDEFINED ];
 });

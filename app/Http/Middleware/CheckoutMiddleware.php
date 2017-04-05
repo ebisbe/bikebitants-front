@@ -34,7 +34,7 @@ class CheckoutMiddleware
     {
         /** @var Order $currentOrder */
         $currentOrder = Order::currentOrder()->first();
-        if ($currentOrder->status == Order::Confirmed) {
+        if ($currentOrder->status == Order::CONFIRMED) {
             $currentOrder->print_analytics = false;
             $currentOrder->save();
         }
