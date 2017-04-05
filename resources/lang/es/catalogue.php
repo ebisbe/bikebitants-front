@@ -8,6 +8,7 @@ return [
     'add' => '&nbsp;Añadir',
     'add_and_buy' => '&nbsp;Comprar',
     'read_more' => '<i class="fa fa-plus"></i>Leer más',
+    'view' => '<i class="fa fa-search"></i>Ver',
     'title' => 'Información sobre :name',
 
     //product page
