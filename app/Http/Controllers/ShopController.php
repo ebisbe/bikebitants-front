@@ -152,6 +152,8 @@ class ShopController extends Controller
         $products = $this->productRepository
             ->with('brand', 'category')
             ->where('brand_id', $brand->_id)
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('prices', 'asc')
             ->findAll();
 
         MetaTag::set('title', $brand->title);
@@ -296,10 +298,10 @@ class ShopController extends Controller
 
         $products = $this->productRepository
             ->with(['brand', 'category'])
-            ->findWhere(['is_discounted', '=', true])
-            ->sortBy(function ($product) {
-                return min($product->prices);
-            });
+            ->where('is_discounted', true)
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('prices', 'asc')
+            ->findAll();
 
         return view('shop.bargain', compact('products', 'title', 'subtitle'));
     }
