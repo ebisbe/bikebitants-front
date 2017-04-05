@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Cart;
 use App\Order;
 use Closure;
+use Illuminate\Database\Eloquent\Collection;
 
 class CheckoutMiddleware
 {
@@ -32,11 +33,15 @@ class CheckoutMiddleware
 
     public function terminate($request, $response)
     {
-        /** @var Order $currentOrder */
-        $currentOrder = Order::currentOrder()->first();
-        if ($currentOrder->status == Order::CONFIRMED) {
-            $currentOrder->print_analytics = false;
-            $currentOrder->save();
+        /** @var Collection $orders */
+        $orders = Order::currentOrder()->get();
+        if ($orders->isNotEmpty()) {
+            /** @var Order $currentOrder */
+            $currentOrder = $orders->first();
+            if ($currentOrder->status == Order::CONFIRMED) {
+                $currentOrder->print_analytics = false;
+                $currentOrder->save();
+            }
         }
     }
 

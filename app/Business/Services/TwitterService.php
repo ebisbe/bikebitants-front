@@ -15,7 +15,7 @@ class TwitterService
     public function getLastsTweets($user = 'bikebitants', $number = 2)
     {
         try {
-            return Cache::remember("tweets_{$user}_{$number}", 60, function () use ($number, $user) {
+            return Cache::remember("tweets_{$user}_{$number}", 360, function () use ($number, $user) {
                 return Twitter::getUserTimeline(['screen_name' => $user, 'count' => $number]);
             });
         } catch (\Exception $e) {
