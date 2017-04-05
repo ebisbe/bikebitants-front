@@ -19,7 +19,6 @@ class CheckoutControllerTest extends BrowserKitTest
     /** @test */
     public function add_product_and_see_checkout()
     {
-        $this->disableExceptionHandling();
         $this->postAndCheckin();
 
         $this->see('Simple Product')

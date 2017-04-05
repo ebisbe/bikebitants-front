@@ -1,9 +1,7 @@
 <?php
 
 use App\Business\Traits\Tests\ProductTrait;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LabelsTest extends BrowserKitTest
 {
@@ -12,10 +10,26 @@ class LabelsTest extends BrowserKitTest
     /** @test */
     public function see_label_page()
     {
-        $this->visit('/etiqueta-producto/label')
-            ->seePageIs($this->link('etiqueta-producto/label'))
-            ->seeRouteIs('shop.tag', ['slug' => 'label'])
-        ;
+        $this->createSimpleProduct();
+        $this->createTax();
+
+        $this->visit('/etiqueta-producto/label1')
+            ->seePageIs($this->link('etiqueta-producto/label1'))
+            ->seeRouteIs('shop.tag', ['slug' => 'label1']);
+    }
+
+    /** @test */
+    public function see_404_on_label_page()
+    {
+        $this->disableExceptionHandling();
+        try {
+            $this->visit('/etiqueta-producto/label');
+        } catch (NotFoundHttpException $e) {
+            $this->assertEquals('exceptions.page_not_found', $e->getMessage());
+            return;
+        }
+
+        $this->fail('Should receive NotFoundHttpException');
     }
 
     /** @test */
@@ -39,7 +53,6 @@ class LabelsTest extends BrowserKitTest
             ->see('label1')
             ->click('label1')
             ->seePageIs($this->link('etiqueta-producto/label1'))
-            ->seeRouteIs('shop.tag', ['slug' => 'label1'])
-            ;
+            ->seeRouteIs('shop.tag', ['slug' => 'label1']);
     }
 }
