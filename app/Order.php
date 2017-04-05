@@ -11,6 +11,8 @@ use \Request;
  * Class Order
  * @package App
  *
+ * @property int status
+ * @property bool print_analytics
  * @property Billing $billing
  * @property Shipping $shipping
  * @property integer $external_id
@@ -27,11 +29,12 @@ class Order extends Model
     const Undefined = -2;
 
     protected $fillable = [
-        'billing_id', 'shipping_id', 'user_id', 'status', 'payment_method', 'external_id'
+        'billing_id', 'shipping_id', 'user_id', 'status', 'payment_method', 'external_id', 'print_analytics'
     ];
 
     public $attributes = [
-        'status' => Order::New
+        'status' => Order::New,
+        'print_analytics' => true
     ];
 
     public static function boot()

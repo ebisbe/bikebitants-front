@@ -96,9 +96,9 @@
                                     <h4>@lang('checkout.order_details')</h4>
                                     <ul class="list-unstyled">
                                         <li><b>@lang('checkout.email_address')
-                                                : </b>{{ $order->shipping->email ?? $order->billing->email }}</li>
+                                                    : </b>{{ $order->shipping->email ?? $order->billing->email }}</li>
                                         <li><b>@lang('checkout.phone')
-                                                : </b>{{ $order->shipping->phone ?? $order->billing->phone }}</li>
+                                                    : </b>{{ $order->shipping->phone ?? $order->billing->phone }}</li>
                                     </ul>
                                     {{--<h5>Addition information:</h5>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat mauris eget magna egestas porta. Curabitur sagittis sagittis neque rutrum congue.</p>--}}
@@ -155,16 +155,18 @@
                                             </td>
                                             <td class="col-xs-2 text-center">
                                                 <span><b>{{ $item->total }}&euro;</b></span>
-                                                <script type="application/javascript">
-                                                    ga('ec:addProduct', {
-                                                        'id': '{{ $item['id'] }}',
-                                                        'name': '{{ $item->product->name }}',
-                                                        'brand': '{{ $item->product->brand->name }}',
-                                                        'variant': '{{ collect($item->attributes)->implode(', ') }}',
-                                                        'price': '{{ $item->price }}',
-                                                        'quantity': '{{ $item->quantity }}'
-                                                    });
-                                                </script>
+                                                @if($order->print_analytics)
+                                                    <script type="application/javascript">
+                                                        ga('ec:addProduct', {
+                                                            'id': '{{ $item['id'] }}',
+                                                            'name': '{{ $item->product->name }}',
+                                                            'brand': '{{ $item->product->brand->name }}',
+                                                            'variant': '{{ collect($item->attributes)->implode(', ') }}',
+                                                            'price': '{{ $item->price }}',
+                                                            'quantity': '{{ $item->quantity }}'
+                                                        });
+                                                    </script>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -185,33 +187,35 @@
             </div>
         </div>
     </section>
-    <script type="text/javascript">
-        ga('ec:setAction', 'purchase', {
-            'id': '{{ $order->external_id }}',
-            'revenue': '{{ $order->total }}',
-            'tax': '{{ $order->total - $order->subtotal }}'
-        });
-    </script>
-    <!-- Google Code for Venta Conversion Page -->
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        var google_conversion_id = 946537783;
-        var google_conversion_order_id = {{ $order->external_id }};
-        var google_conversion_language = "en";
-        var google_conversion_format = "3";
-        var google_conversion_color = "ffffff";
-        var google_conversion_label = "LYoZCOCioGAQt4qswwM";
-        var google_conversion_value = 1.00;
-        var google_conversion_currency = "EUR";
-        var google_remarketing_only = false;
-        /* ]]> */
-    </script>
-    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-    </script>
-    <noscript>
-        <div style="display:inline;">
-            <img height="1" width="1" style="border-style:none;" alt=""
-                 src="//www.googleadservices.com/pagead/conversion/946537783/?value=1.00&amp;currency_code=EUR&amp;label=LYoZCOCioGAQt4qswwM&amp;guid=ON&amp;script=0"/>
-        </div>
-    </noscript>
+    @if($order->print_analytics)
+        <script type="text/javascript">
+            ga('ec:setAction', 'purchase', {
+                'id': '{{ $order->external_id }}',
+                'revenue': '{{ $order->total }}',
+                'tax': '{{ $order->total - $order->subtotal }}'
+            });
+        </script>
+        <!-- Google Code for Venta Conversion Page -->
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var google_conversion_id = 946537783;
+            var google_conversion_order_id = {{ $order->external_id }};
+            var google_conversion_language = "en";
+            var google_conversion_format = "3";
+            var google_conversion_color = "ffffff";
+            var google_conversion_label = "LYoZCOCioGAQt4qswwM";
+            var google_conversion_value = 1.00;
+            var google_conversion_currency = "EUR";
+            var google_remarketing_only = false;
+            /* ]]> */
+        </script>
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+        </script>
+        <noscript>
+            <div style="display:inline;">
+                <img height="1" width="1" style="border-style:none;" alt=""
+                     src="//www.googleadservices.com/pagead/conversion/946537783/?value=1.00&amp;currency_code=EUR&amp;label=LYoZCOCioGAQt4qswwM&amp;guid=ON&amp;script=0"/>
+            </div>
+        </noscript>
+    @endif
 @endsection

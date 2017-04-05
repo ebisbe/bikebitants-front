@@ -30,6 +30,16 @@ class CheckoutMiddleware
         return $next($request);
     }
 
+    public function terminate($request, $response)
+    {
+        /** @var Order $currentOrder */
+        $currentOrder = Order::currentOrder()->first();
+        if ($currentOrder->status == Order::Confirmed) {
+            $currentOrder->print_analytics = false;
+            $currentOrder->save();
+        }
+    }
+
     protected function shouldRedirect()
     {
         //We don't have products and there is no current order started
