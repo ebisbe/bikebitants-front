@@ -3,14 +3,13 @@
 node('master') {
    try {
        color = 'good'
-       message = ''
-       user = ''
        stage('build') {
            slackSend color: color, message: "*${currentBuild.displayName}* on *'${BRANCH_NAME}'*"
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
 
-           showChangeLogs()
-           sh "curl -X POST 'https://api.newrelic.com/v2/applications/35571925/deployments.json' -H 'X-Api-Key:936c9599fc9827e0da37f0ba8c525afc51a58b46362766e' -i -H 'Content-Type: application/json' -d '{ \"deployment\": { \"revision\": \"${currentBuild.displayName}-${BRANCH_NAME}\", \"changelog\": \"${message}\", \"description\": \"Prod deploy\", \"user\": \"${user}\" } }'"
+           sendToSlackChangeLogs()
+           def message = getChangeLogs()
+           sh "curl -X POST 'https://api.newrelic.com/v2/applications/35571925/deployments.json' -H 'X-Api-Key:936c9599fc9827e0da37f0ba8c525afc51a58b46362766e' -i -H 'Content-Type: application/json' -d '{ \"deployment\": { \"revision\": \"${currentBuild.displayName}-${BRANCH_NAME}\", \"changelog\": \"${message}\", \"description\": \"Deploy on production\" } }'"
 
            //Build containers again to build changes
            sh './develop build'
@@ -60,20 +59,33 @@ node('master') {
 }
 
 @NonCPS
-def showChangeLogs() {
+def sendToSlackChangeLogs() {
   def changeLogSets = currentBuild.changeSets
+  def message = ''
   for (int i = 0; i < changeLogSets.size(); i++) {
      def entries = changeLogSets[i].items
      for (int j = 0; j < entries.length; j++) {
           def entry = entries[j]
-          user = ${entry.author};
           message += " *${entry.msg}* on ${new Date(entry.timestamp)}\nBy ${entry.author} [${entry.commitId}]\n"
           def files = new ArrayList(entry.affectedFiles)
           for (int k = 0; k < files.size(); k++) {
               def file = files[k]
               message += "`${file.editType.name}: ${file.path}`\n"
           }
-      }
+     }
   }
   slackSend color: 'warning', message: "${message}"
+}
+
+def getChangeLogs() {
+  def changeLogSets = currentBuild.changeSets
+  def message = ''
+  for (int i = 0; i < changeLogSets.size(); i++) {
+     def entries = changeLogSets[i].items
+     for (int j = 0; j < entries.length; j++) {
+          def entry = entries[j]
+          message += "${entry.msg} on ${new Date(entry.timestamp)} By ${entry.author} [${entry.commitId}]\\n"
+     }
+  }
+  return message
 }
