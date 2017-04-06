@@ -42,16 +42,19 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
 
-EXPOSE 80
+COPY xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY packaged /var/www/html
-RUN chown -R www-data: /var/www/html
 
 COPY cronjobs.conf /var/home/
 
 COPY start.sh /var/home/
+
+EXPOSE 80
+
+RUN chown -R www-data: /var/www/html
 
 RUN chmod +x /var/home/start.sh
 

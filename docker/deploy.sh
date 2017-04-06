@@ -34,6 +34,11 @@ sleep 5
 
 echo "Started new container $NEW_APP_CONTAINER"
 
+## OPTIMIZATIONS
+sudo docker exec -it $NEW_CONTAINER php /var/www/html/artisan config:cache
+sudo docker exec -it $NEW_CONTAINER php /var/www/html/artisan route:cache
+sudo docker exec -it $NEW_CONTAINER php /var/www/html/artisan optimize --force
+
 # Update Nginx
 sudo sed -i "s/server shipit.*/server $NEW_CONTAINER:80;/" /opt/conf.d/default.conf
 

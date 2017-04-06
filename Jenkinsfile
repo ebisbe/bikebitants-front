@@ -35,7 +35,7 @@ node('master') {
        if( env.BRANCH_NAME == 'master' ) {
            stage('package') {
                slackSend color: color, message: 'Starting package phase'
-               sh './docker/build'
+               sh 'APP_ENV=production ./docker/build'
            }
 
             stage('deploy') {
@@ -64,11 +64,11 @@ def showChangeLogs() {
      def entries = changeLogSets[i].items
      for (int j = 0; j < entries.length; j++) {
           def entry = entries[j]
-          message += "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: *${entry.msg}* \n"
+          message += " *${entry.msg}* on ${new Date(entry.timestamp)}\nBy ${entry.author} [${entry.commitID)}]\n"
           def files = new ArrayList(entry.affectedFiles)
           for (int k = 0; k < files.size(); k++) {
               def file = files[k]
-              message += "  ${file.editType.name} ${file.path}\n"
+              message += "`${file.editType.name}: ${file.path}\n"
           }
       }
   }

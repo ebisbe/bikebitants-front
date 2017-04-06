@@ -21,11 +21,6 @@ cd $DIR/app/packaged
 ./develop composer install --no-dev
 #./develop art key:generate
 
-## OPTIMIZATIONS
-#./develop art config:cache
-#./develop art route:cache
-#./develop art optimize
-
 ## ASSETS
 ./develop npm set progress=false
 ./develop npm install
