@@ -35,7 +35,7 @@ node('master') {
        if( env.BRANCH_NAME == 'master' ) {
            stage('package') {
                slackSend color: color, message: 'Starting package phase'
-               sh 'APP_ENV=production ./docker/build'
+               sh './docker/build'
            }
 
             stage('deploy') {
