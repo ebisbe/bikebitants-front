@@ -24,7 +24,7 @@ if [ "$CURRENT_IMAGE" == "$RUNNING_IMAGE" ]; then
     exit 0
 fi
 
-SHARED_PATHS="-v /var/www/bikebitants_files/app:/var/www/html/storage/app"
+SHARED_PATHS="-v /var/www/bikebitants_files/app:/var/www/html/storage/app -v /var/www/bikebitants_files/img:/var/www/html/public/img"
 
 # Start new instances
 NEW_APP_CONTAINER=$(sudo docker run -d --network=bikebitants -e CONTAINER_ENV=production --restart=always --name="$NEW_CONTAINER" $SHARED_PATHS localhost:5000/bikebitants.com/app)
@@ -35,9 +35,9 @@ sleep 5
 echo "Started new container $NEW_APP_CONTAINER"
 
 ## OPTIMIZATIONS
-sudo docker exec -it $NEW_CONTAINER php /var/www/html/artisan config:cache
-sudo docker exec -it $NEW_CONTAINER php /var/www/html/artisan route:cache
-sudo docker exec -it $NEW_CONTAINER php /var/www/html/artisan optimize --force
+echo $(sudo docker exec $NEW_CONTAINER php /var/www/html/artisan config:cache)
+echo $(sudo docker exec $NEW_CONTAINER php /var/www/html/artisan route:cache)
+echo $(sudo docker exec $NEW_CONTAINER php /var/www/html/artisan optimize)
 
 # Update Nginx
 sudo sed -i "s/server shipit.*/server $NEW_CONTAINER:80;/" /opt/conf.d/default.conf
