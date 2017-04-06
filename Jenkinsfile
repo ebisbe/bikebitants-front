@@ -2,7 +2,9 @@
 
 node('master') {
    try {
-       color = 'good'
+       def color = 'good'
+       def message = ''
+       def user = ''
        stage('build') {
            slackSend color: color, message: "*${currentBuild.displayName}* on *'${BRANCH_NAME}'*"
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
@@ -42,6 +44,18 @@ node('master') {
                 color = 'warning'
                 slackSend color: color, message: 'Starting deploy'
                 sh 'ssh -i ~/.ssh/id_sd enricu@10.1.1.13 /opt/deploy'
+                curl -X POST 'https://api.newrelic.com/v2/applications/35571925/deployments.json' \
+                     -H 'X-Api-Key:936c9599fc9827e0da37f0ba8c525afc51a58b46362766e' -i \
+                     -H 'Content-Type: application/json' \
+                     -d \
+                '{
+                  "deployment": {
+                    "revision": "${currentBuild.displayName}-${BRANCH_NAME}",
+                    "changelog": "${message}",
+                    "description": "Prod deploy",
+                    "user": "${user}"
+                  }
+                }'
             }
        }
    } catch(error) {
@@ -59,11 +73,11 @@ node('master') {
 @NonCPS
 def showChangeLogs() {
   def changeLogSets = currentBuild.changeSets
-  def message = ''
   for (int i = 0; i < changeLogSets.size(); i++) {
      def entries = changeLogSets[i].items
      for (int j = 0; j < entries.length; j++) {
           def entry = entries[j]
+          user = ${entry.author};
           message += " *${entry.msg}* on ${new Date(entry.timestamp)}\nBy ${entry.author} [${entry.commitId}]\n"
           def files = new ArrayList(entry.affectedFiles)
           for (int k = 0; k < files.size(); k++) {
