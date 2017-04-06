@@ -15,11 +15,11 @@ node('master') {
            // Start services (Let docker-compose build containers for testing)
            sh "./develop up -d"
 
-           // Get composer dependencies
-           sh "./develop composer install"
-
            // Create .env file for testing
            sh '/var/lib/jenkins/.venv/bin/aws s3 cp s3://bikebitants-keys/env-ci .env'
+
+           // Get composer dependencies
+           sh "./develop composer install"
            sh './develop art key:generate'
        }
 
