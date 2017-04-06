@@ -8,8 +8,6 @@ node('master') {
            git url: 'git@bitbucket.org:bikebitants/bikebitants.git'
 
            sendToSlackChangeLogs()
-           def message = getChangeLogs()
-           sh "curl -X POST 'https://api.newrelic.com/v2/applications/35571925/deployments.json' -H 'X-Api-Key:936c9599fc9827e0da37f0ba8c525afc51a58b46362766e' -i -H 'Content-Type: application/json' -d '{ \"deployment\": { \"revision\": \"${currentBuild.displayName}-${BRANCH_NAME}\", \"changelog\": \"${message}\", \"description\": \"Deploy on production\" } }'"
 
            //Build containers again to build changes
            sh './develop build'
@@ -44,6 +42,8 @@ node('master') {
                 color = 'warning'
                 slackSend color: color, message: 'Starting deploy'
                 sh 'ssh -i ~/.ssh/id_sd enricu@10.1.1.13 /opt/deploy'
+                def message = getChangeLogs()
+                sh "curl -X POST 'https://api.newrelic.com/v2/applications/35571925/deployments.json' -H 'X-Api-Key:936c9599fc9827e0da37f0ba8c525afc51a58b46362766e' -i -H 'Content-Type: application/json' -d '{ \"deployment\": { \"revision\": \"${currentBuild.displayName}-${BRANCH_NAME}\", \"changelog\": \"${message}\", \"description\": \"Deploy on production\" } }'"
             }
        }
    } catch(error) {
