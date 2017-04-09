@@ -179,7 +179,6 @@ return [
          * Bikebitants services
          */
         Jenssegers\Mongodb\MongodbServiceProvider::class,
-        //Moloquent\MongodbServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
@@ -201,6 +200,8 @@ return [
         Threesquared\LaravelWpApi\LaravelWpApiServiceProvider::class,
         Gahlawat\Slack\SlackServiceProvider::class,
         Spatie\Sitemap\SitemapServiceProvider::class,
+        Barryvdh\HttpCache\ServiceProvider::class,
+
     ],
 
     /*

@@ -26,7 +26,10 @@ class StaticPagesController extends Controller
 
         Breadcrumbs::addCrumb('Quienes somos');
 
-        return view('staticPages.who_we_are', compact('title', 'subtitle'));
+        return response()
+            ->view('staticPages.who_we_are', compact('title', 'subtitle'))
+            ->header('Cache-control', 'public')
+            ->setTtl(60*60*24);
     }
 
     public function termsAndConditions()
@@ -36,7 +39,10 @@ class StaticPagesController extends Controller
 
         Breadcrumbs::addCrumb('Terminos y Condiciones');
 
-        return view('staticPages.terms_conditions', compact('title', 'subtitle'));
+        return response()
+            ->view('staticPages.terms_conditions', compact('title', 'subtitle'))
+            ->header('Cache-control', 'public')
+            ->setTtl(60*60*24);
     }
 
     public function socialCommitment()
@@ -46,7 +52,10 @@ class StaticPagesController extends Controller
 
         Breadcrumbs::addCrumb('Compromiso Social');
 
-        return view('staticPages.social_commitment', compact('title', 'subtitle'));
+        return response()
+            ->view('staticPages.social_commitment', compact('title', 'subtitle'))
+            ->header('Cache-control', 'public')
+            ->setTtl(60*60*24);
     }
 
     public function incentives()
@@ -56,7 +65,10 @@ class StaticPagesController extends Controller
 
         Breadcrumbs::addCrumb('Incentivos para empresas');
 
-        return view('staticPages.incentives', compact('title', 'subtitle'));
+        return response()
+            ->view('staticPages.incentives', compact('title', 'subtitle'))
+            ->header('Cache-control', 'public')
+            ->setTtl(60*60*24);
     }
 
     public function press()
@@ -66,7 +78,10 @@ class StaticPagesController extends Controller
 
         Breadcrumbs::addCrumb('Prensa');
 
-        return view('staticPages.press', compact('title', 'subtitle'));
+        return response()
+            ->view('staticPages.press', compact('title', 'subtitle'))
+            ->header('Cache-control', 'public')
+            ->setTtl(60*60*24);
     }
 
     public function faq()
@@ -76,6 +91,9 @@ class StaticPagesController extends Controller
 
         Breadcrumbs::addCrumb(trans('static.faq'));
 
-        return view('staticPages.faq', compact('title', 'subtitle'));
+        return response()
+            ->view('staticPages.faq', compact('title', 'subtitle'))
+            ->header('Cache-control', 'public')
+            ->setTtl(60*60*24);
     }
 }
