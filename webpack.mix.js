@@ -15,6 +15,6 @@ mix
     .js('resources/assets/js/app.js', 'public/js')
 
     .sass('resources/assets/css/app.scss', 'public/css/app.css')
-    //.sass('resources/assets/css/vendor.scss', 'public/css/vendor.css')
+    .sass('resources/assets/css/vendor.scss', 'public/css/vendor.css')
 
     .version();
