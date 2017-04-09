@@ -50,16 +50,16 @@ class WooCommerceController extends Controller
 
         try {
             $factoryResource = Factory::make($resource);
+            $id = $request->get('id');
 
             switch ($event) {
                 case 'created':
                 case 'updated':
-                    $id = $request->get($resource)['id'];
                     $response = \Woocommerce::get(Str::plural($resource) . '/' . $id);
                     $response = $factoryResource->sync($response);
                     break;
                 case 'deleted':
-                    $response = $factoryResource->delete($request->get('id'));
+                    $response = $factoryResource->delete($id);
                     break;
             }
 
