@@ -117,7 +117,7 @@
                             <li><a href="{{ route('social_commitment') }}">@lang('layout.commitment')</a></li>
                             <li><a href="{{ route('incentives') }}">@lang('layout.incentives')</a></li>
                             <li><a href="{{ route('press') }}">@lang('layout.press')</a></li>
-                            <li><a href="">@lang('layout.contact')</a></li>
+                            <li><a href="{{ config('app.blog_url') }}/contacto">@lang('layout.contact')</a></li>
                         </ul>
                     </div>
                 </div>
