@@ -3608,12 +3608,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rinvex/repository.git",
-                "reference": "ef157ef5db728a756ecf57cddb8ea02584c42873"
+                "reference": "d0ac8395fae49200fe4e5350323b72a432476b04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rinvex/repository/zipball/ef157ef5db728a756ecf57cddb8ea02584c42873",
-                "reference": "ef157ef5db728a756ecf57cddb8ea02584c42873",
+                "url": "https://api.github.com/repos/rinvex/repository/zipball/d0ac8395fae49200fe4e5350323b72a432476b04",
+                "reference": "d0ac8395fae49200fe4e5350323b72a432476b04",
                 "shasum": ""
             },
             "require": {
@@ -3677,7 +3677,7 @@
                 "repository",
                 "rinvex"
             ],
-            "time": "2017-03-22 13:52:39"
+            "time": "2017-04-08 09:18:56"
         },
         {
             "name": "sentry/sentry",
