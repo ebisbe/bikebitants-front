@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
          $schedule->command('order:expire')->everyFiveMinutes();
-         $schedule->command('woo:sync')->daily();
+         $schedule->command('woo:sync')->everyFiveMinutes();
          $schedule->command('sitemap:generate')->daily();
     }
     /**
