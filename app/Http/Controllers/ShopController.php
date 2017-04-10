@@ -10,6 +10,7 @@ use App\Business\Repositories\CategoryRepository;
 use App\Business\Search\ProductSearch;
 use App\Business\Repositories\ProductRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Route;
 use MetaTag;
 use Breadcrumbs;
@@ -48,7 +49,7 @@ class ShopController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Response
      */
     public function home()
     {
@@ -69,10 +70,13 @@ class ShopController extends Controller
 
         $feed = FeedReader::read(config('app.blog_url') . '/feed/')->get_items(0, 4);
 
-        return view(
-            'shop.home',
-            compact('brands', 'productsLeft', 'productsRight', 'categories', 'feed')
-        );
+        return response()
+            ->view(
+                'shop.home',
+                compact('brands', 'productsLeft', 'productsRight', 'categories', 'feed')
+            )
+            ->withHeaders(['Cache-Control' => 'public'])
+            ->setTtl(60 * 60 * 4);
     }
 
     /**
@@ -141,7 +145,7 @@ class ShopController extends Controller
 
     /**
      * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Response
      */
     public function brand($slug)
     {
@@ -161,13 +165,16 @@ class ShopController extends Controller
         //MetaTag::set('slug', $brand->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
 
-        return view('shop.brand', compact('brand', 'products'));
+        return response()
+            ->view('shop.brand', compact('brand', 'products'))
+            ->withHeaders(['Cache-Control' => 'public'])
+            ->setTtl(60 * 60 * 4);
     }
 
     /**
      * @param Request $request
      * @param Route $route
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Response
      */
     public function catalogue(Request $request, Route $route)
     {
@@ -189,20 +196,23 @@ class ShopController extends Controller
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return view('shop.catalogue', compact(
-            'productsResult',
-            'categories',
-            'title',
-            'subtitle',
-            'selectedCat'
-        ));
+        return response()
+            ->view('shop.catalogue', compact(
+                'productsResult',
+                'categories',
+                'title',
+                'subtitle',
+                'selectedCat'
+            ))
+            ->withHeaders(['Cache-Control' => 'public'])
+            ->setTtl(60 * 60 * 4);
     }
 
     /**
      * @param Category $cat
      * @param Request $request
      * @param Route $route
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Response
      * @internal param Category $slugCategory
      */
     public function category(Category $cat, Request $request, Route $route)
@@ -231,10 +241,21 @@ class ShopController extends Controller
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return view(
-            'shop.catalogue',
-            compact('category', 'productsResult', 'categories', 'title', 'subtitle', 'selectedCat', 'selectedSubCat')
-        );
+        return response()
+            ->view(
+                'shop.catalogue',
+                compact(
+                    'category',
+                    'productsResult',
+                    'categories',
+                    'title',
+                    'subtitle',
+                    'selectedCat',
+                    'selectedSubCat'
+                )
+            )
+            ->withHeaders(['Cache-Control' => 'public'])
+            ->setTtl(60 * 60 * 4);
     }
 
     /**
@@ -242,7 +263,7 @@ class ShopController extends Controller
      * @param string $slugSubCategory
      * @param Request $request
      * @param Route $route
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Response
      */
     public function subslug($slugCategory, $slugSubCategory, Request $request, Route $route)
     {
@@ -276,14 +297,25 @@ class ShopController extends Controller
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return view(
-            'shop.catalogue',
-            compact('category', 'productsResult', 'categories', 'title', 'subtitle', 'selectedCat', 'selectedSubCat')
-        );
+        return response()
+            ->view(
+                'shop.catalogue',
+                compact(
+                    'category',
+                    'productsResult',
+                    'categories',
+                    'title',
+                    'subtitle',
+                    'selectedCat',
+                    'selectedSubCat'
+                )
+            )
+            ->withHeaders(['Cache-Control' => 'public'])
+            ->setTtl(60 * 60 * 4);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Response
      */
     public function bargain()
     {
@@ -303,12 +335,15 @@ class ShopController extends Controller
             ->orderBy('prices', 'asc')
             ->findAll();
 
-        return view('shop.bargain', compact('products', 'title', 'subtitle'));
+        return response()
+            ->view('shop.bargain', compact('products', 'title', 'subtitle'))
+            ->withHeaders(['Cache-Control' => 'public'])
+            ->setTtl(60 * 60 * 4);
     }
 
     /**
      * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Response
      */
     public function tag($slug)
     {
@@ -324,7 +359,10 @@ class ShopController extends Controller
 
         $this->abortIfEmpty($products->isNotEmpty());
 
-        return view('shop.bargain', compact('products', 'title', 'subtitle'));
+        return response()
+            ->view('shop.bargain', compact('products', 'title', 'subtitle'))
+            ->withHeaders(['Cache-Control' => 'public'])
+            ->setTtl(60 * 60 * 4);
     }
 
 
