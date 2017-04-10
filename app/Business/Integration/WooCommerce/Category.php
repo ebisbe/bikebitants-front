@@ -74,7 +74,9 @@ class Category extends Importer
         $category->name = $entity['name'];
         $category->slug = $entity['slug'];
         $category->order = $entity['menu_order'] ?? '';
-        $category->products_count = $entity['count'] ?? '';
+        if (!empty($entity['count'])) {
+            $category->products_count = $entity['count'];
+        }
         $category->description = $entity['description'] ?? '';
         $category->external_id = $entity['id'];
         if (!empty($entity['image'])) {
