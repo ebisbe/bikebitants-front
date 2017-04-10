@@ -23,7 +23,6 @@ class Order
             $coupon = [
                 [
                     'code' => $couponRaw->name,
-                    'id' => $couponRaw->external_id,
                     'discount' => 0
                 ]
             ];
