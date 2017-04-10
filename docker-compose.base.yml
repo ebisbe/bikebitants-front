@@ -10,7 +10,6 @@ services:
     networks:
      - skynet
     environment:
-      APP_ENV: "${APP_ENV}"
       XDEBUG_HOST: "${XDEBUG_HOST}"
   node:
     build:

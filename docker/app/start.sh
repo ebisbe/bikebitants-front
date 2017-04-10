@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-echo "-- Environment $APP_ENV"
-if [ ! "production" == "$APP_ENV" ] && [ ! "prod" == "$APP_ENV" ]; then
+echo "-- Environment $CONTAINER_ENV"
+if [ ! "production" == "$CONTAINER_ENV" ] && [ ! "prod" == "$CONTAINER_ENV" ]; then
     # Enable xdebug
 
     ## FPM
@@ -15,6 +15,7 @@ if [ ! "production" == "$APP_ENV" ] && [ ! "prod" == "$APP_ENV" ]; then
     # Config /etc/php/7.0/mods-available/xdebug.ini
     sed -i "s/xdebug\.remote_host\=.*/xdebug\.remote_host\=$XDEBUG_HOST/g" /etc/php/7.0/mods-available/xdebug.ini
 
+    sed -i "s/opcache\.validate_timestamps\=0/opcache\.validate_timestamps\=1/g" /etc/php/7.0/mods-available/opcache.ini
 else
     # Disable xdebug
 
