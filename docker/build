@@ -18,6 +18,11 @@ git archive --format=tar --worktree-attributes $HASH | tar -xf -  -C $DIR/app/pa
 # Production Build Steps
 ## (Decision between export-ignore'ing docker/develop command or not)
 cd $DIR/app/packaged
+
+# Get the production .env file
+## This assumes we're running in Jenkins as user "jenkins"
+/var/lib/jenkins/.venv/bin/aws s3 cp s3://bikebitants-keys/env-prod .env
+
 ./develop composer install --no-dev
 #./develop art key:generate
 
@@ -26,10 +31,6 @@ cd $DIR/app/packaged
 ./develop npm install
 ./develop bower install
 ./develop npm run production
-
-# Get the production .env file
-## This assumes we're running in Jenkins as user "jenkins"
-/var/lib/jenkins/.venv/bin/aws s3 cp s3://bikebitants-keys/env-prod .env
 
 # Build the Docker image with latest code
 cd $DIR/app
