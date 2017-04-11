@@ -10,7 +10,6 @@ use App\Business\Repositories\CategoryRepository;
 use App\Business\Search\ProductSearch;
 use App\Business\Repositories\ProductRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Route;
 use MetaTag;
 use Breadcrumbs;
@@ -49,7 +48,7 @@ class ShopController extends Controller
     }
 
     /**
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function home()
     {
@@ -70,13 +69,10 @@ class ShopController extends Controller
 
         $feed = FeedReader::read(config('app.blog_url') . '/feed/')->get_items(0, 4);
 
-        return response()
-            ->view(
-                'shop.home',
-                compact('brands', 'productsLeft', 'productsRight', 'categories', 'feed')
-            )
-            ->withHeaders(['Cache-Control' => 'public'])
-            ->setTtl(60 * 60 * 4);
+        return view(
+            'shop.home',
+            compact('brands', 'productsLeft', 'productsRight', 'categories', 'feed')
+        );
     }
 
     /**
@@ -145,7 +141,7 @@ class ShopController extends Controller
 
     /**
      * @param $slug
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function brand($slug)
     {
@@ -165,16 +161,13 @@ class ShopController extends Controller
         //MetaTag::set('slug', $brand->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
 
-        return response()
-            ->view('shop.brand', compact('brand', 'products'))
-            ->withHeaders(['Cache-Control' => 'public'])
-            ->setTtl(60 * 60 * 4);
+        return view('shop.brand', compact('brand', 'products'));
     }
 
     /**
      * @param Request $request
      * @param Route $route
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function catalogue(Request $request, Route $route)
     {
@@ -196,23 +189,20 @@ class ShopController extends Controller
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return response()
-            ->view('shop.catalogue', compact(
-                'productsResult',
-                'categories',
-                'title',
-                'subtitle',
-                'selectedCat'
-            ))
-            ->withHeaders(['Cache-Control' => 'public'])
-            ->setTtl(60 * 60 * 4);
+        return view('shop.catalogue', compact(
+            'productsResult',
+            'categories',
+            'title',
+            'subtitle',
+            'selectedCat'
+        ));
     }
 
     /**
      * @param Category $cat
      * @param Request $request
      * @param Route $route
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @internal param Category $slugCategory
      */
     public function category(Category $cat, Request $request, Route $route)
@@ -241,21 +231,10 @@ class ShopController extends Controller
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return response()
-            ->view(
-                'shop.catalogue',
-                compact(
-                    'category',
-                    'productsResult',
-                    'categories',
-                    'title',
-                    'subtitle',
-                    'selectedCat',
-                    'selectedSubCat'
-                )
-            )
-            ->withHeaders(['Cache-Control' => 'public'])
-            ->setTtl(60 * 60 * 4);
+        return view(
+            'shop.catalogue',
+            compact('category', 'productsResult', 'categories', 'title', 'subtitle', 'selectedCat', 'selectedSubCat')
+        );
     }
 
     /**
@@ -263,7 +242,7 @@ class ShopController extends Controller
      * @param string $slugSubCategory
      * @param Request $request
      * @param Route $route
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function subslug($slugCategory, $slugSubCategory, Request $request, Route $route)
     {
@@ -297,25 +276,14 @@ class ShopController extends Controller
             ->orderBy('name', 'asc')
             ->findAll();
 
-        return response()
-            ->view(
-                'shop.catalogue',
-                compact(
-                    'category',
-                    'productsResult',
-                    'categories',
-                    'title',
-                    'subtitle',
-                    'selectedCat',
-                    'selectedSubCat'
-                )
-            )
-            ->withHeaders(['Cache-Control' => 'public'])
-            ->setTtl(60 * 60 * 4);
+        return view(
+            'shop.catalogue',
+            compact('category', 'productsResult', 'categories', 'title', 'subtitle', 'selectedCat', 'selectedSubCat')
+        );
     }
 
     /**
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function bargain()
     {
@@ -335,15 +303,12 @@ class ShopController extends Controller
             ->orderBy('prices', 'asc')
             ->findAll();
 
-        return response()
-            ->view('shop.bargain', compact('products', 'title', 'subtitle'))
-            ->withHeaders(['Cache-Control' => 'public'])
-            ->setTtl(60 * 60 * 4);
+        return view('shop.bargain', compact('products', 'title', 'subtitle'));
     }
 
     /**
      * @param $slug
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function tag($slug)
     {
@@ -359,10 +324,7 @@ class ShopController extends Controller
 
         $this->abortIfEmpty($products->isNotEmpty());
 
-        return response()
-            ->view('shop.bargain', compact('products', 'title', 'subtitle'))
-            ->withHeaders(['Cache-Control' => 'public'])
-            ->setTtl(60 * 60 * 4);
+        return view('shop.bargain', compact('products', 'title', 'subtitle'));
     }
 
 
