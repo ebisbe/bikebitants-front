@@ -18,4 +18,3 @@ public/mix-manifest.json
 public/images/*
 !public/images/default-avatar.png
 !public/images/*/
-public/sitemap.xml
