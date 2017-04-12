@@ -27,7 +27,7 @@ class WooCommerceController extends Controller
         }
 
         $response = \Woocommerce::get(
-            str_replace('_', '/', $command),
+            str_replace('-', '/', $command),
             ['page' => $request->get('page', 1), 'search' => $request->get('search', '')]
         );
 

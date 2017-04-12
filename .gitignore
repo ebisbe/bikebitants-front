@@ -19,3 +19,4 @@ public/images/*
 !public/images/default-avatar.png
 !public/images/*/
 public/sitemap.xml
+storage/httpcache/*

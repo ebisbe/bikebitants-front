@@ -2,56 +2,74 @@
 
 namespace App\Business\Integration\WooCommerce;
 
+use App\Business\Repositories\ProductRepository;
 use App\Product;
-use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
-class Variation
+class Variation extends Importer
 {
     /**
-     * @var Product
+     * @var ProductRepository
      */
+    private $productRepository;
+
+    /** @var  Product */
     private $product;
 
     /**
-     * Variation constructor.
-     * @param Product $product
+     * Review constructor.
+     * @param ProductRepository $productRepository
      */
-    public function __construct(Product $product)
+    public function __construct(ProductRepository $productRepository)
+    {
+
+        $this->productRepository = $productRepository;
+    }
+
+    public function product(Product $product)
     {
         $this->product = $product;
     }
 
     /**
      * Import Variations from WooCommerce
-     * @param $variations
+     * @param $entity
      */
-    public function syncVariations($entity)
+    public function sync($entity)
     {
-        $variations = $this->getVariationsFromEntity($entity);
+        $variation = $this->product
+            ->variations()
+            ->filter(function ($variation) use ($entity) {
+                return $variation->external_id == $entity['id'];
+            })
+            ->first();
+        $new = false;
+        if (empty($variation)) {
+            $variation = new \App\Review();
+            $new = true;
+        }
 
-        $this->product->variations()->each(function ($variation) {
-            /** @var \App\Variation $variation */
-            $variation->delete();
-        });
+        $_id = $this->variationsAttributes($entity['attributes']);
 
-        $variations
-            ->each(function ($wpVariation) {
-                $_id = $this->variationsAttributes($wpVariation);
+        $variation = new \App\Variation();
 
-                $variation = new \App\Variation();
+        $variation->_id = $_id;
+        $variation->sku = $entity['sku'];
+        $variation->external_id = $entity['id'];
+        $variation->real_price = (float)$entity['regular_price'];
+        $variation->discounted_price = (float)$entity['sale_price'];
+        $variation->is_discounted = $entity['on_sale'];
+        $variation->stock = $this->variationStock($entity);
+        $variation->filename = Image::saveImage($entity['image']);
+        $variation->updated_at = Carbon::now();
+        $this->product->variations()->save($variation);
 
-                $variation->_id = $_id;
-                $variation->sku = $wpVariation['sku'];
-                $variation->external_id = $wpVariation['id'];
-                $variation->real_price = (float)$wpVariation['regular_price'];
-                $variation->discounted_price = (float)$wpVariation['sale_price'];
-                $variation->is_discounted = $wpVariation['on_sale'];
-                $variation->stock = $this->variationStock($wpVariation);
-                $img = $wpVariation[isset($wpVariation['image']) ? 'image' : 'images'][0];
-                $variation->filename = Image::saveImage($img);
-
-                $this->product->variations()->save($variation);
-            });
+        if ($new) {
+            $this->product->variations()->save($variation);
+            $this->productRepository->update($this->product, $this->product->toArray());
+        } else {
+            $variation->save();
+        }
     }
 
     private function variationStock($variation)
@@ -63,30 +81,21 @@ class Variation
     }
 
     /**
-     * @param $wpVariation
+     * @param $attributes
      * @return array
      */
-    private function variationsAttributes($wpVariation): array
+    private function variationsAttributes($attributes): array
     {
-        $variationsAtt = collect($wpVariation['attributes'])
-            ->filter(function ($att) {
-                return isset($att['option']);
-            })
+        $variationsAtt = collect($attributes)
             ->map(function ($att) {
                 return str_slug(strtolower($att['option']));
             })
-            ->toArray();
+            ->filter()->toArray();
         return array_merge([$this->product->_id], $variationsAtt);
     }
 
-    /**
-     * If the product has no variation we treat the product as if it was a variation itself
-     * because it has all the params needed
-     * @param $entity
-     * @return Collection
-     */
-    protected function getVariationsFromEntity($entity): Collection
+    public function delete(int $id): bool
     {
-        return !empty($entity['variations']) ? collect($entity['variations']) : collect([$entity]);
+        // TODO: Implement delete() method.
     }
 }

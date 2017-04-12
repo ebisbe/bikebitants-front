@@ -21,19 +21,29 @@ class Product extends Importer
      * @var Review
      */
     private $review;
+    /**
+     * @var Variation
+     */
+    private $variation;
 
     /**
      * Product constructor.
      * @param ProductRepository $productRepository
      * @param Category $category
      * @param Review $review
+     * @param Variation $variation
      */
-    public function __construct(ProductRepository $productRepository, Category $category, Review $review)
-    {
+    public function __construct(
+        ProductRepository $productRepository,
+        Category $category,
+        Review $review,
+        Variation $variation
+    ) {
 
         $this->productRepository = $productRepository;
         $this->category = $category;
         $this->review = $review;
+        $this->variation = $variation;
     }
 
     /**
@@ -50,8 +60,7 @@ class Product extends Importer
         $product = $this->appProduct($entity);
         $product->_id = $entity['sku'];
         $product->external_id = $entity['id'];
-        //TODO On WooCommerce 2.7 review WebHook Version
-        $product->name = $entity['name'] ?? $entity['title'];
+        $product->name = $entity['name'];
         $product->status = $status;
         $product->is_featured = $entity['featured'];
         $product->slug = $this->slug($entity);
@@ -59,19 +68,15 @@ class Product extends Importer
         $product->introduction = $entity['short_description'];
         $product->reviews_allowed = $entity['reviews_allowed'];
         $product->tags = $this->arrayOfTags($entity);
-        if (isset($entity['yoast'])) {
-            $product->meta_title = $entity['yoast']['title'];
-            $product->meta_description = $entity['yoast']['metadesc'];
-        }
-        //$this->addRelatedProducts($entity, $product);
+        $product->meta_title = $entity['meta']['_yoast_wpseo_title'] ?? '';
+        $product->meta_description = $entity['meta']['_yoast_wpseo_metadesc'] ?? '';
+
         $this->addUpSellProducts($entity, $product);
         $this->addCrossSellProducts($entity, $product);
 
         $this->productRepository->update($product, $product->toArray());
 
-
         $properties = new Properties($product);
-        //TODO On WooCommerce 2.7 review WebHook Version
         $properties->syncProperties($entity['attributes'], $entity['default_attributes'] ?? []);
 
         $this->category->product($product);
@@ -80,9 +85,11 @@ class Product extends Importer
         $image = new Image($product);
         $image->syncImages($entity['images']);
 
-        $variation = new Variation($product);
-        $variation->syncVariations($entity);
-        $this->productRepository->update($product, $product->toArray());
+        $this->variation->product($product);
+        $this->variation->wooCommerceCallback("products/{$entity['id']}/variations");
+        $this->variation->iterator('_');
+        $this->variation->pageSeparator('');
+        $this->variation->import(false);
 
         $this->review->product($product);
         $this->review->wooCommerceCallback("products/{$entity['id']}/reviews");
