@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Jenssegers\Mongodb\Eloquent\Model;
 use MongoDB\BSON\UTCDatetime;
 
 /**
@@ -20,33 +19,8 @@ use MongoDB\BSON\UTCDatetime;
  * @property array type_options
  * @property string email_list
  */
-class Coupon extends Model
+class Coupon extends \App\Business\Integration\WooCommerce\Models\Coupon
 {
-    const CART_CONDITION_TYPE = 'coupon';
-
-    const PERCENTAGE = '%';
-    const DIRECT = '&euro;';
-
-    protected $fillable = [
-        'name',
-        'value',
-        'magnitude',
-        'type',
-        'expired_at',
-        'minimum_cart',
-        'maximum_cart',
-        'limit_usage_by_coupon',
-        'limit_usage_by_user',
-        'single_use',
-        'emails',
-        'external_id'
-    ];
-
-    protected $dates = ['created_at', 'updated_at', 'expired_at'];
-
-    protected $casts = [
-        'single_use' => 'boolean',
-    ];
 
     /**
      * Set the user's first name.

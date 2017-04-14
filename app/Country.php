@@ -2,29 +2,17 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Builder;
-use Jenssegers\Mongodb\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Builder;
 
-class Country extends Model
+class Country extends \App\Business\Integration\WooCommerce\Models\Country
 {
-
-    protected $casts = ['active' => 'boolean'];
-
-    /**
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
-     */
-    public function states()
-    {
-        return $this->embedsMany(State::class);
-    }
-
     /**
      *
      */
     protected static function boot()
     {
         parent::boot();
-        
+
         static::addGlobalScope('active', function (Builder $builder) {
             $builder->where('active', '=', 1);
         });

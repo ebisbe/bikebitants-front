@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Jenssegers\Mongodb\Eloquent\Model;
-
-class PropertyValue extends Model
+class PropertyValue extends \App\Business\Integration\WooCommerce\Models\PropertyValue
 {
-    protected $fillable = ['name', 'sku', 'complementary_text', '_id'];
+    //
 }

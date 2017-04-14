@@ -60,7 +60,9 @@ class ShopController extends Controller
         $productsLeft = $featuredProducts->splice(0, 2);
         $productsRight = $featuredProducts;
         $categories = $this->categoryRepository
-            ->where('filename', 'exists', true)
+            // its not really necesary but avoids showing more categories due to
+            //the way data is downloaded from the api
+            ->where('filename', '!=', null)
             ->where('father_id', 'exists', false)
             ->orderBy('name', 'asc')->findAll();
 
@@ -84,9 +86,12 @@ class ShopController extends Controller
     public function slug($slug, Request $request, Route $route)
     {
         /** @var Product $product */
-        $product = $this->productRepository
+        $product = Product::withoutGlobalScopes()
             ->with(['category.father', 'brand', 'up_sell_shop.category.father', 'up_sell_shop.brand'])
-            ->findBy('slug', $slug);
+            ->where('slug', '=', $slug)
+            ->whereIn('status', [2, 3])
+            ->first();
+
         if (!empty($product)) {
             return $this->product($product);
         }
@@ -106,7 +111,6 @@ class ShopController extends Controller
      */
     public function product(Product $product)
     {
-
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         $category = $product->category->first();
         if (!empty($category->father)) {

@@ -26,41 +26,11 @@ use App\Business\Traits\SluggableTrait;
  *
  * @method static Builder whereSlug($slug)
  */
-class Category extends Model
+class Category extends \App\Business\Integration\WooCommerce\Models\Category
 {
     use SluggableTrait;
 
     // TODO Trigger update when category saved
-    protected $attributes = [
-        'products_count' => 0
-    ];
-
-    protected $fillable = [
-        'name',
-        'slug',
-        'filename',
-        'products_count',
-        'meta_title',
-        'meta_description',
-        'meta_slug',
-        'external_id'
-    ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function children()
-    {
-        return $this->hasMany(self::class, 'father_id', '_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function father()
-    {
-        return $this->belongsTo(self::class);
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

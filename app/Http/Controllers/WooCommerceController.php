@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
+use App\Business\Integration\WooCommerce\Exception\InvalidResourceException;
 use App\Business\Integration\WooCommerce\Factory;
+use App\Business\Integration\WooCommerce\Models\ModelFactory;
 use App\Http\Middleware\VerifyWebHookSignature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -49,23 +51,24 @@ class WooCommerceController extends Controller
         $event = $request->header('x-wc-webhook-event');
 
         try {
-            $factoryResource = Factory::make($resource);
-            $id = $request->get('id');
+            $factoryResource = ModelFactory::make($resource)->whereExternalId($request->get('id'));
 
             switch ($event) {
                 case 'created':
                 case 'updated':
-                    $response = \Woocommerce::get(Str::plural($resource) . '/' . $id);
-                    $response = $factoryResource->sync($response);
+                    $response = $factoryResource->sync($request->getContent());
                     break;
                 case 'deleted':
-                    $response = $factoryResource->delete($id);
+                    $response = $factoryResource->delete();
                     break;
+                default:
+                    throw new InvalidResourceException("Invalid resource given '{$resource}'");
             }
 
             return [$event => $response];
         } catch (EntityNotFoundException $e) {
-            return ['error' => $e];
+        } catch (InvalidResourceException $e) {
         }
+        return ['error' => $e];
     }
 }

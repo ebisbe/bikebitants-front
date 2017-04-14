@@ -2,11 +2,7 @@
 
 namespace App;
 
-use Jenssegers\Mongodb\Eloquent\Model;
-
-class Tax extends Model
+class Tax extends \App\Business\Integration\WooCommerce\Models\Tax
 {
-    protected $fillable = ['country', 'state', 'postcode', 'city', 'rate', 'name', 'order', 'external_id'];
 
-    protected $casts = ['rate' => 'float'];
 }

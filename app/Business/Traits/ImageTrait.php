@@ -7,8 +7,7 @@ use Illuminate\Http\Response as IlluminateResponse;
 use \Image;
 use Storage;
 use \File;
-use \App\Business\Integration\WooCommerce\Image as WordpressImage;
-use App\Image as AppImage;
+use App\Image as ImageModel;
 
 trait ImageTrait
 {
@@ -51,9 +50,9 @@ trait ImageTrait
         }
 
         try {
-            $wp_file = Storage::get(WordpressImage::$WP_FILE . '/' . $filename);
+            $wp_file = Storage::get(ImageModel::WP_FILE . '/' . $filename);
         } catch (FileNotFoundException $e) {
-            $wp_file = Storage::get(WordpressImage::$WP_FILE . '/' . AppImage::notFound()->filename);
+            $wp_file = Storage::get(ImageModel::WP_FILE . '/' . ImageModel::notFound()->filename);
         }
 
         $image = Image::make($wp_file)

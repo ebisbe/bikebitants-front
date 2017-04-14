@@ -2,7 +2,7 @@
 
 namespace App\Business\Models\Shop;
 
-use App\Business\Traits\FilterPublishedOrHiddenTrait;
+use App\Business\Traits\FilterPublishedTrait;
 use App\Business\Traits\Presenters\ProductPresenter;
 
 /**
@@ -13,7 +13,7 @@ use App\Business\Traits\Presenters\ProductPresenter;
  */
 class Product extends \App\Product
 {
-    use FilterPublishedOrHiddenTrait, ProductPresenter;
+    use FilterPublishedTrait, ProductPresenter;
 
     protected $appends = ['range_price', 'tags_list', 'currency'];
 

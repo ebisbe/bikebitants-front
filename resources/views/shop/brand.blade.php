@@ -23,7 +23,7 @@
     <!-- ==========================
         LOOKBOOK SERVICES - START
     =========================== -->
-    @foreach($brand->services as $service)
+    @foreach([] as $service)
         <section class="content lookbook-services image-{{ $service->position }} border-bottom border-top">
             <div class="container">
                 <div class="row">

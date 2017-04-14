@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Jenssegers\Mongodb\Eloquent\Model;
-
 /**
  * Class Image
  * @package App
@@ -14,10 +12,8 @@ use Jenssegers\Mongodb\Eloquent\Model;
  * @property int $order
  * @property string $filename
  */
-class Image extends Model
+class Image extends \App\Business\Integration\WooCommerce\Models\Image
 {
-    protected $fillable = ['name', 'alt', 'filename', 'external_id', 'order'];
-
     /**
      * Return predefined image when none is found
      * @return Image

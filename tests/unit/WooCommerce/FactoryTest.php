@@ -3,7 +3,7 @@
 namespace Tests\Unit\WooCoomerce;
 
 use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
-use App\Business\Integration\WooCommerce\Factory;
+use App\Business\Integration\WooCommerce\Models\ModelFactory;
 
 class FactoryTest extends \TestCase
 {
@@ -11,7 +11,7 @@ class FactoryTest extends \TestCase
     public function wordpress_entity_not_found()
     {
         try {
-            Factory::make('not_found');
+            ModelFactory::make('not_found');
         } catch (EntityNotFoundException $e) {
             $this->assertInstanceOf('App\Business\Integration\WooCommerce\Exception\EntityNotFoundException', $e);
             return;
@@ -22,8 +22,8 @@ class FactoryTest extends \TestCase
     /** @test */
     public function wordpress_entity()
     {
-        $customer = Factory::make('Customer');
-        $this->assertInstanceOf('App\Business\Integration\WooCommerce\Customer', $customer);
+        $customer = ModelFactory::make('Customer');
+        $this->assertInstanceOf('App\Business\Integration\WooCommerce\Models\Customer', $customer);
     }
 
 }
