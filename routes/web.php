@@ -51,7 +51,7 @@ Route::resource('review', 'ReviewController', ['only' => ['store']]);
 
 // Static pages
 
-Route::get('/quienes-somos', 'StaticPagesController@whoWeAre')->name('who_we_are');
+Route::get('/quien-somos', 'StaticPagesController@whoWeAre')->name('who_we_are');
 Route::get('/condiciones-generales', 'StaticPagesController@termsAndConditions')->name('terms_conditions');
 Route::get('/compromiso-bikebitants', 'StaticPagesController@socialCommitment')->name('social_commitment');
 Route::get('/incentivos-empresas', 'StaticPagesController@incentives')->name('incentives');
