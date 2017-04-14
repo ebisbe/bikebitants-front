@@ -45,7 +45,7 @@
         </ul>
 
         <ul v-else class="dropdown-menu">
-            <li>{{ $t('cart.empty_cart_h1') }}</li>
+            <li>{{ $t('cart.empty_cart') }}</li>
             <li>
                 <div class="row">
                     <div class="col-sm-12">

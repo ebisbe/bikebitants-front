@@ -1,8 +1,9 @@
 <?php
 return [
     'cart' => 'Carrito',
-    'empty_cart_h1' => 'Tu carrito esta vacío.',
-    'empty_cart_message' => 'Estas seguro que no quieres comprar algún gadget? Volver a la <a href=":route">tienda</a>.',
+    'empty_cart' => 'Tu carrito esta vacío.',
+    'empty_cart_h1' => 'Has dejado tu carrito vacío.',
+    'empty_cart_message' => 'Si tienes alguna duda sobre algún accesorio ponte en contacto con nosotros<br/><a href="mailto::email">:email</a> <br/> <a href="tel::tel">:tel</a><br/><br/>O Puedes seguir consultando nuestra <a href=":route">tienda</a>.',
 
     'view_cart' => 'Ver carrito',
     'checkout' => 'Comprar',
