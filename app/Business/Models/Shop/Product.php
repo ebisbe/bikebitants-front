@@ -26,7 +26,7 @@ class Product extends \App\Product
      */
     public function up_sell_shop()
     {
-        return $this->belongsToMany(self::class, null, 'product_ids', 'up_sell_ids');
+        return $this->belongsToMany(self::class, null, 'up_sell_ids', 'product_ids');
     }
 
     /**
@@ -34,7 +34,7 @@ class Product extends \App\Product
      */
     public function cross_sell_shop()
     {
-        return $this->belongsToMany(self::class, null, 'product_ids', 'cross_sell_ids');
+        return $this->belongsToMany(self::class, null, 'cross_sell_ids', 'product_ids');
     }
 
     /**
