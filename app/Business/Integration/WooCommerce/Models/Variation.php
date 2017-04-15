@@ -7,6 +7,7 @@ class Variation extends ApiImporter
     protected $fillable = [
         '_id',
         'external_id',
+        'sku',
         'real_price',
         'discounted_price',
         'is_discounted',

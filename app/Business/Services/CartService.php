@@ -78,9 +78,8 @@ class CartService
     {
         /** @var Product $product */
         $product = $this->productRepository->find($this->product_id);
-        $variationProperties = array_merge([$this->product_id], $this->properties);
         /** @var Variation $variation */
-        $variation = $product->productVariation($variationProperties);
+        $variation = $product->productVariation($this->properties);
         if (is_null($variation)) {
             throw new VariationNotFoundException(trans('api.variation_not_found'));
         }
