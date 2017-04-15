@@ -131,7 +131,7 @@ class ShopProductTest extends \TestCase
         $product_with_scopes = Product::find($product->_id);
         $product_without_scopes = Product::withoutGlobalScopes()->find($product->_id);
 
-        $this->assertEquals($product->_id, $product_with_scopes->_id);
+        $this->assertEquals(null, $product_with_scopes);
         $this->assertEquals($product->_id, $product_without_scopes->_id);
     }
 

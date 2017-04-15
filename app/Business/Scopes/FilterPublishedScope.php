@@ -16,6 +16,6 @@ class FilterPublishedScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        return $builder->whereIn('status', [Product::PUBLISHED, Product::HIDDEN]);
+        return $builder->where('status', '=', Product::PUBLISHED);
     }
 }
