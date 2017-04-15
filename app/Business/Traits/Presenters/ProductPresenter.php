@@ -32,7 +32,7 @@ trait ProductPresenter
     private function getRangePriceLabel($price)
     {
         $min = $this->lowerPrice($price);
-        $max = $this->variations->max($price);
+        $max = $this->higherPrice($price);
 
         if (is_null($min) || is_null($max)) {
             return '-';
@@ -60,6 +60,22 @@ trait ProductPresenter
         }
 
         return TaxService::applyTax($lowest_price);
+    }
+
+    private function higherPrice($price)
+    {
+        return $this->variations->where('price', '>', 0)->max($price);
+    }
+
+    public function getHigherPriceAttribute()
+    {
+        $highest_price = $this->higherPrice('price');
+
+        if (is_null($highest_price)) {
+            return '-';
+        }
+
+        return TaxService::applyTax($highest_price);
     }
 
     /**

@@ -8,4 +8,10 @@
     <meta itemprop="priceCurrency" content="{{ $product->currency }}"/>
     <link itemprop="availability" href="http://schema.org/{{ $product->stock > 0 ? 'InStock' : 'OutOfStock' }}"/>
 
+    <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+            <meta itemprop="price" content="{{ $product->lower_price }}"/>
+            <meta itemprop="minPrice" content="{{ $product->lower_price }}"/>
+            <meta itemprop="maxPrice" content="{{ $product->higher_price }}"/>
+            <meta itemprop="priceCurrency" content="{{ $product->currency }}"/>
+    </span>
 </span>
