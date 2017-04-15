@@ -50,8 +50,8 @@ class LabelsTest extends BrowserKitTest
         $this->createSimpleProduct();
 
         $this->visit('/simple-product')
-            ->see('label1')
-            ->click('label1')
+            ->see('Label1')
+            ->click('Label1')
             ->seePageIs($this->link('etiqueta-producto/label1'))
             ->seeRouteIs('shop.tag', ['slug' => 'label1']);
     }

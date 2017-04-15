@@ -22,7 +22,6 @@ class Product extends ApiImporter
         'introduction',
         'description',
         'is_featured',
-        'tags',
         'meta_title',
         'meta_description',
         'meta_slug',
@@ -92,6 +91,16 @@ class Product extends ApiImporter
     }
 
     /**
+     * Tag or tags of the product
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tag()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+
+    /**
      * Reviews made by the users for the product
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
@@ -122,7 +131,6 @@ class Product extends ApiImporter
         $entity['slug'] = $this->slugFromPermalink($entity);
         $entity['description'] = $this->stripVCRow($entity['description']);
         $entity['introduction'] = $entity['short_description'];
-        $entity['tags'] = $this->arrayOfTags($entity);
         $entity['meta_title'] = $entity['meta']['_yoast_wpseo_title'] ?? '';
         $entity['meta_description'] = $entity['meta']['_yoast_wpseo_metadesc'] ?? '';
 
@@ -164,12 +172,8 @@ class Product extends ApiImporter
         $properties = new Properties($this);
         $properties->syncProperties($entity['attributes'], $entity['default_attributes'] ?? []);
 
-        $categories = collect($entity['categories'])
-            ->pluck('id')
-            ->map(function ($id) {
-                return Category::whereExternalId($id)->first();
-            });
-        $this->category()->saveMany($categories);
+        $this->relateCategories($entity);
+        $this->relateTags($entity);
     }
 
     /**
@@ -247,16 +251,44 @@ class Product extends ApiImporter
 
     /**
      * @param $entity
+     */
+    protected function relateCategories($entity)
+    {
+        $categories = collect($entity['categories'])
+            ->pluck('id')
+            ->map(function ($id) {
+                return Category::whereExternalId($id)->first();
+            });
+        $this->category()->saveMany($categories);
+    }
+
+    /**
+     * @param $entity
+     */
+    protected function relateTags($entity)
+    {
+        collect($entity['tags'])
+            ->pluck('id')
+            ->map(function ($id) {
+                return Tag::whereExternalId($id)
+                    ->first()
+                    ->products()
+                    ->save($this);
+            });
+    }
+
+    /**
+     * @param $entity
      * @return array
      */
-    protected function arrayOfTags($entity): array
-    {
-        $bagTags = collect($entity['tags'])->pluck('name')->filter();
-        if ($bagTags->isNotEmpty()) {
-            return $bagTags->toArray();
-        }
+    /* protected function arrayOfTags($entity): array
+     {
+         $bagTags = collect($entity['tags'])->pluck('name')->filter();
+         if ($bagTags->isNotEmpty()) {
+             return $bagTags->toArray();
+         }
 
-        //TODO On WooCommerce 2.7 review WebHook Version
-        return $entity['tags'];
-    }
+         //TODO On WooCommerce 2.7 review WebHook Version
+         return $entity['tags'];
+     }*/
 }

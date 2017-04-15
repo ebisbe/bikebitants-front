@@ -38,6 +38,7 @@ echo "Started new container $NEW_APP_CONTAINER"
 echo $(sudo docker exec $NEW_CONTAINER php /var/www/html/artisan config:cache)
 echo $(sudo docker exec $NEW_CONTAINER php /var/www/html/artisan route:cache)
 echo $(sudo docker exec $NEW_CONTAINER php /var/www/html/artisan optimize)
+echo $(sudo docker exec $NEW_CONTAINER php /var/www/html/artisan migrate --force)
 
 # Update Nginx
 sudo sed -i "s/server shipit.*/server $NEW_CONTAINER:80;/" /opt/conf.d/default.conf

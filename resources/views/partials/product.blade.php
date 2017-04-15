@@ -24,8 +24,8 @@
                     </li>
                     @endif
                     <li><span>@lang('catalogue.tags')</span>
-                        @foreach($product->tags as $tag)
-                            <a href="{{ route('shop.tag', ['slug' => $tag]) }}">{{ $tag }}</a>
+                        @foreach($product->tag as $tag)
+                            <a href="{{ route('shop.tag', ['slug' => $tag->slug]) }}">{{ $tag->name }}</a>
                         @endforeach
                     </li>
                 </ul>

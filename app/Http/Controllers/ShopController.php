@@ -7,6 +7,7 @@ use App\Business\Models\Shop\Category;
 use App\Business\Models\Shop\Product;
 use App\Business\Repositories\BrandRepository;
 use App\Business\Repositories\CategoryRepository;
+use App\Business\Repositories\TagRepository;
 use App\Business\Search\ProductSearch;
 use App\Business\Repositories\ProductRepository;
 use Illuminate\Http\Request;
@@ -87,7 +88,7 @@ class ShopController extends Controller
     {
         /** @var Product $product */
         $product = Product::withoutGlobalScopes()
-            ->with(['category.father', 'brand', 'up_sell_shop.category.father', 'up_sell_shop.brand'])
+            ->with(['category.father', 'brand', 'up_sell_shop.category.father', 'up_sell_shop.brand', 'tag'])
             ->where('slug', '=', $slug)
             ->whereIn('status', [2, 3])
             ->first();
@@ -312,23 +313,23 @@ class ShopController extends Controller
 
     /**
      * @param $slug
+     * @param TagRepository $tagRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function tag($slug)
+    public function tag($slug, TagRepository $tagRepository)
     {
         Breadcrumbs::addCrumb(trans('tag.name'));
 
+        $tag = $tagRepository->with(['products_shop.brand', 'products_shop.category'])->findBy('slug', $slug);
+        $this->abortIfEmpty($tag);
+
         $title = trans('layout.shop');
-        $subtitle = $slug;
+        $subtitle = $tag->name;
 
-        MetaTag::set('title', trans('tag.title', ['name' => $slug]));
-        MetaTag::set('description', trans('tag.description', ['name' => $slug]));
+        MetaTag::set('title', $tag->name);
+        MetaTag::set('description', $tag->description);
 
-        $products = $this->productRepository->whereIn('tags', [$slug])->findAll();
-
-        $this->abortIfEmpty($products->isNotEmpty());
-
-        return view('shop.bargain', compact('products', 'title', 'subtitle'));
+        return view('shop.tag', compact('tag', 'title', 'subtitle'));
     }
 
 
