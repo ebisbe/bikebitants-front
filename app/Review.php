@@ -13,7 +13,7 @@ class Review extends \App\Business\Integration\WooCommerce\Models\Review
 
         static::saved(function ($review) {
             /** @var Product $product */
-            $product = (new ProductRepository())->findBy('_id', $review->product_id);
+            $product = Product::find($review->product_id);
             dispatch(new ProductReviewRating($product));
         });
     }

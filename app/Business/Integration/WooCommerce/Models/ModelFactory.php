@@ -8,7 +8,7 @@ class ModelFactory
 {
     /**
      * @param $entity
-     * @return mixed
+     * @return Product|Tag|Coupon|Tax
      * @throws EntityNotFoundException
      */
     public static function make($entity)

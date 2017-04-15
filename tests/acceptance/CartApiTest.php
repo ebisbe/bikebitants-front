@@ -12,7 +12,6 @@ class CartApiTest extends BrowserKitTest
     /** @test */
     public function add_one_simple_product_to_cart()
     {
-        $this->disableExceptionHandling();
         $this->createTax(21);
         $this->createSimpleProduct();
         $this->addSimpleProduct();

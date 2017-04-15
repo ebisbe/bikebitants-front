@@ -13,8 +13,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class ProductVariations extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
+    /**
+     * @var Product
+     */
+    private $product;
 
-    var $product;
 
     /**
      * ProductVariationsPrices constructor.

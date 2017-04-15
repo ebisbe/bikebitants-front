@@ -22,7 +22,7 @@ class Variation extends \App\Business\Integration\WooCommerce\Models\Variation
 
         static::saved(function ($model) {
             /** @var Product $product */
-            $product = (new ProductRepository())->find($model->_id[0]);
+            $product = Product::find($model->_id[0]);
             dispatch(new ProductVariations($product));
         });
     }

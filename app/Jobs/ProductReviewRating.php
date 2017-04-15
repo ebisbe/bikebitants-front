@@ -18,7 +18,7 @@ class ProductReviewRating extends Job implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Product $product
      */
     public function __construct(Product $product)
     {
@@ -28,6 +28,7 @@ class ProductReviewRating extends Job implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @param ProductRepository $productRepository
      * @return void
      */
     public function handle(ProductRepository $productRepository)

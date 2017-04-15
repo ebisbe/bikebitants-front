@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
-use App\Business\Integration\WooCommerce\Exception\InvalidResourceException;
+use App\Business\Integration\WooCommerce\Exception\InvalidEventException;
 use App\Business\Integration\WooCommerce\Factory;
 use App\Business\Integration\WooCommerce\Models\ModelFactory;
 use App\Http\Middleware\VerifyWebHookSignature;
@@ -43,32 +43,31 @@ class WooCommerceController extends Controller
 
     public function webhook(Request $request)
     {
-
-        //Log::info($request->header());
-        //Log::info($request->getContent());
-
         $resource = $request->header('x-wc-webhook-resource');
         $event = $request->header('x-wc-webhook-event');
 
         try {
-            $factoryResource = ModelFactory::make($resource)->whereExternalId($request->get('id'));
+            $factoryResource = ModelFactory::make($resource)
+                ->firstOrNew([
+                    'external_id' => $request->get('id')
+                ]);
 
             switch ($event) {
                 case 'created':
                 case 'updated':
-                    $response = $factoryResource->sync($request->getContent());
+                    $response = $factoryResource->synchronize($request->all());
                     break;
                 case 'deleted':
                     $response = $factoryResource->delete();
                     break;
                 default:
-                    throw new InvalidResourceException("Invalid resource given '{$resource}'");
+                    throw new InvalidEventException("Invalid event given '{$event}'.");
             }
 
             return [$event => $response];
         } catch (EntityNotFoundException $e) {
-        } catch (InvalidResourceException $e) {
+        } catch (InvalidEventException $e) {
         }
-        return ['error' => $e];
+        return ['error' => $e->getMessage()];
     }
 }

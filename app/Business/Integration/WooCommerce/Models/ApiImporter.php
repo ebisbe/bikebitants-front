@@ -34,29 +34,40 @@ abstract class ApiImporter extends Model implements SynchronizeEntity
             $hasNextPage = $paginate && Woocommerce::hasNextPage();
 
             $elements->each(function ($wpEntity) use ($parent, $child) {
-
-                $entity = self::firstOrNew(['external_id' => $wpEntity['id']]);
-                $wpEntity['external_id'] = $wpEntity['id'];
-                unset($wpEntity['id']);
-
-                $entity->parent_id = $parent->_id ?? '';
-                $save = $entity->sync($wpEntity);
-
-                if ($save !== false) {
-                    if (!is_null($parent)) {
-                        $parent->{$child}()->save($entity);
-                        $save = true;
-                    } else {
-                        $save = $entity->save();
-                        $entity->afterSync($wpEntity);
-                    }
-
-                    echo $this->iterator;
-                }
+                self::firstOrNew(['external_id' => $wpEntity['id']])
+                    ->synchronize($wpEntity, $parent, $child);
+                echo $this->iterator;
             });
 
             return $hasNextPage;
         });
+    }
+
+    /**
+     * @param $wpEntity
+     * @param null $parent
+     * @param null $child
+     * @return bool
+     */
+    public function synchronize($wpEntity, $parent = null, $child = null)
+    {
+        $wpEntity['external_id'] = $wpEntity['id'];
+        unset($wpEntity['id']);
+
+        $this->parent_id = $parent->_id ?? '';
+        $save = $this->sync($wpEntity);
+
+        if ($save !== false) {
+            if (!is_null($parent)) {
+                $parent->{$child}()->save($this);
+                $save = true;
+            } else {
+                $save = $this->save();
+                $this->afterSync($wpEntity);
+            }
+
+            return $save;
+        }
     }
 
     public function sync($entity)
@@ -109,7 +120,6 @@ abstract class ApiImporter extends Model implements SynchronizeEntity
     /**
      * Convert WP date format to a Carbon
      * @param $date
-     * @param bool $return_now Whether to return now() or null
      * @return Carbon
      */
     protected function convertDate($date)
