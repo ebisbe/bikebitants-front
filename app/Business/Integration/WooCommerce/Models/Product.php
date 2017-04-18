@@ -151,7 +151,7 @@ class Product extends ApiImporter
             $variations->wooCommerceCallback("products/{$entity['external_id']}/variations");
             $variations->iterator('_');
             $variations->pageSeparator('');
-            $variations->import(false, $this, 'variations');
+            $variations->import(true, $this, 'variations');
         } else {
             $variations->parent_id = $this->_id;
             $variations->sync($entity);
