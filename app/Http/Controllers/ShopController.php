@@ -57,7 +57,10 @@ class ShopController extends Controller
         $featuredProducts = $this->productRepository
             ->with(['category', 'brand'])
             ->where('is_featured', true)
-            ->limit(10)->findAll();
+            ->orderBy('menu_order')
+            ->limit(10)
+            ->findAll();
+
         $productsLeft = $featuredProducts->splice(0, 2);
         $productsRight = $featuredProducts;
         $categories = $this->categoryRepository
