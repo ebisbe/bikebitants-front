@@ -16,15 +16,15 @@
 /tienda/cascos /cascos-bicicleta;
 /tienda/cascos-bicicleta /cascos-bicicleta;
 /tienda/cascos-bicicleta/cascos-plegables-bicicleta /cascos-bicicleta/cascos-plegables-bicicleta;
-/tienda/luces-bicicleta /luces-bicicleta
+/tienda/luces-bicicleta /luces-bicicleta;
 /tienda/luces-bicicleta/intermitentes-bicicleta /luces-bicicleta/intermitentes-bicicleta;
 /tienda/luces-bicicleta/luz-trasera-bicicleta /luces-bicicleta/luz-trasera-bicicleta;
 /tienda/luces-bicicleta/luz-delantera-bicicleta /luces-bicicleta/luz-delantera-bicicleta;
 /tienda/bicicletas-urbanas /bicicletas-urbanas;
 
 /carrera-foldable-casco-plegable /carrera-foldable-basic-casco-plegable;
-/flectr-zero-reflectante-ligero-para-radios-de-bicicleta /flectr-zero-reflectante-ligero-radios-de-bicicleta
+/flectr-zero-reflectante-ligero-para-radios-de-bicicleta /flectr-zero-reflectante-ligero-radios-de-bicicleta;
 /ma%C2%81scara-anticontaminacio%C2%93n-respro-ultralight /mascara-anticontaminacion-respro-ultralight;
 /luz-delantera-knog-pop-2 /luz-delantera-knog-pop;
-/bufanda-anticontaminacia%C2%93n-respro-bandit /bufanda-anticontaminacion-respro-bandit
-/firstbike-street-bicicleta-sin-pedales-2 /firstbike-street-bicicleta-sin-pedales
+/bufanda-anticontaminacia%C2%93n-respro-bandit /bufanda-anticontaminacion-respro-bandit;
+/firstbike-street-bicicleta-sin-pedales-2 /firstbike-street-bicicleta-sin-pedales;
