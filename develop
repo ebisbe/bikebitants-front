@@ -69,6 +69,14 @@ if [ $# -gt 0 ];then
             -w /var/www/html \
             node \
             npm "$@"
+    # If "yarn" is used, run yarn
+    # from our node container
+    elif [ "$1" == "yarn" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html \
+            node \
+            yarn "$@"
     # If "bower" is used, run bower
     # from our node container
     elif [ "$1" == "bower" ]; then

@@ -27,10 +27,10 @@ cd $DIR/app/packaged
 #./develop art key:generate
 
 ## ASSETS
-./develop npm set progress=false
-./develop npm install
+#./develop yarn set progress=false
+./develop yarn install
 ./develop bower install
-./develop npm run production
+./develop yarn run production
 
 # Build the Docker image with latest code
 cd $DIR/app

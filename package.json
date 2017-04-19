@@ -27,5 +27,11 @@
     "vue-resource": "^1.0.3",
     "webfontloader": "1.6.27",
     "webpack": "2.2.1"
-  }
+  },
+  "name": "Bikebitants",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@bitbucket.org:bikebitants/bikebitants.git",
+  "author": "Enric Bisbe Gil",
+  "license": "MIT"
 }

@@ -25,10 +25,10 @@ node('master') {
 
        stage('test') {
            slackSend color: color, message: 'Starting test phase'
-           sh "./develop npm set progress=false"
-           sh "./develop npm install "
+           //sh "./develop yarn set progress=false"
+           sh "./develop yarn install "
            sh "./develop bower install"
-           sh "./develop npm run production"
+           sh "./develop yarn run production"
            sh "APP_ENV=testing ./develop test"
        }
 
