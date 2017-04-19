@@ -15,10 +15,10 @@ class AllStatesForAllCountries extends Migration
         $countries = Country::withOutGlobalScopes()->whereActive(0)->get();
 
         $countries->each(function ($country) {
-            $country->states = [
+            $country->states = [[
                 '_id' => $country->_id,
                 'name' => 'Todas las provincias'
-            ];
+            ]];
             $country->save();
         });
     }
