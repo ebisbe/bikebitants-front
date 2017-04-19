@@ -6,6 +6,8 @@ use Jenssegers\Mongodb\Eloquent\Builder;
 
 class Country extends \App\Business\Integration\WooCommerce\Models\Country
 {
+    protected $fillable = ['states'];
+
     /**
      *
      */

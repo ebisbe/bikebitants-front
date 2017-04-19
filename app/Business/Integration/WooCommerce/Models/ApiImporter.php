@@ -2,6 +2,7 @@
 
 namespace App\Business\Integration\WooCommerce\Models;
 
+use App\Business\Integration\WooCommerce\Exception\UndefinedWooCommerceCallbackException;
 use Carbon\Carbon;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Woocommerce;
@@ -10,6 +11,7 @@ use Storage;
 abstract class ApiImporter extends Model implements SynchronizeEntity
 {
     protected $wooCommerceCallback;
+    protected $external_id_name = 'id';
 
     const WP_FILE = 'wp_files';
     const WP_DATETIME = 'Y-m-d\TH:i:s\Z';
@@ -26,15 +28,20 @@ abstract class ApiImporter extends Model implements SynchronizeEntity
      * @param null $parent
      * @param null $child
      * @internal param null $parent_id
+     * @throws UndefinedWooCommerceCallbackException
      */
     public function import($paginate = true, $parent = null, $child = null)
     {
+        if (is_null($this->wooCommerceCallback)) {
+            throw new UndefinedWooCommerceCallbackException('WooCommerceCallback property must be defined.');
+        }
+
         $this->inspector(function ($page) use ($parent, $child, $paginate) {
             $elements = collect(Woocommerce::get($this->wooCommerceCallback, ['page' => $page]));
             $hasNextPage = $paginate && Woocommerce::hasNextPage();
 
             $elements->each(function ($wpEntity) use ($parent, $child) {
-                self::firstOrNew(['external_id' => $wpEntity['id']])
+                self::firstOrNew(['external_id' => $wpEntity[$this->external_id_name]])
                     ->synchronize($wpEntity, $parent, $child);
                 echo $this->iterator;
             });
@@ -51,10 +58,12 @@ abstract class ApiImporter extends Model implements SynchronizeEntity
      */
     public function synchronize($wpEntity, $parent = null, $child = null)
     {
-        $wpEntity['external_id'] = $wpEntity['id'];
-        unset($wpEntity['id']);
+        $wpEntity['external_id'] = $wpEntity[$this->external_id_name];
+        unset($wpEntity[$this->external_id_name]);
 
-        $this->parent_id = $parent->_id ?? '';
+        if (isset($parent->_id)) {
+            $this->parent_id = $parent->_id;
+        }
         $save = $this->sync($wpEntity);
 
         if ($save !== false) {

@@ -29,14 +29,10 @@ class WooCommerceSync extends Command
         $entities = $this->getEntitiesToSync();
         $entities->each(function ($entityName) {
 
-            try {
-                $class = ModelFactory::make($entityName);
-                $this->info("Sync $entityName:");
-                $class->import();
-                $this->info('');
-            } catch (EntityNotFoundException $e) {
-                $this->error($e->getMessage());
-            }
+            $class = ModelFactory::make($entityName);
+            $this->info("Sync $entityName:");
+            $class->import();
+            $this->info('');
         });
     }
 
@@ -52,6 +48,6 @@ class WooCommerceSync extends Command
             return collect($entities);
         }
 
-        return collect(['Tag', 'Customer', 'Category', 'Product', 'Tax', 'Coupon']);
+        return collect(['Tag', 'Customer', 'Category', 'Product', 'Tax', 'Coupon', 'Zone', 'Setting']);
     }
 }

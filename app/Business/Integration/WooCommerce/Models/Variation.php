@@ -15,6 +15,14 @@ class Variation extends ApiImporter
         'filename'
     ];
 
+    public function customImport($product, $external_id)
+    {
+        $this->wooCommerceCallback("products/{$external_id}/variations");
+        $this->iterator('_');
+        $this->pageSeparator('');
+        return parent::import(true, $product, 'variations');
+    }
+
     public function sync($entity)
     {
         $entity['_id'] = $this->variationsAttributes($entity['attributes']);

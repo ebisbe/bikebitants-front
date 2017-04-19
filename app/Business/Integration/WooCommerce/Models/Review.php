@@ -21,6 +21,14 @@ class Review extends ApiImporter
         return $this->embedsMany(Review::class);
     }
 
+    public function customImport($product, $external_id)
+    {
+        $this->wooCommerceCallback("products/{$external_id}/reviews");
+        $this->iterator(',');
+        $this->pageSeparator('');
+        return parent::import(false, $product, 'reviews');
+    }
+
     public function sync($entity)
     {
         $entity['product_id'] = $this->parent_id;

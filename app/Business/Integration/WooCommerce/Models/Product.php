@@ -146,25 +146,19 @@ class Product extends ApiImporter
     public function afterSync($entity)
     {
         $this->variations->each->delete();
+        /** @var Variation $variations */
         $variations = ModelFactory::make('variation');
         if (!empty($entity['variations'])) {
-            $variations->wooCommerceCallback("products/{$entity['external_id']}/variations");
-            $variations->iterator('_');
-            $variations->pageSeparator('');
-            $variations->import(true, $this, 'variations');
+            $variations->customImport($this, $entity['external_id']);
         } else {
             $variations->parent_id = $this->_id;
             $variations->sync($entity);
             $this->variations()->save($variations);
         }
 
-
         $this->reviews->each->delete();
         $reviews = ModelFactory::make('review');
-        $reviews->wooCommerceCallback("products/{$entity['external_id']}/reviews");
-        $reviews->iterator(',');
-        $reviews->pageSeparator('');
-        $reviews->import(false, $this, 'reviews');
+        $reviews->customImport($this, $entity['external_id']);
 
         $this->addUpSellProducts($entity['upsell_ids']);
         $this->addCrossSellProducts($entity['cross_sell_ids']);
@@ -276,19 +270,4 @@ class Product extends ApiImporter
                     ->save($this);
             });
     }
-
-    /**
-     * @param $entity
-     * @return array
-     */
-    /* protected function arrayOfTags($entity): array
-     {
-         $bagTags = collect($entity['tags'])->pluck('name')->filter();
-         if ($bagTags->isNotEmpty()) {
-             return $bagTags->toArray();
-         }
-
-         //TODO On WooCommerce 2.7 review WebHook Version
-         return $entity['tags'];
-     }*/
 }
