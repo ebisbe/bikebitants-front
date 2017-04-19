@@ -292,7 +292,16 @@ class ShopController extends Controller
     {
         Breadcrumbs::addCrumb(trans('tag.name'));
 
-        $tag = $tagRepository->with(['products_shop.brand', 'products_shop.category'])->findBy('slug', $slug);
+        $tagQuery = $tagRepository->with(['products_shop.brand', 'products_shop.category']);
+        $tag = $tagQuery->findBy('slug', $slug);
+
+        if (is_null($tag)) {
+            $tag = $tagQuery->findBy('name', $slug);
+            if (!is_null($tag)) {
+                return redirect(\route('shop.tag', ['slug' => $tag->slug]), 301);
+            }
+        }
+
         $this->abortIfEmpty($tag);
 
         $title = trans('layout.shop');

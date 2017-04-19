@@ -3,7 +3,7 @@
 use App\Business\Traits\Tests\ProductTrait;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class LabelsTest extends BrowserKitTest
+class TagTest extends BrowserKitTest
 {
     use ProductTrait;
 
@@ -14,6 +14,17 @@ class LabelsTest extends BrowserKitTest
         $this->createTax();
 
         $this->visit('/etiqueta-producto/label1')
+            ->seePageIs($this->link('etiqueta-producto/label1'))
+            ->seeRouteIs('shop.tag', ['slug' => 'label1']);
+    }
+
+    /** @test */
+    public function it_redirects_from_label_name_to_label_slug()
+    {
+        $this->createSimpleProduct();
+        $this->createTax();
+
+        $this->visit('/etiqueta-producto/Label1')
             ->seePageIs($this->link('etiqueta-producto/label1'))
             ->seeRouteIs('shop.tag', ['slug' => 'label1']);
     }
