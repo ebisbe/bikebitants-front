@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Breadcrumbs;
+use MetaTag;
 
 class StaticPagesController extends Controller
 {
@@ -25,6 +26,10 @@ class StaticPagesController extends Controller
         $subtitle = 'Quienes somos';
 
         Breadcrumbs::addCrumb('Quienes somos');
+
+        MetaTag::set('title', 'Quienes somos | Bikebitants');
+        MetaTag::set('description', 'Somos una joven startup que quiere potenciar ciudades más sanas a través del fomento de una movilidad más sostenible.');
+        MetaTag::set('image', assetCDN('/images/EquipoBikebitants.jpg'));
 
         return response()
             ->view('staticPages.who_we_are', compact('title', 'subtitle'))
