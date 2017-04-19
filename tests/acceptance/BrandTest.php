@@ -35,4 +35,16 @@ class BrandTest extends BrowserKitTest
 
         $this->fail('Should receive exception.');
     }
+
+    /** @test */
+    public function it_gets_all_brands_listed()
+    {
+        $this->createTax();
+        $this->createSimpleProduct();
+
+        $this->visit($this->link('marcas'))
+            ->see('Simple Brand')
+            ->click('Simple Brand')
+            ->seeRouteIs('shop.brand', ['slug' => 'simple-brand']);
+    }
 }

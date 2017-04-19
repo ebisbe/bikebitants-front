@@ -9,9 +9,11 @@ use Jenssegers\Mongodb\Eloquent\Builder;
  * Class Brand
  * @package App
  *
+ * @property string _id
  * @property string name
  * @property string title
  * @property string meta_description
+ * @property string filename
  *
  * @method static Builder whereSlug($slug)
  * @method static Builder featured($is_featured = true)

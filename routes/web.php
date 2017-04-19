@@ -33,11 +33,13 @@
 
 /** Shop */
 Route::get('/', 'ShopController@home')->name('shop.home');
-Route::get('/tienda/{slug}', 'ShopController@brand')->name('shop.brand');
 Route::get('/tienda', 'ShopController@catalogue')->name('shop.catalogue');
 Route::get('/ofertas', 'ShopController@bargain')->name('shop.bargain');
 Route::get('/etiqueta-producto/{slug}', 'ShopController@tag')->name('shop.tag');
 Route::resource('cart', 'CartController', ['only' => ['index', 'destroy']]);
+
+Route::get('/tienda/{slug}', 'BrandController@brand')->name('shop.brand');
+Route::get('/marcas', 'BrandController@brands')->name('shop.brands');
 
 Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
 Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store', 'show']]);
@@ -50,14 +52,12 @@ Route::resource('review', 'ReviewController', ['only' => ['store']]);
 
 
 // Static pages
-
 Route::get('/quien-somos', 'StaticPagesController@whoWeAre')->name('who_we_are');
 Route::get('/condiciones-generales', 'StaticPagesController@termsAndConditions')->name('terms_conditions');
 Route::get('/compromiso-bikebitants', 'StaticPagesController@socialCommitment')->name('social_commitment');
 Route::get('/incentivos-empresas', 'StaticPagesController@incentives')->name('incentives');
 Route::get('/prensa', 'StaticPagesController@press')->name('press');
 Route::get('/preguntas-frecuentes', 'StaticPagesController@faq')->name('faq');
-
 // End Static Pages
 
 Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')

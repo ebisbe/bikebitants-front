@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Brand;
 use App\Business\Models\Shop\Category;
 use App\Business\Models\Shop\Product;
-use App\Business\Repositories\BrandRepository;
 use App\Business\Repositories\CategoryRepository;
 use App\Business\Repositories\TagRepository;
 use App\Business\Search\ProductSearch;
@@ -21,25 +19,21 @@ class ShopController extends Controller
 
     protected $productSearch;
     protected $categoryRepository;
-    protected $brandRepository;
     protected $productRepository;
 
     /**
      * ShopController constructor.
      * @param ProductSearch $productSearch
      * @param CategoryRepository $categoryRepository
-     * @param BrandRepository $brandRepository
      * @param ProductRepository $productRepository
      */
     public function __construct(
         ProductSearch $productSearch,
         CategoryRepository $categoryRepository,
-        BrandRepository $brandRepository,
         ProductRepository $productRepository
     ) {
         $this->productSearch = $productSearch;
         $this->categoryRepository = $categoryRepository;
-        $this->brandRepository = $brandRepository;
         $this->productRepository = $productRepository;
 
         Breadcrumbs::setCssClasses('breadcrumb');
@@ -53,7 +47,7 @@ class ShopController extends Controller
      */
     public function home()
     {
-        $brands = collect();/*$this->brandRepository->findAll()*/
+        $brands = collect();
         $featuredProducts = $this->productRepository
             ->with(['category', 'brand'])
             ->where('is_featured', true)
@@ -145,31 +139,6 @@ class ShopController extends Controller
         $relatedProducts = $product
             ->up_sell_shop;
         return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle'));
-    }
-
-    /**
-     * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function brand($slug)
-    {
-        /** @var Brand $brand */
-        $brand = $this->brandRepository->findBy('slug', $slug);
-        $this->abortIfEmpty($brand);
-
-        $products = $this->productRepository
-            ->with('brand', 'category')
-            ->where('brand_id', $brand->_id)
-            ->orderBy('is_featured', 'desc')
-            ->orderBy('prices', 'asc')
-            ->findAll();
-
-        MetaTag::set('title', $brand->title);
-        MetaTag::set('description', $brand->meta_description);
-        //MetaTag::set('slug', $brand->meta_slug);
-        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
-
-        return view('shop.brand', compact('brand', 'products'));
     }
 
     /**
@@ -333,19 +302,5 @@ class ShopController extends Controller
         MetaTag::set('description', $tag->description);
 
         return view('shop.tag', compact('tag', 'title', 'subtitle'));
-    }
-
-
-    /**
-     * Abort if entity received is empty
-     * @param $entity
-     */
-    public function abortIfEmpty($entity)
-    {
-        if (empty($entity)) {
-            MetaTag::set('title', trans('exceptions.page_not_found'));
-            MetaTag::set('description', trans('exceptions.description'));
-            abort(404, trans('exceptions.page_not_found'));
-        }
     }
 }

@@ -54,6 +54,10 @@
     background-size: 100% auto;
 }
 
+.brands .default-style {
+    margin-right:30px;
+    display:inline-block;
+}
 
 @media (min-width: 768px) and (max-width: 991px) {
     /*.press .newspapers {*/

@@ -2,6 +2,8 @@
 return [
     'home' => 'Home',
     'shop' => 'Tienda',
+    'brands' => 'Marcas',
+
     'enterprise' => 'Empresa',
     'whoweare' => 'Quiénes somos',
     'commitment' => 'Compromiso Bikebitants',
