@@ -8,13 +8,13 @@ class Shipping extends \App\Business\Integration\WooCommerce\Models\Shipping
 
     public function states()
     {
-        return $this->country->states->first(function ($state) {
+        return $this->countryName()->states->first(function ($state) {
             return $state->_id == $this->state;
         });
     }
 
-    public function country()
+    public function countryName()
     {
-        return $this->belongsTo(Country::class, '_id', 'country');
+        return Country::where('_id', '=', $this->country)->first();
     }
 }

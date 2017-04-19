@@ -34,9 +34,5 @@ class Shipping extends ApiImporter
         'fax',
     ];
 
-    public function country()
-    {
-        return $this->belongsTo(Country::class, '_id', 'country');
-    }
 }
 

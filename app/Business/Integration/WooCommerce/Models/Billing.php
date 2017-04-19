@@ -31,8 +31,5 @@ class Billing extends ApiImporter
         'state',
     ];
 
-    public function country()
-    {
-        return $this->belongsTo(Country::class, '_id', 'country');
-    }
+
 }

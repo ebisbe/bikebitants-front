@@ -69,8 +69,9 @@
                                         <li><b>{{ $order->billing->first_name }} {{ $order->billing->last_name }}</b>
                                         </li>
                                         <li>{{ $order->billing->address_1 }}</li>
+                                        <li>{{ $order->billing->address_2 }}</li>
                                         <li>{{ $order->billing->postcode }} {{ $order->billing->city }}</li>
-                                        <li>{{ $order->billing->country->name }} ({{ $order->billing->states()->name }})
+                                        <li>{{ $order->billing->countryName()->name }} ({{ $order->billing->states()->name }})
                                         </li>
                                     </ul>
                                 </div>
@@ -82,9 +83,9 @@
                                         <li><b>{{ $order->shipping->first_name }} {{ $order->shipping->last_name }}
                                                 ({{ $order->shipping->email }})</b></li>
                                         <li>{{ $order->shipping->address_1 }}</li>
+                                        <li>{{ $order->shipping->address_2 }}</li>
                                         <li>{{ $order->shipping->postcode }} {{ $order->shipping->city }}</li>
-                                        <li>{{ $order->shipping->country->name }}
-                                            ({{ $order->shipping->states()->name }})
+                                        <li>{{ $order->shipping->countryName()->name }} ({{ $order->shipping->states()->name }})
                                         </li>
                                     </ul>
                                 </div>
