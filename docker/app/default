@@ -22,7 +22,7 @@ server {
         rewrite ^/(.*)/$ /$1 permanent;
 
         if ($new) {
-            rewrite ^ $new redirect;
+            rewrite ^ $new permanent;
         }
 
         try_files $uri $uri/ /index.php$is_args$args;
