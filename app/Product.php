@@ -20,7 +20,6 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * @property string $introduction
  * @property string $description
  * @property string $is_featured
- * @property array $tags
  * @property string $menu_order
  * @property string $meta_title
  * @property string $meta_description
@@ -37,9 +36,12 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * @property-read Image $front_image
  * @property-read Image $front_image_hover
  * @property-read Category $category
+ * @property-read Property $properties
  *
- * @method static Builder whereSlug($slug)
- * @method static Builder whereBrandId($brandId)
+ * @method static Product whereSlug($slug)
+ * @method static Product whereBrandId($brandId)
+ * @method static Product hasStock()
+ * @method static Product isVariable()
  */
 class Product extends \App\Business\Integration\WooCommerce\Models\Product
 {
@@ -120,5 +122,23 @@ class Product extends \App\Business\Integration\WooCommerce\Models\Product
     public function hasLowStock()
     {
         return $this->stock <= self::LOW_STOCK;
+    }
+
+    /**
+     * @param Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeHasStock(Builder $query)
+    {
+        return $query->where('stock', '>', 0);
+    }
+
+    /**
+     * @param Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsVariable(Builder $query)
+    {
+        return $query->whereNotNull('properties');
     }
 }

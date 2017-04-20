@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Business\Integration\WooCommerce\Models;
+
 //TODO review because it's not like api
 class Variation extends ApiImporter
 {
@@ -57,9 +58,11 @@ class Variation extends ApiImporter
                 return isset($att['option']);
             })
             ->map(function ($att) {
-                return str_slug(strtolower($att['option']));
+                return ModelFactory::make('AttributeTerms')->getSkuFromOption($att['option']);
             })
             ->toArray();
+
+
         return array_merge([$this->parent_id], $variationsAtt);
     }
 }

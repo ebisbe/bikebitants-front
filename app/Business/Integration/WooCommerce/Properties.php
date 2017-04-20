@@ -98,7 +98,9 @@ class Properties
     {
         collect($variation['options'])->each(function ($option) use ($property, $defaultAttributes, $variation) {
             $value = ModelFactory::make('PropertyValue');
-            $sku = str_slug(strtolower($option));
+
+            $sku = ModelFactory::make('AttributeTerms')->getSkuFromOption($option);
+            // TODO review if duplication can be avoided
             $value->_id = $sku;
             $value->sku = $sku;
             $value->name = $option;
