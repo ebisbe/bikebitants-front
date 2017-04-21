@@ -49,8 +49,8 @@ class CheckoutControllerTest extends BrowserKitTest
             ->see('30.00€')
             ->see('billing.first_name')
             ->see('billing.last_name')
-            ->see('billing.email')
-            ->see('billing.phone')
+            ->see('billing@email.com')
+            ->see('123456789')
             ->see('billing.address_1')
             ->see('billing.city')
             ->see('billing.postcode')
@@ -60,8 +60,7 @@ class CheckoutControllerTest extends BrowserKitTest
             ->dontSee('shipping.phone')
             ->dontSee('shipping.address_1')
             ->dontSee('shipping.city')
-            ->dontSee('shipping.postcode')
-        ;
+            ->dontSee('shipping.postcode');
     }
 
     /** @test */
@@ -99,8 +98,8 @@ class CheckoutControllerTest extends BrowserKitTest
             ->see('billing.postcode')
             ->see('shipping.first_name')
             ->see('shipping.last_name')
-            ->see('shipping.email')
-            ->see('shipping.phone')
+            ->see('shipping@email.com')
+            ->see('0099123456789')
             ->see('shipping.address_1')
             ->see('shipping.city')
             ->see('shipping.postcode');
@@ -117,9 +116,10 @@ class CheckoutControllerTest extends BrowserKitTest
         $this->type('INVALIDCOUPON', 'coupon');
 
         $this->press('checkout.confirm_order')
-            ->see('validation.coupon_exists')
-        ;
-    } /** @test */
+            ->see('validation.coupon_exists');
+    }
+
+    /** @test */
     public function try_to_checkout_with_valid_coupon_code()
     {
         $this->postAndCheckin();
@@ -138,8 +138,8 @@ class CheckoutControllerTest extends BrowserKitTest
             ->see('27.00€')
             ->see('billing.first_name')
             ->see('billing.last_name')
-            ->see('billing.email')
-            ->see('billing.phone')
+            ->see('billing@email.com')
+            ->see('123456789')
             ->see('billing.address_1')
             ->see('billing.city')
             ->see('billing.postcode')
@@ -149,8 +149,7 @@ class CheckoutControllerTest extends BrowserKitTest
             ->dontSee('shipping.phone')
             ->dontSee('shipping.address_1')
             ->dontSee('shipping.city')
-            ->dontSee('shipping.postcode')
-        ;
+            ->dontSee('shipping.postcode');
     }
 
     public function postAndCheckin()
@@ -166,8 +165,8 @@ class CheckoutControllerTest extends BrowserKitTest
     {
         $this->type('billing.first_name', 'billing[first_name]')
             ->type('billing.last_name', 'billing[last_name]')
-            ->type('billing.email', 'billing[email]')
-            ->type('billing.phone', 'billing[phone]')
+            ->type('billing@email.com', 'billing[email]')
+            ->type('123456789', 'billing[phone]')
             ->type('billing.address_1', 'billing[address_1]')
             ->type('billing.city', 'billing[city]')
             ->type('billing.postcode', 'billing[postcode]');
@@ -178,8 +177,8 @@ class CheckoutControllerTest extends BrowserKitTest
         $this->uncheck('check_shipping')
             ->type('shipping.first_name', 'shipping[first_name]')
             ->type('shipping.last_name', 'shipping[last_name]')
-            ->type('shipping.email', 'shipping[email]')
-            ->type('shipping.phone', 'shipping[phone]')
+            ->type('shipping@email.com]', 'shipping[email]')
+            ->type('0099123456789', 'shipping[phone]')
             ->type('shipping.address_1', 'shipping[address_1]')
             ->type('shipping.city', 'shipping[city]')
             ->type('shipping.postcode', 'shipping[postcode]');
