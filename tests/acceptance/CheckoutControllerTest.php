@@ -56,8 +56,8 @@ class CheckoutControllerTest extends BrowserKitTest
             ->see('billing.postcode')
             ->dontSee('shipping.first_name')
             ->dontSee('shipping.last_name')
-            ->dontSee('shipping.email')
-            ->dontSee('shipping.phone')
+            ->dontSee('shipping@email.com')
+            ->dontSee('0099123456789')
             ->dontSee('shipping.address_1')
             ->dontSee('shipping.city')
             ->dontSee('shipping.postcode');
@@ -150,6 +150,19 @@ class CheckoutControllerTest extends BrowserKitTest
             ->dontSee('shipping.address_1')
             ->dontSee('shipping.city')
             ->dontSee('shipping.postcode');
+    }
+
+    /** @test */
+    public function it_sees_google_conversion_id()
+    {
+        $this->postAndCheckin();
+
+        $this->fillBillingForm();
+        $this->checkPaymentAndAcceptTerms();
+
+        $this->press('checkout.confirm_order')
+            ->dontSee('validation.required')
+            ->see('var google_conversion_id = 946537783');
     }
 
     public function postAndCheckin()

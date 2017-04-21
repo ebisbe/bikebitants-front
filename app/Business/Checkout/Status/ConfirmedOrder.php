@@ -9,6 +9,8 @@ class ConfirmedOrder implements Status
 {
     protected $order;
 
+    const VIEW_NAME = 'checkout.confirmation';
+
     public function __construct(Order $order)
     {
         $this->order = $order;
@@ -25,6 +27,6 @@ class ConfirmedOrder implements Status
         Cart::clear();
         Cart::clearCartConditions();
 
-        return view('checkout.confirmation', compact('items', 'order'));
+        return view(self::VIEW_NAME, compact('items', 'order'));
     }
 }

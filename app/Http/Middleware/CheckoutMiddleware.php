@@ -2,13 +2,23 @@
 
 namespace App\Http\Middleware;
 
+use App\Business\Checkout\Status\ConfirmedOrder;
 use Cart;
 use App\Order;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Class CheckoutMiddleware
+ * @package App\Http\Middleware
+ */
 class CheckoutMiddleware
 {
+    /**
+     * @var
+     */
+    protected $view_name;
+
     /**
      * Handle an incoming request.
      *
@@ -28,9 +38,18 @@ class CheckoutMiddleware
             }
         }
 
-        return $next($request);
+        $response = $next($request);
+
+        if (isset($response->original)) {
+            $this->view_name = $response->original->name();
+        }
+        return $response;
     }
 
+    /**
+     * @param $request
+     * @param $response
+     */
     public function terminate($request, $response)
     {
         /** @var Collection $orders */
@@ -38,13 +57,19 @@ class CheckoutMiddleware
         if ($orders->isNotEmpty()) {
             /** @var Order $currentOrder */
             $currentOrder = $orders->first();
-            if ($currentOrder->status == Order::CONFIRMED) {
+
+            if ($this->view_name == ConfirmedOrder::VIEW_NAME &&
+                $currentOrder->status == Order::CONFIRMED
+            ) {
                 $currentOrder->print_analytics = false;
                 $currentOrder->save();
             }
         }
     }
 
+    /**
+     * @return bool
+     */
     protected function shouldRedirect()
     {
         //We don't have products and there is no current order started
