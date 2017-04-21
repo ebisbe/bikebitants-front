@@ -70,7 +70,7 @@ class Product extends ApiImporter
      */
     public function up_sell()
     {
-        return $this->belongsToMany(self::class, null, 'product_ids', 'up_sell_ids');
+        return $this->belongsToMany(self::class, null, 'up_sell_ids', 'up_sell_product_ids');
     }
 
     /**
@@ -78,7 +78,7 @@ class Product extends ApiImporter
      */
     public function cross_sell()
     {
-        return $this->belongsToMany(self::class, null, 'product_ids', 'cross_sell_ids');
+        return $this->belongsToMany(self::class, null, 'cross_sell_ids', 'cross_sell_product_ids');
     }
 
     /**
@@ -160,7 +160,7 @@ class Product extends ApiImporter
         $reviews = ModelFactory::make('review');
         $reviews->customImport($this, $entity['external_id']);
 
-        $this->addUpSellProducts($entity['upsell_ids']);
+        //$this->addUpSellProducts($entity['upsell_ids']);
         $this->addCrossSellProducts($entity['cross_sell_ids']);
 
         $properties = new Properties($this);

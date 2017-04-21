@@ -85,7 +85,7 @@ class ShopController extends Controller
     {
         /** @var Product $product */
         $product = Product::withoutGlobalScopes()
-            ->with(['category.father', 'brand', 'up_sell_shop.category.father', 'up_sell_shop.brand', 'tag'])
+            ->with(['category.father', 'brand', 'cross_sell_shop.category.father', 'cross_sell_shop.brand', 'tag'])
             ->where('slug', '=', $slug)
             ->whereIn('status', [2, 3])
             ->first();
@@ -137,7 +137,7 @@ class ShopController extends Controller
         $subtitle = $product->name;
 
         $relatedProducts = $product
-            ->up_sell_shop;
+            ->cross_sell_shop;
         return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle'));
     }
 
