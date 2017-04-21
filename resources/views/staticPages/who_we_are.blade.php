@@ -37,6 +37,13 @@
                             <div class="service">
                                 <h3>Miguel Belenguer</h3>
                                 <p>Tras 8 años desarrollando motores para automoción, Miguel ha cambiado los malos humos por la sostenible tracción humana a dos ruedas :-)</p>
+                                <ul class="list-unstyled">
+                                    <li class="social">
+                                        <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/miguelbelenguer">
+                                            <i class="fa fa-linkedin"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <!-- SERVICE - END -->
@@ -46,6 +53,13 @@
                             <div class="service">
                                 <h3>Oriol Huesa</h3>
                                 <p>Aprendiz incansable de marketing, internet y muchas otras cosas, experto gurú de nada en concreto.</p>
+                                <ul class="list-unstyled">
+                                    <li class="social">
+                                        <a target="_blank" rel="noopener" href="http://www.linkedin.com/in/oriol-huesa">
+                                            <i class="fa fa-linkedin"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <!-- SERVICE - END -->
@@ -55,6 +69,13 @@
                             <div class="service">
                                 <h3>Enric Bisbe Gil</h3>
                                 <p>Vive escondido, como ermitaño, entre grandes montañas de códigos y del Pirineo.</p>
+                                <ul class="list-unstyled">
+                                    <li class="social">
+                                        <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/enric-bisbe-gil-a2742831/">
+                                            <i class="fa fa-linkedin"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <!-- SERVICE - END -->
