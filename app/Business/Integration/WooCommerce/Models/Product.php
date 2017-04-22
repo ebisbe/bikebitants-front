@@ -160,7 +160,7 @@ class Product extends ApiImporter
         $reviews = ModelFactory::make('review');
         $reviews->customImport($this, $entity['external_id']);
 
-        //$this->addUpSellProducts($entity['upsell_ids']);
+        $this->addUpSellProducts($entity['upsell_ids']);
         $this->addCrossSellProducts($entity['cross_sell_ids']);
 
         $properties = new Properties($this);
