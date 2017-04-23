@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Jenssegers\Mongodb\Eloquent\Model;
-
-class State extends Model
+class State extends \App\Business\Integration\WooCommerce\Models\State
 {
     //
 }

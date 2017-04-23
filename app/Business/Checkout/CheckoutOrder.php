@@ -63,19 +63,19 @@ class CheckoutOrder
     {
         $this->getOrder();
         switch ($this->order->status) {
-            case Order::New:
+            case Order::NEW:
                 return \App::make('NewOrder');
                 break;
-            case Order::Redirected:
+            case Order::REDIRECTED:
                 return $this->confirmPayment();
                 break;
-            case Order::Confirmed:
+            case Order::CONFIRMED:
                 return new ConfirmedOrder($this->order);
                 break;
-            case Order::Cancelled:
+            case Order::CANCELLED:
                 return new CancelledOrder($this->order);
                 break;
-            case Order::Undefined:
+            case Order::UNDEFINED:
             default:
                 return new UndefinedOrder($this->order);
                 break;
@@ -115,8 +115,8 @@ class CheckoutOrder
     public function cancel($message)
     {
         $this->getOrder();
-        if ($this->order->status > Order::Cancelled) {
-            $this->order->status = Order::Cancelled;
+        if ($this->order->status > Order::CANCELLED) {
+            $this->order->status = Order::CANCELLED;
             $this->order->error_message = $message;
             if ($this->order->save()) {
                 Event::fire(new Cancel($this->order));
@@ -133,16 +133,16 @@ class CheckoutOrder
     {
         $this->getOrder();
         if ($this->response->isSuccessful()) {
-            $this->order->status = Order::Confirmed;
+            $this->order->status = Order::CONFIRMED;
             $this->order->save();
             // TODO send email
             Event::fire(new Confirm($this->order));
         } elseif ($this->response->isRedirect()) {
-            $this->order->status = Order::Redirected;
+            $this->order->status = Order::REDIRECTED;
             $this->order->save();
             $this->response->redirect();
         } else {
-            $this->order->status = Order::Undefined;
+            $this->order->status = Order::UNDEFINED;
             $this->order->error_message = $this->response->getMessage();
             $this->order->save();
             //Event::fire('order.error', [$this->order]);
@@ -153,7 +153,7 @@ class CheckoutOrder
     {
         $this->getOrder();
 
-        $this->order->status = Order::ValidData;
+        $this->order->status = Order::VALID_DATA;
 
         $customer = $this->getCustomer();
         $this->order->customer()->associate($customer);
@@ -180,7 +180,7 @@ class CheckoutOrder
             $order->session_id = $this->getSessionId();
             $order = $this->updateOrder($order);
 
-            if ($order->status == Order::New) {
+            if ($order->status == Order::NEW) {
                 Event::fire(new Create($order));
             }
             $this->order = $order;
@@ -209,7 +209,7 @@ class CheckoutOrder
      */
     protected function updateOrder(Order $order): Order
     {
-        if ($order->status == Order::New) {
+        if ($order->status == Order::NEW) {
             $order->subtotal = Cart::getSubTotalWithoutConditions();
             $order->total = Cart::getTotal();
             $order->total_items = Cart::getTotalQuantity();
@@ -237,7 +237,7 @@ class CheckoutOrder
             try {
                 $order->save();
             } catch (OutOfStockException $exception) {
-                $order->status = Order::Undefined;
+                $order->status = Order::UNDEFINED;
                 $order->message = $exception->getMessage();
             }
         }

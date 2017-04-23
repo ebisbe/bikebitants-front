@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
+use App\Business\Integration\WooCommerce\Exception\InvalidEventException;
 use App\Business\Integration\WooCommerce\Factory;
+use App\Business\Integration\WooCommerce\Models\ModelFactory;
 use App\Http\Middleware\VerifyWebHookSignature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -27,7 +29,7 @@ class WooCommerceController extends Controller
         }
 
         $response = \Woocommerce::get(
-            str_replace('_', '/', $command),
+            str_replace('-', '/', $command),
             ['page' => $request->get('page', 1), 'search' => $request->get('search', '')]
         );
 
@@ -41,31 +43,31 @@ class WooCommerceController extends Controller
 
     public function webhook(Request $request)
     {
-
-        //Log::info($request->header());
-        //Log::info($request->getContent());
-
         $resource = $request->header('x-wc-webhook-resource');
         $event = $request->header('x-wc-webhook-event');
 
         try {
-            $factoryResource = Factory::make($resource);
+            $factoryResource = ModelFactory::make($resource)
+                ->firstOrNew([
+                    'external_id' => $request->get('id')
+                ]);
 
             switch ($event) {
                 case 'created':
                 case 'updated':
-                    $id = $request->get($resource)['id'];
-                    $response = \Woocommerce::get(Str::plural($resource) . '/' . $id);
-                    $response = $factoryResource->sync($response);
+                    $response = $factoryResource->synchronize($request->all());
                     break;
                 case 'deleted':
-                    $response = $factoryResource->delete($request->get('id'));
+                    $response = $factoryResource->delete();
                     break;
+                default:
+                    throw new InvalidEventException("Invalid event given '{$event}'.");
             }
 
             return [$event => $response];
         } catch (EntityNotFoundException $e) {
-            return ['error' => $e];
+        } catch (InvalidEventException $e) {
         }
+        return ['error' => $e->getMessage()];
     }
 }

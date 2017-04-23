@@ -36,7 +36,7 @@ class CartController extends ApiController implements CartMapper
     public function store(Request $request, CartService $cartService)
     {
         $order = Order::currentOrder()->get();
-        if (!$order->isEmpty() && $order->first()->status > Order::New) {
+        if (!$order->isEmpty() && $order->first()->status > Order::NEW) {
             //TODO throw response in json form  if it is an ajax request
             abort(402, 'Unable to add more products while checking out the cart.');
         }

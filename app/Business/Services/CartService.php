@@ -78,6 +78,7 @@ class CartService
     {
         /** @var Product $product */
         $product = $this->productRepository->find($this->product_id);
+        //TODO fix error duplicated
         $variationProperties = array_merge([$this->product_id], $this->properties);
         /** @var Variation $variation */
         $variation = $product->productVariation($variationProperties);

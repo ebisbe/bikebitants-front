@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
 use App\Business\Integration\WooCommerce\Factory;
+use App\Business\Integration\WooCommerce\Models\ModelFactory;
+use App\Business\Integration\WooCommerce\Models\Tag;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
@@ -27,14 +29,10 @@ class WooCommerceSync extends Command
         $entities = $this->getEntitiesToSync();
         $entities->each(function ($entityName) {
 
-            try {
-                $class = Factory::make($entityName);
-                $this->info("Sync $entityName:");
-                $class->import();
-                $this->info('');
-            } catch (EntityNotFoundException $e) {
-                $this->error($e->getMessage());
-            }
+            $class = ModelFactory::make($entityName);
+            $this->info("Sync $entityName:");
+            $class->import();
+            $this->info('');
         });
     }
 
@@ -50,6 +48,6 @@ class WooCommerceSync extends Command
             return collect($entities);
         }
 
-        return collect(['Customer', 'Product', 'Category', 'Tax', 'Coupon']);
+        return collect(['Attribute', 'Tag', 'Customer', 'Category', 'Product', 'Tax', 'Coupon', 'Zone', 'Setting']);
     }
 }

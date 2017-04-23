@@ -13,12 +13,17 @@ server {
     location = /robots.txt  { log_not_found off; access_log off; }
 
     location / {
-
         #redirect all traffic from /blog to correct subdomain
-        rewrite ^/(blog.*)/$ https://blog.bikebitants.com/$1 permanent;
+        rewrite ^/(blog.*)$ https://blog.bikebitants.com/$1 permanent;
+
+        rewrite ^/producto-etiqueta/(.*)$ /etiqueta-producto/$1 permanent;
 
         #Remove trailing slashes for all urls
         rewrite ^/(.*)/$ /$1 permanent;
+
+        if ($new) {
+            rewrite ^ $new permanent;
+        }
 
         try_files $uri $uri/ /index.php$is_args$args;
     }

@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\WooCommerceSync::class,
         Commands\ExpireOrder::class,
-        Commands\PushOrder::class
+        Commands\PushOrder::class,
+        Commands\GenerateSiteMap::class,
+        Commands\InitialStockOnProducts::class
     ];
 
     /**
@@ -28,6 +30,8 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('order:expire')->everyFiveMinutes();
          $schedule->command('woo:sync')->daily();
+         $schedule->command('sitemap:generate')->daily();
+         $schedule->command('product:stock')->daily();
     }
     /**
      * Register the Closure based commands for the application.

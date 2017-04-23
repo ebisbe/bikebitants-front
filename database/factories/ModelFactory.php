@@ -28,6 +28,7 @@ use App\Product;
 use App\Review;
 use App\Shipping;
 use App\ShippingMethod;
+use App\Tag;
 use App\Tax;
 use App\User;
 use App\Variation;
@@ -64,7 +65,6 @@ $factory->define(Product::class, function (Generator $faker) {
         //'max_price' => $faker->numberBetween(1, 10),
         //'discount_init' => $faker->date(),
         //'discount_end' => $faker->date(),
-        'tags' => $faker->words(),
         'reviews_allowed' => $faker->boolean(),
         //'rating' => $faker,
         //'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
@@ -83,7 +83,6 @@ $factory->define(\App\Business\Models\Shop\Product::class, function (Generator $
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'is_featured' => $faker->boolean(35),
-        'tags' => $faker->words(),
         'reviews_allowed' => $faker->boolean(),
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
@@ -334,7 +333,7 @@ $factory->define(Tax::class, function (Generator $faker) {
 
 $factory->define(Order::class, function (Generator $faker) {
     return [
-        'status' => Order::New,
+        'status' => Order::NEW,
         "token" => Carbon::now()->timestamp,
         "session_id" => $faker->randomAscii,
         "subtotal" => $faker->randomFloat(2, 0, 25),
@@ -344,20 +343,32 @@ $factory->define(Order::class, function (Generator $faker) {
 });
 
 $factory->state(Order::class, 'New', function () {
-    return [ 'status' => Order::New ];
+    return ['status' => Order::NEW];
 });
 $factory->state(Order::class, 'ValidData', function () {
-    return [ 'status' => Order::ValidData ];
+    return ['status' => Order::VALID_DATA];
 });
 $factory->state(Order::class, 'Redirected', function () {
-    return [ 'status' => Order::Redirected ];
+    return ['status' => Order::REDIRECTED];
 });
 $factory->state(Order::class, 'Confirmed', function () {
-    return [ 'status' => Order::Confirmed ];
+    return ['status' => Order::CONFIRMED];
 });
 $factory->state(Order::class, 'Cancelled', function () {
-    return [ 'status' => Order::Cancelled ];
+    return ['status' => Order::CANCELLED];
 });
 $factory->state(Order::class, 'Undefined', function () {
-    return [ 'status' => Order::Undefined ];
+    return ['status' => Order::UNDEFINED];
+});
+
+
+$factory->define(Tag::class, function (Generator $faker) {
+    $name = $faker->name;
+    return [
+        "parent_id" => "",
+        "name" => $name,
+        //"slug" => str_slug($name), //Using slugableTraig
+        "description" => $faker->text(),
+        "count" => $faker->randomDigit,
+    ];
 });

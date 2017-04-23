@@ -2,11 +2,11 @@
 
 namespace App\Business\Integration\WooCommerce;
 
-use App\Brand;
-use App\Product;
-use App\Property;
-use App\PropertyValue;
+use App\Business\Integration\WooCommerce\Models\ModelFactory;
+use App\Business\Integration\WooCommerce\Models\Product;
+use App\Business\Integration\WooCommerce\Models\Property;
 
+// TODO review this class to follow ApiImporter Pattern
 class Properties
 {
     /**
@@ -16,7 +16,7 @@ class Properties
 
     /** @var Int $order Order for variation properties */
     private $order;
-    
+
     /**
      * Properties constructor.
      * @param Product $product
@@ -60,7 +60,7 @@ class Properties
     public function syncVariationProperties($variation, $defaultAttributes)
     {
         /** @var Property $property */
-        $property = new Property();
+        $property = ModelFactory::make('Property');
 
         $property->name = $variation['name'];
         $property->order = $this->order++;
@@ -79,10 +79,8 @@ class Properties
     public function syncAttribute($attribute)
     {
         if ($attribute['name'] == 'brand') {
-            $brand = Brand::whereName($attribute['options'][0])->first();
-            if (empty($brand)) {
-                $brand = new Brand();
-            }
+            $brandModel = ModelFactory::make('brand');
+            $brand = $brandModel->firstOrNew(['name' => $attribute['options'][0]]);
             $brand->name = $attribute['options'][0];
             $brand->save();
             $brand->products()->save($this->product);
@@ -99,8 +97,10 @@ class Properties
     protected function propertyValues($variation, $defaultAttributes, $property)
     {
         collect($variation['options'])->each(function ($option) use ($property, $defaultAttributes, $variation) {
-            $value = new PropertyValue();
-            $sku = str_slug(strtolower($option));
+            $value = ModelFactory::make('PropertyValue');
+
+            $sku = ModelFactory::make('AttributeTerms')->getSkuFromOption($option);
+            // TODO review if duplication can be avoided
             $value->_id = $sku;
             $value->sku = $sku;
             $value->name = $option;

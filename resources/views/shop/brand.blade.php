@@ -23,7 +23,7 @@
     <!-- ==========================
         LOOKBOOK SERVICES - START
     =========================== -->
-    @foreach($brand->services as $service)
+    @foreach([] as $service)
         <section class="content lookbook-services image-{{ $service->position }} border-bottom border-top">
             <div class="container">
                 <div class="row">
@@ -51,53 +51,24 @@
 =========================== -->
 
 
-    <!-- ==========================
-        FEATURED PRODUCTS - START
-    =========================== -->
-    <section class="content featured-products">
+    <section class="content products">
         <div class="container">
-
-            <h2>{{ trans('layout.brand_related_products') }}</h2>
+            <h2 class="hidden">Products</h2>
             <div class="row">
+                <div class="col-sm-12">
+                    <h3>{{ trans('layout.brand_related_products') }}</h3>
+                    <div class="row grid" id="products">
 
-                <!-- PRODUCT - START -->
-                @foreach($products as $product)
-                    @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
-                    <div class="col-xs-6 col-sm-3">
-                        <article class="product-item">
-                            <div class="product-overlay">
-                                <a href="{!! route('shop.slug', ['slug' => $product->slug]) !!}">
-                                    <div class="product-mask">
-                                        {!! Form::img($product->front_image_hover->filename, StaticVars::productRelated(), $product->front_image_hover->alt) !!}
-                                    </div>
-                                    {!! Form::img($product->front_image->filename, StaticVars::homeLeft(), $product->front_image->alt) !!}
-                                </a>
-                            </div>
-                            <h3>
-                                <a
-                                        href="{!! route('shop.slug', ['slug' => $product->slug]) !!}"
-                                        onclick="onProduct{{ $loop->iteration }}Click(); return !ga.loaded;"
-                                >{{ str_limit($product->name, 30) }}</a>
-                            </h3>
-                            @if(isset($product->rating))
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            @endif
-                            @include('partials.price')
-                        </article>
+                        <!-- PRODUCT - START -->
+                    @foreach($products as $product)
+                        @include('scripts.addImpression', ['product' => $product, 'iteration' => $loop->iteration])
+                        @include('partials.catalogue_product', ['product' => $product, 'iteration' => $loop->iteration])
+                    @endforeach
+                    <!-- PRODUCT - END -->
+
                     </div>
-            @endforeach
-            <!-- PRODUCT - END -->
+                </div>
             </div>
-
         </div>
     </section>
-    <!-- ==========================
-        FEATURED PRODUCTS - END
-    =========================== -->
 @endsection

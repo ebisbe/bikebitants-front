@@ -26,10 +26,6 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        if ($this->app->environment() != 'production') {
-            DB::connection('mongodb')->enableQueryLog();
-        }
-
         Blade::directive('injectCss', function ($cssRoute) {
             return "<style><?php echo file_get_contents(resource_path({$cssRoute})); ?></style>";
         });
@@ -39,7 +35,9 @@ class AppServiceProvider extends ServiceProvider
             view()->share('view_name', $view_name);
         });
 
-        if ($this->app->environment() === 'production') {
+        if ($this->app->isLocal()) {
+            DB::connection('mongodb')->enableQueryLog();
+        } else {
             \Request::setTrustedProxies(['172.18.0.0/16']);
         }
     }
@@ -51,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment() !== 'production') {
+        if ($this->app->isLocal()) {
             $this->app->register(IdeHelperServiceProvider::class);
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }

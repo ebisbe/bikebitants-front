@@ -35,7 +35,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Spatie\CookieConsent\CookieConsentMiddleware::class,
-            \Spatie\GoogleTagManager\GoogleTagManagerMiddleware::class,
+            \Spatie\GoogleTagManager\GoogleTagManagerMiddleware::class
         ],
 
         'api' => [

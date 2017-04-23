@@ -35,20 +35,20 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
 COPY default /etc/nginx/sites-available/default
-
+COPY marketing.map /etc/nginx/marketing.map
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
+COPY xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
+COPY opcache.ini /etc/php/7.0/mods-available/opcache.ini
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY www.conf /etc/php/7.0/fpm/pool.d/www.conf
+
+COPY packaged /var/www/html
+COPY cronjobs.conf /var/home/
+COPY start.sh /var/home/
 
 EXPOSE 80
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-COPY packaged /var/www/html
 RUN chown -R www-data: /var/www/html
-
-COPY cronjobs.conf /var/home/
-
-COPY start.sh /var/home/
-
 RUN chmod +x /var/home/start.sh
-
 CMD ["./var/home/start.sh"]

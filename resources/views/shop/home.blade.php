@@ -143,7 +143,7 @@
         <div class="row row-no-padding">
             <!-- CATEGORY - START -->
             @foreach($categories as $category)
-                <div class="col-xs-6 col-md-2">
+                <div class="col-xs-6 col-sm-4 col-md-2">
                     <div class="category">
                         <a href="{{ route('shop.slug', ['slug' => $category->slug]) }}">
                             {!! Form::img($category->filename, StaticVars::homeCategories(), $category->name) !!}

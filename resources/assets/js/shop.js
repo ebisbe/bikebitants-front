@@ -72,6 +72,42 @@ $(document).ready(function () {
         Bus.$emit('shippingDestinationUpdate', { state: state, country: country});
     });
 
+    $('#js-shipping').on('change', '.js-country', function (event) {
+        var country = $(this).val();
+        var newOptions = $(this).data(country.toLowerCase());
+
+        var $el = $(".js-change");
+        $el.empty(); // remove old options
+        $.each(newOptions, function(key,value) {
+            $el.append($("<option></option>")
+                .attr("value", value._id).text(value.name));
+        });
+
+        $el.change();
+    });
+    $('.js-country').change();
+
+    $('#js-shipping').on('change', '.js-change2', function (event) {
+        var that = $(this);
+        var country = $('.js-country2').val();
+        var state = that.val();
+    });
+
+    $('#js-shipping').on('change', '.js-country2', function (event) {
+        var country = $(this).val();
+        var newOptions = $(this).data(country.toLowerCase());
+
+        var $el = $(".js-change2");
+        $el.empty(); // remove old options
+        $.each(newOptions, function(key,value) {
+            $el.append($("<option></option>")
+                .attr("value", value._id).text(value.name));
+        });
+
+        $el.change();
+    });
+    $('.js-country2').change();
+
     if($(window).width() <= 767) {
         $('#widget-categories-collapse, #widget-price-collapse').collapse('hide');
     }

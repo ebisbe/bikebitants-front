@@ -11,6 +11,8 @@ use \Request;
  * Class Order
  * @package App
  *
+ * @property int status
+ * @property bool print_analytics
  * @property Billing $billing
  * @property Shipping $shipping
  * @property integer $external_id
@@ -19,19 +21,20 @@ use \Request;
 class Order extends Model
 {
 
-    const New = 1;
-    const ValidData = 2;
-    const Redirected = 3;
-    const Confirmed = 4;
-    const Cancelled = -1;
-    const Undefined = -2;
+    const NEW = 1;
+    const VALID_DATA = 2;
+    const REDIRECTED = 3;
+    const CONFIRMED = 4;
+    const CANCELLED = -1;
+    const UNDEFINED = -2;
 
     protected $fillable = [
-        'billing_id', 'shipping_id', 'user_id', 'status', 'payment_method', 'external_id'
+        'billing_id', 'shipping_id', 'user_id', 'status', 'payment_method', 'external_id', 'print_analytics'
     ];
 
     public $attributes = [
-        'status' => Order::New
+        'status' => Order::NEW,
+        'print_analytics' => true
     ];
 
     public static function boot()
@@ -98,7 +101,7 @@ class Order extends Model
     public static function isCurrentOrderConfirmed()
     {
         $order = self::currentOrder()->get();
-        return !$order->isEmpty() && $order->first()->status == self::Confirmed ? true : false;
+        return !$order->isEmpty() && $order->first()->status == self::CONFIRMED ? true : false;
     }
 
     /**

@@ -9,6 +9,8 @@ services:
      - .:/var/www/html
     networks:
      - skynet
+    environment:
+      XDEBUG_HOST: "${XDEBUG_HOST}"
   node:
     build:
       context: ./docker/node

@@ -4,12 +4,9 @@ namespace App;
 
 use App\Business\Repositories\ProductRepository;
 use App\Jobs\ProductVariations;
-use Jenssegers\Mongodb\Eloquent\Model;
 
-class Variation extends Model
+class Variation extends \App\Business\Integration\WooCommerce\Models\Variation
 {
-    protected $fillable = ['_id', 'real_price', 'discounted_price', 'is_discounted', 'stock', 'external_id'];
-
     public static function boot()
     {
         parent::boot();
@@ -25,7 +22,7 @@ class Variation extends Model
 
         static::saved(function ($model) {
             /** @var Product $product */
-            $product = (new ProductRepository())->find($model->_id[0]);
+            $product = Product::find($model->_id[0]);
             dispatch(new ProductVariations($product));
         });
     }

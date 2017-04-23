@@ -2,21 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Collection;
 use Jenssegers\Mongodb\Eloquent\Builder;
-use Jenssegers\Mongodb\Eloquent\Model;
 
-class Zone extends Model
+class Zone extends \App\Business\Integration\WooCommerce\Models\Zone
 {
-    protected $fillable = ['name', 'state'];
-
-    /**
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany|Collection
-     */
-    public function shipping_methods()
-    {
-        return $this->embedsMany(ShippingMethod::class);
-    }
+    public $wooCommerceCallback = 'shipping/zones';
 
     /**
      * @param Builder $query

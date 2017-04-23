@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\WooCoomerce;
 
-use App\Business\Integration\WooCommerce\Image;
-use App\Business\Integration\WooCommerce\Product;
+use App\Business\Integration\WooCommerce\Models\Image;
+use App\Business\Integration\WooCommerce\Models\Product;
 
 class ProductStatysSyncroTest extends \TestCase
 {
@@ -12,8 +12,7 @@ class ProductStatysSyncroTest extends \TestCase
 
     protected function setUp()
     {
-        $app = new \Illuminate\Foundation\Application();
-        $this->service = $app->make('\App\Business\Integration\WooCommerce\Product');
+        $this->service = new Product();
     }
 
     /** @test */
@@ -49,7 +48,7 @@ class ProductStatysSyncroTest extends \TestCase
     /** @test */
     public function get_encoded_name_from_url()
     {
-        $image = new Image(new \App\Product());
+        $image = new Image();
         list($url, $name) = $image->encodeSrc('http://www.example.com/diseño.jpg');
 
         $this->assertEquals('http://www.example.com/', $url);

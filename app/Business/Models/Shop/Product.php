@@ -2,7 +2,7 @@
 
 namespace App\Business\Models\Shop;
 
-use App\Business\Traits\FilterPublishedOrHiddenTrait;
+use App\Business\Traits\FilterPublishedTrait;
 use App\Business\Traits\Presenters\ProductPresenter;
 
 /**
@@ -13,7 +13,7 @@ use App\Business\Traits\Presenters\ProductPresenter;
  */
 class Product extends \App\Product
 {
-    use FilterPublishedOrHiddenTrait, ProductPresenter;
+    use FilterPublishedTrait, ProductPresenter;
 
     protected $appends = ['range_price', 'tags_list', 'currency'];
 
@@ -26,7 +26,7 @@ class Product extends \App\Product
      */
     public function up_sell_shop()
     {
-        return $this->belongsToMany(self::class, null, 'product_ids', 'up_sell_ids');
+        return $this->belongsToMany(self::class, null, 'up_sell_ids');
     }
 
     /**
@@ -34,7 +34,7 @@ class Product extends \App\Product
      */
     public function cross_sell_shop()
     {
-        return $this->belongsToMany(self::class, null, 'product_ids', 'cross_sell_ids');
+        return $this->belongsToMany(self::class, null, 'cross_sell_ids');
     }
 
     /**

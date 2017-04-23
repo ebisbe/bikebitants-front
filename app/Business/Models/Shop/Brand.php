@@ -9,7 +9,7 @@ use App\Business\Traits\Presenters\BrandPresenter;
  * @package App\Shop
  *
  */
-class Brand extends \App\Brand
+class Brand extends \App\Business\Integration\WooCommerce\Models\Brand
 {
     use BrandPresenter;
 }

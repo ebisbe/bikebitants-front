@@ -15,14 +15,9 @@ resources/assets/js/vue-i18n-locales.generated.js
 docker/app/packaged/*
 !docker/app/packaged/.gitkeep
 public/mix-manifest.json
-public/css/*
-!public/css/.gitkeep
-public/js/*
-!public/js/.gitkeep
-public/img/*
-!public/img/.gitkeep
 public/images/*
-public/fonts/*
-!public/images/launcher*
 !public/images/default-avatar.png
+!public/images/EquipoBikebitants.jpg
 !public/images/*/
+public/sitemap.xml
+storage/httpcache/*

@@ -8,6 +8,7 @@ use App\Category;
 use App\Coupon;
 use App\Order;
 use App\PaymentMethod;
+use App\Tag;
 use App\Tax;
 use App\Variation;
 
@@ -16,12 +17,15 @@ trait ProductTrait
 
     public function tearDown()
     {
+        //TODO Migrations should be executed at least once. So we are relying on the unique attributes of some models
+
         Product::truncate();
         Brand::truncate();
         Category::truncate();
         Tax::truncate();
         Coupon::truncate();
         Order::truncate();
+        Tag::truncate();
     }
 
     /**
@@ -34,7 +38,6 @@ trait ProductTrait
         $product = factory(Product::class)->states('featured')->create([
             '_id' => 'simple-product',
             'name' => 'Simple Product',
-            'tags' => ['label1', 'label2']
         ]);
         $variation = factory(Variation::class)->make([
             '_id' => [$product->_id],
@@ -48,6 +51,13 @@ trait ProductTrait
         /** @var Brand $brand */
         $brand = factory(Brand::class)->create(['name' => 'Simple Brand']);
         $brand->products()->save($product);
+
+        /** @var Tag $tag */
+        $tag = factory(Tag::class)->create(['name' => 'Label1']);
+        $tag->products()->save($product);
+
+        $tag = factory(Tag::class)->create(['name' => 'Label2']);
+        $tag->products()->save($product);
 
         /** @var Category $category */
         $category = factory(Category::class)->create(['name' => 'Category 1', 'products_count' => 1]);
@@ -70,7 +80,7 @@ trait ProductTrait
         $product = factory(Product::class)->create([
             '_id' => 'variation-product',
             'name' => 'Variation Product',
-            'tags' => ['label2']
+//            'tags' => ['label2']
         ]);
         $variation1 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'RED'],

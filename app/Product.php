@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Business\Traits\UpdateCategoriesTrait;
-use Jenssegers\Mongodb\Eloquent\Model;
 use App\Business\Traits\SluggableTrait;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
@@ -16,13 +15,12 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * @property string $currency
  * @property string $html_currency
  * @property string $name
- * @property string $generic_name
  * @property string $slug
  * @property string $status
  * @property string $introduction
  * @property string $description
  * @property string $is_featured
- * @property array $tags
+ * @property string $menu_order
  * @property string $meta_title
  * @property string $meta_description
  * @property string $meta_slug
@@ -38,11 +36,14 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * @property-read Image $front_image
  * @property-read Image $front_image_hover
  * @property-read Category $category
+ * @property-read Property $properties
  *
- * @method static Builder whereSlug($slug)
- * @method static Builder whereBrandId($brandId)
+ * @method static Product whereSlug($slug)
+ * @method static Product whereBrandId($brandId)
+ * @method static Product hasStock()
+ * @method static Product isVariable()
  */
-class Product extends Model
+class Product extends \App\Business\Integration\WooCommerce\Models\Product
 {
     use SoftDeletes, SluggableTrait, UpdateCategoriesTrait;
 
@@ -55,59 +56,6 @@ class Product extends Model
 
     const LOW_STOCK = 5;
 
-    protected $dates = ['deleted_at'];
-
-    protected $fillable = [
-        'name',
-        'generic_name',
-        'slug',
-        'status',
-        'introduction',
-        'description',
-        'is_featured',
-        'tags',
-        'meta_title',
-        'meta_description',
-        'meta_slug',
-        'external_id',
-        'prices',
-        'stock',
-        'is_discounted',
-        'categories',
-        'rating'
-    ];
-
-    protected $attributes = [
-        'categories' => []
-    ];
-
-    protected $casts = ['is_featured' => 'boolean', 'is_discounted' => 'boolean', 'review_allowed' => 'boolean'];
-
-    /**
-     * Colors defined for the product
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
-     */
-    public function properties()
-    {
-        return $this->embedsMany(Property::class);
-    }
-
-    /**
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
-     */
-    public function variations()
-    {
-        return $this->embedsMany(Variation::class);
-    }
-
-    /**
-     * Reviews made by the users for the product
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
-     */
-    public function reviews()
-    {
-        return $this->embedsMany(Review::class);
-    }
 
     /**
      * Labels attached to the product
@@ -118,31 +66,6 @@ class Product extends Model
         return $this->embedsMany(Label::class);
     }
 
-    /**
-     * Images from the product
-     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
-     */
-    public function images()
-    {
-        return $this->embedsMany(Image::class);
-    }
-
-    /**
-     * Brand of the product
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function category()
-    {
-        return $this->belongsToMany(Category::class);
-    }
 
     /**
      * @return \Jenssegers\Mongodb\Relations\EmbedsMany
@@ -161,19 +84,11 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
      */
-    public function up_sell()
+    public function variations()
     {
-        return $this->belongsToMany(self::class, null, 'product_ids', 'up_sell_ids');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function cross_sell()
-    {
-        return $this->belongsToMany(self::class, null, 'product_ids', 'cross_sell_ids');
+        return $this->embedsMany(Variation::class);
     }
 
     /**
@@ -207,5 +122,23 @@ class Product extends Model
     public function hasLowStock()
     {
         return $this->stock <= self::LOW_STOCK;
+    }
+
+    /**
+     * @param Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeHasStock(Builder $query)
+    {
+        return $query->where('stock', '>', 0);
+    }
+
+    /**
+     * @param Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsVariable(Builder $query)
+    {
+        return $query->whereNotNull('properties');
     }
 }

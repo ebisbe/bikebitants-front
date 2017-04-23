@@ -7,12 +7,19 @@
     <div class="top-header hidden-xs">
         <div class="container">
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-9">
                     <ul class="list-inline contacts">
-                        <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
-                        <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
+                        <li>
+                            <i class="fa fa-envelope"></i>
+                            <a href="mailto:{{ StaticVars::email() }}">{{ StaticVars::email() }}</a></li>
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            <a href="tel:{{ StaticVars::telephone() }}">{{ StaticVars::telephone() }}</a>
+                            @lang('layout.telephone_schedule')
+                        </li>
                     </ul>
                 </div>
+
             </div>
         </div>
     </div>

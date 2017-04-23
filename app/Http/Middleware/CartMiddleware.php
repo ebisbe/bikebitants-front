@@ -45,8 +45,8 @@ class CartMiddleware
 
         $order = $this->order->currentOrder()->get();
         if ($order->isEmpty()
-            || $order->first()->status >= Order::Redirected
-            || $order->first()->status < Order::New
+            || $order->first()->status >= Order::REDIRECTED
+            || $order->first()->status < Order::NEW
         ) {
             $request->session()->forget('order');
         }

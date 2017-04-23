@@ -16,5 +16,5 @@ return [
     'third_box_p' => 'Aceptamos tu devoluci&oacute;n<br/> hasta 30 dias despues de la compra',
 
     'blog_h2' => 'Blog Bikebitants',
-    'blog_p' => 'Lee sobre como la tecnología y la innovación pueden ayudar al ciclista urbano... y más!'
+    'blog_p' => 'Como la tecnología y la innovación pueden ayudar al ciclista urbano... y más!'
 ];

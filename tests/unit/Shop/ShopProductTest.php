@@ -131,7 +131,7 @@ class ShopProductTest extends \TestCase
         $product_with_scopes = Product::find($product->_id);
         $product_without_scopes = Product::withoutGlobalScopes()->find($product->_id);
 
-        $this->assertEquals($product->_id, $product_with_scopes->_id);
+        $this->assertEquals(null, $product_with_scopes);
         $this->assertEquals($product->_id, $product_without_scopes->_id);
     }
 
@@ -237,12 +237,30 @@ class ShopProductTest extends \TestCase
     }
 
     /** @test */
+    public function it_gets_higher_price()
+    {
+        $this->createTax();
+        $product = $this->createProductWithThreeVariations([0, 15, 20]);
+
+        $this->assertEquals(20, $product->higher_price);
+    }
+
+    /** @test */
     public function get_lower_price_with_product_without_price()
     {
         $this->createTax();
         $product = $this->createProductWithThreeVariations([0, 0, 0]);
 
         $this->assertEquals('-', $product->lower_price);
+    }
+
+    /** @test */
+    public function it_gets_higher_price_with_product_without_price()
+    {
+        $this->createTax();
+        $product = $this->createProductWithThreeVariations([0, 0, 0]);
+
+        $this->assertEquals('-', $product->higher_price);
     }
 
     /** @test */

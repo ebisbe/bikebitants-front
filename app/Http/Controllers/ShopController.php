@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Brand;
 use App\Business\Models\Shop\Category;
 use App\Business\Models\Shop\Product;
-use App\Business\Repositories\BrandRepository;
 use App\Business\Repositories\CategoryRepository;
+use App\Business\Repositories\TagRepository;
 use App\Business\Search\ProductSearch;
 use App\Business\Repositories\ProductRepository;
 use Illuminate\Http\Request;
@@ -20,25 +19,21 @@ class ShopController extends Controller
 
     protected $productSearch;
     protected $categoryRepository;
-    protected $brandRepository;
     protected $productRepository;
 
     /**
      * ShopController constructor.
      * @param ProductSearch $productSearch
      * @param CategoryRepository $categoryRepository
-     * @param BrandRepository $brandRepository
      * @param ProductRepository $productRepository
      */
     public function __construct(
         ProductSearch $productSearch,
         CategoryRepository $categoryRepository,
-        BrandRepository $brandRepository,
         ProductRepository $productRepository
     ) {
         $this->productSearch = $productSearch;
         $this->categoryRepository = $categoryRepository;
-        $this->brandRepository = $brandRepository;
         $this->productRepository = $productRepository;
 
         Breadcrumbs::setCssClasses('breadcrumb');
@@ -52,15 +47,20 @@ class ShopController extends Controller
      */
     public function home()
     {
-        $brands = collect();/*$this->brandRepository->findAll()*/
+        $brands = collect();
         $featuredProducts = $this->productRepository
             ->with(['category', 'brand'])
             ->where('is_featured', true)
-            ->limit(10)->findAll();
+            ->orderBy('menu_order')
+            ->limit(10)
+            ->findAll();
+
         $productsLeft = $featuredProducts->splice(0, 2);
         $productsRight = $featuredProducts;
         $categories = $this->categoryRepository
-            ->where('filename', 'exists', true)
+            // its not really necesary but avoids showing more categories due to
+            //the way data is downloaded from the api
+            ->where('filename', '!=', null)
             ->where('father_id', 'exists', false)
             ->orderBy('name', 'asc')->findAll();
 
@@ -84,9 +84,12 @@ class ShopController extends Controller
     public function slug($slug, Request $request, Route $route)
     {
         /** @var Product $product */
-        $product = $this->productRepository
-            ->with(['category.father', 'brand', 'up_sell_shop.category.father', 'up_sell_shop.brand'])
-            ->findBy('slug', $slug);
+        $product = Product::withoutGlobalScopes()
+            ->with(['category.father', 'brand', 'cross_sell_shop.category.father', 'cross_sell_shop.brand', 'tag'])
+            ->where('slug', '=', $slug)
+            ->whereIn('status', [2, 3])
+            ->first();
+
         if (!empty($product)) {
             return $this->product($product);
         }
@@ -106,7 +109,6 @@ class ShopController extends Controller
      */
     public function product(Product $product)
     {
-
         Breadcrumbs::addCrumb(trans('layout.shop'), route('shop.catalogue'));
         $category = $product->category->first();
         if (!empty($category->father)) {
@@ -135,31 +137,8 @@ class ShopController extends Controller
         $subtitle = $product->name;
 
         $relatedProducts = $product
-            ->up_sell_shop;
+            ->cross_sell_shop;
         return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle'));
-    }
-
-    /**
-     * @param $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function brand($slug)
-    {
-        /** @var Brand $brand */
-        $brand = $this->brandRepository->findBy('slug', $slug);
-        $this->abortIfEmpty($brand);
-
-        $products = $this->productRepository
-            ->with('brand', 'category')
-            ->where('brand_id', $brand->_id)
-            ->findAll();
-
-        MetaTag::set('title', $brand->title);
-        MetaTag::set('description', $brand->meta_description);
-        //MetaTag::set('slug', $brand->meta_slug);
-        MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $brand->filename]));
-
-        return view('shop.brand', compact('brand', 'products'));
     }
 
     /**
@@ -296,42 +275,41 @@ class ShopController extends Controller
 
         $products = $this->productRepository
             ->with(['brand', 'category'])
-            ->findWhere(['is_discounted', '=', true])
-            ->sortBy(function ($product) {
-                return min($product->prices);
-            });
+            ->where('is_discounted', true)
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('prices', 'asc')
+            ->findAll();
 
         return view('shop.bargain', compact('products', 'title', 'subtitle'));
     }
 
     /**
      * @param $slug
+     * @param TagRepository $tagRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function tag($slug)
+    public function tag($slug, TagRepository $tagRepository)
     {
         Breadcrumbs::addCrumb(trans('tag.name'));
 
-        $title = trans('layout.shop');
-        $subtitle = $slug;
+        $tagQuery = $tagRepository->with(['products_shop.brand', 'products_shop.category']);
+        $tag = $tagQuery->findBy('slug', $slug);
 
-        MetaTag::set('title', trans('tag.title', ['name' => $slug]));
-        MetaTag::set('description', trans('tag.description', ['name' => $slug]));
-
-        $products = $this->productRepository->whereIn('tags', [$slug])->findAll();
-
-        return view('shop.bargain', compact('products', 'title', 'subtitle'));
-    }
-
-
-    /**
-     * Abort if entity received is empty
-     * @param $entity
-     */
-    public function abortIfEmpty($entity)
-    {
-        if (empty($entity)) {
-            abort(404, trans('exceptions.page_not_found'));
+        if (is_null($tag)) {
+            $tag = $tagQuery->findBy('name', $slug);
+            if (!is_null($tag)) {
+                return redirect(\route('shop.tag', ['slug' => $tag->slug]), 301);
+            }
         }
+
+        $this->abortIfEmpty($tag);
+
+        $title = trans('layout.shop');
+        $subtitle = $tag->name;
+
+        MetaTag::set('title', $tag->name);
+        MetaTag::set('description', $tag->description);
+
+        return view('shop.tag', compact('tag', 'title', 'subtitle'));
     }
 }
