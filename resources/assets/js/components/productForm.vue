@@ -17,7 +17,7 @@
                 </quantity-select>
 
                 <div class="form-group product-size">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 col-sm-offset-4 col-lg-offset-0">
 
                         <cart-add :quantity="quantity"
                                   :product_id="product_id"
@@ -37,8 +37,14 @@
                         </cart-add>
                     </div>
                 </div>
-                <span class="help-block" id="helpBlock2">Precio: <strong>{{ variation_price }}</strong>
-                    <span v-html="stockText"></span> </span>
+
+                <div class="form-group product-size">
+                    <div class="col-sm-12 col-sm-offset-4 col-lg-offset-0">
+                        <span class="help-block" id="helpBlock2">{{ $t('cart.price') }}: <strong>{{ variation_price }}&euro;</strong>
+                        <span v-html="stockText"></span> </span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </form>

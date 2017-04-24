@@ -12,6 +12,7 @@ return [
 
     'product' => 'Producto',
     'unity_price' => 'Precio unitario',
+    'price' => 'Precio',
     'quantity' => 'Cantidad',
     'subtotal' => 'Subtotal',
     'item' => 'producto',
