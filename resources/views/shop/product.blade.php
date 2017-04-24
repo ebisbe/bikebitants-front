@@ -113,7 +113,9 @@ PRODUCTS - START
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div class="product-overlay">
-                                                <div class="product-mask"></div>
+                                                <div class="product-mask">
+                                                    {!! Form::img($relatedProduct->front_image_hover->filename, StaticVars::productRelated(), $relatedProduct->front_image_hover->filename) !!}
+                                                </div>
                                                 <a href="{{ route('shop.slug', ['slug' => $relatedProduct->slug]) }}"
                                                    onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
                                                    class="product-permalink"></a>
