@@ -19,7 +19,6 @@
     "laravel-mix": "^0.8.1",
     "lazysizes": "3.0.0-rc2",
     "lodash": "^4.16.2",
-    "owl.carousel": "2.2.0",
     "raven-js": "3.12.1",
     "smoothscroll-for-websites": "1.4.6",
     "vue": "^2.1.4",

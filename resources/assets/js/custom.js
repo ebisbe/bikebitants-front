@@ -231,10 +231,12 @@ $(document).ready(function () {
 
     $("#product-carousel").owlCarousel({
         items: 1,
-        loop: true,
-        lazyLoad: true,
+        loop: false,
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
+        center:true,
+        URLhashListener:true,
+        startPosition: 'URLHash',
         nav : true,
         navText : ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"]
     });

@@ -91,8 +91,9 @@
                     this.max_quantity = 0;
                 } else {
                     this.max_quantity = variation[0].stock;
+                    this.variation_price = variation[0].tax_price;
+                    location.hash = variation[0].filename;
                 }
-                this.variation_price = variation[0].tax_price;
             },
 
             updateQuantity: function (quantity) {

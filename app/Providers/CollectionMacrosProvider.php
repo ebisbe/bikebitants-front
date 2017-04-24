@@ -19,21 +19,36 @@ class CollectionMacrosProvider extends ServiceProvider
 
     public function boot(FormBuilder $factory)
     {
-        $factory->macro('img', function ($filename, $sizes, $alt, $wrapper = '{img}', $class = 'lazyload img-responsive') {
-            /** @var Collection $sizes */
-            $srcset = $sizes->map(function ($size, $viewPort) use ($filename) {
-                return assetCDN("img/$size/$filename")." $viewPort";
-            })->implode(',');
+        $factory->macro(
+            'img',
+            function ($filename, $sizes, $alt, $wrapper = '{img}', $class = 'lazyload img-responsive') {
+                /** @var Collection $sizes */
+                $srcset = $sizes->map(function ($size, $viewPort) use ($filename) {
+                    return assetCDN("img/$size/$filename") . " $viewPort";
+                })->implode(',');
 
-            $size = $sizes->first();
-            return str_ireplace('{img}', '<img data-src="'.assetCDN("img/$size/$filename").'" class="' . $class . '" alt="' . $alt . '" data-sizes="100w" data-srcset="' . $srcset . '">', $wrapper);
-        });
+                $size = $sizes->first();
+
+                $img = '<img 
+                        data-src="' . assetCDN("img/$size/$filename") . '"
+                        class="' . $class . '" 
+                        alt="' . $alt . '" 
+                        data-sizes="100w" 
+                        data-srcset="' . $srcset . '">';
+                return str_ireplace('{img}', $img, $wrapper);
+            }
+        );
 
         $factory->macro('product', function (Product $product) {
 
             $images = [];
             foreach ($product->images as $image) {
-                $images[] = Form::img($image->filename, StaticVars::productRelated(), $image->alt, StaticVars::imgWrapper());
+                $images[] = Form::img(
+                    $image->filename,
+                    StaticVars::productRelated(),
+                    $image->alt,
+                    StaticVars::imgWrapper()
+                );
                 break; // TODO Make Owl.js to work when changin it's images src
             }
 
