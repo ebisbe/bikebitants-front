@@ -4,8 +4,9 @@ namespace Tests\Unit\WooCoomerce;
 
 use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
 use App\Business\Integration\WooCommerce\Models\ModelFactory;
+use Tests\TestCase;
 
-class FactoryTest extends \TestCase
+class FactoryTest extends TestCase
 {
     /** @test */
     public function wordpress_entity_not_found()

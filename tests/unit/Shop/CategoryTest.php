@@ -3,8 +3,9 @@
 namespace Tests\Unit\Shop;
 
 use App\Business\Models\Shop\Category;
+use Tests\TestCase;
 
-class CategoryTest extends \TestCase
+class CategoryTest extends TestCase
 {
     /** @test */
     public function category_has_empty_filename()

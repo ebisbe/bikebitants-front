@@ -1,39 +1,37 @@
 <?php
 
+namespace Tests\Acceptance;
+
 use App\Business\Traits\Tests\ProductTrait;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\BrowserKitTesting\HttpException;
+use Tests\TestCase;
 
-class BrandTest extends BrowserKitTest
+class BrandTest extends TestCase
 {
     use ProductTrait;
 
     /** @test */
-    public function find_brand_and_see_simple_product()
+    public function it_finds_brand_and_see_simple_product()
     {
         $this->createTax();
         $this->createSimpleProduct();
 
-        $this->visit($this->link('tienda/simple-brand'))
-            ->see('Simple Brand')
-            ->see('Simple Product')
-            ->seePageIs($this->link('tienda/simple-brand'))
-            ->seeRouteIs('shop.brand', ['slug' => 'simple-brand']);
+        $response = $this->get($this->link('tienda/simple-brand'));
+
+        $response
+            ->assertStatus(200)
+            ->assertSee('Simple Brand')
+            ->assertSee('Simple Product');
     }
 
     /** @test */
-    public function get_404_from_unknown_brand()
+    public function it_gets_404_from_unknown_brand()
     {
-        try {
-            $this->visit($this->link('tienda/luces-bicicleta'));
-        } catch (HttpException $e) {
-            $this->assertEquals($e->getPrevious()->getMessage(), 'exceptions.page_not_found');
-            return;
-        }
-
-        $this->fail('Should receive exception.');
+        $response = $this->get($this->link('tienda/luces-bicicleta'));
+        $response->assertStatus(404);
     }
 
     /** @test */
@@ -42,9 +40,10 @@ class BrandTest extends BrowserKitTest
         $this->createTax();
         $this->createSimpleProduct();
 
-        $this->visit($this->link('/tienda/marcas'))
-            ->see('Simple Brand')
-            ->click('Simple Brand')
-            ->seeRouteIs('shop.brand', ['slug' => 'simple-brand']);
+        $response = $this->get($this->link('/tienda/marcas'));
+
+        $response
+            ->assertStatus(200)
+            ->assertSee('Simple Brand');
     }
 }

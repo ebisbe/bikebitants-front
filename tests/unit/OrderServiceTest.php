@@ -1,7 +1,11 @@
 <?php
 
+namespace Tests\Unit;
+
 use App\Order;
 use Carbon\Carbon;
+use Tests\TestCase;
+use OrderService;
 
 class OrderServiceTest extends TestCase
 {

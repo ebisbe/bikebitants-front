@@ -1,39 +1,54 @@
 <?php
 
+namespace Tests\Acceptance;
+
 use App\Business\Traits\Tests\ProductTrait;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
-class CartControllerTest extends BrowserKitTest
+class CartControllerTest extends TestCase
 {
     use ProductTrait;
 
     /** @test */
-    public function see_empty_cart()
+    public function it_sees_empty_cart()
     {
         $this->createTax();
-        $this->visit('/cart')
-            ->see('cart.empty_cart_h1')
-            ->see('cart.empty_cart_message');
+        $response = $this->get(route('cart.index'));
+
+        $response
+            ->assertStatus(200)
+            ->assertSee('cart.empty_cart_h1')
+            ->assertSee('cart.empty_cart_message');
     }
 
     /** @test */
-    public function add_product_and_go_to_cart()
+    public function it_adds_a_product_and_goes_to_cart()
     {
         $this->createTax(21);
         $this->createSimpleProduct();
         $this->createDiscounts();
 
-        $this
-            ->addSimpleProduct()
-            ->visit('/cart')
-            ->see('Simple Product')
-            ->see('12.10')
-            ->see('Total<span>12.10')
+        $this->addSimpleProduct();
+        $response = $this
+            ->get(route('cart.index'));
 
-            ->type('DISCOUNT10', 'coupon')
-            ->press('cart.apply_coupon')
-            ->see('DISCOUNT10<span>-10%')
-            ->see('Total<span>10.89')
-            ;
+        $response
+            ->assertStatus(200)
+            ->assertSee('Simple Product')
+            ->assertSee('12.10')
+            ->assertSee('Total<span>12.10');
+
+        // TODO this should be done via api
+        $response = $this->postJson(route('coupon.store', ['coupon' => 'DISCOUNT10']));
+        $response->assertStatus(302);
+
+        $response = $this
+            ->get(route('cart.index'));
+
+        $response
+            ->assertStatus(200)
+            ->assertSee('discount10<span>-10%')
+            ->assertSee('Total<span>10.89');
     }
 }

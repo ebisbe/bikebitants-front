@@ -7,8 +7,9 @@ use App\Business\Models\Shop\Product;
 use App\Business\Traits\Tests\ProductTrait;
 use App\Image;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
-class ShopProductTest extends \TestCase
+class ShopProductTest extends TestCase
 {
     use ProductTrait;
 

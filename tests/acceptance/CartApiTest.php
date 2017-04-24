@@ -1,53 +1,60 @@
 <?php
 
+namespace Tests\Acceptance;
+
 use App\Business\Traits\Tests\ProductTrait;
 use App\Exceptions\VariationNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Tests\TestCase;
 
-class CartApiTest extends BrowserKitTest
+class CartApiTest extends TestCase
 {
     use ProductTrait;
 
     /** @test */
-    public function add_one_simple_product_to_cart()
+    public function it_adds_one_simple_product_to_cart()
     {
         $this->createTax(21);
         $this->createSimpleProduct();
-        $this->addSimpleProduct();
-        $this
-            ->seeJson([
+        $response = $this->addSimpleProduct();
+        $response
+            ->assertStatus(200)
+            ->assertJson([
                 '_id' => "simple-product",
                 'quantity' => 1,
                 'price' => '12.10',
                 'is_max_stock' => false
             ])
-            ->seeJsonStructure($this->getProductResponse());
+            ->assertJsonStructure($this->getProductResponse());
 
-        $this->addSimpleProduct(2);
-        $this
-            ->seeJson([
+        $response = $this->addSimpleProduct(2);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
                 'quantity' => 3,
                 'is_max_stock' => false
             ]);
 
-        $this->addSimpleProduct(7);
-        $this
-            ->seeJson([
+        $response = $this->addSimpleProduct(7);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
                 'quantity' => 10,
                 'is_max_stock' => true
             ]);
     }
 
     /** @test */
-    public function add_more_than_ten_simple_products_to_cart()
+    public function it_adds_more_than_ten_simple_products_to_cart()
     {
         $this->createTax(21);
         $this->createSimpleProduct();
 
-        $this->addSimpleProduct(150);
-        $this
-            ->seeJson([
+        $response = $this->addSimpleProduct(150);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
                 '_id' => "simple-product",
                 'quantity' => 10,
                 'price' => '12.10',
@@ -56,28 +63,29 @@ class CartApiTest extends BrowserKitTest
     }
 
     /** @test */
-    public function clear_empty_cart()
+    public function it_clears_already_empty_cart()
     {
         $this->createTax();
-        $this
-            ->deleteJson('/api/cart/simple-product')
-            ->seeJson([
+        $response = $this
+            ->deleteJson('/api/cart/simple-product');
+        $response
+            ->assertJson([
                 'success' => false,
                 'message' => 'api.cart_empty'
             ])
-            ->seeStatusCode(200);
+            ->assertStatus(200);
     }
 
     /** @test */
-    public function clear_cart_with_one_simple_product()
+    public function it_clears_cart_with_one_simple_product()
     {
         $this->createTax();
         $this->createSimpleProduct();
         //count cart => 0
         $response = $this
-            ->getJson('/api/cart')
-            ->seeStatusCode(200)
-            ->response;
+            ->getJson('/api/cart');
+
+        $response->assertStatus(200);
         $this->assertEquals(0, count($response->getOriginalContent()));
 
         //add simple product
@@ -85,27 +93,30 @@ class CartApiTest extends BrowserKitTest
 
         //count cart => 1
         $response = $this
-            ->getJson('/api/cart')
-            ->seeJsonStructure(['*' => $this->getProductResponse()])
-            ->seeJson(['quantity' => 5])
-            ->response;
+            ->getJson('/api/cart');
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(['*' => $this->getProductResponse()])
+            ->assertJson([['quantity' => 5]]);
 
         $this->assertEquals(1, count($response->getOriginalContent()));
 
         $id = $response->getOriginalContent()[0]['_id'];
 
         //clear product
-        $this
-            ->deleteJson('/api/cart/' . $id)
-            ->seeStatusCode(200)
-            ->seeJson([
+        $response = $this
+            ->deleteJson('/api/cart/' . $id);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
                 'success' => true,
                 'message' => 'api.product_deleted'
             ]);
     }
 
     /** @test */
-    public function add_one_product_with_variation()
+    public function it_adds_one_product_with_variation()
     {
         //arrange
         $this->createTax();
@@ -116,33 +127,38 @@ class CartApiTest extends BrowserKitTest
 
         //assert
         $response = $this
-            ->getJson('/api/cart')
-            ->seeJsonStructure(['*' => $this->getProductResponse()])
-            ->seeJson(['quantity' => 1])
-            ->response;
+            ->getJson('/api/cart');
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(['*' => $this->getProductResponse()])
+            ->assertJson([['quantity' => 1]]);
         $this->assertEquals(1, count($response->getOriginalContent()));
 
         //act
         $this->addVariationProduct(2, ['RED']);
 
         //assert
-        $this
-            ->getJson('/api/cart')
-            ->seeJsonStructure(['*' => $this->getProductResponse()])
-            ->seeJson(['quantity' => 3]);
+        $response = $this
+            ->getJson('/api/cart');
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(['*' => $this->getProductResponse()])
+            ->assertJson([['quantity' => 3]]);
 
         //act
         $this->addVariationProduct(7, ['RED']);
 
         //assert
-        $this
-            ->getJson('/api/cart')
-            ->seeJsonStructure(['*' => $this->getProductResponse()])
-            ->seeJson(['quantity' => 10]);
+        $response = $this
+            ->getJson('/api/cart');
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(['*' => $this->getProductResponse()])
+            ->assertJson([['quantity' => 10]]);
     }
 
     /** @test */
-    public function add_two_variation_products()
+    public function it_adds_two_variation_products_to_cart()
     {
         //arrange
         $this->createTax();
@@ -154,13 +170,12 @@ class CartApiTest extends BrowserKitTest
 
         //assert
         $response = $this
-            ->getJson('/api/cart')
-            ->response;
+            ->getJson('/api/cart');
         $this->assertEquals(2, count($response->getOriginalContent()));
     }
 
     /** @test */
-    public function add_three_variations_to_cart_and_remove_them()
+    public function it_adds_three_variations_to_cart_and_remove_them()
     {
         //arrange
         $this->createTax();
@@ -172,8 +187,8 @@ class CartApiTest extends BrowserKitTest
         $this->addVariationProduct(1, ['GREEN']);
 
         $response = $this
-            ->getJson('/api/cart')
-            ->response;
+            ->getJson('/api/cart');
+
         $this->assertEquals(3, count($response->getOriginalContent()));
 
         $id1 = $response->getOriginalContent()[0]['_id'];
@@ -181,56 +196,60 @@ class CartApiTest extends BrowserKitTest
         $id3 = $response->getOriginalContent()[2]['_id'];
 
         //act & assert
-        $this
-            ->deleteJson('/api/cart/' . $id1)
-            ->seeStatusCode(200)
-            ->seeJson([
+        $response = $this
+            ->deleteJson('/api/cart/' . $id1);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
                 'success' => true,
                 'message' => 'api.product_deleted'
             ]);
 
         //act
         $response = $this
-            ->getJson('/api/cart')
-            ->response;
+            ->getJson('/api/cart');
+
         //assert
         $this->assertEquals(2, count($response->getOriginalContent()));
 
         //act & assert
-        $this
-            ->deleteJson('/api/cart/' . $id2)
-            ->seeStatusCode(200)
-            ->seeJson([
+        $response = $this
+            ->deleteJson('/api/cart/' . $id2);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
                 'success' => true,
                 'message' => 'api.product_deleted'
             ]);
 
         //act
         $response = $this
-            ->getJson('/api/cart')
-            ->response;
+            ->getJson('/api/cart');
+
         //assert
         $this->assertEquals(1, count($response->getOriginalContent()));
 
         //act & assert
-        $this
-            ->deleteJson('/api/cart/' . $id3)
-            ->seeStatusCode(200)
-            ->seeJson([
+        $response = $this
+            ->deleteJson('/api/cart/' . $id3);
+        $response
+            ->assertStatus(200)
+            ->assertJson([
                 'success' => true,
                 'message' => 'api.product_deleted'
             ]);
 
         //act
         $response = $this
-            ->getJson('/api/cart')
-            ->response;
+            ->getJson('/api/cart');
         //assert
         $this->assertEquals(0, count($response->getOriginalContent()));
     }
 
     /** @test */
-    public function add_non_existant_variation()
+    public function it_adds_non_existant_variation()
     {
         $this->createTax();
         $this->createProductWithThreeVariations();
@@ -241,23 +260,25 @@ class CartApiTest extends BrowserKitTest
             'properties' => ['ORANGE']
         ];
 
-        $this->postJson('/api/cart', $content)
-            ->seeStatusCode(500);
+        $response = $this->postJson('/api/cart', $content);
+        $response
+            ->assertStatus(500);
 
     }
 
     /** @test */
-    public function remove_non_existant_variation()
+    public function it_removes_non_existant_variation()
     {
         $this->createTax();
         $this->createProductWithThreeVariations();
 
         $this->addVariationProduct(1, ['RED']);
 
-        $this
-            ->deleteJson('/api/cart/variation-product-ORANGE')
-            ->seeStatusCode(200)
-            ->seeJson([
+        $response = $this
+            ->deleteJson('/api/cart/variation-product-ORANGE');
+        $response
+            ->assertStatus(200)
+            ->assertJson([
                 'success' => true,
                 'message' => 'api.product_deleted'
             ]);

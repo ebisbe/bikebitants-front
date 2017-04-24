@@ -1,6 +1,9 @@
 <?php
 
+namespace Tests\Unit;
+
 use App\Zone;
+use Tests\TestCase;
 
 class ZoneTest extends TestCase
 {

@@ -40,7 +40,7 @@ class CheckoutMiddleware
 
         $response = $next($request);
 
-        if (isset($response->original)) {
+        if (isset($response->original) && method_exists($response->original, 'name')) {
             $this->view_name = $response->original->name();
         }
         return $response;

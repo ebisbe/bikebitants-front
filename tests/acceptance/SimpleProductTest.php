@@ -1,54 +1,59 @@
 <?php
 
+namespace Tests\Acceptance;
+
 use App\Business\Traits\Tests\ProductTrait;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\BrowserKitTesting\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tests\TestCase;
 
-class SimpleProductTest extends BrowserKitTest
+class SimpleProductTest extends TestCase
 {
     use ProductTrait;
 
     /** @test */
-    public function find_simple_product_at_home()
+    public function it_finds_simple_product_at_home()
     {
         $this->createTax();
         $this->createSimpleProduct();
 
-        $this->visit('/')
-            ->see('Simple Product')
-            ->click('Simple Product')
-            ->see('Simple Product')
-            ->seePageIs($this->link('simple-product'))
-            ->seeRouteIs('shop.slug', ['slug' => 'simple-product']);
+        $response = $this->get('/');
+
+        $response
+            ->assertStatus(200)
+            ->assertSee('Simple Product');
+    }
+
+    /** @test */
+    public function it_finds_simple_product_on_product_page()
+    {
+        $this->createTax();
+        $this->createSimpleProduct();
+
+        $response = $this->get(route('shop.slug', ['slug' => 'simple-product']));
+
+        $response
+            ->assertStatus(200)
+            // TODO should reveiw all attributes
+            ->assertSee('Simple Product');
     }
 
     /** @test */
     public function get_404_from_unknown_product()
     {
-        try {
-            $this->visit('/wp-content');
-        } catch (HttpException $e) {
-            $this->assertEquals($e->getPrevious()->getMessage(), 'exceptions.page_not_found');
-            return;
-        }
+        $response = $this->get('/wp-content');
 
-        $this->fail('Should receive exception.');
+        $response->assertStatus(404);
     }
 
     /** @test */
     public function get_404_from_unknown_subcategory()
     {
-        try {
-            $this->visit('/wp-content/common.php.suspected');
-        } catch (HttpException $e) {
-            $this->assertEquals($e->getPrevious()->getMessage(), 'exceptions.page_not_found');
-            return;
-        }
-
-        $this->fail('Should receive exception.');
+        $response = $this->get('/wp-content/common.php.suspected');
+        $response->assertStatus(404);
     }
 
     /** @test */
@@ -57,11 +62,9 @@ class SimpleProductTest extends BrowserKitTest
         $this->createTax();
         $this->createSimpleProduct();
 
-        $this->visit('/category-1/sub-category-1')
-            ->see('Simple Product')
-            ->click('Simple Product')
-            ->see('Simple Product')
-            ->seePageIs($this->link('simple-product'))
-            ->seeRouteIs('shop.slug', ['slug' => 'simple-product']);
+        $response = $this->get(route('shop.subslug', ['slug' => 'category-1', 'subslug' => 'sub-category-1']));
+        $response
+            ->assertStatus(200)
+            ->assertSee('Simple Product');
     }
 }

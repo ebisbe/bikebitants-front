@@ -1,8 +1,11 @@
 <?php
 
+namespace Tests\Unit\ProductSearch;
+
 use App\Business\Search\ProductSearchResult;
 use App\Business\Search\ResultFilterNotFound;
 use Illuminate\Support\Collection;
+use Tests\TestCase;
 
 class ProductSearchResultTest extends TestCase
 {

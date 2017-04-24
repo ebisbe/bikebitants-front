@@ -68,6 +68,6 @@ class WooCommerceController extends Controller
         } catch (EntityNotFoundException $e) {
         } catch (InvalidEventException $e) {
         }
-        return ['error' => $e->getMessage()];
+        return response(['error' => $e->getMessage()], 404);
     }
 }
