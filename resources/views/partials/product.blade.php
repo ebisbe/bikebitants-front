@@ -23,9 +23,12 @@
                                 href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
                     </li>
                     @endif
-                    <li><span>@lang('catalogue.tags')</span>
+                    <li class="tags"><span>@lang('catalogue.tags')</span>
                         @foreach($product->tag as $tag)
-                            <a href="{{ route('shop.tag', ['slug' => $tag->slug]) }}">{{ $tag->name }}</a>@if (!$loop->last), @endif
+                            <span class="label">
+                                <i class="fa fa-tag"></i>
+                                <a href="{{ route('shop.tag', ['slug' => $tag->slug]) }}">{{ $tag->name }}</a>
+                            </span>
                         @endforeach
                     </li>
                 </ul>
