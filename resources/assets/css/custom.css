@@ -551,6 +551,7 @@ textarea {
     margin-right: 3px;
     margin-bottom: 6px;
     border-radius: 0;
+    width: auto !important;
 }
 
 .tags span.label a {
