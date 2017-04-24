@@ -1,205 +1,310 @@
 <?php
 
+namespace Tests\Acceptance;
+
 use App\Business\Traits\Tests\ProductTrait;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
-class CheckoutControllerTest extends BrowserKitTest
+class CheckoutControllerTest extends TestCase
 {
     use ProductTrait;
 
     /** @test */
-    public function dont_add_product_and_redirect_to_shop()
+    public function it_doesnt_add_products_to_cart_and_redirects_to_shop()
     {
-        $this->visit(route('checkout.index'))
-            ->seePageIs(route('shop.catalogue'));
+        $response = $this->get(route('checkout.index'));
+
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(route('shop.catalogue'));
     }
 
     /** @test */
-    public function add_product_and_see_checkout()
+    public function it_adds_products_and_see_checkout_page()
+    {
+        $response = $this->postAndCheckin();
+
+        $response
+            ->assertStatus(200)
+            ->assertSee('Simple Product')
+            ->assertSee('30.00&euro;')
+            ->assertSee('x 3');
+    }
+
+    /** @test */
+    public function it_tries_to_checkout_without_billing_data()
+    {
+        $this->postAndCheckin();
+
+        $response = $this->post(route('checkout.store'), []);
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(route('checkout.index'))
+            ->assertSessionHasErrors(
+                [
+                    'billing.first_name',
+                    'billing.last_name',
+                    'billing.email',
+                    'billing.phone',
+                    'billing.address_1',
+                    'billing.city',
+                    'billing.postcode',
+                    'billing.country',
+                    'billing.state'
+                ]
+            );
+    }
+
+    /** @test */
+    public function it_fills_with_billing_data_and_submit()
+    {
+        //assert
+        $this->postAndCheckin();
+        $data = array_merge(
+            $this->fillBillingForm(),
+            $this->checkPaymentAndAcceptTerms()
+        );
+
+        $storeResponse = $this->post(route('checkout.store'), $data);
+        $storeResponse
+            ->assertSessionMissing('billing.first_name');
+
+        $this->disableExceptionHandling();
+
+        $response = $this->get(route('checkout.index'));
+        $response
+            ->assertStatus(200)
+            ->assertDontSee('validation.required')
+            ->assertSee('Simple Product')
+            ->assertSee('10.00&euro;')
+            ->assertSee('30.00&euro;')
+            ->assertSee('billing.first_name')
+            ->assertSee('billing.last_name')
+            ->assertSee('billing@email.com')
+            ->assertSee('123456789')
+            ->assertSee('billing.address_1')
+            ->assertSee('billing.city')
+            ->assertSee('billing.postcode')
+            ->assertDontSee('shipping.first_name')
+            ->assertDontSee('shipping.last_name')
+            ->assertDontSee('shipping@email.com')
+            ->assertDontSee('0099123456789')
+            ->assertDontSee('shipping.address_1')
+            ->assertDontSee('shipping.city')
+            ->assertDontSee('shipping.postcode');
+    }
+
+    /** @test */
+    public function it_tries_to_checkout_without_shipping_data()
+    {
+        $this->postAndCheckin();
+        $data = array_merge(
+            $this->fillBillingForm(),
+            $this->checkPaymentAndAcceptTerms(),
+            ['check_shipping' => null]
+        );
+
+        $response = $this->post(route('checkout.store'), $data);
+
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(route('checkout.index'))
+            ->assertSessionHasErrors(
+                [
+                    'shipping.first_name',
+                    'shipping.last_name',
+                    'shipping.email',
+                    'shipping.phone',
+                    'shipping.address_1',
+                    'shipping.city',
+                    'shipping.postcode',
+                    'shipping.country',
+                    'shipping.state'
+                ]
+            );
+    }
+
+    /** @test */
+    public function it_checkouts_with_shipping_data()
     {
         $this->postAndCheckin();
 
-        $this->see('Simple Product')
-            ->see('30.00€')
-            ->see('x 3');
+        $data = array_merge(
+            $this->fillBillingForm(),
+            $this->fillShippingForm(),
+            $this->checkPaymentAndAcceptTerms()
+        );
+
+        $response = $this->post(route('checkout.index'), $data);
+
+        $response
+            ->assertStatus(302);
+
+        $response = $this->get(route('checkout.index'));
+        $response
+            ->assertDontSee('validation.required')
+            ->assertSee('Simple Product')
+            ->assertSee('10.00&euro;')
+            ->assertSee('30.00&euro;')
+            ->assertSee('billing.first_name')
+            ->assertSee('billing.last_name')
+            ->assertDontSee('billing.email')
+            ->assertDontSee('billing.phone')
+            ->assertSee('billing.address_1')
+            ->assertSee('billing.city')
+            ->assertSee('billing.postcode')
+            ->assertSee('shipping.first_name')
+            ->assertSee('shipping.last_name')
+            ->assertSee('shipping@email.com')
+            ->assertSee('0099123456789')
+            ->assertSee('shipping.address_1')
+            ->assertSee('shipping.city')
+            ->assertSee('shipping.postcode');
     }
 
     /** @test */
-    public function try_to_checkout_without_billing_data()
+    public function it_tries_to_checkout_with_invalid_coupon_code()
     {
         $this->postAndCheckin();
 
-        $this->press('checkout.confirm_order')
-            ->see('validation.required');
+        $data = array_merge(
+            $this->fillBillingForm(),
+            $this->checkPaymentAndAcceptTerms(),
+            ['coupon' => 'INVALID']
+        );
+
+        $response = $this->post(route('checkout.store'), $data);
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(route('checkout.index'))
+            ->assertSessionHasErrors(['coupon']);
     }
 
     /** @test */
-    public function fill_billing_data_and_submit()
-    {
-        $this->postAndCheckin();
-        $this->fillBillingForm();
-        $this->checkPaymentAndAcceptTerms();
-
-        $this->press('checkout.confirm_order')
-            ->dontSee('validation.required')
-            ->see('Simple Product')
-            ->see('10.00€')
-            ->see('30.00€')
-            ->see('billing.first_name')
-            ->see('billing.last_name')
-            ->see('billing@email.com')
-            ->see('123456789')
-            ->see('billing.address_1')
-            ->see('billing.city')
-            ->see('billing.postcode')
-            ->dontSee('shipping.first_name')
-            ->dontSee('shipping.last_name')
-            ->dontSee('shipping@email.com')
-            ->dontSee('0099123456789')
-            ->dontSee('shipping.address_1')
-            ->dontSee('shipping.city')
-            ->dontSee('shipping.postcode');
-    }
-
-    /** @test */
-    public function try_to_checkout_without_shipping_data()
-    {
-        $this->postAndCheckin();
-        $this->fillBillingForm();
-        $this->checkPaymentAndAcceptTerms();
-
-        $this->uncheck('check_shipping');
-
-        $this->press('checkout.confirm_order')
-            ->see('validation.required');
-    }
-
-    /** @test */
-    public function try_to_checkout_with_shipping_data()
-    {
-        $this->postAndCheckin();
-        $this->fillBillingForm();
-        $this->fillShippingForm();
-        $this->checkPaymentAndAcceptTerms();
-
-        $this->press('checkout.confirm_order')
-            ->dontSee('validation.required')
-            ->see('Simple Product')
-            ->see('10.00€')
-            ->see('30.00€')
-            ->see('billing.first_name')
-            ->see('billing.last_name')
-            ->dontSee('billing.email')
-            ->dontSee('billing.phone')
-            ->see('billing.address_1')
-            ->see('billing.city')
-            ->see('billing.postcode')
-            ->see('shipping.first_name')
-            ->see('shipping.last_name')
-            ->see('shipping@email.com')
-            ->see('0099123456789')
-            ->see('shipping.address_1')
-            ->see('shipping.city')
-            ->see('shipping.postcode');
-    }
-
-    /** @test */
-    public function try_to_checkout_with_invalid_coupon_code()
+    public function it_checkouts_with_valid_coupon_code()
     {
         $this->postAndCheckin();
         $this->createDiscounts();
 
-        $this->fillBillingForm();
-        $this->checkPaymentAndAcceptTerms();
-        $this->type('INVALIDCOUPON', 'coupon');
+        $data = array_merge(
+            $this->fillBillingForm(),
+            $this->checkPaymentAndAcceptTerms(),
+            ['coupon' => 'DISCOUNT10']
+        );
 
-        $this->press('checkout.confirm_order')
-            ->see('validation.coupon_exists');
+        $this->post(route('checkout.store'), $data);
+
+        $response = $this->get(route('checkout.index'));
+
+        $response
+            ->assertStatus(200)
+            ->assertDontSee('validation.required')
+            ->assertSee('Simple Product')
+            ->assertSee('discount10')
+            ->assertSee('9.00&euro;')
+            ->assertSee('27.00&euro;')
+            ->assertSee('billing.first_name')
+            ->assertSee('billing.last_name')
+            ->assertSee('billing@email.com')
+            ->assertSee('123456789')
+            ->assertSee('billing.address_1')
+            ->assertSee('billing.city')
+            ->assertSee('billing.postcode')
+            ->assertDontSee('shipping.first_name')
+            ->assertDontSee('shipping.last_name')
+            ->assertDontSee('shipping.email')
+            ->assertDontSee('shipping.phone')
+            ->assertDontSee('shipping.address_1')
+            ->assertDontSee('shipping.city')
+            ->assertDontSee('shipping.postcode');
     }
 
     /** @test */
-    public function try_to_checkout_with_valid_coupon_code()
-    {
-        $this->postAndCheckin();
-        $this->createDiscounts();
-
-        $this->fillBillingForm();
-        $this->checkPaymentAndAcceptTerms();
-        $this->type('DISCOUNT10', 'coupon');
-
-
-        $this->press('checkout.confirm_order')
-            ->dontSee('validation.required')
-            ->see('Simple Product')
-            ->see('DISCOUNT10')
-            ->see('9.00€')
-            ->see('27.00€')
-            ->see('billing.first_name')
-            ->see('billing.last_name')
-            ->see('billing@email.com')
-            ->see('123456789')
-            ->see('billing.address_1')
-            ->see('billing.city')
-            ->see('billing.postcode')
-            ->dontSee('shipping.first_name')
-            ->dontSee('shipping.last_name')
-            ->dontSee('shipping.email')
-            ->dontSee('shipping.phone')
-            ->dontSee('shipping.address_1')
-            ->dontSee('shipping.city')
-            ->dontSee('shipping.postcode');
-    }
-
-    /** @test */
-    public function it_sees_google_conversion_id()
+    public function it_assertSees_google_conversion_id()
     {
         $this->postAndCheckin();
 
-        $this->fillBillingForm();
-        $this->checkPaymentAndAcceptTerms();
+        $data = array_merge(
+            $this->fillBillingForm(),
+            $this->checkPaymentAndAcceptTerms()
+        );
 
-        $this->press('checkout.confirm_order')
-            ->dontSee('validation.required')
-            ->see('var google_conversion_id = 946537783');
+        $this->post(route('checkout.store'), $data);
+
+        $response = $this->get(route('checkout.index'));
+
+        $response
+            ->assertStatus(200)
+            ->assertDontSee('validation.required')
+            ->assertSee('var google_conversion_id = 946537783');
     }
 
+    /**
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
     public function postAndCheckin()
     {
         $this->createTax();
         $this->createSimpleProduct();
         $this->addSimpleProduct(3);
 
-        $this->visit(route('checkout.index'));
+        return $this->get(route('checkout.index'));
     }
 
+    /**
+     * @return array
+     */
     public function fillBillingForm()
     {
-        $this->type('billing.first_name', 'billing[first_name]')
-            ->type('billing.last_name', 'billing[last_name]')
-            ->type('billing@email.com', 'billing[email]')
-            ->type('123456789', 'billing[phone]')
-            ->type('billing.address_1', 'billing[address_1]')
-            ->type('billing.city', 'billing[city]')
-            ->type('billing.postcode', 'billing[postcode]');
+        return [
+            'billing' => [
+                'first_name' => 'billing.first_name',
+                'last_name' => 'billing.last_name',
+                'email' => 'billing@email.com',
+                'phone' => '123456789',
+                'address_1' => 'billing.address_1',
+                'city' => 'billing.city',
+                'postcode' => 'billing.postcode',
+                'country' => 'ES',
+                'state' => 'B'
+            ],
+            'check_shipping' => 'true', //TODO review why have to use true and not 1 is possible
+            'shipping' => []
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function fillShippingForm()
     {
-        $this->uncheck('check_shipping')
-            ->type('shipping.first_name', 'shipping[first_name]')
-            ->type('shipping.last_name', 'shipping[last_name]')
-            ->type('shipping@email.com]', 'shipping[email]')
-            ->type('0099123456789', 'shipping[phone]')
-            ->type('shipping.address_1', 'shipping[address_1]')
-            ->type('shipping.city', 'shipping[city]')
-            ->type('shipping.postcode', 'shipping[postcode]');
+        return [
+            'check_shipping' => 0,
+            'shipping' => [
+                'first_name' => 'shipping.first_name',
+                'last_name' => 'shipping.last_name',
+                'email' => 'shipping@email.com]',
+                'phone' => '0099123456789',
+                'address_1' => 'shipping.address_1',
+                'city' => 'shipping.city',
+                'postcode' => 'shipping.postcode',
+                'country' => 'ES',
+                'state' => 'B'
+            ]
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function checkPaymentAndAcceptTerms()
     {
-        $this->select('bank-transfer', 'payment')
-            ->check('checkout-terms-conditions');
+        return [
+            'payment' => 'bank-transfer',
+            'checkout-terms-conditions' => 1
+        ];
     }
 }

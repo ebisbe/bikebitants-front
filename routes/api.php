@@ -17,8 +17,5 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //})->middleware('auth:api');
 
-Route::post('woo/webhook', 'WooCommerceController@webhook');
-
-Route::resource('product', 'Api\ProductController', [
-    'only' => ['index', 'show']
-]);
+Route::post('woo/webhook', 'WooCommerceController@webhook')
+    ->name('woo.webhook');

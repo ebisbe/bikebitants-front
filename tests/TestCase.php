@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests;
+
+use App\Console\Kernel;
 use App\Exceptions\Handler;
 use Symfony\Component\Debug\ExceptionHandler;
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
     /**
      * The base URL to use while testing the application.
@@ -21,7 +24,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         $app = require __DIR__ . '/../bootstrap/app.php';
 
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $app->make(Kernel::class)->bootstrap();
 
         $app->setLocale('fake');
         //disabled FALLBACK_LOCALE through phpunit env variables. All translation return their code
@@ -42,11 +45,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
             {
             }
 
-            public function report(Exception $e)
+            public function report(\Exception $e)
             {
             }
 
-            public function render($request, Exception $e)
+            public function render($request, \Exception $e)
             {
                 throw $e;
             }

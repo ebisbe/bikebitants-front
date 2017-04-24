@@ -1,7 +1,10 @@
 <?php
 
+namespace Tests\Unit;
+
 use App\Business\Services\ShippingMethodService;
 use App\Zone;
+use Tests\TestCase;
 
 class ShippingMethodServiceTest extends TestCase
 {

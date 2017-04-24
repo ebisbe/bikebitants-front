@@ -4,8 +4,9 @@ namespace Tests\Unit\WooCoomerce;
 
 use App\Business\Integration\WooCommerce\Exception\InvalidPayloadException;
 use App\Business\Integration\WooCommerce\WebHook;
+use Tests\TestCase;
 
-class WebHookTest extends \TestCase
+class WebHookTest extends TestCase
 {
     /** @test */
     public function verify_valid_payload_request()

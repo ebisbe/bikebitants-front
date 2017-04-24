@@ -38,8 +38,8 @@ Route::get('/ofertas', 'ShopController@bargain')->name('shop.bargain');
 Route::get('/etiqueta-producto/{slug}', 'ShopController@tag')->name('shop.tag');
 Route::resource('cart', 'CartController', ['only' => ['index', 'destroy']]);
 
+Route::get('/tienda/marcas', 'BrandController@brands')->name('shop.brands');
 Route::get('/tienda/{slug}', 'BrandController@brand')->name('shop.brand');
-Route::get('/marcas', 'BrandController@brands')->name('shop.brands');
 
 Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
 Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store', 'show']]);

@@ -1,11 +1,14 @@
 <?php
 
+namespace Tests\Acceptance;
+
 use App\Product;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
-class BargainTest extends BrowserKitTest
+class BargainTest extends TestCase
 {
     public function tearDown()
     {
@@ -13,7 +16,7 @@ class BargainTest extends BrowserKitTest
     }
 
     /** @test */
-    public function view_bargains()
+    public function it_views_bargains_from_shop()
     {
         //arrange
         /** We are sending the array prices just because we need to filter through the prices and we need some.
@@ -22,15 +25,17 @@ class BargainTest extends BrowserKitTest
         factory(Product::class)->create(['name' => 'Simple Product']);
 
         //act
-        $this->visit(route('shop.bargain'));
+        $response = $this->get(route('shop.bargain'));
 
         //assert
-        $this->see('Variable Product 2')
-            ->see('Oferta Bikebitants')
-            ->see('layout.shop')
-            ->see('bargain.title')
-            ->see('bargain.description')
-            ->dontSee('Simple Product')
+        $response
+            ->assertStatus(200)
+            ->assertSee('Variable Product 2')
+            ->assertSee('Oferta Bikebitants')
+            ->assertSee('layout.shop')
+            ->assertSee('bargain.title')
+            ->assertSee('bargain.description')
+            ->assertDontSee('Simple Product')
         ;
     }
 }

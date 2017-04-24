@@ -11,6 +11,7 @@ use App\PaymentMethod;
 use App\Tag;
 use App\Tax;
 use App\Variation;
+use Illuminate\Foundation\Testing\TestResponse;
 
 trait ProductTrait
 {
@@ -131,7 +132,7 @@ trait ProductTrait
 
     /**
      * @param int $quantity
-     * @return $this
+     * @return TestResponse
      */
     public function addSimpleProduct(int $quantity = 1)
     {
@@ -141,7 +142,7 @@ trait ProductTrait
     /**
      * @param int $quantity
      * @param array $properties
-     * @return $this
+     * @return TestResponse
      */
     public function addVariationProduct(int $quantity = 1, array $properties)
     {
@@ -152,18 +153,16 @@ trait ProductTrait
      * @param string $product_id
      * @param int $quantity
      * @param array $properties
-     * @return $this
+     * @return TestResponse
      */
     public function addProduct(string $product_id, int $quantity = 1, array $properties = [])
     {
-        $this
+        return $this
             ->postJson('/api/cart', [
                 'product_id' => $product_id,
                 'quantity' => $quantity,
                 'properties' => $properties
             ]);
-
-        return $this;
     }
 
     /**

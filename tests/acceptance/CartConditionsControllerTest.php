@@ -1,39 +1,44 @@
 <?php
 
+namespace Tests\Acceptance;
+
 use App\Business\Traits\Tests\ProductTrait;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
-class CartConditionsControllerTest extends BrowserKitTest
+class CartConditionsControllerTest extends TestCase
 {
     use ProductTrait;
 
     /** @test */
-    public function add_new_shipping_to_cart_without_state_expecting_error()
+    public function it_adds_new_shipping_to_cart_without_state_expecting_error()
     {
-        $this->postJson('/api/cart-conditions')
-            ->seeJson([
+        $response = $this->postJson('/api/cart-conditions');
+        $response
+            ->assertJson([
                 'state' => ['validation.required'],
             ])
-            ->seeStatusCode(422);
+            ->assertStatus(422);
     }
 
     /** @test */
-    public function add_new_shipping_to_cart()
+    public function it_adds_new_shipping_to_cart()
     {
         $this->createTax();
-        $this->postJson(
+        $response = $this->postJson(
             '/api/cart-conditions',
             [
                 'country' => 'ES',
                 'state' => 'B'
             ]
-        )
-            ->seeJson([
+        );
+        $response
+            ->assertJsonFragment([[
                 'name' => 'checkout.total',
                 'value' => '3.31 &euro;'
-            ])
-            ->seeStatusCode(200);
+            ]])
+            ->assertStatus(200);
     }
 }

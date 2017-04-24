@@ -49,6 +49,9 @@
                         <a href="{{ route('shop.catalogue') }}">@lang('layout.shop')</a>
                     </li>
                     <li>
+                        <a href="{{ route('shop.brands') }}">@lang('layout.brands')</a>
+                    </li>
+                    <li>
                         <a href="{{ route('shop.bargain') }}">@lang('bargain.title')</a>
                     </li>
                     <li>

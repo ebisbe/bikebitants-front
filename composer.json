@@ -12,7 +12,6 @@
     "require": {
         "php": ">=7.0",
         "laravel/framework": "5.4.*",
-        "laravel/browser-kit-testing": "^1.0",
         "laravel/tinker": "~1.0",
         "predis/predis": "^1.0",
         "laravelcollective/html": "v5.4.1",
@@ -62,8 +61,7 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php",
-            "tests/BrowserKitTest.php"
+            "tests"
         ]
     },
     "scripts": {

@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Unit\ProductSearch;
+
 use App\Business\Repositories\ProductRepository;
 use App\Business\Search\Filters\MaxPrice;
 use App\Business\Search\Filters\MinPrice;
@@ -8,6 +10,7 @@ use App\Business\Search\Filters\Sort;
 use App\Business\Search\Filters\SortFilterNotFound;
 use App\Business\Search\Filters\SubSlug;
 use App\Business\Search\ProductSearch;
+use Tests\TestCase;
 
 class ProductSearchTest extends TestCase
 {
