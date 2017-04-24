@@ -25,7 +25,7 @@
                     @endif
                     <li><span>@lang('catalogue.tags')</span>
                         @foreach($product->tag as $tag)
-                            <a href="{{ route('shop.tag', ['slug' => $tag->slug]) }}">{{ $tag->name }}</a>
+                            <a href="{{ route('shop.tag', ['slug' => $tag->slug]) }}">{{ $tag->name }}</a>@if (!$loop->last), @endif
                         @endforeach
                     </li>
                 </ul>

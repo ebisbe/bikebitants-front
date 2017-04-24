@@ -1,15 +1,17 @@
 <template>
     <div class="form-group product-size">
-        <label>{{ name }}:</label>
-        <select :name="name"
-                v-model="selectedElement"
-                class="form-control"
-                @change="changed">
-            <option v-for="option in options" :value="option._id">
-                {{ option.name }}&nbsp;{{ option.complementary_text ? '(' + option.complementary_text + ')' : ''
-                }}
-            </option>
-        </select>
+        <label class="control-label col-sm-4">{{ name }}:</label>
+        <div class="col-sm-8">
+            <select :name="name"
+                    v-model="selectedElement"
+                    class="form-control"
+                    @change="changed">
+                <option v-for="option in options" :value="option._id">
+                    {{ option.name }}&nbsp;{{ option.complementary_text ? '(' + option.complementary_text + ')' : ''
+                    }}
+                </option>
+            </select>
+        </div>
     </div>
 </template>
 
@@ -33,7 +35,7 @@
                 }
             ));
 
-            if(typeof selected === "undefined") {
+            if (typeof selected === "undefined") {
                 selected = this.options[0];
             }
             this.selectedElement = selected._id;

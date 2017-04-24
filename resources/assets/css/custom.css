@@ -2557,9 +2557,9 @@ article.product-item.product-single p {
     margin: 10px 0 20px;
 }
 
-article.product-item.product-single .product-form label {
+/*article.product-item.product-single .product-form label {
     margin: 0 7px 0 0;
-}
+}*/
 
 article.product-item.product-single .product-form .form-control {
     height: 38px;

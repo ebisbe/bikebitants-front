@@ -1,12 +1,15 @@
 <template>
     <div class="form-group product-quantity">
-        <a class="btn btn-default" @click="decrement">-</a>
-        <input class="form-control"
-               id="qty"
-               name="quantity"
-               v-model="quantity"
-               type="text">
-        <a class="btn btn-default" @click="increment">+</a>
+        <label class="control-label col-sm-4" v-html="$t('cart.quantity') + ':'"></label>
+        <div class="col-sm-8">
+            <a class="btn btn-default" @click="decrement">-</a>
+            <input class="form-control"
+                   id="qty"
+                   name="quantity"
+                   v-model="quantity"
+                   type="text">
+            <a class="btn btn-default" @click="increment">+</a>
+        </div>
     </div>
 </template>
 <script>
@@ -32,7 +35,7 @@
                     this.changed();
                 }
             },
-            changed: function() {
+            changed: function () {
                 this.$emit('changedQuantity', this.quantity);
             }
         },
@@ -44,7 +47,7 @@
                     this.changed();
                 }
                 if (this.quantity == 0
-                        && this.maxQuantity != 0) {
+                    && this.maxQuantity != 0) {
                     this.quantity = 1;
                     this.changed();
                 }
