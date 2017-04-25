@@ -13,6 +13,7 @@ use Illuminate\Routing\Route;
 use MetaTag;
 use Breadcrumbs;
 use \FeedReader;
+use Canonical;
 
 class ShopController extends Controller
 {
@@ -190,8 +191,11 @@ class ShopController extends Controller
 
         MetaTag::set('title', $cat->title);
         MetaTag::set('description', $cat->meta_description);
-        //MetaTag::set('slug', $cat->meta_slug);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->filename]));
+
+        if ($request->getQueryString()) {
+            Canonical::set(route('shop.slug', ['category' => $cat->slug]));
+        }
 
         $title = trans('layout.shop');
         $subtitle = $cat->name;

@@ -35,7 +35,7 @@
 
     {!! MetaTag::tag('description') !!}
     {!! MetaTag::tag('image') !!}
-    {!! MetaTag::tag('slug') !!}
+    {!! Canonical::render() !!}
 
     {!! MetaTag::openGraph() !!}
 

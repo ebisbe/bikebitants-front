@@ -59,6 +59,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('staticvars', \App\Business\StaticVars::class);
         $this->app->bind('taxservice', \App\Business\Services\TaxService::class);
         $this->app->bind('orderservice', \App\Business\Services\OrderService::class);
+        $this->app->bind('canonical', \App\Business\Canonical\Canonical::class);
 
         $this->app->bind(\App\Business\Services\TwitterService::class, \App\Business\Services\TwitterService::class);
         $this->app->bind('NewOrder', NewOrder::class);

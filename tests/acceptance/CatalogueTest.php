@@ -46,4 +46,28 @@ class CatalogueTest extends TestCase
             ->assertSee('Variation Product')
             ->assertDontSee('Simple Product');
     }
+
+    /** @test */
+    public function it_doesnt_renders_canonical()
+    {
+        $this->createTax();
+        $this->createSimpleProduct();
+        $this->createProductWithThreeVariations();
+
+        $response = $this->get(route('shop.slug', ['slug' => 'category-1']));
+        $response
+            ->assertDontSee('<link rel="canonical"');
+    }
+
+    /** @test */
+    public function it_renders_canonical()
+    {
+        $this->createTax();
+        $this->createSimpleProduct();
+        $this->createProductWithThreeVariations();
+
+        $response = $this->get(route('shop.slug', ['slug' => 'category-1']) . '?');
+        $response
+            ->assertDontSee('<link rel="canonical"');
+    }
 }

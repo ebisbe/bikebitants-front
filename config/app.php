@@ -256,6 +256,7 @@ return [
         'StaticVars' => App\Business\Facades\StaticVars::class,
         'TaxService' => App\Business\Facades\TaxService::class,
         'OrderService' => App\Business\Facades\OrderService::class,
+        'Canonical' => App\Business\Facades\Canonical::class,
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
