@@ -4,7 +4,7 @@
             <div class="product-carousel-wrapper {{ !empty($hidden) ? 'hidden' : '' }}">
                 <div id="product-carousel" class="product-carousel">
                     @foreach($product->images as $image)
-                        <div class="item" data-hash="{{ $image->filename }}">
+                        <div class="item" data-hash="{{ $image->file_hash }}">
                             {!! Form::img($image->filename, StaticVars::productDetail(), $image->alt) !!}
                         </div>
                     @endforeach

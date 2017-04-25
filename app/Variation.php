@@ -3,11 +3,14 @@
 namespace App;
 
 use App\Business\Repositories\ProductRepository;
+use App\Business\Traits\FileHashTrait;
 use App\Jobs\ProductVariations;
 
 class Variation extends \App\Business\Integration\WooCommerce\Models\Variation
 {
-    protected $appends = ['tax_price'];
+    use FileHashTrait;
+
+    protected $appends = ['tax_price', 'file_hash'];
 
     protected $hidden = ['real_price', 'updated_at', 'created_at'];
 

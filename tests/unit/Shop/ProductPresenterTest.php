@@ -9,7 +9,7 @@ use App\Image;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class ShopProductTest extends TestCase
+class ProductPresenterTest extends TestCase
 {
     use ProductTrait;
 

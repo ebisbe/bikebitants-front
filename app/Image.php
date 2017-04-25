@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Business\Traits\FileHashTrait;
+
 /**
  * Class Image
  * @package App
@@ -14,6 +16,8 @@ namespace App;
  */
 class Image extends \App\Business\Integration\WooCommerce\Models\Image
 {
+    use FileHashTrait;
+
     /**
      * Return predefined image when none is found
      * @return Image

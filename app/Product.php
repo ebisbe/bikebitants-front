@@ -92,6 +92,15 @@ class Product extends \App\Business\Integration\WooCommerce\Models\Product
     }
 
     /**
+     * Images from the product
+     * @return \Jenssegers\Mongodb\Relations\EmbedsMany
+     */
+    public function images()
+    {
+        return $this->embedsMany(Image::class);
+    }
+
+    /**
      * @param $properties
      * @return Variation
      */
