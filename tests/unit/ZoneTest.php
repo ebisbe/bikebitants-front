@@ -8,15 +8,22 @@ use Tests\TestCase;
 class ZoneTest extends TestCase
 {
 
+    public function tearDown()
+    {
+        Zone::truncate();
+    }
+
     /** @test */
     public function get_zone_from_state()
     {
         //arrange
-        //Data is in migrations
+        factory(Zone::class)->create([
+            'name' => 'Zone'
+        ]);
 
         //act
         $zone = Zone::inState('B')->first();
 
-        $this->assertEquals('España (Península)', $zone->name);
+        $this->assertEquals('Zone', $zone->name);
     }
 }

@@ -4,5 +4,5 @@ namespace App;
 
 class ShippingMethod extends \App\Business\Integration\WooCommerce\Models\ShippingMethod
 {
-    protected $fillable = ['name', 'cost', 'price_condition'];
+    protected $fillable = ['name', 'cost', 'price_condition', 'free_shipping'];
 }

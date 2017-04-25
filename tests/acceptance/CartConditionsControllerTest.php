@@ -3,9 +3,6 @@
 namespace Tests\Acceptance;
 
 use App\Business\Traits\Tests\ProductTrait;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class CartConditionsControllerTest extends TestCase
@@ -27,6 +24,9 @@ class CartConditionsControllerTest extends TestCase
     public function it_adds_new_shipping_to_cart()
     {
         $this->createTax();
+        $this->createZone();
+        $this->createCountry();
+
         $response = $this->postJson(
             '/api/cart-conditions',
             [
@@ -37,7 +37,7 @@ class CartConditionsControllerTest extends TestCase
         $response
             ->assertJsonFragment([[
                 'name' => 'checkout.total',
-                'value' => '3.31 &euro;'
+                'value' => '5.00 &euro;'
             ]])
             ->assertStatus(200);
     }

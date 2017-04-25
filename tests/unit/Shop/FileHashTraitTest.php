@@ -9,7 +9,12 @@ use Event;
 
 class FileHashTraitTest extends TestCase
 {
+    public function tearDown()
+    {
+        Image::truncate();
+        Variation::truncate();
 
+    }
     /** @test */
     public function it_shows_image_file_hash()
     {
@@ -23,7 +28,6 @@ class FileHashTraitTest extends TestCase
     /** @test */
     public function it_shows_variation_file_hash()
     {
-        Variation::truncate();
         Event::fake();
 
         $variation = factory(Variation::class)->create([

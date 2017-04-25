@@ -5,21 +5,25 @@ namespace App\Business\Traits\Tests;
 use App\Brand;
 use App\Business\Models\Shop\Product;
 use App\Category;
+use App\Country;
 use App\Coupon;
+use App\Customer;
 use App\Order;
 use App\PaymentMethod;
+use App\ShippingMethod;
 use App\Tag;
 use App\Tax;
 use App\Variation;
+use App\Zone;
 use Illuminate\Foundation\Testing\TestResponse;
 
 trait ProductTrait
 {
 
-    public function tearDown()
+    protected function tearDown()
     {
         //TODO Migrations should be executed at least once. So we are relying on the unique attributes of some models
-
+        Zone::truncate();
         Product::truncate();
         Brand::truncate();
         Category::truncate();
@@ -27,6 +31,9 @@ trait ProductTrait
         Coupon::truncate();
         Order::truncate();
         Tag::truncate();
+        Customer::truncate();
+        Country::truncate();
+        PaymentMethod::truncate();
     }
 
     /**
@@ -34,7 +41,7 @@ trait ProductTrait
      * @param int $real_price
      * @return Product
      */
-    public function createSimpleProduct($stock = 10, $real_price = 10)
+    private function createSimpleProduct($stock = 10, $real_price = 10)
     {
         $product = factory(Product::class)->states('featured')->create([
             '_id' => 'simple-product',
@@ -74,7 +81,7 @@ trait ProductTrait
      * @param array $realPrice
      * @return Product
      */
-    public function createProductWithThreeVariations(
+    private function createProductWithThreeVariations(
         array $realPrice = [10, 15, 20]
     ) {
         /** @var Product $product */
@@ -117,7 +124,7 @@ trait ProductTrait
     /**
      * @param int $rate
      */
-    public function createTax(int $rate = 0)
+    private function createTax(int $rate = 0)
     {
         factory(Tax::class)->create([
             'country' => '',
@@ -134,7 +141,7 @@ trait ProductTrait
      * @param int $quantity
      * @return TestResponse
      */
-    public function addSimpleProduct(int $quantity = 1)
+    private function addSimpleProduct(int $quantity = 1)
     {
         return $this->addProduct("simple-product", $quantity);
     }
@@ -144,7 +151,7 @@ trait ProductTrait
      * @param array $properties
      * @return TestResponse
      */
-    public function addVariationProduct(int $quantity = 1, array $properties)
+    private function addVariationProduct(int $quantity = 1, array $properties)
     {
         return $this->addProduct("variation-product", $quantity, $properties);
     }
@@ -155,7 +162,7 @@ trait ProductTrait
      * @param array $properties
      * @return TestResponse
      */
-    public function addProduct(string $product_id, int $quantity = 1, array $properties = [])
+    private function addProduct(string $product_id, int $quantity = 1, array $properties = [])
     {
         return $this
             ->postJson('/api/cart', [
@@ -168,7 +175,7 @@ trait ProductTrait
     /**
      * @return array
      */
-    public function getProductResponse(): array
+    private function getProductResponse(): array
     {
         return [
             'filename',
@@ -186,10 +193,50 @@ trait ProductTrait
     /**
      * Create discounts
      */
-    public function createDiscounts()
+    private function createDiscounts()
     {
         factory(Coupon::class)->create(['name' => 'DISCOUNT10', 'type' => Coupon::PERCENTAGE, 'magnitude' => '-10']);
         factory(Coupon::class)->create(['name' => 'DISCOUNT20', 'type' => Coupon::PERCENTAGE, 'magnitude' => '-20']);
         factory(Coupon::class)->create(['name' => 'DISCOUNT30', 'type' => Coupon::PERCENTAGE, 'magnitude' => '-30']);
+    }
+
+    private function createZone()
+    {
+        /** @var Zone $zone */
+        $zone = factory(Zone::class)->create();
+
+        $zone->shipping_methods()->save(factory(ShippingMethod::class)->make([
+            'cost' => 0,
+            'price_condition' => 25,
+            'free_shipping' => true
+        ]));
+
+        $zone->shipping_methods()->save(factory(ShippingMethod::class)->make([
+            'cost' => 5,
+            'price_condition' => 0,
+            'free_shipping' => false
+        ]));
+    }
+
+    private function createCountry()
+    {
+        factory(Country::class)->create([
+            '_id' => 'ES',
+            'active' => 1,
+            'states' => [
+                [
+                    '_id' => 'B',
+                    'name' => 'Barcelona'
+                ]
+            ]
+        ]);
+    }
+
+    private function createPaymentMethod()
+    {
+        factory(PaymentMethod::class)->create([
+            'code' => 'Fake',
+            'slug' => 'bank-transfer'
+        ]);
     }
 }

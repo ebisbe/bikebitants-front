@@ -310,7 +310,7 @@ class CheckoutOrder
      */
     public function setPaymentType(string $paymentType)
     {
-        $this->payment_type = PaymentMethod::whereSlug($paymentType)->first();
+        $this->payment_type = PaymentMethod::whereSlug($paymentType)->firstOrFail();
     }
 
     /**

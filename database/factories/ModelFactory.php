@@ -1,16 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| Here you may define all of your model factories. Model factories give
-| you a convenient way to create models for testing and seeding your
-| database. Just tell the factory how a default model should look.
-|
-*/
-
+use App\Country;
 use App\Order;
 use App\Property;
 use App\PropertyValue;
@@ -307,6 +297,7 @@ $factory->define(ShippingMethod::class, function (Generator $faker) {
     return [
         'name' => $faker->name,
         'cost' => $faker->numberBetween(3, 25),
+        'price_condition' => $faker->numberBetween(3, 25),
         'free_shipping' => $faker->boolean
     ];
 });
@@ -370,5 +361,16 @@ $factory->define(Tag::class, function (Generator $faker) {
         //"slug" => str_slug($name), //Using slugableTraig
         "description" => $faker->text(),
         "count" => $faker->randomDigit,
+    ];
+});
+
+$factory->define(Country::class, function (Generator $faker) {
+    return [
+        "_id" => $faker->countryCode,
+        "name" => $faker->country,
+        'active' => $faker->boolean,
+        "states" => [
+            $faker->randomLetter.$faker->randomLetter
+        ],
     ];
 });
