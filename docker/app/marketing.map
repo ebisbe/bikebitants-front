@@ -21,8 +21,12 @@
 /tienda/luces-bicicleta/luz-trasera-bicicleta /luces-bicicleta/luz-trasera-bicicleta;
 /tienda/luces-bicicleta/luz-delantera-bicicleta /luces-bicicleta/luz-delantera-bicicleta;
 /tienda/bicicletas-urbanas /bicicletas-urbanas;
+/tienda/cascos-bicicleta/casco-airbag-ciclistas /cascos-bicicleta/casco-airbag-ciclistas;
+/tienda/complementos-ciclista/mascara-antipolucion /complementos-ciclista/mascara-antipolucion;
+/tienda/accesorios-bicicleta/timbres-bicicleta /accesorios-bicicleta/timbres-bicicleta;
 
 /carrera-foldable-casco-plegable /carrera-foldable-basic-casco-plegable;
 /flectr-zero-reflectante-ligero-para-radios-de-bicicleta /flectr-zero-reflectante-ligero-radios-bicicleta;
 /luz-delantera-knog-pop-2 /luz-delantera-knog-pop;
 /firstbike-street-bicicleta-sin-pedales-2 /firstbike-street-bicicleta-sin-pedales;
+/kazam-2017-bicicleta-sin-pedales /kazam-bicicleta-sin-pedales;
