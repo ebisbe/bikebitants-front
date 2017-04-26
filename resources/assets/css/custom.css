@@ -998,7 +998,7 @@ body.page-boxed .owl-theme.nav-inside .owl-controls .owl-nav div.owl-next {
 
 #scrolltop {
     position: fixed;
-    right: 15px;
+    left: 15px;
     bottom: 15px;
     width: 40px;
     height: 40px;
