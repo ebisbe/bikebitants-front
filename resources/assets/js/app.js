@@ -9,12 +9,8 @@ require('./bootstrap');
 require('jquery-ui-bundle');
 require('google-maps');
 require('smoothscroll-for-websites');
-//require('card');
-//require('jgrowl');
 require('../css/bower/owl.carousel/dist/owl.carousel.js');
 require('bootstrap-hover-dropdown');
-
-//require('./jquery.card.js');
 require('./shop.js');
 require('./custom.js');
 
@@ -35,6 +31,7 @@ Vue.component('product-form', require('./components/productForm.vue'));
 Vue.component('add-review', require('./components/addReview.vue'));
 Vue.component('cart-menu', require('./components/cartMenu.vue'));
 Vue.component('cart-add', require('./components/cartAdd.vue'));
+Vue.component('owl-carrousel', require('./components/owlCarrousel.vue'));
 
 const VueInternalization = require('vue-i18n');
 import Locales from './vue-i18n-locales.generated.js';

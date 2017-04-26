@@ -92,7 +92,7 @@
                 } else {
                     this.max_quantity = variation[0].stock;
                     this.variation_price = variation[0].tax_price;
-                    location.hash = variation[0].file_hash;
+                    Bus.$emit('selectVariation', variation[0]);
                 }
             },
 

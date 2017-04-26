@@ -18,6 +18,10 @@ class Image extends \App\Business\Integration\WooCommerce\Models\Image
 {
     use FileHashTrait;
 
+    protected $appends = ['file_hash'];
+
+    protected $visible = ['alt', 'order', 'filename', 'file_hash'];
+
     /**
      * Return predefined image when none is found
      * @return Image

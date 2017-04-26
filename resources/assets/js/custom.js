@@ -229,7 +229,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#product-carousel").owlCarousel({
+    window.owl = $("#product-carousel");
+    window.owl.owlCarousel({
         items: 1,
         loop: false,
         animateOut: 'fadeOut',

@@ -2,13 +2,7 @@
     <div class="row">
         <div class="col-{{ $col_size }}-4">
             <div class="product-carousel-wrapper {{ !empty($hidden) ? 'hidden' : '' }}">
-                <div id="product-carousel" class="product-carousel">
-                    @foreach($product->images as $image)
-                        <div class="item" data-hash="{{ $image->file_hash }}">
-                            {!! Form::img($image->filename, StaticVars::productDetail(), $image->alt) !!}
-                        </div>
-                    @endforeach
-                </div>
+                <owl-carrousel :images='{!! json_encode($product->images->toArray()) !!}'></owl-carrousel>
             </div>
         </div>
         <div class="col-{{ $col_size }}-8">
@@ -36,8 +30,8 @@
                 <div class="product-form clearfix">
                     <product-form
                             product_id="{{ $product->_id }}"
-                            v-bind:properties='{!! json_encode($product->properties()->sortBy('order')->values()->all()) !!}'
-                            v-bind:variations='{!! json_encode($product->variations()->all()) !!}'
+                            :properties='{!! json_encode($product->properties()->sortBy('order')->values()->all()) !!}'
+                            :variations='{!! json_encode($product->variations()->all()) !!}'
                     ></product-form>
                 </div>
                 {{--<ul class="list-inline product-links">
