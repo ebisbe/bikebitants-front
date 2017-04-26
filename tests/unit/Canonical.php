@@ -20,7 +20,7 @@ class CanonicalTest extends TestCase
     {
         $canonical = new Canonical();
 
-        $canonical->set('http://www.google.com');
+        $canonical->byLink('http://www.google.com');
 
         $this->assertEquals(
             '<link rel="canonical" href="http://www.google.com">',

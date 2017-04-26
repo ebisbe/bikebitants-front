@@ -193,9 +193,7 @@ class ShopController extends Controller
         MetaTag::set('description', $cat->meta_description);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $cat->filename]));
 
-        if ($request->getQueryString()) {
-            Canonical::set(route('shop.slug', ['category' => $cat->slug]));
-        }
+        Canonical::byRequest($request);
 
         $title = trans('layout.shop');
         $subtitle = $cat->name;
@@ -242,6 +240,8 @@ class ShopController extends Controller
         MetaTag::set('title', $subCat->title);
         MetaTag::set('description', $subCat->meta_description);
         MetaTag::set('image', route('shop.image', ['filter' => '600', 'filename' => $subCat->filename]));
+
+        Canonical::byRequest($request);
 
         $title = $cat->name;
         $subtitle = $subCat->name;

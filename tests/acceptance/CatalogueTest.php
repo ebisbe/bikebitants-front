@@ -48,7 +48,7 @@ class CatalogueTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_renders_canonical()
+    public function it_doesnt_renders_canonical_on_category()
     {
         $this->createTax();
         $this->createSimpleProduct();
@@ -56,18 +56,44 @@ class CatalogueTest extends TestCase
 
         $response = $this->get(route('shop.slug', ['slug' => 'category-1']));
         $response
-            ->assertDontSee('<link rel="canonical"');
+            ->assertDontSee('<link rel="canonical" href="http://bikebitants.dev/category-1">');
     }
 
     /** @test */
-    public function it_renders_canonical()
+    public function it_renders_canonical_on_category()
     {
         $this->createTax();
         $this->createSimpleProduct();
         $this->createProductWithThreeVariations();
 
-        $response = $this->get(route('shop.slug', ['slug' => 'category-1']) . '?');
+        $response = $this->get(route('shop.slug', ['slug' => 'category-1']) . '?home=home');
+        $response
+            ->assertSee('<link rel="canonical" href="http://bikebitants.dev/category-1">');
+    }
+
+    /** @test */
+    public function it_doesnt_renders_canonical_on_subcategory()
+    {
+        $this->createTax();
+        $this->createSimpleProduct();
+        $this->createProductWithThreeVariations();
+
+        $response = $this->get(route('shop.subslug', ['slug' => 'category-1', 'subslug' => 'sub-category-1']));
         $response
             ->assertDontSee('<link rel="canonical"');
+    }
+
+    /** @test */
+    public function it_renders_canonical_on_subcategory()
+    {
+        $this->createTax();
+        $this->createSimpleProduct();
+        $this->createProductWithThreeVariations();
+
+        $response = $this->get(
+            route('shop.subslug', ['slug' => 'category-1', 'subslug' => 'sub-category-1']) . '?home=home'
+        );
+        $response
+            ->assertSee('<link rel="canonical" href="http://bikebitants.dev/category-1/sub-category-1">');
     }
 }
