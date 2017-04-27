@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Acceptance;
+namespace Tests\Feature;
 
 use App\Business\Traits\Tests\ProductTrait;
 use Tests\TestCase;

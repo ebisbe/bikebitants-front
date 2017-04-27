@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Acceptance;
+namespace Tests\Feature;
 
 use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
 use App\Business\Integration\WooCommerce\Exception\InvalidEventException;

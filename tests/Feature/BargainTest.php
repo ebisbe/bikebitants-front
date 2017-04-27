@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Acceptance;
+namespace Tests\Feature;
 
 use App\Product;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
