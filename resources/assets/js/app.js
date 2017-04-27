@@ -59,5 +59,6 @@ var options = {
     moreinfo: Locales[Laravel.language].layout.cookies.moreinfo,
     linkmsg: Locales[Laravel.language].layout.cookies.linkmsg,
     acceptOnFirstVisit: true,
+    cookie:'laravel_cookie_consent'
 };
 var cb = new Cookiebanner(options); cb.run();
