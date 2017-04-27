@@ -19,7 +19,6 @@
         "nazka/sermepa-omnipay": "dev-master",
         "creitive/laravel5-breadcrumbs": "^2.0",
         "intervention/image": "^2.3",
-        "spatie/laravel-cookie-consent": "^1.2",
         "torann/laravel-meta-tags": "dev-master",
         "ignited/laravel-omnipay": "dev-support_54",
         "awjudd/feed-reader": "1.3.*",

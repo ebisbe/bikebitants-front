@@ -59,6 +59,16 @@
     display:inline-block;
 }
 
+div.cookiebanner {
+    background-color: hsla(120, 100%, 40%, 0.6) !important;
+    padding: 10px !important;
+    color: black !important;
+}
+
+div.cookiebanner a{
+    color:white !important;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
     /*.press .newspapers {*/
         /*padding: 50px;*/

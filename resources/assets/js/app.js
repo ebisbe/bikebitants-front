@@ -11,6 +11,7 @@ require('google-maps');
 require('smoothscroll-for-websites');
 require('../css/bower/owl.carousel/dist/owl.carousel.js');
 require('bootstrap-hover-dropdown');
+require('../../../node_modules/cookie-banner/src/cookiebanner');
 require('./shop.js');
 require('./custom.js');
 
@@ -52,3 +53,11 @@ WebFont.load({
 const app = new Vue({
     el: '#page-wrapper'
 });
+
+var options = {
+    message: Locales[Laravel.language].layout.cookies.message,
+    moreinfo: Locales[Laravel.language].layout.cookies.moreinfo,
+    linkmsg: Locales[Laravel.language].layout.cookies.linkmsg,
+    acceptOnFirstVisit: true,
+};
+var cb = new Cookiebanner(options); cb.run();

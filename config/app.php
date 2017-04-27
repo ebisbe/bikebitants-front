@@ -182,7 +182,6 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Creitive\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Torann\LaravelMetaTags\MetaTagsServiceProvider::class,
         Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
         App\Providers\CollectionMacrosProvider::class,

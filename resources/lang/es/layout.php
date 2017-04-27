@@ -25,5 +25,11 @@ return [
     'shop_title' => 'Tienda Bikebitants. Tienda online para ciclistas urbanos | Bikebitants',
     'shop_meta_description' => 'Todo tipo de accesorios y gadgets para ciclistas urbanos en la tienda de Bikebitants. Visita nuestra tienda online',
 
-    'media_head' => 'Los medios ya hablan de nosotros'
+    'media_head' => 'Los medios ya hablan de nosotros',
+
+    'cookies' => [
+        'message' => 'Tu experiencia en esta web es mejorada gracias al uso de cookies. Al continuar con tu visita en nuestra web aceptas el uso de cookies.',
+        'moreinfo' => '/condiciones-generales',
+        'linkmsg' => 'Leer más'
+    ]
 ];
