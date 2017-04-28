@@ -48,7 +48,6 @@ Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 Route::resource('coupon', 'CouponController', ['only' => ['store']]);
 Route::resource('woo', 'WooCommerceController', ['only' => ['index', 'show']]);
 Route::resource('wp', 'WordPressController', ['only' => ['index', 'show']]);
-Route::resource('review', 'ReviewController', ['only' => ['store']]);
 
 
 // Static pages
@@ -75,6 +74,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
             'destroy' => 'api.cart.destroy'
         ]
     ]);
+    Route::resource('review', 'ReviewController', ['only' => ['store']]);
     Route::resource('cart-conditions', 'CartConditionsController', ['only' => ['index', 'store']]);
 });
 /** END API */

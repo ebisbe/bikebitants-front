@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Business\Integration\WooCommerce\Exception\EntityNotFoundException;
 use App\Business\Integration\WooCommerce\Exception\InvalidEventException;
-use App\Business\Integration\WooCommerce\Factory;
 use App\Business\Integration\WooCommerce\Models\ModelFactory;
 use App\Http\Middleware\VerifyWebHookSignature;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Log;
 
 class WooCommerceController extends Controller
 {

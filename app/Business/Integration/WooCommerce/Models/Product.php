@@ -31,7 +31,8 @@ class Product extends ApiImporter
         'is_discounted',
         'categories',
         'rating',
-        'menu_order'
+        'menu_order',
+        'reviews_allowed'
     ];
 
     protected $attributes = [

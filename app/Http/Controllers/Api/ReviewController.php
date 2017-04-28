@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Business\Repositories\ProductRepository;
 use App\Review;
 use Illuminate\Http\Request;
+use URL;
 
-use App\Http\Requests;
-
-class ReviewController extends Controller
+class ReviewController extends ApiController
 {
     /**
      * @param Request $request
      * @param ProductRepository $productRepository
+     * @param Review $review
      * @return array|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request, ProductRepository $productRepository, Review $review)
@@ -29,9 +29,9 @@ class ReviewController extends Controller
         $product->reviews()->save($review->newInstance($request->all()));
 
         if ($request->ajax()) {
-            return ['response' => 'Thanks for reviewing our product!'];
+            return ['response' => trans('review.success_message')];
         } else {
-            \Session::flash('flash_message', 'Thanks for reviewing our product!');
+            \Session::flash('flash_message', trans('review.success_message'));
             return redirect(URL::previous());
         }
     }

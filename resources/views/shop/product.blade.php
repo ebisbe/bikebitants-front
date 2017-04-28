@@ -195,8 +195,7 @@ PRODUCTS - START
                 </div>
                 <div class="modal-body">
                     <add-review
-                            product_id="{{ $product->_id }}"
-                            token="{{csrf_token()}}">
+                            product_id="{{ $product->_id }}">
                     </add-review>
                 </div>
             </div>
