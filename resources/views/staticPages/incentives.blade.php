@@ -5,23 +5,6 @@
     <section class="content eshop">
         <div class="container">
             <div class="default-style about">
-                <h2>About Us</h2>
-                <div class="row">
-                    <div class="col-sm-7 col-md-6">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex. Suspendisse aliquet imperdiet commodo. Aenean vel lacinia elit. Class aptent taciti sociosqu ad litora torquent per.</p>
-                        <p>Sed eget pulvinar quam, vel feugiat enim. Aliquam erat volutpat. Phasellus eu porta ipsum. Suspendisse aliquet imperdiet commodo. Aenean vel lacinia elit. Class aptent taciti sociosqu ad litora torquent per. Vestibulum velmo.</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fa fa-check"></i>Etiam sed dolor ac diam volutpat</li>
-                            <li><i class="fa fa-check"></i>Erat volutpat. Phasellus eu porta ipsum suspendisse aliquet imperdiet</li>
-                            <li><i class="fa fa-check"></i>Phasellus eu porta ipsum. Suspendisse aliquet imperdiet commodo</li>
-                            <li><i class="fa fa-check"></i>Sed eget pulvinar quam, vel feugiat enim aliquam</li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-5 col-md-6">
-                        <img src="assets/images/slide-3.jpg" class="img-responsive" alt="">
-                    </div>
-                </div>
-
                 <div class="services">
                     <h2 class="text-center">Ventajas de ir al trabajo en bicis</h2>
                     <div class="row row-no-padding">
