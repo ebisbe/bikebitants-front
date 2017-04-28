@@ -7,8 +7,13 @@ use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
+    protected function tearDown()
+    {
+        Category::truncate();
+    }
+
     /** @test */
-    public function category_has_empty_filename()
+    public function it_has_empty_filename()
     {
         $category = factory(Category::class)->create(['filename' => '']);
 
