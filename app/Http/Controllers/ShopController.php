@@ -96,7 +96,7 @@ class ShopController extends Controller
         }
 
         /** @var Category $cat */
-        $cat = $this->categoryRepository->findBy('slug', $slug);
+        $cat = $this->categoryRepository->isParent()->findBy('slug', $slug);
         if (!empty($cat)) {
             return $this->category($cat, $request, $route);
         }
@@ -160,7 +160,7 @@ class ShopController extends Controller
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
-        $categories = $this->categoryRepository->findAll();
+        $categories = $this->categoryRepository->isParent()->findAll();
 
         return view('shop.catalogue', compact(
             'productsResult',
@@ -199,7 +199,7 @@ class ShopController extends Controller
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
 
-        $categories = $this->categoryRepository->findAll();
+        $categories = $this->categoryRepository->isParent()->findAll();
 
         return view(
             'shop.catalogue',
@@ -217,7 +217,7 @@ class ShopController extends Controller
     public function subslug($slugCategory, $slugSubCategory, Request $request, Route $route)
     {
         /** @var Category $cat */
-        $cat = $this->categoryRepository->findBy('slug', $slugCategory);
+        $cat = $this->categoryRepository->isParent()->findBy('slug', $slugCategory);
         /** @var Category $subCat */
         $subCat = $this->categoryRepository->findBy('slug', $slugSubCategory);
 

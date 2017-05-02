@@ -17,12 +17,8 @@ class Category extends \App\Category
 
     protected $with = ['children'];
 
-    protected static function boot()
+    public function scopeIsParent($builder)
     {
-        parent::boot();
-
-        static::addGlobalScope('father', function ($builder) {
-            $builder->where('father_id', null);
-        });
+        return $builder->where('father_id', null);
     }
 }
