@@ -86,7 +86,7 @@ class ShopController extends Controller
     {
         /** @var Product $product */
         $product = Product::withoutGlobalScopes()
-            ->with(['category.father', 'brand', 'cross_sell_shop.category.father', 'cross_sell_shop.brand', 'tag'])
+            ->with(['category.father', 'brand', 'up_sell_shop.category.father', 'up_sell_shop.brand', 'tag'])
             ->where('slug', '=', $slug)
             ->whereIn('status', [2, 3])
             ->first();
@@ -136,9 +136,8 @@ class ShopController extends Controller
 
         $title = $category->name;
         $subtitle = $product->name;
+        $relatedProducts = $product->up_sell_shop;
 
-        $relatedProducts = $product
-            ->cross_sell_shop;
         return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle'));
     }
 
@@ -161,11 +160,7 @@ class ShopController extends Controller
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
-        $categories = $this->categoryRepository
-            ->with(['children'])
-            ->where('father_id', null)
-            ->orderBy('name', 'asc')
-            ->findAll();
+        $categories = $this->categoryRepository->findAll();
 
         return view('shop.catalogue', compact(
             'productsResult',
@@ -204,11 +199,7 @@ class ShopController extends Controller
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
 
-        $categories = $this->categoryRepository
-            ->with(['children'])
-            ->where('father_id', null)
-            ->orderBy('name', 'asc')
-            ->findAll();
+        $categories = $this->categoryRepository->findAll();
 
         return view(
             'shop.catalogue',
@@ -251,11 +242,7 @@ class ShopController extends Controller
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
-        $categories = $this->categoryRepository
-            ->with(['children'])
-            ->where('father_id', null)
-            ->orderBy('name', 'asc')
-            ->findAll();
+        $categories = $this->categoryRepository->findAll();
 
         return view(
             'shop.catalogue',
