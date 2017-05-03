@@ -14,7 +14,8 @@ class Customer extends ApiImporter
         'last_order',
         'orders_count',
         'total_spent',
-        'avatar_url'
+        'avatar_url',
+        'external_id'
     ];
 
     /**

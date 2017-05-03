@@ -48,6 +48,17 @@ class WooCommerceSync extends Command
             return collect($entities);
         }
 
-        return collect(['Attribute', 'Tag', 'Customer', 'Category', 'Product', 'Tax', 'Coupon', 'Zone', 'Setting']);
+        return collect([
+            'Attribute',
+            'Tag',
+            'Customer',
+            'Order',
+            'Category',
+            'Product',
+            'Tax',
+            'Coupon',
+            'Zone',
+            'Setting'
+        ]);
     }
 }

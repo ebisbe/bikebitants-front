@@ -12,6 +12,16 @@ class Cart extends Model
     const CART_CONDITION_TARGET_ITEM = 'item';
     const CART_CONDITION_TARGET_SUBTOTAL = 'subtotal';
 
+    protected $fillable = [
+        'price',
+        'quantity',
+        'total',
+        'total_without_iva',
+        'variation_id',
+        'product_id',
+        'sku',
+    ];
+
     /**
      * Each cart has one product
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
