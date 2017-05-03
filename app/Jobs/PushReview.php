@@ -11,21 +11,26 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 class PushReview implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable;
     /**
-     * @var Review
+     * @var array
      */
-    private $review;
+    public $review;
+    /**
+     * @var
+     */
+    public $product_id;
 
     /**
      * Create a new job instance.
      *
      * @param Review $review
+     * @param $product_id
      */
-    public function __construct($review)
+    public function __construct(Review $review, $product_id)
     {
-
-        $this->review = $review;
+        $this->review = $review->pushArray();
+        $this->product_id = $product_id;
     }
 
     /**
@@ -35,6 +40,9 @@ class PushReview implements ShouldQueue
      */
     public function handle()
     {
-        //\Woocommerce::post("products/{$this->review->product_id}/reviews", $this->review->toArray());
+        \Woocommerce::post(
+            "products/{$this->product_id}/reviews",
+            $this->review
+        );
     }
 }

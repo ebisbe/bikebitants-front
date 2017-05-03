@@ -37,4 +37,14 @@ class Review extends ApiImporter
 
         $this->fill($entity);
     }
+
+    public function pushArray()
+    {
+        return [
+            'review' => $this->comment,
+            'name' => $this->name,
+            'rating' => $this->rating,
+            'email' => $this->email,
+        ];
+    }
 }

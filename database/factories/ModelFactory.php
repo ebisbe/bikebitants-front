@@ -125,7 +125,9 @@ $factory->define(Review::class, function (Generator $faker) {
         'email' => $faker->email,
         'comment' => $faker->paragraphs(2, true),
         'verified' => true,
-        'rating' => $faker->numberBetween(0, 5)
+        'rating' => $faker->numberBetween(0, 5),
+        //Needed because its and embeded document
+        'product_id' => $faker->uuid
     ];
 });
 

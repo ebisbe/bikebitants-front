@@ -12,7 +12,7 @@ class ProductReviewRating extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    protected $product;
+    public $product;
 
     /**
      * Create a new job instance.

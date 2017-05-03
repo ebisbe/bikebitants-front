@@ -17,7 +17,7 @@ class Review extends \App\Business\Integration\WooCommerce\Models\Review
             dispatch(new ProductReviewRating($product));
 
             if (empty($review->external_id)) {
-                dispatch(new PushReview($review));
+                dispatch(new PushReview($review, $product->external_id));
             }
         });
     }
