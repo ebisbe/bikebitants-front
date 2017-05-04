@@ -118,15 +118,15 @@
                                             {!! $errors->first('billing.postcode', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="clearfix"></div>
-                                        <div class="form-group col-sm-6 {{ $errors->has('billing.country') ? 'has-error' : ''}}">
-                                            {{ Form::label('billing[country]', trans('checkout.country').' <span class="required">*</span>', [], false) }}
-                                            {{ Form::select('billing[country]', $countries, 'ES', array_merge(['class' => 'form-control js-country'], $states)) }}
-                                            {!! $errors->first('billing.country', '<p class="help-block">:message</p>') !!}
-                                        </div>
                                         <div class="form-group col-sm-6  {{ $errors->has('billing.state') ? 'has-error' : ''}}">
                                             {{ Form::label('billing[state]', trans('checkout.state').' <span class="required">*</span>', [], false) }}
                                             {{ Form::select('billing[state]', ['B' => 'Barcelona'], 'B', ['class' => 'form-control js-change']) }}
                                             {!! $errors->first('billing.state', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                        <div class="form-group col-sm-6 {{ $errors->has('billing.country') ? 'has-error' : ''}}">
+                                            {{ Form::label('billing[country]', trans('checkout.country').' <span class="required">*</span>', [], false) }}
+                                            {{ Form::select('billing[country]', $countries, 'ES', array_merge(['class' => 'form-control js-country'], $states)) }}
+                                            {!! $errors->first('billing.country', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
                                 </div>
@@ -241,15 +241,15 @@
                                                 {!! $errors->first('shipping.fax', '<p class="help-block">:message</p>') !!}
                                             </div>
                                             <div class="clearfix"></div>
-                                            <div class="form-group col-sm-6 {{ $errors->has('shipping.country') ? 'has-error' : ''}}">
-                                                {{ Form::label('shipping[country]', trans('checkout.country').' <span class="required">*</span>', [], false) }}
-                                                {{ Form::select('shipping[country]', $countries, 'ES', array_merge(['class' => 'form-control js-country2'], $states)) }}
-                                                {!! $errors->first('shipping.country', '<p class="help-block">:message</p>') !!}
-                                            </div>
                                             <div class="form-group col-sm-6 {{ $errors->has('shipping.state') ? 'has-error' : ''}}">
                                                 {{ Form::label('shipping[state]', trans('checkout.state').' <span class="required">*</span>', [], false) }}
                                                 {{ Form::select('shipping[state]', ['B' => 'Barcelona'], 'B', ['class' => 'form-control js-change2']) }}
                                                 {!! $errors->first('shipping.state', '<p class="help-block">:message</p>') !!}
+                                            </div>
+                                            <div class="form-group col-sm-6 {{ $errors->has('shipping.country') ? 'has-error' : ''}}">
+                                                {{ Form::label('shipping[country]', trans('checkout.country').' <span class="required">*</span>', [], false) }}
+                                                {{ Form::select('shipping[country]', $countries, 'ES', array_merge(['class' => 'form-control js-country2'], $states)) }}
+                                                {!! $errors->first('shipping.country', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
                                     </div>
