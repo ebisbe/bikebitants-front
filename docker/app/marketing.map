@@ -5,6 +5,7 @@
 /crane-mini-suzu-timbre-bicicleta timbre-bicicleta-crane-mini-suzu;
 /quienes-somos quien-somos;
 
+/tienda/infantil-bicicleta /infantil-bicicleta;
 /tienda/infantil-bicicleta/remolque-ninos /infantil-bicicleta/remolque-ninos;
 /tienda/infantil-bicicleta/timbres-bicicleta-ninos /infantil-bicicleta/timbres-bicicleta-ninos;
 /tienda/infantil-bicicleta/bicicletas-sin-pedales /infantil-bicicleta/bicicletas-sin-pedales;
@@ -22,6 +23,7 @@
 /tienda/luces-bicicleta/luz-delantera-bicicleta /luces-bicicleta/luz-delantera-bicicleta;
 /tienda/bicicletas-urbanas /bicicletas-urbanas;
 /tienda/cascos-bicicleta/casco-airbag-ciclistas /cascos-bicicleta/casco-airbag-ciclistas;
+/tienda/complementos-ciclista /complementos-ciclista;
 /tienda/complementos-ciclista/mascara-antipolucion /complementos-ciclista/mascara-antipolucion;
 /tienda/accesorios-bicicleta/timbres-bicicleta /accesorios-bicicleta/timbres-bicicleta;
 
