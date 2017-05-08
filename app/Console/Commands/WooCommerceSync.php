@@ -52,7 +52,7 @@ class WooCommerceSync extends Command
             'Attribute',
             'Tag',
             'Customer',
-            'Order',
+//            'Order',
             'Category',
             'Product',
             'Tax',
