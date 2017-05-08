@@ -33,7 +33,8 @@ class Order extends \App\Business\Integration\WooCommerce\Models\Order
         'status',
         'payment_method',
         'external_id',
-        'print_analytics'
+        'print_analytics',
+        'user_agent'
     ];
 
     public $attributes = [

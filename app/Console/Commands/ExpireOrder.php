@@ -83,8 +83,11 @@ class ExpireOrder extends Command
         $response = collect([
             "*Expiring order {$order->_id}*: ",
             "*Total amount*: {$order->total}€",
+            "*Device*: {$order->user_agent}",
             "*Items*: ",
-        ])->merge($items)->merge($billing);
+        ])
+            ->merge($items)
+            ->merge($billing);
         return $response->implode("\n");
     }
 }

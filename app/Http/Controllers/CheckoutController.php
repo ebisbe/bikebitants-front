@@ -50,6 +50,7 @@ class CheckoutController extends Controller
             }
         }
         $this->orderService->setSessionId($this->request->session()->getId());
+        $this->orderService->setUserAgent($this->request->header('user-agent'));
 
         $order = $this->orderService->checkoutOrder();
 

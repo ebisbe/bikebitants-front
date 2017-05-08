@@ -44,6 +44,7 @@ class CheckoutOrder
     /** Repositories */
     protected $couponService;
     protected $productRepository;
+    private $user_agent;
 
     /**
      * OrderService constructor.
@@ -176,6 +177,7 @@ class CheckoutOrder
         if (!$this->order instanceof Order) {
             /** @var Order $order */
             $order = new Order();
+            //TODO review if its necessary Token and session_id
             $order->token = Carbon::now()->timestamp;
             $order->session_id = $this->getSessionId();
             $order = $this->updateOrder($order);
@@ -214,6 +216,7 @@ class CheckoutOrder
             $order->total = Cart::getTotal();
             $order->total_items = Cart::getTotalQuantity();
             $order->conditions = $this->updateOrderConditions();
+            $order->user_agent = $this->user_agent;
 
             $ids = $order->cart()->get()->map(function ($item) {
                 return $item->_id;
@@ -360,5 +363,10 @@ class CheckoutOrder
     public function getToken()
     {
         return $this->order->token;
+    }
+
+    public function setUserAgent($user_agent)
+    {
+        $this->user_agent = $user_agent;
     }
 }
