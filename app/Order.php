@@ -154,8 +154,9 @@ class Order extends \App\Business\Integration\WooCommerce\Models\Order
      */
     public function scopeCurrentOrder($query)
     {
-
-        return $query->where('token', Request::session()->get('order'));
+        return $query
+            ->where('token', 'exists', true)
+            ->where('token', Request::session()->get('order'));
     }
 
     public function conditionsFilter($condition)
