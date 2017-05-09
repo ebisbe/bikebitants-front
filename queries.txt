@@ -1,0 +1,14 @@
+//Check repeated skus from products
+[
+	{$unwind: "$variations"},
+	{$project: {"_id": "$variations.sku"}},
+	{$group: {_id: "$_id", score: {$sum: 1}}},
+	{$match:{"$and":[{"score":{"$gt":1}}]}}
+]
+
+//View emails and products ( sku ) solds
+[
+	{$project: {"_id": "$billing.email", 'cart': '$cart'}},
+	{$unwind: '$cart'},
+	{$project: {"_id": "$_id", 'sku': "$cart.sku"}}
+]
