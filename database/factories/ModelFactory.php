@@ -267,6 +267,7 @@ $factory->define(Coupon::class, function (Generator $faker) {
         'expired_at' => new UTCDatetime(Carbon::now()->addDays(4)->timestamp * 1000),
         'minimum_cart' => 0,
         'maximum_cart' => null,
+        'exclude_sale_items' => $faker->boolean(),
 
         'limit_usage_by_coupon' => 3,
         'limit_usage_by_user' => 1,

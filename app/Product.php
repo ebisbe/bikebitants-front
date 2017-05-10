@@ -28,7 +28,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * @property bool $reviews_allowed
  * @property array $prices
  * @property string $stock
- * @property string $is_discounted
+ * @property boolean $is_discounted
  * @property array $categories
  * @property string $rating
  * @property Brand $brand

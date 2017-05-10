@@ -11,6 +11,7 @@ use MongoDB\BSON\UTCDatetime;
  * @property integer external_id
  * @property string name
  * @property float magnitude
+ * @property string value
  * @property string type
  * @property string description
  * @property UTCDatetime expired_at
@@ -18,6 +19,7 @@ use MongoDB\BSON\UTCDatetime;
  * @property integer|null maximum_cart
  * @property array type_options
  * @property string email_list
+ * @property boolean exclude_sale_items
  */
 class Coupon extends \App\Business\Integration\WooCommerce\Models\Coupon
 {
@@ -71,5 +73,15 @@ class Coupon extends \App\Business\Integration\WooCommerce\Models\Coupon
     public static function typeOptions()
     {
         return (new Coupon())->type_options;
+    }
+
+    public function getNameAttribute($name)
+    {
+        $asterisk = '';
+        if ($this->exclude_sale_items) {
+            $asterisk = '* ';
+        }
+
+        return $asterisk . $name;
     }
 }
