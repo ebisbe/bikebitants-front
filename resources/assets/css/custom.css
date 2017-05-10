@@ -639,7 +639,7 @@ textarea {
     padding: 10px 0;
 }
 
-.breadcrumb-wrapper h2 {
+.breadcrumb-wrapper h2, .breadcrumb-wrapper p {
     margin: 5px 0 0;
     font-size: 20px;
     font-weight: bold;

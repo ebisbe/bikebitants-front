@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-6">
-                <h2>{{ $title }}</h2>
+                <p>{{ $title }}</p>
                 <h1>{{ $subtitle }}</h1>
             </div>
             <div class="col-xs-6">
