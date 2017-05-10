@@ -28,6 +28,7 @@ class Coupon extends ApiImporter
         'maximum_cart',
         'limit_usage_by_coupon',
         'limit_usage_by_user',
+        'exclude_sale_items',
         'single_use',
         'emails',
         'external_id'
@@ -39,6 +40,7 @@ class Coupon extends ApiImporter
         'single_use' => 'boolean',
         'minimum_cart' => 'float',
         'maximum_cart' => 'float',
+        'exclude_sale_items' => 'float'
     ];
 
     public function sync($entity)
@@ -49,6 +51,7 @@ class Coupon extends ApiImporter
         $entity['expired_at'] = $this->convertDate($entity['date_expires']);
         $entity['minimum_cart'] = $entity['minimum_amount'];
         $entity['maximum_cart'] = $entity['maximum_amount'];
+        $entity['exclude_sale_items'] = $entity['exclude_sale_items'];
 
         $this->fill($entity);
     }

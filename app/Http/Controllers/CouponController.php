@@ -14,8 +14,7 @@ class CouponController extends Controller
             'coupon' => 'bail|required|coupon_exists|not_expired|minimum_cart|maximum_cart'
         ]);
 
-        $couponName = $request->input('coupon');
-        $couponService->addCoupon($couponName);
+        $couponService->addCoupon($request->input('coupon'));
 
         return redirect()->back();
     }
