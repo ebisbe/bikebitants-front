@@ -135,6 +135,7 @@ class CheckoutOrder
         $this->getOrder();
         if ($this->response->isSuccessful()) {
             $this->order->status = Order::CONFIRMED;
+            $this->order->payment_response = $this->response->getData();
             $this->order->save();
             // TODO send email
             Event::fire(new Confirm($this->order));
@@ -145,6 +146,7 @@ class CheckoutOrder
         } else {
             $this->order->status = Order::UNDEFINED;
             $this->order->error_message = $this->response->getMessage();
+            $this->order->payment_response = $this->response->getData();
             $this->order->save();
             //Event::fire('order.error', [$this->order]);
         }
