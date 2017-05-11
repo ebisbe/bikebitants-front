@@ -34,7 +34,8 @@ class Order extends \App\Business\Integration\WooCommerce\Models\Order
         'payment_method',
         'external_id',
         'print_analytics',
-        'user_agent'
+        'user_agent',
+        'payment_response'
     ];
 
     public $attributes = [
