@@ -74,14 +74,4 @@ class Coupon extends \App\Business\Integration\WooCommerce\Models\Coupon
     {
         return (new Coupon())->type_options;
     }
-
-    public function getNameAttribute($name)
-    {
-        $asterisk = '';
-        if ($this->exclude_sale_items) {
-            $asterisk = '* ';
-        }
-
-        return $asterisk . $name;
-    }
 }
