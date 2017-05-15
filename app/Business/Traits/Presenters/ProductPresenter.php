@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Business\Traits\Presenters;
 
 use App\Image;
@@ -46,11 +47,18 @@ trait ProductPresenter
         return $minTax . $this->html_currency;
     }
 
+    /**
+     * @param $price
+     * @return mixed
+     */
     private function lowerPrice($price)
     {
         return $this->variations->where('price', '>', 0)->min($price);
     }
 
+    /**
+     * @return string
+     */
     public function getLowerPriceAttribute()
     {
         $lowest_price = $this->lowerPrice('price');
@@ -62,11 +70,18 @@ trait ProductPresenter
         return TaxService::applyTax($lowest_price);
     }
 
+    /**
+     * @param $price
+     * @return mixed
+     */
     private function higherPrice($price)
     {
         return $this->variations->where('price', '>', 0)->max($price);
     }
 
+    /**
+     * @return string
+     */
     public function getHigherPriceAttribute()
     {
         $highest_price = $this->higherPrice('price');
@@ -105,11 +120,17 @@ trait ProductPresenter
         return is_array($this->tags) ? implode(', ', $this->tags) : $this->tags;
     }
 
+    /**
+     * @param $featured
+     */
     public function setIsFeaturedAttribute($featured)
     {
         $this->attributes['is_featured'] = (bool)$featured;
     }
 
+    /**
+     * @param $is_discounted
+     */
     public function setIsDiscountedAttribute($is_discounted)
     {
         $this->attributes['is_discounted'] = (bool)$is_discounted;
@@ -149,9 +170,14 @@ trait ProductPresenter
             $add = " ( $this->stock )";
         }
 
-        return $this->stock != 0 ? trans('catalogue.in_stock') . $add : trans('catalogue.out_of_stock');
+        return $this->stock != 0 || is_null($this->stock)
+            ? trans('catalogue.in_stock') . $add
+            : trans('catalogue.out_of_stock');
     }
 
+    /**
+     * @return mixed
+     */
     public function getTitleAttribute()
     {
         $search = ['%%title%%', '%%sep%%', '%%sitename%%'];
@@ -163,6 +189,9 @@ trait ProductPresenter
         return str_ireplace($search, $replace, $title . $title_tail);
     }
 
+    /**
+     * @return mixed
+     */
     public function getMetaDescAttribute()
     {
         return !empty($this->meta_description) ? $this->meta_description : $this->introduction;

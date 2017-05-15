@@ -64,6 +64,8 @@ Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
     ->name('shop.image');
 /** END shop */
 
+Route::get('/deliverea/client_carriers', 'DelivereaController@clientCarriers')->name('deliverea.client_carriers');
+
 /** API */
 Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
     Route::resource('cart', 'CartController', [

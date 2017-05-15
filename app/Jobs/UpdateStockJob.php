@@ -39,9 +39,9 @@ class UpdateStockJob extends Job implements ShouldQueue
     public function handle()
     {
         $this->order->cart()->map(function ($cart) {
-            /** @var Variation $variation */
-            $variation = $this->productRepository->findBy('_id', $cart->product_id)
-                ->productVariation(array_merge([$cart->product_id], $cart->properties));
+
+            $variation = $this->productRepository->findVariationByProduct($cart->product_id, $cart->properties);
+
             if ($this->order->status == Order::NEW) {
                 $variation->decrement('stock', $cart->quantity);
             }

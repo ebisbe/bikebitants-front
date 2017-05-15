@@ -176,6 +176,7 @@ $factory->define(Variation::class, function (Generator $faker) use ($files) {
         'is_discounted' => $faker->boolean(35),
         'stock' => /*$faker->numberBetween(0,3)*/
             10,
+        'in_stock' => $faker->boolean(),
         'filename' => $files->random(),
     ];
 });

@@ -8,6 +8,7 @@ use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Blade;
+use Jenssegers\Mongodb\Eloquent\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -63,5 +64,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(\App\Business\Services\TwitterService::class, \App\Business\Services\TwitterService::class);
         $this->app->bind('NewOrder', NewOrder::class);
+
+        Builder::macro('getName', function () {
+            return 'mongodb';
+        });
     }
 }

@@ -130,7 +130,7 @@ class Product extends \App\Business\Integration\WooCommerce\Models\Product
      */
     public function hasLowStock()
     {
-        return $this->stock <= self::LOW_STOCK;
+        return !is_null($this->stock) && $this->stock <= self::LOW_STOCK;
     }
 
     /**

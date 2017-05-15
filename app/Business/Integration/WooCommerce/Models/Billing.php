@@ -12,6 +12,7 @@ namespace App\Business\Integration\WooCommerce\Models;
  * @property string address_1
  * @property string address_2
  * @property string city
+ * @property string state
  * @property string postcode
  * @property string phone
  * @property Country country

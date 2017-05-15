@@ -3,6 +3,7 @@
 namespace App\Business\Integration\WooCommerce;
 
 use App\Coupon;
+use App\Exceptions\OrderNotSavedException;
 use App\Shipping;
 use App\Order as AppOrder;
 
@@ -11,10 +12,30 @@ class Order
     /**
      * @param AppOrder $order
      * @return AppOrder
+     * @throws OrderNotSavedException
      */
     public function create(AppOrder $order): AppOrder
     {
 
+        $data = $this->postData($order);
+        $response = \Woocommerce::post('orders', $data);
+
+        $order->external_id = $response['id'];
+        $order->response = $response;
+
+        if (!$order->save()) {
+            throw new OrderNotSavedException($order->_id, $response['id']);
+        }
+
+        return $order;
+    }
+
+    /**
+     * @param AppOrder $order
+     * @return array
+     */
+    protected function couponLines(AppOrder $order): array
+    {
         $coupon = [];
         $couponCondition = $order->conditionsFilter(Coupon::CART_CONDITION_TYPE);
         if (!empty($couponCondition)) {
@@ -27,8 +48,16 @@ class Order
                 ]
             ];
         }
+        return $coupon;
+    }
 
-        $items = $order->cart->map(function ($cart) {
+    /**
+     * @param AppOrder $order
+     * @return array
+     */
+    protected function itemLines(AppOrder $order)
+    {
+        return $order->cart->map(function ($cart) {
             $item = [];
             $item['product_id'] = $cart->product_id;
             $item['total'] = $cart->total_without_iva;
@@ -37,11 +66,19 @@ class Order
                 $item['variation_id'] = $cart->variation_id;
             }
             return $item;
-        });
+        })->toArray();
+    }
 
+    /**
+     * @param AppOrder $order
+     * @param $shipping
+     * @return array
+     */
+    protected function postData(AppOrder $order): array
+    {
         $shipping = $order->conditionsFilter(Shipping::CART_CONDITION_TYPE);
 
-        $data = [
+        return [
             'payment_method' => $order->payment_method->name,
             'payment_method_title' => $order->payment_method->name,
             'set_paid' => $order->payment_method->set_paid,
@@ -67,7 +104,7 @@ class Order
                 'postcode' => $order->shipping->postcode,
                 'country' => $order->shipping->country,
             ],
-            'line_items' => $items->toArray(),
+            'line_items' => $this->itemLines($order),
             'shipping_lines' => [
                 [
                     'method_id' => 'flat_rate',
@@ -75,15 +112,7 @@ class Order
                     'total' => $shipping['value'] / 1.21,
                 ]
             ],
-            "coupon_lines" => $coupon
+            "coupon_lines" => $this->couponLines($order)
         ];
-
-        $response = \Woocommerce::post('orders', $data);
-
-        $order->external_id = $response['id'];
-        $order->response = $response;
-        $order->save();
-
-        return $order;
     }
 }

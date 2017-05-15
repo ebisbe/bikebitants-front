@@ -4,6 +4,7 @@ namespace App;
 
 use App\Business\Repositories\ProductRepository;
 use App\Business\Traits\FileHashTrait;
+use App\Exceptions\OutOfStockException;
 use App\Jobs\ProductVariations;
 
 class Variation extends \App\Business\Integration\WooCommerce\Models\Variation
@@ -37,5 +38,20 @@ class Variation extends \App\Business\Integration\WooCommerce\Models\Variation
     public function getTaxPriceAttribute()
     {
         return \TaxService::applyTax($this->price);
+    }
+
+    /**
+     * @param $cartQuantity
+     * @throws OutOfStockException
+     */
+    public function checkStock($cartQuantity)
+    {
+        if (
+            //Allow dropshipping stock -> stock = null
+            !is_null($this->stock)
+            && $this->stock - $cartQuantity < 0
+        ) {
+            throw new OutOfStockException(trans('exceptions.out_of_stock', ['product' => $this->sku]));
+        }
     }
 }
