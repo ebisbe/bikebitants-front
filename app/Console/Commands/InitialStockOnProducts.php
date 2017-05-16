@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Exceptions\VariationNotFoundException;
 use App\Product;
 use App\Property;
 use Illuminate\Console\Command;
@@ -94,6 +95,10 @@ class InitialStockOnProducts extends Command
 
         //We search for a variation with stock
         $variation = $product->variations->where('stock', '>', 0)->first();
+        if (is_null($variation)) {
+            throw new VariationNotFoundException('Variation with stock not found for product ' . $product->_id);
+        }
+
         $this->line("{$variation->sku} -> Stock: {$variation->stock}");
         $properties = collect($variation->_id)->slice(1);
 
