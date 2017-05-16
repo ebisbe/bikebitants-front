@@ -65,7 +65,6 @@ class InitialStockOnProducts extends Command
     /**
      * //Todo too many things
      * @param Product $product
-     * @return bool|static
      */
     protected function defaultAttributes(Product $product)
     {
@@ -82,15 +81,18 @@ class InitialStockOnProducts extends Command
             })
             ->pluck('sku');
 
-        $variation = $product->productVariation(array_merge(
+        $defaultVariation = $product->productVariation(array_merge(
             [$product->_id],
             $selected_properties->toArray()
         ));
 
-        if (!is_null($variation) && $variation->stock > 0) {
+        if (!is_null($defaultVariation) && $defaultVariation->stock > 0) {
+            //If selected variation has stock we do nothing otherwise
+            //we have to find a variation with stock.
             return false;
         }
 
+        //We search for a variation with stock
         $variation = $product->variations->where('stock', '>', 0)->first();
         $this->line("{$variation->sku} -> Stock: {$variation->stock}");
         $properties = collect($variation->_id)->slice(1);

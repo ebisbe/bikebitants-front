@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
          $schedule->command('order:expire')->everyFiveMinutes();
          $schedule->command('woo:sync')->daily();
          $schedule->command('sitemap:generate')->daily();
-         $schedule->command('product:stock')->daily();
+         $schedule->command('product:stock')->dailyAt('00:30');
     }
     /**
      * Register the Closure based commands for the application.
