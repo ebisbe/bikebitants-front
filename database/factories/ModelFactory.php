@@ -26,6 +26,7 @@ use App\Variation;
 use App\Zone;
 use App\Cart;
 use Carbon\Carbon;
+use function Couchbase\fastlzCompress;
 use \Faker\Generator;
 use MongoDB\BSON\UTCDatetime;
 
@@ -54,7 +55,12 @@ $factory->define(Product::class, function (Generator $faker) {
         'reviews_allowed' => $faker->boolean(),
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
-        'meta_slug' => $faker->words(6, true)
+        'meta_slug' => $faker->words(6, true),
+        'weight' => $faker->numberBetween(2, 10),
+        'length' => $faker->numberBetween(2, 10),
+        'width' => $faker->numberBetween(2, 10),
+        'height' => $faker->numberBetween(2, 10),
+        'email_provider' => $faker->companyEmail
     ];
 });
 
@@ -349,32 +355,84 @@ $factory->state(Order::class, 'Undefined', function () {
     return ['status' => Order::UNDEFINED];
 });
 
-$factory->state(Order::class, 'DropShippingWithCarrierProvider', function () {
+$factory->state(Order::class, 'CashOnDelivery', function (Generator $faker) {
     return [
+        'external_id' => $faker->numberBetween(),
         'status' => Order::CONFIRMED,
         'cart' => [
-            factory(Cart::class)->states('DropShippingCart')->make()->toArray()
-        ]
+            factory(Cart::class)->make()->toArray(),
+            factory(Cart::class)->make()->toArray(),
+            factory(Cart::class)->make()->toArray(),
+            factory(Cart::class)->states('OnDemand')->make()->toArray()
+        ],
+        'payment_method_id' => factory(PaymentMethod::class)->lazy([
+            'slug' => PaymentMethod::CASH_ON_DELIVERY
+        ]),
+        'billing' => factory(Billing::class)->make()->toArray(),
+        'shipping' => factory(Shipping::class)->make()->toArray()
     ];
 });
 
 
 $factory->define(Cart::class, function (Generator $faker) {
+    if ($faker->boolean()) {
+        $variation = [
+            "OSSBY-SOPORTE",
+            $faker->colorName . '-' . $faker->colorName,
+            $faker->word,
+        ];
+    } else {
+        $variation = ['OSSBY-SOPORTE'];
+    }
+
     return [
         "price" => (string)$faker->randomFloat(2, 15, 50),
         "quantity" => $faker->numberBetween(0, 25),
         "total" => (string)$faker->randomFloat(2, 15, 50),
         "total_without_iva" => 247.93388429752067736,
-        /*"properties" => [
-            "OSSBY-SOPORTE"
-        ],
-        "variation_id" => 4948,*/
-        "product_id" => factory(Product::class)->lazy()
+        "properties" => $variation,
+        /*"variation_id" => 4948,*/
+        "product_id" => factory(Product::class)->lazy([
+            'collection_address' => 'Prova1',
+            'collection_address_cash_on_delivery' => 'Prova2',
+        ])
     ];
 });
-$factory->state(Cart::class, 'DropShippingCart', function () {
+$factory->state(Cart::class, 'OnDemand', function () {
     return [
-        "product_id" => factory(Product::class)->states('DropShipping')->lazy()
+        "product_id" => factory(Product::class)->lazy([
+            'delivery_address' => 'Prova3'
+        ])
+    ];
+});
+
+$factory->define(Shipping::class, function (Generator $faker) {
+    return [
+        "first_name" => $faker->name,
+        "last_name" => $faker->lastName,
+        "email" => $faker->email,
+        "phone" => $faker->e164PhoneNumber,
+        "address_1" => $faker->streetAddress,
+        "address_2" => null,
+        "city" => $faker->city,
+        "postcode" => '08105',
+        "state" => 'C',
+        "country" => 'ES'
+    ];
+});
+
+$factory->define(Billing::class, function (Generator $faker) {
+    return [
+        "first_name" => $faker->name,
+        "last_name" => $faker->lastName,
+        "email" => $faker->email,
+        "phone" => $faker->e164PhoneNumber,
+        "address_1" => $faker->streetAddress,
+        "address_2" => null,
+        "city" => $faker->city,
+        "postcode" => '08105',
+        "state" => 'C',
+        "country" => 'ES'
     ];
 });
 

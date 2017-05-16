@@ -6,4 +6,6 @@ return [
     'default_username' => 'BikeBot',
 
     'default_emoji' => ':bike:',
+
+    'channel' => env('SLACK_CHANNEL')
 ];

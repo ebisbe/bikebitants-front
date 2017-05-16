@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Business\Repositories\ProductRepository;
+use Illuminate\Notifications\Notifiable;
 use \Request;
 
 /**
@@ -15,10 +16,16 @@ use \Request;
  * @property Shipping $shipping
  * @property PaymentMethod $payment_method
  * @property integer $external_id
+ * @property int total
+ * @property array labels
+ * @property array shipments
+ * @property array response
  *
  */
 class Order extends \App\Business\Integration\WooCommerce\Models\Order
 {
+
+    use Notifiable;
 
     const NEW = 1;
     const VALID_DATA = 2;
@@ -61,6 +68,16 @@ class Order extends \App\Business\Integration\WooCommerce\Models\Order
                     ->checkStock($cart->quantity);
             });
         });
+    }
+
+    /**
+     * Route notifications for the Slack channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForSlack()
+    {
+        return config('slack.incoming-webhook');
     }
 
     /**
@@ -182,11 +199,17 @@ class Order extends \App\Business\Integration\WooCommerce\Models\Order
         return $woo_commerce_status[$status] ?? self::UNDEFINED;
     }
 
+    /**
+     * @return bool
+     */
     public function isShippingToCatalunya(): bool
     {
         return $this->shipping->country == 'ES' && $this->shipping->state == 'C';
     }
 
+    /**
+     * @return bool
+     */
     public function isCashOnDelivery()
     {
         return $this->payment_method->slug == PaymentMethod::CASH_ON_DELIVERY;

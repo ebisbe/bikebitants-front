@@ -92,7 +92,6 @@ class UpdateProductInfo extends Command
      */
     protected function productData($product, $csvLine): array
     {
-//        dd($csvLine);
         $apiProduct = Woocommerce::get('products/' . $product->external_id);
         return [
             'id' => $product->external_id,
@@ -146,12 +145,9 @@ class UpdateProductInfo extends Command
      */
     protected function sendData()
     {
-        // $this->info('Sending data to Woocommerce');
-       // dd($this->batch->first());
         Woocommerce::post('products/batch', [
-            'update' => [$this->batch->first()]
+            'update' => $this->batch->toArray()
         ]);
-        dd($this->batch->first());
 
         $this->batch = collect();
     }

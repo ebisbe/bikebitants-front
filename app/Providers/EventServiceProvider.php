@@ -5,7 +5,8 @@ namespace App\Providers;
 use App\Business\Checkout\Events\Cancel;
 use App\Business\Checkout\Events\Confirm;
 use App\Business\Checkout\Events\Create;
-use App\Listeners\CreateOrder;
+use App\Events\OrderPushed;
+use App\Listeners\PushOrder;
 use App\Listeners\NotifySaleToCarrier;
 use App\Listeners\NotifySaleToProvider;
 use App\Listeners\UpdateStockOrder;
@@ -25,13 +26,14 @@ class EventServiceProvider extends ServiceProvider
             UpdateStockOrder::class,
         ],
         Confirm::class => [
-            CreateOrder::class,
-            NotifySaleToCarrier::class,
-            NotifySaleToProvider::class
+            PushOrder::class,
         ],
         Cancel::class => [
             UpdateStockOrder::class,
         ],
+        OrderPushed::class => [
+            NotifySaleToCarrier::class,
+        ]
     ];
 
     /**

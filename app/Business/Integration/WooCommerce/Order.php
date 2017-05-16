@@ -3,9 +3,12 @@
 namespace App\Business\Integration\WooCommerce;
 
 use App\Coupon;
+use App\Events\OrderPushed as OrderPushedEvent;
+use App\Notifications\OrderPushed as OrderPushedNotification;
 use App\Exceptions\OrderNotSavedException;
 use App\Shipping;
 use App\Order as AppOrder;
+use Event;
 
 class Order
 {
@@ -25,6 +28,9 @@ class Order
 
         if (!$order->save()) {
             throw new OrderNotSavedException($order->_id, $response['id']);
+        } else {
+            Event::fire(new OrderPushedEvent($order->fresh()));
+            $order->notify(new OrderPushedNotification());
         }
 
         return $order;
@@ -71,7 +77,6 @@ class Order
 
     /**
      * @param AppOrder $order
-     * @param $shipping
      * @return array
      */
     protected function postData(AppOrder $order): array

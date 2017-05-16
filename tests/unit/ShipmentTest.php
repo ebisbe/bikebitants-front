@@ -4,10 +4,9 @@ namespace Tests\Unit;
 
 use App\Business\Deliverea\Shipment;
 use App\Order;
+use Deliverea;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Event;
 
 class ShipmentTest extends TestCase
 {
@@ -23,6 +22,7 @@ class ShipmentTest extends TestCase
     protected function setUp()
     {
         $this->shipment = new Shipment();
+        parent::setUp();
     }
 
     /**
@@ -84,20 +84,33 @@ class ShipmentTest extends TestCase
         $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
         $this->assertEquals(self::CORREOS_24, $carrier->service());
     }
-     /**
-      * @test
-      * CASE 5
-      */
-     public function it_is_an_order_with_cash_on_delivery_dropshipping()
-     {
-         $carrier = $this->shipment->getCarrier(true, true, true);
 
-         $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
-         $this->assertEquals(self::CORREOS_24, $carrier->service());
+    /**
+     * @test
+     * CASE 5
+     */
+    public function it_is_an_order_with_cash_on_delivery_dropshipping()
+    {
+        $carrier = $this->shipment->getCarrier(true, true, true);
 
-         $carrier = $this->shipment->getCarrier(true, true, false);
+        $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
+        $this->assertEquals(self::CORREOS_24, $carrier->service());
 
-         $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
-         $this->assertEquals(self::CORREOS_24, $carrier->service());
-     }
+        $carrier = $this->shipment->getCarrier(true, true, false);
+
+        $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
+        $this->assertEquals(self::CORREOS_24, $carrier->service());
+    }
+
+    /** @test */
+    public function it_sends_a_shipment_to_deliverea()
+    {
+        Event::fake();
+        /** @var Order $order */
+        $order = factory(Order::class)->states('CashOnDelivery')->create();
+
+        $shipment = new Shipment();
+        $shipment->order($order);
+        $shipment->new();
+    }
 }

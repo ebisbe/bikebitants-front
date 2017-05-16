@@ -4,10 +4,12 @@ namespace App\Listeners;
 
 use App\Business\Checkout\Events\Confirm;
 use App\Business\Integration\WooCommerce\Order;
-use Slack;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notifiable;
 
-class CreateOrder
+class PushOrder implements ShouldQueue
 {
+    use Notifiable;
     /**
      * @var Order
      */
@@ -27,10 +29,18 @@ class CreateOrder
      */
     public function handle(Confirm $event)
     {
+        $this->order->create($event->order);
+    }
+
+    /**
+     * @param $queue
+     * @param $job
+     * @param $data
+     */
+    public function queue($queue, $job, $data)
+    {
         if (config('app.env') == 'production') {
-            $order = $this->order->create($event->order);
-            //TODO send in a separete event?
-            Slack::send("New order #{$order->external_id}!");
+            $queue->push($job, $data);
         }
     }
 }

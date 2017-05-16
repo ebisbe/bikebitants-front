@@ -4,6 +4,9 @@ namespace App;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 
+/**
+ * @property string name
+ */
 class PaymentMethod extends Model
 {
     protected $fillable = ['description'];

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "93f6e263d65c178194ac5748c055431a",
+    "content-hash": "fe105dc395c7171c141caa45824b97cc",
     "packages": [
         {
             "name": "automattic/woocommerce",
@@ -1025,16 +1025,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ebisbe/laravel-deliverea.git",
-                "reference": "e28f7eacd2e2690324903d72107ab9d469ad4bcb"
+                "reference": "b45d48d57cb27b6a8ebe41256175d4de8ceead09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ebisbe/laravel-deliverea/zipball/e28f7eacd2e2690324903d72107ab9d469ad4bcb",
-                "reference": "e28f7eacd2e2690324903d72107ab9d469ad4bcb",
+                "url": "https://api.github.com/repos/ebisbe/laravel-deliverea/zipball/b45d48d57cb27b6a8ebe41256175d4de8ceead09",
+                "reference": "b45d48d57cb27b6a8ebe41256175d4de8ceead09",
                 "shasum": ""
             },
             "require": {
                 "deliverea/deliverea-php": "dev-master",
+                "illuminate/support": "^5.4",
                 "php": "^7.0"
             },
             "type": "library",
@@ -1065,7 +1066,7 @@
                 "source": "https://github.com/ebisbe/laravel-deliverea/tree/master",
                 "issues": "https://github.com/ebisbe/laravel-deliverea/issues"
             },
-            "time": "2017-05-11T14:43:18+00:00"
+            "time": "2017-05-24T15:14:07+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -4317,16 +4318,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.19",
+            "version": "5.7.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "69c4f49ff376af2692bad9cebd883d17ebaa98a1"
+                "reference": "3cb94a5f8c07a03c8b7527ed7468a2926203f58b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/69c4f49ff376af2692bad9cebd883d17ebaa98a1",
-                "reference": "69c4f49ff376af2692bad9cebd883d17ebaa98a1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3cb94a5f8c07a03c8b7527ed7468a2926203f58b",
+                "reference": "3cb94a5f8c07a03c8b7527ed7468a2926203f58b",
                 "shasum": ""
             },
             "require": {
@@ -4344,7 +4345,7 @@
                 "phpunit/php-timer": "^1.0.6",
                 "phpunit/phpunit-mock-objects": "^3.2",
                 "sebastian/comparator": "^1.2.4",
-                "sebastian/diff": "~1.2",
+                "sebastian/diff": "^1.4.3",
                 "sebastian/environment": "^1.3.4 || ^2.0",
                 "sebastian/exporter": "~2.0",
                 "sebastian/global-state": "^1.1",
@@ -4395,7 +4396,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-04-03T02:22:27+00:00"
+            "time": "2017-05-22T07:42:55+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5100,16 +5101,16 @@
         },
         {
             "name": "sebastian/diff",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "3c7d21999e815cdfac70c6c7d79d3a9cb1bc7bc2"
+                "reference": "7f066a26a962dbe58ddea9f72a4e82874a3975a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/3c7d21999e815cdfac70c6c7d79d3a9cb1bc7bc2",
-                "reference": "3c7d21999e815cdfac70c6c7d79d3a9cb1bc7bc2",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/7f066a26a962dbe58ddea9f72a4e82874a3975a4",
+                "reference": "7f066a26a962dbe58ddea9f72a4e82874a3975a4",
                 "shasum": ""
             },
             "require": {
@@ -5148,7 +5149,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2017-05-18T13:44:30+00:00"
+            "time": "2017-05-22T07:24:03+00:00"
         },
         {
             "name": "sebastian/environment",

@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Business\Checkout\Events;
+namespace App\Events;
 
-use App\Events\Event;
 use App\Order;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Events\Dispatchable;
 
-class Create extends Event
+class OrderPushed
 {
-    use SerializesModels;
-
-    /** @var  Order $order */
-    public $order;
+    use Dispatchable, SerializesModels;
+    /**
+     * @var Order
+     */
+    private $order;
 
     /**
      * Create a new event instance.

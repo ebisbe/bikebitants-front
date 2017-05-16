@@ -5,6 +5,7 @@ namespace App\Business\Integration\WooCommerce;
 use App\Business\Integration\WooCommerce\Models\ModelFactory;
 use App\Business\Integration\WooCommerce\Models\Product;
 use App\Business\Integration\WooCommerce\Models\Property;
+use Illuminate\Support\Str;
 
 // TODO review this class to follow ApiImporter Pattern
 class Properties
@@ -85,7 +86,7 @@ class Properties
             $brand->save();
             $brand->products()->save($this->product);
         } else {
-            $this->product->{$attribute['name']} = $attribute['options'][0];
+            $this->product->{Str::slug($attribute['name'], '_')} = $attribute['options'][0];
         }
     }
 
