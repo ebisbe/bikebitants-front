@@ -13,6 +13,7 @@ use \Request;
  * @property bool print_analytics
  * @property Billing $billing
  * @property Shipping $shipping
+ * @property PaymentMethod $payment_method
  * @property integer $external_id
  *
  */
@@ -178,5 +179,15 @@ class Order extends \App\Business\Integration\WooCommerce\Models\Order
         ];
 
         return $woo_commerce_status[$status] ?? self::UNDEFINED;
+    }
+
+    public function isShippingToCatalunya(): bool
+    {
+        return $this->shipping->country == 'ES' && $this->shipping->state == 'C';
+    }
+
+    public function isCashOnDelivery()
+    {
+        return $this->payment_method->slug == PaymentMethod::CASH_ON_DELIVERY;
     }
 }

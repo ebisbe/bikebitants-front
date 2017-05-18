@@ -43,14 +43,14 @@ class Cart extends Model
     /**
      * Adding global Scopes
      */
-    protected static function boot()
+    /*protected static function boot()
     {
         parent::boot();
 
         static::addGlobalScope('currentSession', function (Builder $builder) {
             $builder->whereSessionId(Request::session()->getId());
         });
-    }
+    }*/
 
     /**
      * Find a product by it's properties if has some

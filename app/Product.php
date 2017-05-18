@@ -150,4 +150,9 @@ class Product extends \App\Business\Integration\WooCommerce\Models\Product
     {
         return $query->whereNotNull('properties');
     }
+
+    public function isDropShipping()
+    {
+        return is_null($this->stock);
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\GenerateSiteMap;
 use App\Country;
 use App\Order;
 use App\Property;
@@ -23,6 +24,7 @@ use App\Tax;
 use App\User;
 use App\Variation;
 use App\Zone;
+use App\Cart;
 use Carbon\Carbon;
 use \Faker\Generator;
 use MongoDB\BSON\UTCDatetime;
@@ -46,18 +48,10 @@ $factory->define(Product::class, function (Generator $faker) {
         '_id' => strtoupper(str_slug($name)),
         'name' => $name,
         'status' => Product::PUBLISHED,
-        //'slug' => str_slug($name),
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'is_featured' => $faker->boolean(35),
-        //'is_discounted' => $faker->boolean(35),
-        //'min_price' => $faker->numberBetween(1, 10),
-        //'max_price' => $faker->numberBetween(1, 10),
-        //'discount_init' => $faker->date(),
-        //'discount_end' => $faker->date(),
         'reviews_allowed' => $faker->boolean(),
-        //'rating' => $faker,
-        //'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
         'meta_slug' => $faker->words(6, true)
@@ -81,27 +75,19 @@ $factory->define(\App\Business\Models\Shop\Product::class, function (Generator $
 });
 
 $factory->state(\App\Business\Models\Shop\Product::class, 'draft', function () {
-    return [
-        'status' => Product::DRAFT,
-    ];
+    return ['status' => Product::DRAFT];
 });
-
 $factory->state(\App\Business\Models\Shop\Product::class, 'hidden', function () {
-    return [
-        'status' => Product::HIDDEN,
-    ];
+    return ['status' => Product::HIDDEN];
 });
-
 $factory->state(\App\Business\Models\Shop\Product::class, 'featured', function () {
-    return [
-        'is_featured' => true,
-    ];
+    return ['is_featured' => true];
 });
-
+$factory->state(Product::class, 'DropShipping', function (Generator $faker) {
+    return ['provider' => $faker->email];
+});
 $factory->state(Product::class, 'bargain', function () {
-    return [
-        'is_discounted' => true,
-    ];
+    return ['is_discounted' => true];
 });
 
 $factory->define(Property::class, function (Generator $faker) {
@@ -333,6 +319,13 @@ $factory->define(Order::class, function (Generator $faker) {
         "subtotal" => $faker->randomFloat(2, 0, 25),
         "total" => $faker->randomFloat(2, 0, 25),
         "total_items" => $faker->numberBetween(0, 5),
+        "user_agent" => $faker->userAgent,
+        //billing
+        //shipping
+        //conditions
+        "cart" => [
+            factory(Cart::class)->make()->toArray()
+        ]
     ];
 });
 
@@ -355,6 +348,34 @@ $factory->state(Order::class, 'Undefined', function () {
     return ['status' => Order::UNDEFINED];
 });
 
+$factory->state(Order::class, 'DropShippingWithCarrierProvider', function () {
+    return [
+        'status' => Order::CONFIRMED,
+        'cart' => [
+            factory(Cart::class)->states('DropShippingCart')->make()->toArray()
+        ]
+    ];
+});
+
+
+$factory->define(Cart::class, function (Generator $faker) {
+    return [
+        "price" => (string)$faker->randomFloat(2, 15, 50),
+        "quantity" => $faker->numberBetween(0, 25),
+        "total" => (string)$faker->randomFloat(2, 15, 50),
+        "total_without_iva" => 247.93388429752067736,
+        /*"properties" => [
+            "OSSBY-SOPORTE"
+        ],
+        "variation_id" => 4948,*/
+        "product_id" => factory(Product::class)->lazy()
+    ];
+});
+$factory->state(Cart::class, 'DropShippingCart', function () {
+    return [
+        "product_id" => factory(Product::class)->states('DropShipping')->lazy()
+    ];
+});
 
 $factory->define(Tag::class, function (Generator $faker) {
     $name = $faker->name;
@@ -373,7 +394,7 @@ $factory->define(Country::class, function (Generator $faker) {
         "name" => $faker->country,
         'active' => $faker->boolean,
         "states" => [
-            $faker->randomLetter.$faker->randomLetter
+            $faker->randomLetter . $faker->randomLetter
         ],
     ];
 });

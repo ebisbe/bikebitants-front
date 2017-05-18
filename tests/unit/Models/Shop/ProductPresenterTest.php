@@ -1,5 +1,5 @@
 <?php
-namespace Test\Unit\Shop;
+namespace Test\Unit\Models\Shop;
 
 use App\Brand;
 use App\Business\Models\Shop\Category;
