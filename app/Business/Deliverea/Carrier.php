@@ -2,7 +2,7 @@
 
 namespace App\Business\Deliverea;
 
-class Carrier
+abstract class Carrier
 {
     private $carrier;
     private $service;

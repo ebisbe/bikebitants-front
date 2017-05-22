@@ -9,7 +9,6 @@ class DelivereaController extends Controller
     public function clientCarriers()
     {
         $response = Deliverea::getClientCarriers();
-        //    $response = Deliverea::getAddresses();
         dd($response);
     }
 
@@ -33,6 +32,12 @@ class DelivereaController extends Controller
             'service_code' => 'ovirtual-servicio-19',
             'carrier_code' => 'ovirtual'
         ]);
+        dd($response);
+    }
+
+    public function addresses()
+    {
+        $response = Deliverea::getAddresses();
         dd($response);
     }
 }

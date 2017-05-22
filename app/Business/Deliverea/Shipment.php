@@ -103,6 +103,12 @@ class Shipment
         );
     }
 
+    /**
+     * @param $is_dropshipping
+     * @param $is_cash_on_delivery
+     * @param $is_shipping_to_cat
+     * @return Carrier
+     */
     public function getCarrier($is_dropshipping, $is_cash_on_delivery, $is_shipping_to_cat): Carrier
     {
         switch (true) {
