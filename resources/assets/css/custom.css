@@ -3533,8 +3533,12 @@ footer.navbar a:hover {
     padding: 12px 20px;
 }
 
+.jumbotron a.btn-default:hover {
+    background-color: transparent;
+}
 .jumbotron a.btn-default {
     color: #FFFFFF;
+    background-color: #00cc00;
 }
 
 .jumbotron a.btn-inverse {
@@ -3630,7 +3634,7 @@ footer.navbar a:hover {
 
 #homepage-2-carousel .slide-1 {
     background-image: url(images/gadgets-bicicleta.jpg);
-    text-align: center;
+    text-align: left;
 }
 
 #homepage-2-carousel .slide-1 .container {
@@ -3646,14 +3650,23 @@ footer.navbar a:hover {
 #homepage-2-carousel .slide-1 h1 {
     font-weight: 300;
     font-size: 30px;
+    margin-left:150px;
 }
 
 #homepage-2-carousel .slide-1 h2 {
     font-size: 16px;
     line-height: 17px;
-    margin: 15px 0;
+    margin: 15px 0 15px 127px;
 }
 
+#homepage-2-carousel .slide-1 h2 + a {
+    margin-left: 135px;
+}
+
+#homepage-2-carousel .services h3,
+#homepage-2-carousel .services p {
+    color: #ffffff;
+}
 /* HOME2 - SLIDE 2 */
 
 /*
@@ -4071,7 +4084,7 @@ footer.navbar a:hover {
 }
 
 .services.margin-top {
-    margin-top:150px;
+    margin-top:125px;
 }
 
 .services .service {
@@ -4978,7 +4991,8 @@ footer.navbar a:hover {
     #homepage-2-carousel .slide-1 h2 {
         font-size: 16px;
         line-height: 17px;
-        margin: 15px 0;
+        margin-top:15px;
+        margin-bottom:15px;
     }
 
     #homepage-2-carousel .slide-2 h1 {
@@ -5088,6 +5102,10 @@ footer.navbar a:hover {
         font-size: 16px;
         line-height: 17px;
         margin: 15px 0;
+    }
+
+    #homepage-2-carousel .slide-1 h2 + a {
+        margin-left: 0;
     }
 
     #homepage-2-carousel .slide-1 .btn {
