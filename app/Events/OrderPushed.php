@@ -12,7 +12,7 @@ class OrderPushed
     /**
      * @var Order
      */
-    private $order;
+    public $order;
 
     /**
      * Create a new event instance.

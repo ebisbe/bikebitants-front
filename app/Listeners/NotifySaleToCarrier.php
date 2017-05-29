@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Business\Checkout\Events\Confirm;
 use App\Business\Deliverea\Shipment;
+use App\Events\OrderPushed;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -28,10 +29,10 @@ class NotifySaleToCarrier
     /**
      * Handle the event.
      *
-     * @param  Confirm  $event
+     * @param OrderPushed $event
      * @return void
      */
-    public function handle(Confirm $event)
+    public function handle(OrderPushed $event)
     {
         $this->shipment->order($event->order);
         $this->shipment->new();
