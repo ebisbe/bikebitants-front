@@ -22,14 +22,4 @@ class Create extends Event
     {
         $this->order = $order;
     }
-
-    /**
-     * Get the channels the event should be broadcast on.
-     *
-     * @return array
-     */
-    public function broadcastOn()
-    {
-        return [];
-    }
 }

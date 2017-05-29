@@ -32,7 +32,11 @@ class Product extends ApiImporter
         'categories',
         'rating',
         'menu_order',
-        'reviews_allowed'
+        'reviews_allowed',
+        'weight',
+        'length',
+        'width',
+        'height'
     ];
 
     protected $attributes = [
@@ -134,6 +138,10 @@ class Product extends ApiImporter
         $entity['introduction'] = $entity['short_description'];
         $entity['meta_title'] = $entity['meta']['_yoast_wpseo_title'] ?? '';
         $entity['meta_description'] = $entity['meta']['_yoast_wpseo_metadesc'] ?? '';
+        $entity['weight'] = (float)$entity['weight'];
+        $entity['length'] = (float)$entity['dimensions']['length'];
+        $entity['width'] = (float)$entity['dimensions']['width'];
+        $entity['height'] = (float)$entity['dimensions']['height'];
 
         $this->fill($entity);
 

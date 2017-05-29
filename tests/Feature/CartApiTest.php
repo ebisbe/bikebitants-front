@@ -3,9 +3,6 @@
 namespace Tests\Feature;
 
 use App\Business\Traits\Tests\ProductTrait;
-use App\Exceptions\VariationNotFoundException;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class CartApiTest extends TestCase
@@ -282,5 +279,22 @@ class CartApiTest extends TestCase
                 'success' => true,
                 'message' => 'api.product_deleted'
             ]);
+    }
+
+    /** @test */
+    public function it_adds_a_product_with_dropshipping_stock()
+    {
+        $this->createTax(21);
+        $this->createSimpleProduct(null, 10);
+        $response = $this->addSimpleProduct();
+        $response
+            ->assertJson([
+                '_id' => "simple-product",
+                'quantity' => 1,
+                'price' => '12.10',
+                'is_max_stock' => false
+            ])
+            ->assertJsonStructure($this->getProductResponse())
+            ->assertStatus(200);
     }
 }

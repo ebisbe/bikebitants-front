@@ -13,6 +13,7 @@ class Variation extends ApiImporter
         'discounted_price',
         'is_discounted',
         'stock',
+        'in_stock',
         'filename'
     ];
 
@@ -30,20 +31,12 @@ class Variation extends ApiImporter
         $entity['real_price'] = (float)$entity['regular_price'];
         $entity['discounted_price'] = (float)$entity['sale_price'];
         $entity['is_discounted'] = $entity['on_sale'];
-        $entity['stock'] = $this->variationStock($entity);
+        $entity['stock'] = $entity['stock_quantity'];
 
         $value = $entity['image'] ?? $entity['images'][0];
         $entity['filename'] = (new Image)->saveImage($value);
 
         $this->fill($entity);
-    }
-
-    private function variationStock($variation)
-    {
-        if (!$variation['in_stock']) {
-            return 0;
-        }
-        return is_null($variation['stock_quantity']) ? 25 : $variation['stock_quantity'];
     }
 
     /**

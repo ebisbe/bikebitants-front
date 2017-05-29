@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Shop;
+namespace Tests\Unit\Models\Shop;
 
 use App\Image;
 use App\Variation;

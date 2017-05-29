@@ -6,6 +6,7 @@ use App\Order;
 use Carbon\Carbon;
 use Tests\TestCase;
 use OrderService;
+use Event;
 
 class OrderServiceTest extends TestCase
 {
@@ -19,6 +20,7 @@ class OrderServiceTest extends TestCase
      */
     public function do_not_expire_a_new_order()
     {
+        Event::fake();
         $this->createOrdersForCurrentTime(Carbon::now());
 
         $orders = OrderService::cancelByInactivity();
@@ -67,6 +69,7 @@ class OrderServiceTest extends TestCase
      */
     public function find_one_order_to_expire()
     {
+        Event::fake();
         $this->createOrdersForCurrentTime(Carbon::now()->addMinutes(-10));
 
         $orders = OrderService::cancelByInactivity();
@@ -89,6 +92,7 @@ class OrderServiceTest extends TestCase
     /** @test */
     public function orders_with_status_confirmed_to_push()
     {
+        Event::fake();
         $this->createOrders('New', ['token' => 1]);
         $this->createOrders('Redirected', ['token' => 2]);
         $this->createOrders('ValidData', ['token' => 3]);

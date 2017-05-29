@@ -3,10 +3,24 @@
 namespace App;
 
 use App\Business\Models\Shop\Product as ProductShop;
+use Illuminate\Support\Collection;
 use Jenssegers\Mongodb\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use \Request;
 
+/**
+ * Class Cart
+ * @package App
+ *
+ * @property int $price
+ * @property int $quantity
+ * @property float $total
+ * @property float $total_without_iva
+ * @property string $variation_id
+ * @property string $product_id
+ * @property string $sku
+ * @property Product $product
+ * @property Order order
+ * @property array properties
+ */
 class Cart extends Model
 {
     const CART_CONDITION_TARGET_ITEM = 'item';
@@ -41,18 +55,6 @@ class Cart extends Model
     }
 
     /**
-     * Adding global Scopes
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('currentSession', function (Builder $builder) {
-            $builder->whereSessionId(Request::session()->getId());
-        });
-    }
-
-    /**
      * Find a product by it's properties if has some
      * @param $query
      * @param $properties
@@ -76,5 +78,32 @@ class Cart extends Model
         self::all()->map(function ($item) {
             $item->delete();
         });
+    }
+
+    /**
+     * @return Collection
+     */
+    public function mapCartToParcel(): Collection
+    {
+        /** @var Cart $cart */
+        $collectionAddress = $this->product->collectionAddress($this->order->isCashOnDelivery());
+        $deliveryAddress = $this->product->deliveryAddress();
+        $is_drop_shipping = $this->product->isDropShipping();
+        return collect([
+            //TODO Hash should be in a function
+            'hash' => ($collectionAddress ?? '_') . ($deliveryAddress ?? '_') . $is_drop_shipping,
+            'collection_address' => $collectionAddress,
+            'delivery_address' => $deliveryAddress,
+            'is_drop_shipping' => $is_drop_shipping,
+            'weight' => $this->product->weight,
+            'length' => $this->product->length,
+            'width' => $this->product->width,
+            'height' => $this->product->height,
+            'volume' => $this->product->height * $this->product->width * $this->product->length,
+            'email_provider' => $this->product->email_provider,
+            'name' => $this->product->name,
+            'attributes' => collect($this->properties)->slice(1)->implode(', '),
+            'quantity' => $this->quantity
+        ]);
     }
 }

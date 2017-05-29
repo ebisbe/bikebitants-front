@@ -82,7 +82,8 @@ trait ProductTrait
      * @return Product
      */
     private function createProductWithThreeVariations(
-        array $realPrice = [10, 15, 20]
+        array $realPrice = [10, 15, 20],
+        $stock = true
     ) {
         /** @var Product $product */
         $product = factory(Product::class)->create([
@@ -95,21 +96,21 @@ trait ProductTrait
             'sku' => $product->_id . '-RED',
             'real_price' => $realPrice[0],
             'is_discounted' => false,
-            'stock' => 10
+            'stock' => $stock ? 10 : null
         ]);
         $variation2 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'GREEN'],
             'sku' => $product->_id . '-GREEN',
             'real_price' => $realPrice[1],
             'is_discounted' => false,
-            'stock' => 10
+            'stock' =>  $stock ? 10 : null
         ]);
         $variation3 = factory(Variation::class)->make([
             '_id' => [$product->_id, 'BLUE'],
             'sku' => $product->_id . '-BLUE',
             'real_price' => $realPrice[2],
             'is_discounted' => false,
-            'stock' => 10
+            'stock' => $stock ? 10 : null
         ]);
         $product->variations()->saveMany([$variation1, $variation2, $variation3]);
 

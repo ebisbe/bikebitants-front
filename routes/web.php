@@ -64,6 +64,12 @@ Route::get('/img/{filter}/{filename}', 'ImagesController@getResponse')
     ->name('shop.image');
 /** END shop */
 
+Route::get('/deliverea/client-carriers', 'DelivereaController@clientCarriers')->name('deliverea.client_carriers');
+Route::get('/deliverea/client-services', 'DelivereaController@clientServices')->name('deliverea.client_services');
+Route::get('/deliverea/service-info', 'DelivereaController@serviceInfo')->name('deliverea.service_info');
+Route::get('/deliverea/cut-off-hour', 'DelivereaController@cutOffHour')->name('deliverea.cut_off_hour');
+Route::get('/deliverea/addresses', 'DelivereaController@addresses')->name('deliverea.addresses');
+
 /** API */
 Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
     Route::resource('cart', 'CartController', [

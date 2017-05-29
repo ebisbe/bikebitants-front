@@ -17,7 +17,8 @@ class Kernel extends ConsoleKernel
         Commands\ExpireOrder::class,
         Commands\PushOrder::class,
         Commands\GenerateSiteMap::class,
-        Commands\InitialStockOnProducts::class
+        Commands\InitialStockOnProducts::class,
+        Commands\UpdateProductInfo::class
     ];
 
     /**

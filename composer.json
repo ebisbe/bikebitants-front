@@ -8,7 +8,6 @@
     "license": "MIT",
     "type": "project",
     "prefer-stable": true,
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.0",
         "laravel/framework": "5.4.*",
@@ -37,7 +36,12 @@
         "threesquared/laravel-wp-api": "^2.1",
         "jivesh/laravel-slack": "^1.0",
         "spatie/laravel-sitemap": "^2.1",
-        "barryvdh/laravel-httpcache": "^0.2.7"
+        "barryvdh/laravel-httpcache": "^0.2.7",
+        "ebisbe/laravel-deliverea": "dev-master",
+        "deliverea/deliverea-php": "@dev",
+        "doctrine/dbal": "^2.5",
+        "maatwebsite/excel": "^2.1",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -101,7 +105,11 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/mean-cj/laravel-mongodb"
+            "url": "https://github.com/ebisbe/laravel-deliverea"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ebisbe/deliverea-php"
         }
     ]
 }

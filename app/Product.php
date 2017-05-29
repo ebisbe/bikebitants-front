@@ -37,6 +37,11 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  * @property-read Image $front_image_hover
  * @property-read Category $category
  * @property-read Property $properties
+ * @property mixed weight
+ * @property mixed length
+ * @property mixed width
+ * @property mixed height
+ * @property string email_provider
  *
  * @method static Product whereSlug($slug)
  * @method static Product whereBrandId($brandId)
@@ -56,6 +61,9 @@ class Product extends \App\Business\Integration\WooCommerce\Models\Product
 
     const LOW_STOCK = 5;
 
+    const ADDRESS = 'collection_address';
+    const ADDRESS_CASH_ON_DELIVERY = 'collection_address_cash_on_delivery';
+    const DELIVERY_ADDRESS = 'delivery_address';
 
     /**
      * Labels attached to the product
@@ -130,7 +138,7 @@ class Product extends \App\Business\Integration\WooCommerce\Models\Product
      */
     public function hasLowStock()
     {
-        return $this->stock <= self::LOW_STOCK;
+        return !is_null($this->stock) && $this->stock <= self::LOW_STOCK;
     }
 
     /**
@@ -149,5 +157,30 @@ class Product extends \App\Business\Integration\WooCommerce\Models\Product
     public function scopeIsVariable(Builder $query)
     {
         return $query->whereNotNull('properties');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDropShipping()
+    {
+        return is_null($this->stock);
+    }
+
+    /**
+     * @param bool $isOrderCashOnDelivery
+     * @return mixed
+     */
+    public function collectionAddress(Bool $isOrderCashOnDelivery)
+    {
+        return $isOrderCashOnDelivery ? $this->{self::ADDRESS_CASH_ON_DELIVERY} : $this->{self::ADDRESS};
+    }
+
+    /**
+     * @return mixed
+     */
+    public function deliveryAddress()
+    {
+        return $this->{self::DELIVERY_ADDRESS};
     }
 }

@@ -218,7 +218,9 @@ class CheckoutOrder
             $order->total = Cart::getTotal();
             $order->total_items = Cart::getTotalQuantity();
             $order->conditions = $this->updateOrderConditions();
-            $order->user_agent = $this->user_agent;
+            if (!is_null($this->user_agent)) {
+                $order->user_agent = $this->user_agent;
+            }
 
             $ids = $order->cart()->get()->map(function ($item) {
                 return $item->_id;

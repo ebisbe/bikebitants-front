@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\GenerateSiteMap;
 use App\Country;
 use App\Order;
 use App\Property;
@@ -23,7 +24,9 @@ use App\Tax;
 use App\User;
 use App\Variation;
 use App\Zone;
+use App\Cart;
 use Carbon\Carbon;
+use function Couchbase\fastlzCompress;
 use \Faker\Generator;
 use MongoDB\BSON\UTCDatetime;
 
@@ -46,21 +49,18 @@ $factory->define(Product::class, function (Generator $faker) {
         '_id' => strtoupper(str_slug($name)),
         'name' => $name,
         'status' => Product::PUBLISHED,
-        //'slug' => str_slug($name),
         'introduction' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'is_featured' => $faker->boolean(35),
-        //'is_discounted' => $faker->boolean(35),
-        //'min_price' => $faker->numberBetween(1, 10),
-        //'max_price' => $faker->numberBetween(1, 10),
-        //'discount_init' => $faker->date(),
-        //'discount_end' => $faker->date(),
         'reviews_allowed' => $faker->boolean(),
-        //'rating' => $faker,
-        //'video' => 'http://www.youtube.com/embed/M4z90wlwYs8?feature=player_detailpage'
         'meta_title' => $name,
         'meta_description' => $faker->paragraphs(1, true),
-        'meta_slug' => $faker->words(6, true)
+        'meta_slug' => $faker->words(6, true),
+        'weight' => $faker->numberBetween(2, 10),
+        'length' => $faker->numberBetween(2, 10),
+        'width' => $faker->numberBetween(2, 10),
+        'height' => $faker->numberBetween(2, 10),
+        'email_provider' => $faker->companyEmail
     ];
 });
 
@@ -81,27 +81,19 @@ $factory->define(\App\Business\Models\Shop\Product::class, function (Generator $
 });
 
 $factory->state(\App\Business\Models\Shop\Product::class, 'draft', function () {
-    return [
-        'status' => Product::DRAFT,
-    ];
+    return ['status' => Product::DRAFT];
 });
-
 $factory->state(\App\Business\Models\Shop\Product::class, 'hidden', function () {
-    return [
-        'status' => Product::HIDDEN,
-    ];
+    return ['status' => Product::HIDDEN];
 });
-
 $factory->state(\App\Business\Models\Shop\Product::class, 'featured', function () {
-    return [
-        'is_featured' => true,
-    ];
+    return ['is_featured' => true];
 });
-
+$factory->state(Product::class, 'DropShipping', function (Generator $faker) {
+    return ['provider' => $faker->email];
+});
 $factory->state(Product::class, 'bargain', function () {
-    return [
-        'is_discounted' => true,
-    ];
+    return ['is_discounted' => true];
 });
 
 $factory->define(Property::class, function (Generator $faker) {
@@ -176,6 +168,7 @@ $factory->define(Variation::class, function (Generator $faker) use ($files) {
         'is_discounted' => $faker->boolean(35),
         'stock' => /*$faker->numberBetween(0,3)*/
             10,
+        'in_stock' => $faker->boolean(),
         'filename' => $files->random(),
     ];
 });
@@ -333,6 +326,13 @@ $factory->define(Order::class, function (Generator $faker) {
         "subtotal" => $faker->randomFloat(2, 0, 25),
         "total" => $faker->randomFloat(2, 0, 25),
         "total_items" => $faker->numberBetween(0, 5),
+        "user_agent" => $faker->userAgent,
+        //billing
+        //shipping
+        //conditions
+        "cart" => [
+            factory(Cart::class)->make()->toArray()
+        ]
     ];
 });
 
@@ -355,6 +355,86 @@ $factory->state(Order::class, 'Undefined', function () {
     return ['status' => Order::UNDEFINED];
 });
 
+$factory->state(Order::class, 'CashOnDelivery', function (Generator $faker) {
+    return [
+        'external_id' => $faker->numberBetween(),
+        'status' => Order::CONFIRMED,
+        'cart' => [
+            factory(Cart::class)->make()->toArray(),
+            factory(Cart::class)->make()->toArray(),
+            factory(Cart::class)->make()->toArray(),
+            factory(Cart::class)->states('OnDemand')->make()->toArray()
+        ],
+        'payment_method_id' => factory(PaymentMethod::class)->lazy([
+            'slug' => PaymentMethod::CASH_ON_DELIVERY
+        ]),
+        'billing' => factory(Billing::class)->make()->toArray(),
+        'shipping' => factory(Shipping::class)->make()->toArray()
+    ];
+});
+
+
+$factory->define(Cart::class, function (Generator $faker) {
+    if ($faker->boolean()) {
+        $variation = [
+            "OSSBY-SOPORTE",
+            $faker->colorName . '-' . $faker->colorName,
+            $faker->word,
+        ];
+    } else {
+        $variation = ['OSSBY-SOPORTE'];
+    }
+
+    return [
+        "price" => (string)$faker->randomFloat(2, 15, 50),
+        "quantity" => $faker->numberBetween(0, 25),
+        "total" => (string)$faker->randomFloat(2, 15, 50),
+        "total_without_iva" => 247.93388429752067736,
+        "properties" => $variation,
+        /*"variation_id" => 4948,*/
+        "product_id" => factory(Product::class)->lazy([
+            'collection_address' => 'Prova1',
+            'collection_address_cash_on_delivery' => 'Prova2',
+        ])
+    ];
+});
+$factory->state(Cart::class, 'OnDemand', function () {
+    return [
+        "product_id" => factory(Product::class)->lazy([
+            'delivery_address' => 'Prova3'
+        ])
+    ];
+});
+
+$factory->define(Shipping::class, function (Generator $faker) {
+    return [
+        "first_name" => $faker->name,
+        "last_name" => $faker->lastName,
+        "email" => $faker->email,
+        "phone" => $faker->e164PhoneNumber,
+        "address_1" => $faker->streetAddress,
+        "address_2" => null,
+        "city" => $faker->city,
+        "postcode" => '08105',
+        "state" => 'C',
+        "country" => 'ES'
+    ];
+});
+
+$factory->define(Billing::class, function (Generator $faker) {
+    return [
+        "first_name" => $faker->name,
+        "last_name" => $faker->lastName,
+        "email" => $faker->email,
+        "phone" => $faker->e164PhoneNumber,
+        "address_1" => $faker->streetAddress,
+        "address_2" => null,
+        "city" => $faker->city,
+        "postcode" => '08105',
+        "state" => 'C',
+        "country" => 'ES'
+    ];
+});
 
 $factory->define(Tag::class, function (Generator $faker) {
     $name = $faker->name;
@@ -373,7 +453,7 @@ $factory->define(Country::class, function (Generator $faker) {
         "name" => $faker->country,
         'active' => $faker->boolean,
         "states" => [
-            $faker->randomLetter.$faker->randomLetter
+            $faker->randomLetter . $faker->randomLetter
         ],
     ];
 });

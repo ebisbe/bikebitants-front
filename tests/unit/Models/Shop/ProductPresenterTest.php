@@ -1,5 +1,5 @@
 <?php
-namespace Test\Unit\Shop;
+namespace Test\Unit\Models\Shop;
 
 use App\Brand;
 use App\Business\Models\Shop\Category;
@@ -73,7 +73,7 @@ class ProductPresenterTest extends TestCase
     public function product_has_no_stock()
     {
         /** @var Product $product */
-        $product = factory(Product::class)->make();
+        $product = factory(Product::class)->make(['stock' => 0]);
 
 
         $this->assertEquals('catalogue.out_of_stock', $product->stock_label);
@@ -83,16 +83,25 @@ class ProductPresenterTest extends TestCase
     public function product_has_low_stock()
     {
         /** @var Product $product */
-        $product = factory(Product::class)->create(['stock' => '4']);
+        $product = factory(Product::class)->create(['stock' => 5]);
 
-        $this->assertEquals('catalogue.in_stock ( 4 )', $product->stock_label);
+        $this->assertEquals('catalogue.in_stock ( 5 )', $product->stock_label);
     }
 
     /** @test */
     public function product_has_stock()
     {
         /** @var Product $product */
-        $product = factory(Product::class)->create(['stock' => '6']);
+        $product = factory(Product::class)->create(['stock' => 6]);
+
+        $this->assertEquals('catalogue.in_stock', $product->stock_label);
+    }
+
+    /** @test */
+    public function product_has_stock_from_dropshipping()
+    {
+        /** @var Product $product */
+        $product = factory(Product::class)->create(['stock' => null]);
 
         $this->assertEquals('catalogue.in_stock', $product->stock_label);
     }

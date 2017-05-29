@@ -6,7 +6,8 @@
             <input class="form-control"
                    id="qty"
                    name="quantity"
-                   v-model="quantity"
+                   v-model.number="quantity"
+                   @keyup="changed"
                    type="text">
             <a class="btn btn-default" @click="increment">+</a>
         </div>
@@ -24,7 +25,7 @@
 
         methods: {
             increment: function () {
-                if (this.quantity < this.maxQuantity) {
+                if (this.maxQuantity === null || this.quantity < this.maxQuantity) {
                     this.quantity += 1;
                     this.changed();
                 }
@@ -42,15 +43,20 @@
 
         watch: {
             maxQuantity: function () {
-                if (this.quantity > this.maxQuantity) {
-                    this.quantity = this.maxQuantity;
-                    this.changed();
+                if (this.maxQuantity !== null) {
+                    if (this.quantity > this.maxQuantity) {
+                        this.quantity = this.maxQuantity;
+                        this.changed();
+                    }
+                    if (this.quantity === 0
+                        && this.maxQuantity !== 0) {
+                        this.quantity = 1;
+                        this.changed();
+                    }
                 }
-                if (this.quantity == 0
-                    && this.maxQuantity != 0) {
-                    this.quantity = 1;
-                    this.changed();
-                }
+            },
+            quantity: function() {
+
             }
         }
     };

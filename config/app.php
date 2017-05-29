@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Madrid',
 
     /*
     |--------------------------------------------------------------------------
@@ -200,6 +200,7 @@ return [
         Gahlawat\Slack\SlackServiceProvider::class,
         Spatie\Sitemap\SitemapServiceProvider::class,
         Barryvdh\HttpCache\ServiceProvider::class,
+        Ebisbe\Deliverea\DelivereaServiceProvider::class
 
     ],
 
@@ -272,6 +273,7 @@ return [
         'GoogleTagManager' => Spatie\GoogleTagManager\GoogleTagManagerFacade::class,
         'WpApi' => Threesquared\LaravelWpApi\Facades\WpApi::class,
         'Slack' => Gahlawat\Slack\Facade\Slack::class,
+        'Deliverea' => Ebisbe\Deliverea\Facades\Deliverea::class
     ],
 
 

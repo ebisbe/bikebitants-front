@@ -105,15 +105,15 @@
             stockText: function () {
                 let text = '';
                 switch (true) {
-                    case this.max_quantity <= 0:
+                    case this.max_quantity === 0:
                         text = Vue.t('catalogue.out_of_stock');
                         color = 'bg-danger';
                         break;
-                    case this.max_quantity == 1:
+                    case this.max_quantity === 1:
                         text = Vue.t('catalogue.one_stock') + ' ' + this.max_quantity;
                         color = 'bg-warning';
                         break;
-                    case this.max_quantity <= 5:
+                    case this.max_quantity <= 5 && this.max_quantity > 1:
                         text = Vue.t('catalogue.small_stock') + ' ' + this.max_quantity;
                         color = 'bg-warning';
                         break;

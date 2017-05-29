@@ -5,7 +5,6 @@ namespace App\Business\Services;
 use App\Business\Interfaces\CartMapper;
 use App\Business\Models\Shop\Product;
 use App\Business\Repositories\ProductRepository;
-use App\Exceptions\VariationNotFoundException;
 use App\Variation;
 use \Cart;
 use Darryldecode\Cart\ItemCollection;
@@ -15,7 +14,6 @@ use Darryldecode\Cart\CartCondition;
 class CartService
 {
     protected $productRepository;
-    protected $couponService;
     protected $cart;
 
     protected $request;
@@ -23,19 +21,16 @@ class CartService
     protected $product_id;
     protected $properties;
     protected $quantity;
-    protected $coupons;
 
     protected $stock;
 
     /**
      * CartService constructor.
      * @param ProductRepository $productRepository
-     * @param CouponService $couponService
      */
-    public function __construct(ProductRepository $productRepository, CouponService $couponService)
+    public function __construct(ProductRepository $productRepository)
     {
         $this->productRepository = $productRepository;
-        $this->couponService = $couponService;
     }
 
     /**
@@ -62,12 +57,9 @@ class CartService
         $this->quantity = $quantity;
     }
 
-    /**
-     * @param array $coupons
-     */
-    public function setCoupons(array $coupons)
+    public function setStock($stock)
     {
-        $this->coupons = $coupons;
+        $this->stock = $stock;
     }
 
     /**
@@ -76,16 +68,11 @@ class CartService
      */
     public function store(CartMapper $cartMapper)
     {
-        /** @var Product $product */
-        $product = $this->productRepository->find($this->product_id);
-        //TODO fix error duplicated
-        $variationProperties = array_merge([$this->product_id], $this->properties);
-        /** @var Variation $variation */
-        $variation = $product->productVariation($variationProperties);
-        if (is_null($variation)) {
-            throw new VariationNotFoundException(trans('api.variation_not_found'));
-        }
-        $this->stock = $variation->stock;
+        //list($product, $variation) = $this->variation();
+        $variation = $this->productRepository->findVariationByProduct($this->product_id, $this->properties);
+        $product = $variation->product;
+
+        $this->setStock($variation->stock);
 
         $item = Cart::get($variation->sku);
         if (!is_null($item)) {
@@ -142,13 +129,13 @@ class CartService
     }
 
     /**
-     * @param $item_quantity
+     * @param $quantity_already_in_cart
      * @return array
      */
-    protected function getQuantity($item_quantity = 0)
+    public function getQuantity($quantity_already_in_cart = 0)
     {
-        return $this->isMaxStock($item_quantity)
-            ? $this->stock - $item_quantity
+        return $this->isMaxStock($quantity_already_in_cart)
+            ? $this->stock - $quantity_already_in_cart
             : $this->quantity;
     }
 
@@ -185,8 +172,12 @@ class CartService
      * @param $item_quantity
      * @return bool
      */
-    protected function isMaxStock($item_quantity = 0)
+    public function isMaxStock($item_quantity = 0)
     {
+        if (is_null($this->stock)) {
+            return false;
+        }
+
         return ($item_quantity + $this->quantity) >= $this->stock;
     }
 
