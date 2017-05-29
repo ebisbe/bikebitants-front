@@ -30,7 +30,7 @@ class Order
             throw new OrderNotSavedException($order->_id, $response['id']);
         } else {
             Event::fire(new OrderPushedEvent($order->fresh()));
-            $order->notify(new OrderPushedNotification());
+            $order->notify(new OrderPushedNotification($order));
         }
 
         return $order;

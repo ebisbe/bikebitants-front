@@ -16,9 +16,18 @@ class OrderPushed extends Notification implements ShouldQueue
     protected $order;
 
     /**
+     * OrderPushed constructor.
+     * @param Order $order
+     */
+    public function __construct(Order $order)
+    {
+        $this->order = $order;
+    }
+
+    /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -29,7 +38,7 @@ class OrderPushed extends Notification implements ShouldQueue
     /**
      * Get the Slack representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return SlackMessage
      */
     public function toSlack($notifiable)
@@ -42,9 +51,9 @@ class OrderPushed extends Notification implements ShouldQueue
             ->to(config('slack.channel'))
             ->content('New order!')
             ->attachment(function ($attachment) use ($url) {
-                $attachment->title('Order '. $this->order->external_id, $url)
+                $attachment->title('Order ' . $this->order->external_id, $url)
                     ->fields([
-                        'Buyer' => $this->order->shipping->first_name. ' '. $this->order->shipping->last_name,
+                        'Buyer' => $this->order->shipping->first_name . ' ' . $this->order->shipping->last_name,
                         'Amount' => $this->order->total,
                         'Email' => $this->order->shipping->email,
                         'Via' => $this->order->payment_method->name,
