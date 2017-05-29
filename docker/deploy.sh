@@ -62,6 +62,10 @@ if [ $NGINX_STABLE -eq 0 ]; then
         sudo docker image rm $(sudo docker image ls -f "dangling=true" -q)
     fi
 
+    ## GENERATE SITE MAP
+    echo "Generating Site map"
+    echo $(sudo docker exec $NEW_CONTAINER php /var/www/html/artisan sitemap:generate)
+
 else
     echo "ERROR: Nginx configuration test failed!"
     exit 1
