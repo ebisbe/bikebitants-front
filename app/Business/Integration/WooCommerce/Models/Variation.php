@@ -31,7 +31,7 @@ class Variation extends ApiImporter
         $entity['real_price'] = (float)$entity['regular_price'];
         $entity['discounted_price'] = (float)$entity['sale_price'];
         $entity['is_discounted'] = $entity['on_sale'];
-        $entity['stock'] = $entity['stock_quantity'];
+        $entity['stock'] = $entity['in_stock'] ? $entity['stock_quantity'] : 0;
 
         $value = $entity['image'] ?? $entity['images'][0];
         $entity['filename'] = (new Image)->saveImage($value);
