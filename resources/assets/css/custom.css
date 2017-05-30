@@ -2056,7 +2056,7 @@ article.product-item,
 
 .widget-price .widget-body .ui-slider .ui-slider-handle {
     border-radius: 50%;
-    background: none  #FFFFFF;
+    background: none #FFFFFF;
     border: 2px solid #E87169;
     top: 0;
     width: 18px;
@@ -2302,7 +2302,7 @@ article.product-item .product-overlay .product-mask, .product-overlay .product-m
 }
 
 .small-product .product-overlay .product-mask {
-    left:15px;
+    left: 15px;
 }
 
 article.product-item:hover .product-overlay .product-mask, .product-overlay .product-mask:hover {
@@ -3536,6 +3536,7 @@ footer.navbar a:hover {
 .jumbotron a.btn-default:hover {
     background-color: transparent;
 }
+
 .jumbotron a.btn-default {
     color: #FFFFFF;
     background-color: #00cc00;
@@ -3638,8 +3639,8 @@ footer.navbar a:hover {
 }
 
 #homepage-2-carousel .slide-1 .container {
-    position:absolute;
-    bottom:0;
+    position: absolute;
+    bottom: 0;
     width: 92%;
 }
 
@@ -3650,7 +3651,7 @@ footer.navbar a:hover {
 #homepage-2-carousel .slide-1 h1 {
     font-weight: 300;
     font-size: 30px;
-    margin-left:150px;
+    margin-left: 150px;
 }
 
 #homepage-2-carousel .slide-1 h2 {
@@ -3667,6 +3668,7 @@ footer.navbar a:hover {
 #homepage-2-carousel .services p {
     color: #ffffff;
 }
+
 /* HOME2 - SLIDE 2 */
 
 /*
@@ -4084,7 +4086,7 @@ footer.navbar a:hover {
 }
 
 .services.margin-top {
-    margin-top:125px;
+    margin-top: 125px;
 }
 
 .services .service {
@@ -4123,7 +4125,7 @@ footer.navbar a:hover {
     font-family: Raleway, sans-serif;
     font-weight: 500;
     margin: 0;
-    letter-spacing:normal;
+    letter-spacing: normal;
 }
 
 /* SECTION - BRANDS */
@@ -4705,7 +4707,6 @@ footer.navbar a:hover {
     /*#homepage-2-carousel .slide-1 h1 {
         margin-top: 130px;
     }*/
-
     #homepage-2-carousel .slide-1 h2 {
         font-size: 16px;
         line-height: 17px;
@@ -4714,7 +4715,6 @@ footer.navbar a:hover {
     /*#homepage-2-carousel .slide-2 h1 {
         margin-top: 150px;
     }*/
-
     #homepage-3-carousel .slide-1 h1 {
         font-size: 64px;
     }
@@ -4987,16 +4987,15 @@ footer.navbar a:hover {
     /*#homepage-2-carousel .slide-1 h1 {
         margin-top: 200px;
     }*/
-
     #homepage-2-carousel .slide-1 h2 {
         font-size: 16px;
         line-height: 17px;
-        margin-top:15px;
-        margin-bottom:15px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
 
     #homepage-2-carousel .slide-2 h1 {
-      /*  margin-top: 120px;*/
+        /*  margin-top: 120px;*/
         font-size: 40px;
     }
 
@@ -5073,7 +5072,7 @@ footer.navbar a:hover {
     }
 
     #homepage-2-carousel .slide-1 .container {
-        position:relative;
+        position: relative;
     }
 
     #homepage-1-carousel .slide-1 {
@@ -5257,7 +5256,7 @@ footer.navbar a:hover {
     }
 
     .products-header .order-by .form-group {
-        margin-bottom:0;
+        margin-bottom: 0;
     }
 
     article.product-item .product-quickview {
@@ -5392,7 +5391,6 @@ footer.navbar a:hover {
     /*.services.services-3x .row > div:first-child .service {
         border-bottom: 1px solid #F0F0F0;
     }*/
-
     .tabs.vertical-tabs .nav-tabs {
         margin-bottom: 15px;
     }
@@ -5448,7 +5446,7 @@ footer.navbar a:hover {
     }
 
     .services .service h3 {
-        font-size:16px;
+        font-size: 16px;
     }
 
     .our-stores {
@@ -5858,6 +5856,14 @@ footer.navbar a:hover {
         text-align: center;
         padding: 20px 0;
     }
+
+    header.navbar .navbar-toggle {
+        padding: 9px 5px;
+    }
+
+    header.navbar .navbar-brand {
+        padding: 10px 2px;
+    }
 }
 
 @media (max-width: 360px) {
@@ -5907,7 +5913,6 @@ footer.navbar a:hover {
         font-size: 18px;
     }
 
-
     .jumbotron .owl-carousel .item {
         height: 250px;
     }
@@ -5919,7 +5924,6 @@ footer.navbar a:hover {
     /*#homepage-2-carousel .slide-1 h1 {
         font-size: 18px;
     }*/
-
     #homepage-2-carousel .slide-1 h2 {
         font-size: 24px;
         line-height: 32px;
