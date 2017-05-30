@@ -54,6 +54,13 @@ class ProductVariations extends Job implements ShouldQueue
             return is_numeric($variation->stock);
         });
 
-        return $filtered->count() == 0 ? null : $filtered->sum('stock');
+        if ($filtered->count() == 0) {
+            return null;
+        } else {
+            if ($filtered->sum('stock') == 0) {
+                return null;
+            }
+            return $filtered->sum('stock');
+        }
     }
 }

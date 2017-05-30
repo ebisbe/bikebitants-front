@@ -95,9 +95,6 @@ class ProducVariationsTest extends TestCase
                 factory(Variation::class)->make(['stock' => null]),
                 factory(Variation::class)->make(['stock' => null]),
                 factory(Variation::class)->make(['stock' => null]),
-                factory(Variation::class)->make(['stock' => null]),
-                factory(Variation::class)->make(['stock' => null]),
-                factory(Variation::class)->make(['stock' => null]),
             ]
         ));
 
@@ -123,5 +120,39 @@ class ProducVariationsTest extends TestCase
         ));
 
         $this->assertEquals(21, $total);
+    }
+
+    /** @test */
+    public function it_calculates_no_stock_with_drop_shipping()
+    {
+        $product = $this->createProductWithThreeVariations([10, 15, 20], false);
+        $job = new ProductVariations($product);
+
+
+        $total = $job->stock(collect(
+            [
+                factory(Variation::class)->make(['stock' => 0]),
+                factory(Variation::class)->make(['stock' => null]),
+            ]
+        ));
+
+        $this->assertNull($total);
+    }
+
+    /** @test */
+    public function it_calculates_no_stock()
+    {
+        $product = $this->createProductWithThreeVariations([10, 15, 20], false);
+        $job = new ProductVariations($product);
+
+
+        $total = $job->stock(collect(
+            [
+                factory(Variation::class)->make(['stock' => 0]),
+                factory(Variation::class)->make(['stock' => 0]),
+            ]
+        ));
+
+        $this->assertEquals(0, $total);
     }
 }
