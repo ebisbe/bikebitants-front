@@ -5,7 +5,7 @@
            data-hover="dropdown"
            data-delay="300"
            data-close-others="true">
-            <i class="fa fa-shopping-cart"></i> <span class="badge">{{ products.length }}</span>
+            <i class="fa fa-shopping-cart"></i> <cart-badge></cart-badge>
         </a>
 
         <ul v-if="products.length" class="dropdown-menu">
@@ -82,6 +82,7 @@
             deleteProduct: function (product) {
                 var index = this.products.indexOf(product);
                 this.products.splice(index, 1);
+                Bus.$emit('prodLength', this.products.length );
                 this.$http.delete('/api/cart/' + product._id)
                         .then(function () {
                             $('#js-cart').dropdown('toggle');
@@ -102,6 +103,7 @@
                 this.products.push(product);
                 $('#js-cart').dropdown('toggle');
                 this.notifyGA('add', product)
+                Bus.$emit('prodLength', this.products.length );
             },
 
             notifyGA: function(type, product) {

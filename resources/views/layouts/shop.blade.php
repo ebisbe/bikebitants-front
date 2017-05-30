@@ -39,7 +39,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a href="{{ route('cart.index') }}" class="navbar-toggle pull-right">
-                    <i class="fa fa-shopping-cart"></i>
+                    <i class="fa fa-shopping-cart"></i> <cart-badge></cart-badge>
                 </a>
             </div>
             <div class="navbar-collapse collapse">
