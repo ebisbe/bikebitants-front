@@ -54,13 +54,17 @@ class Shipment
                 /** @var Collection $group */
                 $parcel = $group->first();
 
-                if (empty($parcel->get('collection_address')) && !empty($parcel->get('email_provider'))) {
-                    $email = new NotifyProvider(
-                        $group,
-                        $this->order->external_id,
-                        $this->order->shipping->toArray()
-                    );
-                    Mail::to($parcel->get('email_provider'))->send($email);
+                if (empty($parcel->get('collection_address'))) {
+                    // We don't have address so we do nothing
+                    if (!empty($parcel->get('email_provider'))) {
+                        //We don't have email so we want tell any provider
+                        $email = new NotifyProvider(
+                            $group,
+                            $this->order->external_id,
+                            $this->order->shipping->toArray()
+                        );
+                        Mail::to($parcel->get('email_provider'))->send($email);
+                    }
                     return;
                 }
 
