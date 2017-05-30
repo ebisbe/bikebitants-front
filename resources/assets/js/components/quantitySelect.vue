@@ -43,20 +43,16 @@
 
         watch: {
             maxQuantity: function () {
-                if (this.maxQuantity !== null) {
-                    if (this.quantity > this.maxQuantity) {
-                        this.quantity = this.maxQuantity;
-                        this.changed();
-                    }
-                    if (this.quantity === 0
-                        && this.maxQuantity !== 0) {
-                        this.quantity = 1;
-                        this.changed();
-                    }
+                if (this.maxQuantity !== null
+                    && this.quantity > this.maxQuantity) {
+                    this.quantity = this.maxQuantity;
+                    this.changed();
                 }
-            },
-            quantity: function() {
-
+                if (this.quantity === 0
+                    && this.maxQuantity !== 0) {
+                    this.quantity = 1;
+                    this.changed();
+                }
             }
         }
     };

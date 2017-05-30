@@ -25,7 +25,7 @@
 
         watch: {
             'quantity': function () {
-                this.disabled = this.quantity == 0;
+                this.disabled = this.quantity === 0 ? true : false;
             }
         },
 
@@ -39,16 +39,16 @@
 
                 this.prePost();
                 this.$http.post('/api/cart', product)
-                        .then(response => {
-                            this.postPost();
-                            if(this.checkout) {
-                                window.location.href = '/checkout';
-                            } else {
-                                Bus.$emit('addProduct', response.data);
-                            }
-                        }, response => {
-                            this.postPost();
-                        });
+                    .then(response => {
+                        this.postPost();
+                        if (this.checkout) {
+                            window.location.href = '/checkout';
+                        } else {
+                            Bus.$emit('addProduct', response.data);
+                        }
+                    }, response => {
+                        this.postPost();
+                    });
             },
 
             prePost: function () {
