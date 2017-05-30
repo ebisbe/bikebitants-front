@@ -153,6 +153,6 @@ class ProducVariationsTest extends TestCase
             ]
         ));
 
-        $this->assertEquals(0, $total);
+        $this->assertSame(0, $total);
     }
 }
