@@ -7,7 +7,7 @@ use App\Business\Integration\WooCommerce\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notifiable;
 
-class PushOrder implements ShouldQueue
+class PushOrder
 {
     use Notifiable;
     /**
@@ -29,7 +29,9 @@ class PushOrder implements ShouldQueue
      */
     public function handle(Confirm $event)
     {
-        $this->order->create($event->order);
+        if (config('app.env') == 'production') {
+            $this->order->create($event->order);
+        }
     }
 
     /**
