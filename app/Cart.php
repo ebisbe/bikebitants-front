@@ -100,10 +100,22 @@ class Cart extends Model
             'width' => $this->product->width,
             'height' => $this->product->height,
             'volume' => $this->product->height * $this->product->width * $this->product->length,
-            'email_provider' => $this->product->email_provider,
+            'email_provider' => $this->getEmail($this->product->email_provider),
             'name' => $this->product->name,
             'attributes' => collect($this->properties)->slice(1)->implode(', '),
             'quantity' => $this->quantity
         ]);
+    }
+
+    /**
+     * @param string $email
+     * @return array|Collection
+     */
+    public function getEmail(string $email): Collection
+    {
+        return collect(explode(',', $email))
+            ->map(function ($mail) {
+                return trim($mail);
+            });
     }
 }
