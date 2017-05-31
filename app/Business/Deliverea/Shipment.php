@@ -116,7 +116,9 @@ class Shipment
 
                 $shipment->save();
                 $email->pdfLabel($label->toArray()['label_raw']);
-                Mail::to($parcel->get('email_provider'))->send($email);
+                if (!empty($parcel->get('email_provider'))) {
+                    Mail::to($parcel->get('email_provider'))->send($email);
+                }
             });
     }
 
@@ -130,7 +132,7 @@ class Shipment
         Carrier $carrier,
         $parcel_number
     ): DelivereaShipment {
-        return new DelivereaShipment(
+        $shipment = new DelivereaShipment(
             $parcel_number,
             $this->order->external_id,
             Carbon::now()->toDateString(),
@@ -138,6 +140,11 @@ class Shipment
             $carrier->name(),
             $carrier->service()
         );
+
+        if ($this->order->isCashOnDelivery()) {
+            $shipment->setCashOnDelivery($this->order->total);
+        }
+        return $shipment;
     }
 
     /**
