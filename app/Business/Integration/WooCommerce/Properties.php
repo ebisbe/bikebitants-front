@@ -49,6 +49,7 @@ class Properties
                     $this->syncAttribute($attribute);
                 }
             });
+        $this->product->save();
     }
 
     /**
