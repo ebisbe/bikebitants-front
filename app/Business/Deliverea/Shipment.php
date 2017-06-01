@@ -56,7 +56,7 @@ class Shipment
 
                 if (empty($parcel->get('collection_address'))) {
                     // We don't have address so we do nothing
-                    if (!empty($parcel->get('email_provider'))) {
+                    if ($parcel->get('email_provider')->isNotEmpty()) {
                         //We don't have email so we want tell any provider
                         $email = new NotifyProvider(
                             $group,
@@ -116,7 +116,7 @@ class Shipment
 
                 $shipment->save();
                 $email->pdfLabel($label->toArray()['label_raw']);
-                if (!empty($parcel->get('email_provider'))) {
+                if ($parcel->get('email_provider')->isNotEmpty()) {
                     Mail::to($parcel->get('email_provider'))->send($email);
                 }
             });

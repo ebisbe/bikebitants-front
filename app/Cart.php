@@ -111,7 +111,7 @@ class Cart extends Model
      * @param string $email
      * @return array|Collection
      */
-    public function getEmail(string $email): Collection
+    public function getEmail($email = null): Collection
     {
         return collect(explode(',', $email))
             ->map(function ($mail) {
