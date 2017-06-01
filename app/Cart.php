@@ -89,9 +89,10 @@ class Cart extends Model
         $collectionAddress = $this->product->collectionAddress($this->order->isCashOnDelivery());
         $deliveryAddress = $this->product->deliveryAddress();
         $is_drop_shipping = $this->product->isDropShipping();
+        $email_provider = $this->getEmail($this->product->email_provider);
         return collect([
             //TODO Hash should be in a function
-            'hash' => ($collectionAddress ?? '_') . ($deliveryAddress ?? '_') . $is_drop_shipping,
+            'hash' => ($collectionAddress ?? '_') . ($deliveryAddress ?? '_') . (int)$is_drop_shipping . $email_provider,
             'collection_address' => $collectionAddress,
             'delivery_address' => $deliveryAddress,
             'is_drop_shipping' => $is_drop_shipping,
@@ -100,7 +101,7 @@ class Cart extends Model
             'width' => $this->product->width,
             'height' => $this->product->height,
             'volume' => $this->product->height * $this->product->width * $this->product->length,
-            'email_provider' => $this->getEmail($this->product->email_provider),
+            'email_provider' => $email_provider,
             'name' => $this->product->name,
             'attributes' => collect($this->properties)->slice(1)->implode(', '),
             'quantity' => $this->quantity
