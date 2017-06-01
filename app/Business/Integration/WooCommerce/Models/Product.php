@@ -36,7 +36,10 @@ class Product extends ApiImporter
         'weight',
         'length',
         'width',
-        'height'
+        'height',
+        'collection_address',
+        'collection_address_cash_on_delivery',
+        'delivery_time'
     ];
 
     protected $attributes = [
