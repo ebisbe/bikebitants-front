@@ -17,7 +17,7 @@ class InformProviderToSendSale extends Mailable implements ShouldQueue
      */
     protected $view_name;
     /**
-     * @var Collection
+     * @var array
      */
     public $items;
     /**
@@ -29,10 +29,10 @@ class InformProviderToSendSale extends Mailable implements ShouldQueue
 
     /**
      * Create a new message instance.
-     * @param Collection $items
+     * @param array $items
      * @param $external_id
      */
-    public function __construct(Collection $items, $external_id)
+    public function __construct(array $items, $external_id)
     {
         $this->items = $items;
         $this->external_id = $external_id;

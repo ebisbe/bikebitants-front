@@ -4,9 +4,7 @@ namespace App\Business\Deliverea;
 
 use App\Business\Deliverea\Exceptions\AddressNotFoundException;
 use App\Mail\NotifyProvider;
-use App\Mail\InformProviderToSendSale;
-use App\Mail\NotifyProviderCashOnDelivery;
-use App\Mail\NotifyProviderDeliverea;
+use App\Notifications\InformProviderToSendSale;
 use App\Order;
 use Carbon\Carbon;
 use App\Cart;
@@ -40,7 +38,7 @@ class Shipment
     /**
      *
      */
-    public function new()
+    public function process()
     {
         $this->order
             ->cart()
@@ -54,72 +52,59 @@ class Shipment
                 /** @var Collection $group */
                 $parcel = $group->first();
 
-                if (empty($parcel->get('collection_address'))) {
-                    // We don't have address so we do nothing
-                    if ($parcel->get('email_provider')->isNotEmpty()) {
-                        //We don't have email so we want tell any provider
-                        $email = new NotifyProvider(
-                            $group,
-                            $this->order->external_id,
-                            $this->order->shipping->toArray()
-                        );
-                        Mail::to($parcel->get('email_provider'))->send($email);
-                    }
-                    return;
-                }
-
-                //try {
                 $shipment = new \App\Shipment();
+                if (!empty($parcel->get('collection_address'))) {
+                    $shipment = $this->create($shipment, $parcel, $group->count());
+                }
+
                 $shipment->order_id = $this->order->_id;
-
-                $carrier = $this->getCarrier(
-                    $parcel->get('is_drop_shipping'),
-                    $this->order->isCashOnDelivery(),
-                    $this->order->isShippingToCatalunya()
-                );
-                $shipment->carrier_code = $carrier->name();
-                $shipment->carrier_service = $carrier->service();
-
-                $from = $this->fromAddress($parcel->get('collection_address'));
-                $shipment->from = $from->toArray();
-
-                $to = $this->toAddress($parcel->get('delivery_address'));
-                $shipment->to = $to->toArray();
-
-
-                /** @var Deliverea\Response\NewShipmentResponse $newShipment */
-                $newShipment = Deliverea::newShipment(
-                    $this->createShipment($carrier, $group->count()),
-                    $from,
-                    $to
-                );
-                $shipment->new_shipment = $newShipment->toArray();
-
-                $label = Deliverea::getShipmentLabel($newShipment->getShippingDlvrRef());
-                $shipment->label = $label->toArray();
-
-                $collection = Deliverea::newCollection(
-                    $this->createCollection($carrier, $newShipment, $from),
-                    $from,
-                    $to
-                );
-                $shipment->colleciton = $collection->toArray();
-
-                // } catch (\Deliverea\Exception\ErrorResponseException $e) {
-                //    dd($e);
-                //}
-                if ($this->order->isCashOnDelivery()) {
-                    $email = new NotifyProviderCashOnDelivery($group, $this->order->external_id);
-                } else {
-                    $email = new NotifyProviderDeliverea($group, $this->order->external_id);
-                }
-
+                $shipment->group = $group->toArray();
+                $shipment->notify_to = $parcel->get('email_provider')->toArray();
                 $shipment->save();
-                $email->pdfLabel($label->toArray()['label_raw']);
-                if ($parcel->get('email_provider')->isNotEmpty()) {
-                    Mail::to($parcel->get('email_provider'))->send($email);
-                }
+                $shipment->notify(new InformProviderToSendSale($this->order->isCashOnDelivery()));
             });
+    }
+
+    /**
+     * @param $shipment
+     * @param $parcel
+     * @return mixed
+     */
+    public function create($shipment, $parcel, $groupCount)
+    {
+        $carrier = $this->getCarrier(
+            $parcel->get('is_drop_shipping'),
+            $this->order->isCashOnDelivery(),
+            $this->order->isShippingToCatalunya()
+        );
+        $shipment->carrier_code = $carrier->name();
+        $shipment->carrier_service = $carrier->service();
+
+        $from = $this->fromAddress($parcel->get('collection_address'));
+        $shipment->from = $from->toArray();
+
+        $to = $this->toAddress($parcel->get('delivery_address'));
+        $shipment->to = $to->toArray();
+
+        /** @var Deliverea\Response\NewShipmentResponse $newShipment */
+        $newShipment = Deliverea::newShipment(
+            $this->createShipment($carrier, $groupCount),
+            $from,
+            $to
+        );
+        $shipment->new_shipment = $newShipment->toArray();
+
+        $label = Deliverea::getShipmentLabel($newShipment->getShippingDlvrRef());
+        $shipment->label = $label->toArray();
+
+        $collection = Deliverea::newCollection(
+            $this->createCollection($carrier, $newShipment, $from),
+            $from,
+            $to
+        );
+        $shipment->colleciton = $collection->toArray();
+
+        return $shipment;
     }
 
     /**

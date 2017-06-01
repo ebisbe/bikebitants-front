@@ -109,8 +109,7 @@ class ShipmentTest extends TestCase
         /** @var Order $order */
         $order = factory(Order::class)->states('CashOnDelivery')->create();
 
-        $shipment = new Shipment();
-        $shipment->order($order);
-        $shipment->new();
+        $this->shipment->order($order);
+        $this->shipment->process();
     }
 }

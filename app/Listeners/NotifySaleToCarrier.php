@@ -37,6 +37,6 @@ class NotifySaleToCarrier implements ShouldQueue
     public function handle(OrderPushed $event)
     {
         $this->shipment->order($event->order);
-        $this->shipment->new();
+        $this->shipment->process();
     }
 }
