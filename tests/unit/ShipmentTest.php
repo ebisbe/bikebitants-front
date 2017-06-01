@@ -11,7 +11,7 @@ use Event;
 class ShipmentTest extends TestCase
 {
     const OVIRTUAL = 'ovirtual';
-    const OVIRTUAL_ENTREGA_OFICINA = 'ovirtual-entrega-oficina';
+    const OVIRTUAL_ENTREGA_OFICINA = 'ovirtual-servicio-19';
 
     const CORREOS_EXPRESS = 'correosExpress';
     const CORREOS_24 = 'correos-24';

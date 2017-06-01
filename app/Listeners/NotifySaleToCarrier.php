@@ -15,6 +15,8 @@ class NotifySaleToCarrier implements ShouldQueue
      */
     private $shipment;
 
+    public $tries = 1;
+
     /**
      * Create the event listener.
      *
