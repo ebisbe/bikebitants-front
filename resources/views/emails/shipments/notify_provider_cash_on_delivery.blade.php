@@ -6,7 +6,8 @@ Nos ha entrado un nuevo pedido:
     | Articulo      | Cantidad     |
     | ------------- |:-------------:|
     @foreach($items as $item)
-        | {{ $item['name'] }} <br> {{ $item['attributes'] }}     | {{ $item['quantity'] }}             |
+    | {{ $item['name'] }} <br> {{ $item['attributes'] }} | {{ $item['quantity'] }} |
+
     @endforeach
 @endcomponent
 

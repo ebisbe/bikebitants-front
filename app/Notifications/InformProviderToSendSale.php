@@ -10,7 +10,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 
 class InformProviderToSendSale extends Notification implements ShouldQueue
 {
@@ -65,7 +64,7 @@ class InformProviderToSendSale extends Notification implements ShouldQueue
         }
 
 
-        return $email->to($notifiable->notify_to);
+        return $email->to($notifiable->notify_to)->bcc('miguel@bikebitants.com');
     }
 
     /**
