@@ -139,8 +139,11 @@ class Product extends ApiImporter
         $entity['slug'] = $this->slugFromPermalink($entity);
         $entity['description'] = $this->stripVCRow($entity['description']);
         $entity['introduction'] = $entity['short_description'];
-        $entity['meta_title'] = $entity['meta']['_yoast_wpseo_title'] ?? '';
-        $entity['meta_description'] = $entity['meta']['_yoast_wpseo_metadesc'] ?? '';
+
+        $meta_data = collect($entity['meta_data']);
+        $entity['meta_title'] = $meta_data->where('key', '_yoast_wpseo_title')->first()['value'];
+        $entity['meta_description'] = $meta_data->where('key', '_yoast_wpseo_metadesc')->first()['value'];
+
         $entity['weight'] = (float)$entity['weight'];
         $entity['length'] = (float)$entity['dimensions']['length'];
         $entity['width'] = (float)$entity['dimensions']['width'];
