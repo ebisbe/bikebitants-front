@@ -112,4 +112,13 @@ class ShipmentTest extends TestCase
         $this->shipment->order($order);
         $this->shipment->process();
     }
+
+    /** @test */
+    public function it_recieves_addresse()
+    {
+        $address = $this->shipment->addressData('PROVA1');
+
+        $this->assertInstanceOf(Deliverea\Model\Address::class, $address);
+        $this->assertEquals('prova1', $address->getName());
+    }
 }

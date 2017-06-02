@@ -222,10 +222,15 @@ class Shipment
      * @return Address
      * @throws AddressNotFoundException
      */
-    protected function addressData(
+    public function addressData(
         $address_name
     ): Address {
-        $addresses = Deliverea::getAddresses()->where('name', $address_name);
+        $addresses = Deliverea::getAddresses()
+            ->map(function ($add) {
+                $add['name'] = strtolower($add['name']);
+                return $add;
+            })
+            ->where('name', strtolower($address_name));
 
         if ($addresses->isEmpty()) {
             throw new AddressNotFoundException("Address '{$address_name}' not found in the api.");
