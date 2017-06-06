@@ -362,7 +362,7 @@ $factory->state(Order::class, 'CashOnDelivery', function (Generator $faker) {
         'cart' => [
             factory(Cart::class)->make()->toArray(),
             factory(Cart::class)->make()->toArray(),
-            factory(Cart::class)->make()->toArray(),
+            factory(Cart::class)->states('NoEmailProvider')->make()->toArray(),
             factory(Cart::class)->states('OnDemand')->make()->toArray()
         ],
         'payment_method_id' => factory(PaymentMethod::class)->lazy([
@@ -402,6 +402,13 @@ $factory->state(Cart::class, 'OnDemand', function () {
     return [
         "product_id" => factory(Product::class)->lazy([
             'delivery_address' => 'Prova3'
+        ])
+    ];
+});
+$factory->state(Cart::class, 'NoEmailProvider', function () {
+    return [
+        "product_id" => factory(Product::class)->lazy([
+            'email_provider' => null
         ])
     ];
 });

@@ -59,7 +59,7 @@ class Shipment
 
                 $shipment->order_id = $this->order->_id;
                 $shipment->group = $group->toArray();
-                $shipment->notify_to = $parcel->get('email_provider')->toArray();
+                $shipment->notify_to = $parcel->get('email_provider')->isNotEmpty() ? $parcel->get('email_provider')->toArray() : null;
                 $shipment->save();
                 $shipment->notify(new InformProviderToSendSale($this->order->isCashOnDelivery()));
             });

@@ -30,6 +30,6 @@ class CartTest extends TestCase
         $emails = $cart->getEmail();
 
         $this->assertInstanceOf(Collection::class, $emails);
-        $this->assertCount(1, $emails);
+        $this->assertCount(0, $emails);
     }
 }

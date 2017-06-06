@@ -69,13 +69,18 @@ class InformProviderToSendSale extends Notification implements ShouldQueue
 
     /**
      * @param Shipment $notifiable
+     * @return SlackMessage
      */
     public function toSlack(Shipment $notifiable)
     {
-        if (!empty($notifiable->carrier_code)) {
-            $message = $this->carrierMessage($notifiable);
+        if (!empty($notifiable->notify_to)) {
+            if (!empty($notifiable->carrier_code)) {
+                $message = $this->carrierMessage($notifiable);
+            } else {
+                $message = $this->emailMessage($notifiable);
+            }
         } else {
-            $message = $this->emailMessage($notifiable);
+            $message = $this->noMessage();
         }
 
         return $message->success()
@@ -85,39 +90,42 @@ class InformProviderToSendSale extends Notification implements ShouldQueue
 
     /**
      * @param Shipment $notifiable
-     * @return $this
+     * @return SlackMessage
      */
     protected function carrierMessage(Shipment $notifiable)
     {
-        $message = (new SlackMessage)
+        return (new SlackMessage)
             ->content('New delivery created')
             ->attachment(function ($attachment) use ($notifiable) {
                 $attachment->fields([
                     'Carrier' => $notifiable->carrier_code,
                     'Service' => $notifiable->carrier_service,
-                    'Email' => !empty($notifiable->notify_to)
-                        ? implode(',', $notifiable->notify_to) : 'No email sent',
+                    'Email' => implode(',', $notifiable->notify_to),
                 ]);
             });
-        return $message;
     }
 
     /**
      * @param Shipment $notifiable
-     * @return $this
+     * @return SlackMessage
      */
     protected function emailMessage(Shipment $notifiable)
     {
-        $message = (new SlackMessage)
+        return (new SlackMessage)
             ->content('Notification to provider')
             ->attachment(function ($attachment) use ($notifiable) {
                 $attachment
                     ->fields([
-                        'Email' => !empty($notifiable->notify_to)
-                            ? implode(',', $notifiable->notify_to) : 'No email sent',
+                        'Email' => implode(',', $notifiable->notify_to),
                     ]);
             });
+    }
 
-        return $message;
+    /**
+     * @return SlackMessage
+     */
+    protected function noMessage()
+    {
+        return (new SlackMessage)->content('No email sent.');
     }
 }
