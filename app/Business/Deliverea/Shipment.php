@@ -68,6 +68,7 @@ class Shipment
     /**
      * @param $shipment
      * @param $parcel
+     * @param $groupCount
      * @return mixed
      */
     public function create($shipment, $parcel, $groupCount)

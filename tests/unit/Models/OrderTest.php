@@ -10,13 +10,55 @@ use Event;
 class OrderTest extends TestCase
 {
     /** @test */
-    public function it_is_shipping_to_catalunya()
+    public function it_is_shipping_to_barcelona()
     {
         Event::fake();
         $order = factory(Order::class)->create([
             'shipping' => [
                 'country' => 'ES',
-                'state' => 'C'
+                'state' => 'B'
+            ]
+        ]);
+
+        $this->assertTrue($order->isShippingToCatalunya());
+    }
+
+    /** @test */
+    public function it_is_shipping_to_lleida()
+    {
+        Event::fake();
+        $order = factory(Order::class)->create([
+            'shipping' => [
+                'country' => 'ES',
+                'state' => 'L'
+            ]
+        ]);
+
+        $this->assertTrue($order->isShippingToCatalunya());
+    }
+
+    /** @test */
+    public function it_is_shipping_to_girona()
+    {
+        Event::fake();
+        $order = factory(Order::class)->create([
+            'shipping' => [
+                'country' => 'ES',
+                'state' => 'GI'
+            ]
+        ]);
+
+        $this->assertTrue($order->isShippingToCatalunya());
+    }
+
+    /** @test */
+    public function it_is_shipping_to_tarragona()
+    {
+        Event::fake();
+        $order = factory(Order::class)->create([
+            'shipping' => [
+                'country' => 'ES',
+                'state' => 'T'
             ]
         ]);
 
