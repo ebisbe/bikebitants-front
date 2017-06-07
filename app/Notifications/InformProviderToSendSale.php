@@ -73,14 +73,14 @@ class InformProviderToSendSale extends Notification implements ShouldQueue
      */
     public function toSlack(Shipment $notifiable)
     {
-        if (!empty($notifiable->notify_to)) {
-            if (!empty($notifiable->carrier_code)) {
-                $message = $this->carrierMessage($notifiable);
-            } else {
-                $message = $this->emailMessage($notifiable);
-            }
+        if (!empty($notifiable->carrier_code)) {
+            $message = $this->carrierMessage($notifiable);
         } else {
-            $message = $this->noMessage();
+            if (!empty($notifiable->notify_to)) {
+                $message = $this->emailMessage($notifiable);
+            } else {
+                $message = $this->noMessage();
+            }
         }
 
         return $message->success()
@@ -100,7 +100,7 @@ class InformProviderToSendSale extends Notification implements ShouldQueue
                 $attachment->fields([
                     'Carrier' => $notifiable->carrier_code,
                     'Service' => $notifiable->carrier_service,
-                    'Email' => implode(',', $notifiable->notify_to),
+                    'Email' => $notifiable->notify_to_list
                 ]);
             });
     }
@@ -116,7 +116,7 @@ class InformProviderToSendSale extends Notification implements ShouldQueue
             ->attachment(function ($attachment) use ($notifiable) {
                 $attachment
                     ->fields([
-                        'Email' => implode(',', $notifiable->notify_to),
+                        'Email' => $notifiable->notify_to_list ?? 'No email sent'
                     ]);
             });
     }

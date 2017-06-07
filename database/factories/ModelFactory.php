@@ -17,6 +17,7 @@ use App\Lead;
 use App\PaymentMethod;
 use App\Product;
 use App\Review;
+use App\Shipment;
 use App\Shipping;
 use App\ShippingMethod;
 use App\Tag;
@@ -461,4 +462,8 @@ $factory->define(Country::class, function (Generator $faker) {
             $faker->randomLetter . $faker->randomLetter
         ],
     ];
+});
+
+$factory->define(Shipment::class, function (Generator $faker) {
+    return [];
 });

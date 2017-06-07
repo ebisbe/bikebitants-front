@@ -18,6 +18,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
  * @property string carrier_code
  * @property string order_id
  * @property array notify_to
+ * @property string notify_to_list
  * @property Order order
  * @property array group
  */
@@ -45,5 +46,10 @@ class Shipment extends Model
     public function routeNotificationForMail()
     {
         return 'email overriden by Mailable';
+    }
+
+    public function getNotifyToListAttribute()
+    {
+        return implode(',', $this->notify_to);
     }
 }
