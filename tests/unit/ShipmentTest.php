@@ -102,7 +102,6 @@ class ShipmentTest extends TestCase
         $this->assertEquals(self::CORREOS_24, $carrier->service());
     }
 
-    /** @test */
     public function it_sends_a_shipment_to_deliverea()
     {
         Event::fake();
