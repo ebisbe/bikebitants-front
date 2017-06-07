@@ -7,6 +7,9 @@ use App\Business\Traits\FileHashTrait;
 use App\Exceptions\OutOfStockException;
 use App\Jobs\ProductVariations;
 
+/**
+ * @property mixed stock
+ */
 class Variation extends \App\Business\Integration\WooCommerce\Models\Variation
 {
     use FileHashTrait;
@@ -52,6 +55,26 @@ class Variation extends \App\Business\Integration\WooCommerce\Models\Variation
             && $this->stock - $cartQuantity < 0
         ) {
             throw new OutOfStockException(trans('exceptions.out_of_stock', ['product' => $this->sku]));
+        }
+    }
+
+    /**
+     * @param $quantity
+     * @param $status
+     * @return int|null
+     */
+    public function updateStock($quantity, $status)
+    {
+        if (is_null($this->stock)) {
+            return $this->stock;
+        }
+
+        if ($status == Order::NEW) {
+            return $this->decrement('stock', $quantity);
+        }
+
+        if ($status == Order::CANCELLED) {
+            return $this->increment('stock', $quantity);
         }
     }
 }

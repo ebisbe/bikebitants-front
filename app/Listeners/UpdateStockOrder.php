@@ -2,8 +2,10 @@
 
 namespace App\Listeners;
 
+use App\Business\Checkout\Events\Create;
 use App\Business\Repositories\ProductRepository;
-use App\Order;
+use App\Cart;
+use App\Variation;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UpdateStockOrder implements ShouldQueue
@@ -26,21 +28,18 @@ class UpdateStockOrder implements ShouldQueue
     /**
      * Handle the event.
      *
+     * @param Create $event
      * @return void
      */
-    public function handle($event)
+    public function handle(Create $event)
     {
-        $event->order->cart()->map(function ($cart) use ($event) {
-
-            $variation = $this->productRepository->findVariationByProduct($cart->product_id, $cart->properties);
-
-            if ($event->order->status == Order::NEW) {
-                $variation->decrement('stock', $cart->quantity);
-            }
-
-            if ($event->order->status == Order::CANCELLED) {
-                $variation->increment('stock', $cart->quantity);
-            }
-        });
+        $event
+            ->order
+            ->cart()
+            ->each(function (Cart $cart) use ($event) {
+                /** @var Variation $variation */
+                $variation = $this->productRepository->findVariationByProduct($cart->product_id, $cart->properties);
+                $variation->updateStock($cart->quantity, $event->order->status);
+            });
     }
 }
