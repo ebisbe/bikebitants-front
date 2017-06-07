@@ -10,7 +10,7 @@ use Event;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
-class VariationTest extends TestCase
+class ShipmentTest extends TestCase
 {
     /** @test */
     public function it_decrements_real_stock()
