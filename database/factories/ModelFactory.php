@@ -359,9 +359,9 @@ $factory->state(Order::class, 'CashOnDelivery', function (Generator $faker) {
         'external_id' => $faker->numberBetween(),
         'status' => Order::CONFIRMED,
         'cart' => [
-            factory(Cart::class)->make()->toArray(),
-            factory(Cart::class)->make()->toArray(),
-            factory(Cart::class)->states('NoEmailProvider')->make()->toArray(),
+            //factory(Cart::class)->make()->toArray(),
+            //factory(Cart::class)->make()->toArray(),
+            //factory(Cart::class)->states('NoEmailProvider')->make()->toArray(),
             factory(Cart::class)->states('OnDemand')->make()->toArray()
         ],
         'payment_method_id' => factory(PaymentMethod::class)->lazy([

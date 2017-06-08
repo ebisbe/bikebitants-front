@@ -3,16 +3,16 @@ Buenos días,
 
 Nos ha entrado un nuevo pedido:
 @component('mail::table')
-    | Articulo      | Cantidad     |
-    | ------------- |:-------------:|
-    @foreach($items as $item)
-    | {{ $item['name'] }} <br> {{ $item['attributes'] }} | {{ $item['quantity'] }} |
+| Articulo      | Cantidad     |
+| ------------- |:-------------:|
+@foreach($items as $item)
+| {{ $item['name'] }} <br> {{ $item['attributes'] }} | {{ $item['quantity'] }} |
 
-    @endforeach
+@endforeach
 @endcomponent
 
 @component('mail::panel')
-    Nuestra mensajería pasará a recoger el producto. Adjunto etiqueta para pegar en el paquete.
+Nuestra mensajería pasará a recoger el producto. Adjunto etiqueta para pegar en el paquete.
 @endcomponent
 
 

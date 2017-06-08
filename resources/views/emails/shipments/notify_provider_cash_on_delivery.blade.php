@@ -3,16 +3,16 @@ Buenos días,
 
 Nos ha entrado un nuevo pedido:
 @component('mail::table')
-    | Articulo      | Cantidad     |
-    | ------------- |:-------------:|
-    @foreach($items as $item)
-    | {{ $item['name'] }} <br> {{ $item['attributes'] }} | {{ $item['quantity'] }} |
+| Articulo      | Cantidad     |
+| ------------- |:-------------:|
+@foreach($items as $item)
+| {{ $item['name'] }} <br> {{ $item['attributes'] }} | {{ $item['quantity'] }} |
 
-    @endforeach
+@endforeach
 @endcomponent
 
 @component('mail::panel')
-    Al ser un envío contrareembolso nuestra mensajería pasará a recoger el producto. Adjunto etiqueta para pegar en el paquete.
+Al ser un envío contrareembolso nuestra mensajería pasará a recoger el producto. Adjunto etiqueta para pegar en el paquete.
 @endcomponent
 
 
