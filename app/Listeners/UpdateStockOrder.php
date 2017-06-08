@@ -28,10 +28,9 @@ class UpdateStockOrder implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param Create $event
      * @return void
      */
-    public function handle(Create $event)
+    public function handle($event)
     {
         $event
             ->order
