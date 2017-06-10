@@ -41,7 +41,8 @@
         "deliverea/deliverea-php": "@dev",
         "doctrine/dbal": "^2.5",
         "maatwebsite/excel": "^2.1",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "ebisbe/paga-mas-tarde-omnipay": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

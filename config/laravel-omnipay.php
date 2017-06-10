@@ -23,6 +23,7 @@ return [
                 "currency" => "EUR",
             ]
         ],
+
         'redsys' => [
             'driver' => 'Sermepa',
             'options' => [
@@ -38,9 +39,21 @@ return [
                 'testMode' => env('OMNIPAY_REDSYS_TESTMODE'),
             ]
         ],
+
         'Fake' => [
             'driver' => 'Fake',
             'options' => []
+        ],
+
+        'PagaMasTarde' => [
+            'driver' => 'PagaMasTarde',
+            'options' => [
+                'accountId' => env('OMNIPAY_PAGAMASTARDE_PUBLIC_KEY'),
+                'secretKey' => env('OMNIPAY_PAGAMASTARDE_SECRET_KEY'),
+                'iframe' => 'false',
+                'locale' => 'es',
+                'currency' => 'EUR'
+            ]
         ]
     ]
 

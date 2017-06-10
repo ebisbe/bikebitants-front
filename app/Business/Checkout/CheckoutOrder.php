@@ -86,7 +86,7 @@ class CheckoutOrder
     /**
      * @return Status
      */
-    private function confirmPayment()
+    public function confirmPayment()
     {
         Omnipay::setGateway($this->getPaymentType()->code);
         $this->response = Omnipay::completePurchase($this->getPurchaseParams())->send();
@@ -273,10 +273,13 @@ class CheckoutOrder
             'multiply' => true,
             'returnUrl' => route('checkout.index'),
             'cancelUrl' => route('shop.cancellation'),
+            'callbackUrl' => route('shop.callback'),
             'transactionId' => $this->order->token,
             'description' => config('app.name'),
             'testMode' => config('app.env') == 'production' ? false : true,
-            //'card' => $formData, //$formData = array('number' => '4242424242424242', 'expiryMonth' => '6', 'expiryYear' => '2016', 'cvv' => '123');
+
+            'full_name' => $this->order->shipping->full_name,
+            'email' => $this->order->shipping->email
         ];
     }
 

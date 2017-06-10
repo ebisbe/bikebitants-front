@@ -178,6 +178,7 @@ $factory->define(PaymentMethod::class, function (Generator $faker) {
         'short_description' => $faker->paragraphs(1, true),
         'description' => $faker->paragraphs(3, true),
         'code' => $faker->slug(2),
+        'slug' => $faker->slug(2),
     ];
 });
 
@@ -326,12 +327,15 @@ $factory->define(Order::class, function (Generator $faker) {
         "total" => $faker->randomFloat(2, 0, 25),
         "total_items" => $faker->numberBetween(0, 5),
         "user_agent" => $faker->userAgent,
-        //billing
-        //shipping
         //conditions
         "cart" => [
             factory(Cart::class)->make()->toArray()
-        ]
+        ],
+        'payment_method_id' => factory(PaymentMethod::class)->lazy([
+            'slug' => PaymentMethod::CASH_ON_DELIVERY
+        ]),
+        'billing' => factory(Billing::class)->make()->toArray(),
+        'shipping' => factory(Shipping::class)->make()->toArray()
     ];
 });
 
@@ -359,16 +363,11 @@ $factory->state(Order::class, 'CashOnDelivery', function (Generator $faker) {
         'external_id' => $faker->numberBetween(),
         'status' => Order::CONFIRMED,
         'cart' => [
-            //factory(Cart::class)->make()->toArray(),
-            //factory(Cart::class)->make()->toArray(),
-            //factory(Cart::class)->states('NoEmailProvider')->make()->toArray(),
+            factory(Cart::class)->make()->toArray(),
+            factory(Cart::class)->make()->toArray(),
+            factory(Cart::class)->states('NoEmailProvider')->make()->toArray(),
             factory(Cart::class)->states('OnDemand')->make()->toArray()
-        ],
-        'payment_method_id' => factory(PaymentMethod::class)->lazy([
-            'slug' => PaymentMethod::CASH_ON_DELIVERY
-        ]),
-        'billing' => factory(Billing::class)->make()->toArray(),
-        'shipping' => factory(Shipping::class)->make()->toArray()
+        ]
     ];
 });
 

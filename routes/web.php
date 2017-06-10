@@ -42,7 +42,7 @@ Route::get('/tienda/marcas', 'BrandController@brands')->name('shop.brands');
 Route::get('/tienda/{slug}', 'BrandController@brand')->name('shop.brand');
 
 Route::get('/checkout/cancel', 'CheckoutController@cancel')->name('shop.cancellation');
-Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store', 'show']]);
+Route::resource('checkout', 'CheckoutController', ['only' => ['index', 'store']]);
 
 Route::resource('lead', 'LeadsController', ['only' => ['store']]);
 Route::resource('coupon', 'CouponController', ['only' => ['store']]);

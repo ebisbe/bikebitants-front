@@ -15,4 +15,5 @@ class PaymentMethod extends Model
     const REDSYS = 'redsys';
     const PAYPAL = 'paypal';
     const BANK_TRANSFER = 'bank-transfer';
+    const PAGA_MAS_TARDE = 'paga-mas-tarde';
 }
