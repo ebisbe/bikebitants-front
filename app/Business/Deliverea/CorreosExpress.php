@@ -5,7 +5,7 @@ namespace App\Business\Deliverea;
 class CorreosExpress extends Carrier
 {
     const CARRIER = 'correosExpress';
-    const SERVICE = 'correos-24';
+    const SERVICE = 'correos-epaq-24';
 
     public function __construct()
     {

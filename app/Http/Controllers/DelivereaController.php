@@ -20,7 +20,7 @@ class DelivereaController extends Controller
 
     public function serviceInfo()
     {
-        $response = Deliverea::getServiceInfo('correosExpress', 'correos-24', 'ES', '08100', 'ES', '28028');
+        $response = Deliverea::getServiceInfo('correosExpress', 'correos-epaq-24', 'ES', '08100', 'ES', '28028');
         dd($response);
     }
 

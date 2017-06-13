@@ -14,7 +14,7 @@ class ShipmentTest extends TestCase
     const OVIRTUAL_ENTREGA_OFICINA = 'ovirtual-servicio-19';
 
     const CORREOS_EXPRESS = 'correosExpress';
-    const CORREOS_24 = 'correos-24';
+    const CORREOS_24 = 'correos-epaq-24';
 
     /** @var  Shipment */
     private $shipment;
