@@ -114,7 +114,7 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
-    public function it_recieves_addresse()
+    public function it_recieves_address()
     {
         $address = $this->shipment->addressData('PROVA1');
 

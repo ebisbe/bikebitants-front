@@ -38,5 +38,6 @@ return [
     'order_cancelled' => 'Your order has been cancelled',
     'order_cancelled_inactivity' => 'Your order has been cancelled due to inactivity',
 
-    'free_shipping' => 'Gratis!'
+    'free_shipping' => 'Gratis!',
+    'choose_one_state' => 'Seleccionar provincia'
 ];
