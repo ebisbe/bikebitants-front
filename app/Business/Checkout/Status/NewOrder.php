@@ -39,7 +39,7 @@ class NewOrder implements Status
         });
 
         foreach ($states_list as $key => $state) {
-            $states["data-$key"] = json_encode($state);
+            $states["data-$key"] = json_encode(array_merge([['_id' => '', 'name' => '']], $state));
         }
 
         $paymentMethods = Cache::remember('payment_methods', 5, function () {
