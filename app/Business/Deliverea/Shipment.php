@@ -206,14 +206,14 @@ class Shipment
             case !$is_drop_shipping && !$is_cash_on_delivery && !$is_shipping_to_cat:
                 //CASE 2
             case $is_drop_shipping && !$is_cash_on_delivery:
+                //CASE 5
+            case $is_drop_shipping && $is_cash_on_delivery:
                 return new VirtualOperator();
 
             // CASE 4a
             case !$is_drop_shipping && !$is_cash_on_delivery && $is_shipping_to_cat:
                 // CASE 4b
             case !$is_drop_shipping && $is_cash_on_delivery:
-                //CASE 5
-            case $is_drop_shipping && $is_cash_on_delivery:
                 return new CorreosExpress();
         }
     }

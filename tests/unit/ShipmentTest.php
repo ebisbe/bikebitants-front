@@ -93,13 +93,13 @@ class ShipmentTest extends TestCase
     {
         $carrier = $this->shipment->getCarrier(true, true, true);
 
-        $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
-        $this->assertEquals(self::CORREOS_24, $carrier->service());
+        $this->assertEquals(self::OVIRTUAL, $carrier->name());
+        $this->assertEquals(self::OVIRTUAL_ENTREGA_OFICINA, $carrier->service());
 
         $carrier = $this->shipment->getCarrier(true, true, false);
 
-        $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
-        $this->assertEquals(self::CORREOS_24, $carrier->service());
+        $this->assertEquals(self::OVIRTUAL, $carrier->name());
+        $this->assertEquals(self::OVIRTUAL_ENTREGA_OFICINA, $carrier->service());
     }
 
     /** @test */
