@@ -279,7 +279,13 @@ class CheckoutOrder
             'testMode' => config('app.env') == 'production' ? false : true,
 
             'full_name' => $this->order->shipping->full_name,
-            'email' => $this->order->shipping->email
+            'email' => $this->order->shipping->email,
+            'mobile_phone' => $this->order->shipping->phone,
+            'shipping_street' => $this->order->shipping->address,
+            'shipping_city' => $this->order->shipping->city,
+            'shipping_province' => $this->order->shipping->state,
+            'shipping_zipcode' => $this->order->shipping->postcode,
+            'shipping_address_type' => 'unknown'
         ];
     }
 

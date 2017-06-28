@@ -1070,16 +1070,16 @@
         },
         {
             "name": "ebisbe/paga-mas-tarde-omnipay",
-            "version": "1.1",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ebisbe/paga-mas-tarde-omnipay.git",
-                "reference": "5a16a947ef2f17d56e826f24e60df20907f9f906"
+                "reference": "721f35bd62f0551e416327900cb255e2b6af823d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ebisbe/paga-mas-tarde-omnipay/zipball/5a16a947ef2f17d56e826f24e60df20907f9f906",
-                "reference": "5a16a947ef2f17d56e826f24e60df20907f9f906",
+                "url": "https://api.github.com/repos/ebisbe/paga-mas-tarde-omnipay/zipball/721f35bd62f0551e416327900cb255e2b6af823d",
+                "reference": "721f35bd62f0551e416327900cb255e2b6af823d",
                 "shasum": ""
             },
             "require": {
@@ -1091,6 +1091,7 @@
                     "Omnipay\\PagaMasTarde\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPLv2"
             ],
@@ -1102,11 +1103,7 @@
                 }
             ],
             "description": "Paga Mas Tarde payment gateway implementation with omnipay",
-            "support": {
-                "source": "https://github.com/ebisbe/paga-mas-tarde-omnipay/tree/1.1",
-                "issues": "https://github.com/ebisbe/paga-mas-tarde-omnipay/issues"
-            },
-            "time": "2017-06-09T17:16:12+00:00"
+            "time": "2017-06-28T09:53:52+00:00"
         },
         {
             "name": "erusev/parsedown",
