@@ -25,100 +25,39 @@ class ShipmentTest extends TestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     * CASE 1
-     */
-    public function it_is_an_order_with_no_catalunya_has_stock_no_cash_on_delivery()
+    /** @test */
+    public function it_is_an_order_with_collect_at_almogavers_and_deliver_bcn()
     {
-
-        $carrier = $this->shipment->getCarrier(false, false, false);
-
-        $this->assertEquals(self::OVIRTUAL, $carrier->name());
-        $this->assertEquals(self::OVIRTUAL_ENTREGA_OFICINA, $carrier->service());
-    }
-
-    /**
-     * @test
-     * CASE 2
-     */
-    public function it_is_an_order_with_no_cash_on_delivery_dropshipping()
-    {
-        $carrier = $this->shipment->getCarrier(true, false, false);
-
-        $this->assertEquals(self::OVIRTUAL, $carrier->name());
-        $this->assertEquals(self::OVIRTUAL_ENTREGA_OFICINA, $carrier->service());
-
-        $carrier = $this->shipment->getCarrier(true, false, true);
-
-        $this->assertEquals(self::OVIRTUAL, $carrier->name());
-        $this->assertEquals(self::OVIRTUAL_ENTREGA_OFICINA, $carrier->service());
-    }
-
-    /**
-     * @test
-     * CASE 4a
-     */
-    public function it_is_an_order_with_catalunya_has_stock_no_cash_on_delivery()
-    {
-
-        $carrier = $this->shipment->getCarrier(false, false, true);
+        $carrier = $this->shipment->getCarrier(true, 'BIKEBITANTS ALMOGAVERS');
 
         $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
         $this->assertEquals(self::CORREOS_24, $carrier->service());
     }
 
-    /**
-     * @test
-     * CASE 4b
-     */
-    public function it_is_an_order_with_cash_on_delivery_no_dropshipping()
+    /** @test */
+    public function it_is_an_order_with_collect_at_almogavers_and_deliver_outside_bcn()
     {
-        $carrier = $this->shipment->getCarrier(false, true, true);
-
-        $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
-        $this->assertEquals(self::CORREOS_24, $carrier->service());
-
-        $carrier = $this->shipment->getCarrier(false, true, false);
-
-        $this->assertEquals(self::CORREOS_EXPRESS, $carrier->name());
-        $this->assertEquals(self::CORREOS_24, $carrier->service());
-    }
-
-    /**
-     * @test
-     * CASE 5
-     */
-    public function it_is_an_order_with_cash_on_delivery_dropshipping()
-    {
-        $carrier = $this->shipment->getCarrier(true, true, true);
-
-        $this->assertEquals(self::OVIRTUAL, $carrier->name());
-        $this->assertEquals(self::OVIRTUAL_ENTREGA_OFICINA, $carrier->service());
-
-        $carrier = $this->shipment->getCarrier(true, true, false);
+        $carrier = $this->shipment->getCarrier(false, 'BIKEBITANTS ALMOGAVERS');
 
         $this->assertEquals(self::OVIRTUAL, $carrier->name());
         $this->assertEquals(self::OVIRTUAL_ENTREGA_OFICINA, $carrier->service());
     }
 
     /** @test */
-    public function it_sends_a_shipment_to_deliverea()
+    public function it_is_an_order_with_deliver_outside_bcn()
     {
-        Event::fake();
-        /** @var Order $order */
-        $order = factory(Order::class)->states('CashOnDelivery')->create();
+        $carrier = $this->shipment->getCarrier(false, 'PROVA1');
 
-        $this->shipment->order($order);
-        $this->shipment->process();
+        $this->assertEquals(self::OVIRTUAL, $carrier->name());
+        $this->assertEquals(self::OVIRTUAL_ENTREGA_OFICINA, $carrier->service());
     }
 
     /** @test */
-    public function it_recieves_address()
+    public function it_is_an_order_with_collect_at_alomgavers_and_deliver_bcn()
     {
-        $address = $this->shipment->addressData('PROVA1');
+        $carrier = $this->shipment->getCarrier(true, 'PROVA1');
 
-        $this->assertInstanceOf(Deliverea\Model\Address::class, $address);
-        $this->assertEquals('prova1', $address->getName());
+        $this->assertEquals(self::OVIRTUAL, $carrier->name());
+        $this->assertEquals(self::OVIRTUAL_ENTREGA_OFICINA, $carrier->service());
     }
 }

@@ -26,6 +26,7 @@ class Shipment
      */
     private $order;
 
+    const ALMOGAVERS = 'BIKEBITANTS ALMOGAVERS';
     /**
      * Shipment constructor.
      * @param Order $order
@@ -74,9 +75,8 @@ class Shipment
     public function create($shipment, $parcel, $groupCount)
     {
         $carrier = $this->getCarrier(
-            $parcel->get('is_drop_shipping'),
-            $this->order->isCashOnDelivery(),
-            $this->order->isShippingToCatalunya()
+            $this->order->isShippingToBarcelona(),
+            $parcel->get('collection_address')
         );
         $shipment->carrier_code = $carrier->name();
         $shipment->carrier_service = $carrier->service();
@@ -191,30 +191,18 @@ class Shipment
     }
 
     /**
-     * @param $is_drop_shipping
-     * @param $is_cash_on_delivery
-     * @param $is_shipping_to_cat
-     * @return Carrier|VirtualOperator|CorreosExpress
+     * @param $is_shipping_to_bcn_province
+     * @param $collect_address
+     * @return Carrier|CorreosExpress|VirtualOperator
      */
     public function getCarrier(
-        $is_drop_shipping,
-        $is_cash_on_delivery,
-        $is_shipping_to_cat
+        $is_shipping_to_bcn_province,
+        $collect_address
     ): Carrier {
-        switch (true) {
-            // CASE 1
-            case !$is_drop_shipping && !$is_cash_on_delivery && !$is_shipping_to_cat:
-                //CASE 2
-            case $is_drop_shipping && !$is_cash_on_delivery:
-                //CASE 5
-            case $is_drop_shipping && $is_cash_on_delivery:
-                return new VirtualOperator();
-
-            // CASE 4a
-            case !$is_drop_shipping && !$is_cash_on_delivery && $is_shipping_to_cat:
-                // CASE 4b
-            case !$is_drop_shipping && $is_cash_on_delivery:
-                return new CorreosExpress();
+        if ($is_shipping_to_bcn_province && $collect_address == self::ALMOGAVERS) {
+            return new CorreosExpress();
+        } else {
+            return new VirtualOperator();
         }
     }
 

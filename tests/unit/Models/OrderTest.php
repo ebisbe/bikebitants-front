@@ -13,6 +13,7 @@ class OrderTest extends TestCase
     public function it_is_shipping_to_barcelona()
     {
         Event::fake();
+        /** @var Order $order */
         $order = factory(Order::class)->create([
             'shipping' => [
                 'country' => 'ES',
@@ -20,13 +21,14 @@ class OrderTest extends TestCase
             ]
         ]);
 
-        $this->assertTrue($order->isShippingToCatalunya());
+        $this->assertTrue($order->isShippingToBarcelona());
     }
 
     /** @test */
     public function it_is_shipping_to_lleida()
     {
         Event::fake();
+        /** @var Order $order */
         $order = factory(Order::class)->create([
             'shipping' => [
                 'country' => 'ES',
@@ -34,13 +36,14 @@ class OrderTest extends TestCase
             ]
         ]);
 
-        $this->assertTrue($order->isShippingToCatalunya());
+        $this->assertFalse($order->isShippingToBarcelona());
     }
 
     /** @test */
     public function it_is_shipping_to_girona()
     {
         Event::fake();
+        /** @var Order $order */
         $order = factory(Order::class)->create([
             'shipping' => [
                 'country' => 'ES',
@@ -48,13 +51,14 @@ class OrderTest extends TestCase
             ]
         ]);
 
-        $this->assertTrue($order->isShippingToCatalunya());
+        $this->assertFalse($order->isShippingToBarcelona());
     }
 
     /** @test */
     public function it_is_shipping_to_tarragona()
     {
         Event::fake();
+        /** @var Order $order */
         $order = factory(Order::class)->create([
             'shipping' => [
                 'country' => 'ES',
@@ -62,13 +66,14 @@ class OrderTest extends TestCase
             ]
         ]);
 
-        $this->assertTrue($order->isShippingToCatalunya());
+        $this->assertFalse($order->isShippingToBarcelona());
     }
 
     /** @test */
     public function it_is_not_shipping_to_catalunya()
     {
         Event::fake();
+        /** @var Order $order */
         $order = factory(Order::class)->create([
             'shipping' => [
                 'country' => 'ES',
@@ -76,7 +81,7 @@ class OrderTest extends TestCase
             ]
         ]);
 
-        $this->assertFalse($order->isShippingToCatalunya());
+        $this->assertFalse($order->isShippingToBarcelona());
     }
 
     /** @test */

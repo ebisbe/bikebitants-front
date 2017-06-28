@@ -202,12 +202,12 @@ class Order extends \App\Business\Integration\WooCommerce\Models\Order
     /**
      * @return bool
      */
-    public function isShippingToCatalunya(): bool
+    public function isShippingToBarcelona(): bool
     {
         return $this->shipping->country == 'ES'
             && in_array(
                 strtolower($this->shipping->state),
-                array('b', 'l', 'gi', 't')
+                array('b')
             );
     }
 
