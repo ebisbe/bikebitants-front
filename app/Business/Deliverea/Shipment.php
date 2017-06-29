@@ -27,6 +27,7 @@ class Shipment
     private $order;
 
     const ALMOGAVERS = 'BIKEBITANTS ALMOGAVERS';
+
     /**
      * Shipment constructor.
      * @param Order $order
@@ -55,7 +56,7 @@ class Shipment
 
                 $shipment = new \App\Shipment();
                 if (!empty($parcel->get('collection_address'))) {
-                    $shipment = $this->create($shipment, $parcel, $group->count());
+                    $shipment = $this->create($shipment, $parcel, 1);
                 }
 
                 $shipment->order_id = $this->order->_id;
