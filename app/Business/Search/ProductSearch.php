@@ -23,7 +23,7 @@ class ProductSearch
 
     /** Filters for product page */
     const MIN_PRICE = 1;
-    const MAX_PRICE = 500;
+    const MAX_PRICE = 1000;
     //protected $show = [8 => 8, 12 => 12, 18 => 18, 24 => 24, 'all' => 'all'];
     //protected $filterPage = 1;
 
