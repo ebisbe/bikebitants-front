@@ -37,7 +37,7 @@ class BrandController extends Controller
 
     public function brands()
     {
-        $brands = $this->brandRepository->findAll();
+        $brands = $this->brandRepository->orderBy('name')->findAll();
         $title = trans('layout.shop');
         $subtitle = trans('layout.brands');
 

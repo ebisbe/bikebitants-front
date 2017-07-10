@@ -5,6 +5,7 @@ namespace App\Business\Integration\WooCommerce;
 use App\Business\Integration\WooCommerce\Models\ModelFactory;
 use App\Business\Integration\WooCommerce\Models\Product;
 use App\Business\Integration\WooCommerce\Models\Property;
+use App\Business\Repositories\BrandRepository;
 use Illuminate\Support\Str;
 
 // TODO review this class to follow ApiImporter Pattern
@@ -86,6 +87,7 @@ class Properties
             $brand->name = $attribute['options'][0];
             $brand->save();
             $brand->products()->save($this->product);
+            (new BrandRepository())->forgetCache();
         } else {
             $this->product->{Str::slug($attribute['name'], '_')} = $attribute['options'][0];
         }
