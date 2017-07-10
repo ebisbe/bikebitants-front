@@ -30,7 +30,7 @@ class ProductSearchTest extends TestCase
         $this->assertEquals([
             'sort' => 'featured',
             'min_price' => 1,
-            'max_price' => 500,
+            'max_price' => 1000,
             'page' => 1,
             'per_page' => 160
         ], $this->productSearch->getFilters()->toArray());
@@ -44,7 +44,7 @@ class ProductSearchTest extends TestCase
         $this->assertEquals([
             'sort' => 'high_to_low',
             'min_price' => 1,
-            'max_price' => 500,
+            'max_price' => 1000,
             'page' => 1,
             'per_page' => 160,
             'additional' => 'param'
