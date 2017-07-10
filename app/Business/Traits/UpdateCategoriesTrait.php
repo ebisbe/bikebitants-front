@@ -20,7 +20,7 @@ trait UpdateCategoriesTrait
                 }
             });
 
-            $product->categories = $categories->unique()->toArray();
+            $product->categories = $categories->unique()->values()->toArray();
         });
     }
 }

@@ -10,6 +10,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+/**
+ * @deprecated 2017-07-10
+ */
 class UpdateCategories extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
