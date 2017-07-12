@@ -51,8 +51,9 @@ class NewOrder implements Status
         $states = $this->states();
 
         $items = Cart::getContent();
+        $totalPrice = Cart::getTotal();
 
-        return view('checkout.index', compact('countries', 'states', 'items', 'paymentMethods'));
+        return view('checkout.index', compact('countries', 'states', 'items', 'paymentMethods', 'totalPrice'));
     }
 
     /**

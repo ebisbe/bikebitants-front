@@ -28,6 +28,15 @@
                 </ul>
                 <div itemprop="description">{!! $product->introduction !!}</div>
                 <div class="product-form clearfix">
+                    <script type="text/javascript"
+                            src="https://cdn.pagamastarde.com/pmt-js-client-sdk/3/js/client-sdk.min.js">
+                    </script>
+                    <script>
+                        (function(){
+                            pmtClient.setPublicKey('pk_f3482c65406299a37f3aab53');
+                            pmtClient.simulator.init();
+                        })();
+                    </script>
                     <product-form
                             product_id="{{ $product->_id }}"
                             :properties='{!! json_encode($product->properties()->sortBy('order')->values()->all()) !!}'

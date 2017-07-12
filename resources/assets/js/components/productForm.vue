@@ -44,7 +44,13 @@
                         <span v-html="stockText"></span> </span>
                     </div>
                 </div>
-
+            </div>
+            <div class="col-md-offset-4 col-lg-6 col-lg-offset-6">
+                <div class="PmtSimulator" v-show="(variation_price * quantity) > 99"
+                     data-pmt-num-quota="6" data-pmt-max-ins="12" data-pmt-style="grey"
+                     data-pmt-type="2"
+                     data-pmt-discount="0" :data-pmt-amount="variation_price * quantity" data-pmt-expanded="yes">
+                </div>
             </div>
         </div>
     </form>
@@ -86,7 +92,6 @@
                 let variation = _.filter(this.variations, function (variation) {
                     return _.isEmpty(_.difference(variation._id, properties));
                 });
-
                 if (variation.length == 0) {
                     this.max_quantity = 0;
                 } else {
@@ -94,10 +99,16 @@
                     this.variation_price = variation[0].tax_price;
                     Bus.$emit('selectVariation', variation[0]);
                 }
+                this.$nextTick(function () {
+                    window.pmtClient.simulator.updateSimulators();
+                })
             },
 
             updateQuantity: function (quantity) {
                 this.quantity = quantity;
+                this.$nextTick(function () {
+                    window.pmtClient.simulator.updateSimulators();
+                })
             }
         },
 
