@@ -6,7 +6,7 @@ use App\Business\Integration\WooCommerce\Models\Image;
 use App\Business\Integration\WooCommerce\Models\Product;
 use Tests\TestCase;
 
-class ProductStatysSyncroTest extends TestCase
+class ProductStatusSyncroTest extends TestCase
 {
     /** @var  Product  */
     protected $service;
