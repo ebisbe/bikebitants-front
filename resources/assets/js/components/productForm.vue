@@ -1,7 +1,7 @@
 <template>
     <form id="add-product" class="form-horizontal">
         <div class="row">
-            <div class="col-lg-8" v-if="properties.length > 0">
+            <div class="col-lg-8" v-if="properties.length > visible">
                 <attribute-select
                         v-for="property in properties"
                         :order="property.order"
@@ -45,7 +45,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-offset-4 col-lg-6 col-lg-offset-6">
+        </div>
+        <div class="row">
+            <div class="col-lg-6" :class="{'col-lg-offset-6': visible, 'col-md-offset-4': visible }">
                 <div class="PmtSimulator" v-show="(variation_price * quantity) > 99"
                      data-pmt-num-quota="6" data-pmt-max-ins="12" data-pmt-style="grey"
                      data-pmt-type="2"
@@ -135,6 +137,9 @@
                 }
                 let color = '';
                 return '<span class="' + color + '">(' + text + ')</span>';
+            },
+            visible: function () {
+                return this.properties.length > 0;
             }
         }
     };
