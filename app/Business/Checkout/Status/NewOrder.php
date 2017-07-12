@@ -51,7 +51,7 @@ class NewOrder implements Status
         $states = $this->states();
 
         $items = Cart::getContent();
-        $totalPrice = Cart::getTotal();
+        $totalPrice = str_ireplace(',', '', Cart::getTotal());
 
         return view('checkout.index', compact('countries', 'states', 'items', 'paymentMethods', 'totalPrice'));
     }
