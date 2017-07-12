@@ -74,6 +74,7 @@
             this.$http.get('/api/cart')
                     .then(function (response) {
                         this.products = response.data;
+                        Bus.$emit('prodLength', this.products.length );
                     });
             Bus.$on('addProduct', this.addProduct);
         },
