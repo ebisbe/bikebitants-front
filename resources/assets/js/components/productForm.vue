@@ -1,7 +1,7 @@
 <template>
     <form id="add-product" class="form-horizontal">
         <div class="row">
-            <div class="col-lg-8" v-if="properties.length > visible">
+            <div class="col-lg-8" v-if="visible">
                 <attribute-select
                         v-for="property in properties"
                         :order="property.order"
