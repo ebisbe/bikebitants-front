@@ -53,6 +53,13 @@ class NewOrder implements Status
         $items = Cart::getContent();
         $totalPrice = str_ireplace(',', '', Cart::getTotal());
 
+        if ($totalPrice >= 200) {
+            $paymentMethods = $paymentMethods->filter(function ($payment_method) {
+                /** @var PaymentMethod $payment_method */
+                return $payment_method->slug != PaymentMethod::CASH_ON_DELIVERY;
+            });
+        }
+
         return view('checkout.index', compact('countries', 'states', 'items', 'paymentMethods', 'totalPrice'));
     }
 
