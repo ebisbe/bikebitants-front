@@ -28,6 +28,10 @@
                 </ul>
                 <div itemprop="description">{!! $product->introduction !!}</div>
                 <div class="product-form clearfix">
+                    <ul class="list-inline product-links">
+                        <li><a href="#"><i class="fa fa-shield"></i>Pago seguro</a></li>
+                        <li><a href="#"><i class="fa fa-refresh"></i>Devolucion fácil</a></li>
+                    </ul>
                     <script type="text/javascript"
                             src="https://cdn.pagamastarde.com/pmt-js-client-sdk/3/js/client-sdk.min.js">
                     </script>
@@ -41,7 +45,9 @@
                             product_id="{{ $product->_id }}"
                             :properties='{!! json_encode($product->properties()->sortBy('order')->values()->all()) !!}'
                             :variations='{!! json_encode($product->variations()->all()) !!}'
+                            delivery_time="{{ $product->delivery_time }}"
                     ></product-form>
+
                 </div>
                 {{--<ul class="list-inline product-links">
                     <li><a href="#"><i class="fa fa-heart"></i>Add to wishlist</a></li>

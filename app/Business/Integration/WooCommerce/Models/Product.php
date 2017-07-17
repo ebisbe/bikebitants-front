@@ -137,8 +137,8 @@ class Product extends ApiImporter
         $entity['status'] = $this->statusSyncro($entity['status'], $entity['catalog_visibility']);
         $entity['is_featured'] = $entity['featured'];
         $entity['slug'] = $this->slugFromPermalink($entity);
-        $entity['description'] = $this->stripVCRow($entity['description']);
-        $entity['introduction'] = $entity['short_description'];
+        $entity['description'] = $this->stripUnpleasantTags($entity['description']);
+        $entity['introduction'] = $this->stripUnpleasantTags($entity['short_description']);
 
         $meta_data = collect($entity['meta_data']);
         $entity['meta_title'] = $meta_data->where('key', '_yoast_wpseo_title')->first()['value'];
@@ -153,6 +153,7 @@ class Product extends ApiImporter
 
         $this->images->each->delete();
         collect($entity['images'])->each(function ($wpImage) {
+            /** @var Image $image */
             $image = Image::firstOrNew(['external_id' => $wpImage['id']]);
             $this->images()->associate($image->sync($wpImage));
         });
@@ -200,8 +201,9 @@ class Product extends ApiImporter
      * @param $text
      * @return mixed
      */
-    public function stripVCRow($text)
+    public function stripUnpleasantTags($text)
     {
+        $text = preg_replace('#<img .+\/2016\/01\/garantias-pagina-producto-1\.png.+ \/>#', '', $text);
         return preg_replace('#\[(/)?vc_.+\]?#', '', $text);
     }
 

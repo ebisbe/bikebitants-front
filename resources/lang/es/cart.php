@@ -20,4 +20,5 @@ return [
     'enter_coupon_code' => 'Introduce tu código de descuento.',
     'apply_coupon' => 'Aplicar descuento',
     'discount_code' => 'Código de descuento',
+    'delivery_time' => 'Entrega en '
 ];

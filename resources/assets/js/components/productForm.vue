@@ -32,7 +32,7 @@
 
                 <div class="form-group product-size">
                     <div class="col-sm-12 col-sm-offset-4 col-lg-offset-0">
-                        <span class="help-block" id="helpBlock2">{{ $t('cart.price') }}: <strong>{{ variation_price }}&euro;</strong>
+                        <span class="help-block" id="helpBlock2">{{ $t('cart.price') }}: <strong>{{ variation_price }}&euro;</strong><br/>
                         <span v-html="stockText"></span> </span>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
     import quantitySelect from './quantitySelect.vue';
 
     export default {
-        props: ['properties', 'variations', 'product_id'],
+        props: ['properties', 'variations', 'product_id', 'delivery_time'],
 
         components: {attributeSelect, quantitySelect},
 
@@ -109,26 +109,28 @@
         computed: {
             stockText: function () {
                 let text = '';
+                let color;
+                let deliver = Vue.t('cart.delivery_time') + this.delivery_time + 'h.';
                 switch (true) {
                     case this.max_quantity === 0:
                         text = Vue.t('catalogue.out_of_stock');
-                        color = 'bg-danger';
+                        color = 'alert-danger';
+                        deliver = '';
                         break;
                     case this.max_quantity === 1:
                         text = Vue.t('catalogue.one_stock') + ' ' + this.max_quantity;
-                        color = 'bg-warning';
+                        color = 'alert-warning';
                         break;
                     case this.max_quantity <= 5 && this.max_quantity > 1:
                         text = Vue.t('catalogue.small_stock') + ' ' + this.max_quantity;
-                        color = 'bg-warning';
+                        color = 'alert-warning';
                         break;
                     default:
                         text = Vue.t('catalogue.in_stock');
-                        color = 'bg-success';
+                        color = 'alert-success';
                         break;
                 }
-                let color = '';
-                return '<span class="' + color + '">(' + text + ')</span>';
+                return '<span class="' + color + '"><b>' + text + '. ' + deliver +'</b></span>';
             },
             visible: function () {
                 return this.properties.length > 0;
