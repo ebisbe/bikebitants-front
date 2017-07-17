@@ -91,7 +91,7 @@ class ProductSearch
     public function getDefaultFilters(): Collection
     {
         return collect([
-            'sort' => self::FEATURED,
+            'sort' => self::DISCOUNTED,
             'min_price' => self::MIN_PRICE,
             'max_price' => self::MAX_PRICE,
             'page' => 1,
@@ -145,8 +145,8 @@ class ProductSearch
             self::NEWNESS,
             self::LOW_TO_HIGH,
             self::HIGH_TO_LOW,
-            'selected' => self::FEATURED,
-            self::DISCOUNTED
+            self::FEATURED,
+            'selected' => self::DISCOUNTED
         ]);
     }
 

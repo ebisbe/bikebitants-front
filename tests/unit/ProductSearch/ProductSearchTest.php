@@ -28,7 +28,7 @@ class ProductSearchTest extends TestCase
         $this->productSearch->applyFilters([]);
 
         $this->assertEquals([
-            'sort' => 'featured',
+            'sort' => 'discounted',
             'min_price' => 1,
             'max_price' => 1000,
             'page' => 1,
