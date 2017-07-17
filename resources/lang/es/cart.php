@@ -20,5 +20,9 @@ return [
     'enter_coupon_code' => 'Introduce tu código de descuento.',
     'apply_coupon' => 'Aplicar descuento',
     'discount_code' => 'Código de descuento',
-    'delivery_time' => 'Entrega en '
+    'delivery_time' => 'Entrega en ',
+    'secure_payment' => 'Pago seguro',
+    'allow_return' => 'Devolucion fácil',
+    'free_packaging' => 'Entrega sostenible y gratuita',
+    'over_30_euros' => 'para pedidos superiores a 30€'
 ];

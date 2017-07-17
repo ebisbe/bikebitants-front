@@ -203,7 +203,8 @@ class Product extends ApiImporter
      */
     public function stripUnpleasantTags($text)
     {
-        $text = preg_replace('#<img .+\/2016\/01\/garantias-pagina-producto-1\.png.+ \/>#', '', $text);
+        $text = preg_replace('#<img .+garantias-pagina-producto-1\.png.+ \/>#', '', $text);
+        $text = preg_replace('#<img .+garantias-bikebitants-producto30eur-300x75\.png.+ \/>#', '', $text);
         return preg_replace('#\[(/)?vc_.+\]?#', '', $text);
     }
 

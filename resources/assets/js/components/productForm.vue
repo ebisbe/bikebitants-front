@@ -1,5 +1,11 @@
 <template>
     <form id="add-product" class="form-horizontal">
+        <ul class="list-inline product-links">
+            <li><a href="#"><i class="fa fa-shield"></i>{{ $t('cart.secure_payment') }}</a></li>
+            <li><a href="#"><i class="fa fa-refresh"></i>{{ $t('cart.allow_return') }}</a></li>
+            <li v-if="variation_price >=  30"><a href="#"><i class="fa fa-bicycle"></i>{{ $t('cart.free_packaging') }}</a></li>
+            <li v-else ><a href="#"><i class="fa fa-bicycle"></i>{{ $t('cart.free_packaging') }} {{ $t('cart.over_30_euros') }}</a></li>
+        </ul>
         <div class="row">
             <div class="col-lg-8" v-if="visible">
                 <attribute-select

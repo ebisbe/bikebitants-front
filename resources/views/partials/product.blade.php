@@ -28,10 +28,6 @@
                 </ul>
                 <div itemprop="description">{!! $product->introduction !!}</div>
                 <div class="product-form clearfix">
-                    <ul class="list-inline product-links">
-                        <li><a href="#"><i class="fa fa-shield"></i>Pago seguro</a></li>
-                        <li><a href="#"><i class="fa fa-refresh"></i>Devolucion fácil</a></li>
-                    </ul>
                     <script type="text/javascript"
                             src="https://cdn.pagamastarde.com/pmt-js-client-sdk/3/js/client-sdk.min.js">
                     </script>
