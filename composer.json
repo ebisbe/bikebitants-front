@@ -27,7 +27,7 @@
         "pixelpeter/laravel5-woocommerce-api-client": "^2.0",
         "pulkitjalan/geoip": "2.*",
         "thujohn/twitter": "^2.2",
-        "sentry/sentry-laravel": "^0.6",
+        "sentry/sentry-laravel": "^0.7",
         "graham-campbell/htmlmin": "^4.4",
         "ebisbe/fake-omnipay": "dev-master",
         "jenssegers/mongodb": "3.2",
