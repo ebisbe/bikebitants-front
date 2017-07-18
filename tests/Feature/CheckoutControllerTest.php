@@ -65,7 +65,7 @@ class CheckoutControllerTest extends TestCase
         //assert
         $this->postAndCheckin();
         $data = array_merge(
-            $this->fillBillingForm(),
+            $this->fillShippingForm(),
             $this->checkPaymentAndAcceptTerms()
         );
 
@@ -82,20 +82,20 @@ class CheckoutControllerTest extends TestCase
             ->assertSee('Simple Product')
             ->assertSee('10.00&euro;')
             ->assertSee('30.00&euro;')
-            ->assertSee('billing.first_name')
-            ->assertSee('billing.last_name')
-            ->assertSee('billing@email.com')
-            ->assertSee('123456789')
-            ->assertSee('billing.address_1')
-            ->assertSee('billing.city')
-            ->assertSee('billing.postcode')
-            ->assertDontSee('shipping.first_name')
-            ->assertDontSee('shipping.last_name')
-            ->assertDontSee('shipping@email.com')
-            ->assertDontSee('0099123456789')
-            ->assertDontSee('shipping.address_1')
-            ->assertDontSee('shipping.city')
-            ->assertDontSee('shipping.postcode');
+            ->assertSee('shipping.first_name')
+            ->assertSee('shipping.last_name')
+            ->assertSee('shipping@email.com')
+            ->assertSee('0099123456789')
+            ->assertSee('shipping.address_1')
+            ->assertSee('shipping.city')
+            ->assertSee('shipping.postcode')
+            ->assertDontSee('billing.first_name')
+            ->assertDontSee('billing.last_name')
+            ->assertDontSee('billing@email.com')
+            ->assertDontSee('987654321')
+            ->assertDontSee('billing.address_1')
+            ->assertDontSee('billing.city')
+            ->assertDontSee('billing.postcode');
     }
 
     /** @test */
@@ -134,8 +134,8 @@ class CheckoutControllerTest extends TestCase
         $this->postAndCheckin();
 
         $data = array_merge(
-            $this->fillBillingForm(),
             $this->fillShippingForm(),
+            $this->fillBillingForm(),
             $this->checkPaymentAndAcceptTerms()
         );
 
@@ -191,7 +191,7 @@ class CheckoutControllerTest extends TestCase
         $this->createDiscounts();
 
         $data = array_merge(
-            $this->fillBillingForm(),
+            $this->fillShippingForm(),
             $this->checkPaymentAndAcceptTerms(),
             ['coupon' => 'DISCOUNT10']
         );
@@ -207,20 +207,20 @@ class CheckoutControllerTest extends TestCase
             ->assertSee('discount10')
             ->assertSee('9.00&euro;')
             ->assertSee('27.00&euro;')
-            ->assertSee('billing.first_name')
-            ->assertSee('billing.last_name')
-            ->assertSee('billing@email.com')
+            ->assertSee('shipping.first_name')
+            ->assertSee('shipping.last_name')
+            ->assertSee('shipping@email.com')
             ->assertSee('123456789')
-            ->assertSee('billing.address_1')
-            ->assertSee('billing.city')
-            ->assertSee('billing.postcode')
-            ->assertDontSee('shipping.first_name')
-            ->assertDontSee('shipping.last_name')
-            ->assertDontSee('shipping.email')
-            ->assertDontSee('shipping.phone')
-            ->assertDontSee('shipping.address_1')
-            ->assertDontSee('shipping.city')
-            ->assertDontSee('shipping.postcode');
+            ->assertSee('shipping.address_1')
+            ->assertSee('shipping.city')
+            ->assertSee('shipping.postcode')
+            ->assertDontSee('billing.first_name')
+            ->assertDontSee('billing.last_name')
+            ->assertDontSee('billing.email')
+            ->assertDontSee('billing.phone')
+            ->assertDontSee('billing.address_1')
+            ->assertDontSee('billing.city')
+            ->assertDontSee('billing.postcode');
     }
 
     /** @test */
@@ -229,7 +229,7 @@ class CheckoutControllerTest extends TestCase
         $this->postAndCheckin();
 
         $data = array_merge(
-            $this->fillBillingForm(),
+            $this->fillShippingForm(),
             $this->checkPaymentAndAcceptTerms()
         );
 
@@ -264,19 +264,18 @@ class CheckoutControllerTest extends TestCase
     private function fillBillingForm()
     {
         return [
+            'check_billing' => 0,
             'billing' => [
                 'first_name' => 'billing.first_name',
                 'last_name' => 'billing.last_name',
                 'email' => 'billing@email.com',
-                'phone' => '123456789',
+                'phone' => '987654321',
                 'address_1' => 'billing.address_1',
                 'city' => 'billing.city',
                 'postcode' => 'billing.postcode',
                 'country' => 'ES',
                 'state' => 'B'
-            ],
-            'check_shipping' => 'true', //TODO review why have to use true and not 1 is possible
-            'shipping' => []
+            ]
         ];
     }
 
@@ -286,18 +285,19 @@ class CheckoutControllerTest extends TestCase
     private function fillShippingForm()
     {
         return [
-            'check_shipping' => 0,
             'shipping' => [
                 'first_name' => 'shipping.first_name',
                 'last_name' => 'shipping.last_name',
-                'email' => 'shipping@email.com]',
+                'email' => 'shipping@email.com',
                 'phone' => '0099123456789',
                 'address_1' => 'shipping.address_1',
                 'city' => 'shipping.city',
                 'postcode' => 'shipping.postcode',
                 'country' => 'ES',
                 'state' => 'B'
-            ]
+            ],
+            'check_billing' => 'true',
+            'billing' => [],
         ];
     }
 

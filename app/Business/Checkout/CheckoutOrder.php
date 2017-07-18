@@ -303,18 +303,17 @@ class CheckoutOrder
         } else {
             $customer = $customer->first();
         }
-
-        $billing = new Billing();
-        $billing->fill($this->getFormParams('billing'));
-        $customer->billing()->associate($billing);
-
-        $data = $this->getFormParams('shipping');
-        if ($this->getFormParams('check_shipping') == 'true') {
-            $data = $this->getFormParams('billing');
-        }
         $shipping = new Shipping();
-        $shipping->fill($data);
+        $shipping->fill($this->getFormParams('shipping'));
         $customer->shipping()->associate($shipping);
+
+        $data = $this->getFormParams('billing');
+        if ($this->getFormParams('check_billing') === 'true') {
+            $data = $this->getFormParams('shipping');
+        }
+        $billing = new Billing();
+        $billing->fill($data);
+        $customer->billing()->associate($billing);
 
         $customer->save();
 

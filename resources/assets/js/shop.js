@@ -119,4 +119,8 @@ $(document).ready(function () {
     });
 
     $('#payment-methods label:first').click();
+
+    if ($('#check_billing:checked').length == '0') {
+        $('#billing-address-collapse').addClass('in');
+    }
 });
