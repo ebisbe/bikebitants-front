@@ -23,7 +23,7 @@
                 </quantity-select>
 
                 <div class="form-group product-size">
-                    <div class="col-sm-12 col-sm-offset-4 col-lg-offset-0">
+                    <div class="col-xs-4 col-xs-offset-8 col-sm-3 col-sm-offset-9 col-lg-6 col-lg-offset-6">
 
                         <cart-add :quantity="quantity"
                                   :product_id="product_id"
