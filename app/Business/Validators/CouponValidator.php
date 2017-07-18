@@ -17,9 +17,7 @@ class CouponValidator
     public function getCoupon($attribute, $validator)
     {
         $couponName = strtolower($validator->getData()[$attribute]);
-        return Cache::remember('coupon_'.$attribute, 10*60, function () use ($couponName) {
-            return Coupon::whereName($couponName)->first();
-        });
+        return Coupon::whereName($couponName)->first();
     }
 
     /**
