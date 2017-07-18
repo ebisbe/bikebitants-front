@@ -328,11 +328,11 @@
                                         @foreach($paymentMethods as $key => $payment)
                                             <div class="panel radio">
                                                 {{ Form::radio('payment', $payment->slug, $key == 0 ? true : null, ['id' => $payment->slug]) }}
-                                                {{ Form::label($payment->slug, "<span class='pvp' style='display:none'>{$totalPrice}€</span>".$payment->name, [], false) }}
+                                                {{ Form::label($payment->slug, "<span class='pvp' style='display:none'>{$totalPrice}€</span>".$payment->name, ['data-slug' => $payment->slug], false) }}
+                                                <div class="text-{{ $payment->slug }} text-methods">{{ $payment->short_description }}</div>
                                             </div>
                                         @endforeach
                                         {!! $errors->first('payment', '<p class="help-block">:message</p>') !!}
-
                                     </div>
                                     <script type="text/javascript"
                                             src="https://cdn.pagamastarde.com/pmt-js-client-sdk/3/js/client-sdk.min.js">

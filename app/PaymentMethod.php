@@ -9,7 +9,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
  */
 class PaymentMethod extends Model
 {
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'order', 'short_description'];
 
     const CASH_ON_DELIVERY = 'cash-on-delivery';
     const REDSYS = 'redsys';

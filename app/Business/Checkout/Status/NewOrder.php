@@ -47,7 +47,7 @@ class NewOrder implements Status
     public function index()
     {
         $countries = $this->countryRepository->findAll()->pluck('name', '_id');
-        $paymentMethods = $this->paymentMethodRepository->findAll();
+        $paymentMethods = $this->paymentMethodRepository->orderBy('order')->findAll();
         $states = $this->states();
 
         $items = Cart::getContent();

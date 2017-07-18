@@ -111,4 +111,12 @@ $(document).ready(function () {
     if($(window).width() <= 767) {
         $('#widget-categories-collapse, #widget-price-collapse').collapse('hide');
     }
+
+    $('#payment-methods').on('click', 'label', function(event) {
+        var that = $(this);
+        $('.text-methods').hide();
+        $('.text-' + that.data('slug')).show();
+    });
+
+    $('#payment-methods label:first').click();
 });
