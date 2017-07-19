@@ -24,7 +24,7 @@ class CartController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(ProductRepository $productRepository)
     {
         BreadCrumbLinks::set(['value' => 'Home', 'href' => route('shop.home')]);
         BreadCrumbLinks::set(['value' => 'Shop', 'href' => route('shop.catalogue')]);
@@ -38,11 +38,14 @@ class CartController extends Controller
         $subtitle = trans('cart.cart');
 
         $cartCollect = Cart::getContent();
+
+        $lastProduct = $cartCollect->last();
+        $crossSellShop = $productRepository->find($lastProduct['attributes']['_id'])->cross_sell_shop;
         if ($cartCollect->isEmpty()) {
             return view('cart.empty', compact('title', 'subtitle'));
         }
 
-        return view('cart.index', compact('cartCollect', 'title', 'subtitle'));
+        return view('cart.index', compact('cartCollect', 'title', 'subtitle', 'crossSellShop'));
     }
 
     /**
