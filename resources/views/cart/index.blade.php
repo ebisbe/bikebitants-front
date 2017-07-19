@@ -106,7 +106,8 @@ MY ACCOUNT - START
                         </div>
                         <div class="clearfix">
                             @if($missingToFreeShipping > 0 )
-                            <div class="alert alert-info" role="alert">@lang('cart.missing_to_free_shipping', ['missing' => $missingToFreeShipping])</div>
+                                <div class="alert alert-info"
+                                     role="alert">@lang('cart.missing_to_free_shipping', ['missing' => $missingToFreeShipping])</div>
                             @endif
                             <a href="{{ route('shop.catalogue') }}"
                                class="btn btn-inverse">@lang('cart.continue_shopping')</a>
@@ -120,53 +121,55 @@ MY ACCOUNT - START
                 </div>
             </div>
 
-            <div class="releated-products">
-                <h2>@lang('cart.cross_sell_products')</h2>
-                <div class="row grid" id="products">
-                    <!-- PRODUCT - START -->
-                    @foreach($crossSellShop as $relatedProduct)
-                        <div class="col-sm-3 col-xs-6">
-                            @include('scripts.addImpression', ['product' => $relatedProduct, 'iteration' => $loop->iteration])
-                            <article class="product-item">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="product-overlay">
-                                            <div class="product-mask">
-                                                {!! Form::img($relatedProduct->front_image_hover->filename, StaticVars::productRelated(), $relatedProduct->front_image_hover->filename) !!}
-                                            </div>
-                                            <a href="{{ route('shop.slug', ['slug' => $relatedProduct->slug]) }}"
-                                               onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
-                                               class="product-permalink"></a>
-                                            {!! Form::img($relatedProduct->front_image->filename, StaticVars::productRelated(), $relatedProduct->front_image->filename) !!}
-                                            {{--<div class="product-quickview">
-                                                <a class="btn btn-quickview" data-toggle="modal"
-                                                   data-target="#product-{{ $relatedProduct->slug }}">Quick View</a>
-                                            </div>--}}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div class="product-body">
-                                            <h3>
-                                                <a href="{{ route('shop.slug', $relatedProduct->slug) }}"
+            @if(!$crossSellShop->isEmpty())
+                <div class="releated-products">
+                    <h2>@lang('cart.cross_sell_products')</h2>
+                    <div class="row grid" id="products">
+                        <!-- PRODUCT - START -->
+                        @foreach($crossSellShop as $relatedProduct)
+                            <div class="col-sm-3 col-xs-6">
+                                @include('scripts.addImpression', ['product' => $relatedProduct, 'iteration' => $loop->iteration])
+                                <article class="product-item">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="product-overlay">
+                                                <div class="product-mask">
+                                                    {!! Form::img($relatedProduct->front_image_hover->filename, StaticVars::productRelated(), $relatedProduct->front_image_hover->filename) !!}
+                                                </div>
+                                                <a href="{{ route('shop.slug', ['slug' => $relatedProduct->slug]) }}"
                                                    onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
-                                                >
-                                                    {{ $relatedProduct->name }}
-                                                </a>
-                                            </h3>
-                                            @include('partials.price', ['product' => $relatedProduct])
-                                            <p></p>
-                                            <div class="buttons buttons-simple">
-                                                @include('partials.buy_buttons', ['product' => $relatedProduct, 'iteration' => $loop->iteration])
+                                                   class="product-permalink"></a>
+                                                {!! Form::img($relatedProduct->front_image->filename, StaticVars::productRelated(), $relatedProduct->front_image->filename) !!}
+                                                {{--<div class="product-quickview">
+                                                    <a class="btn btn-quickview" data-toggle="modal"
+                                                       data-target="#product-{{ $relatedProduct->slug }}">Quick View</a>
+                                                </div>--}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="product-body">
+                                                <h3>
+                                                    <a href="{{ route('shop.slug', $relatedProduct->slug) }}"
+                                                       onclick="onProduct{{$loop->iteration}}Click(); return !ga.loaded;"
+                                                    >
+                                                        {{ $relatedProduct->name }}
+                                                    </a>
+                                                </h3>
+                                                @include('partials.price', ['product' => $relatedProduct])
+                                                <p></p>
+                                                <div class="buttons buttons-simple">
+                                                    @include('partials.buy_buttons', ['product' => $relatedProduct, 'iteration' => $loop->iteration])
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </article>
-                        </div>
-                @endforeach
-                <!-- PRODUCT - END -->
+                                </article>
+                            </div>
+                    @endforeach
+                    <!-- PRODUCT - END -->
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </section>
     <!-- ==========================
