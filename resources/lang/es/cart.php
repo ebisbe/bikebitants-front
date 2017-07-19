@@ -24,5 +24,7 @@ return [
     'secure_payment' => 'Pago seguro',
     'allow_return' => 'Devolucion fácil',
     'free_packaging' => 'Entrega sostenible y gratuita',
-    'over_30_euros' => 'para pedidos superiores a 30€'
+    'over_30_euros' => 'para pedidos superiores a 30€',
+
+    'cross_sell_products' => 'Quizás también te interesa'
 ];

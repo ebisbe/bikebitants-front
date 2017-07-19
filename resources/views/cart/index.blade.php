@@ -119,7 +119,7 @@ MY ACCOUNT - START
             </div>
 
             <div class="releated-products">
-                <h2>Quizás también te interesa</h2>
+                <h2>@lang('cart.cross_sell_products')</h2>
                 <div class="row grid" id="products">
                     <!-- PRODUCT - START -->
                     @foreach($crossSellShop as $relatedProduct)
