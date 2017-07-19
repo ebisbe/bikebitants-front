@@ -97,8 +97,7 @@ MY ACCOUNT - START
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <ul class="list-unstyled order-total">
                                         @foreach(Cart::getConditions() as $condition)
-                                            <li>{!! $condition->getName()  !!}
-                                                <span>{!! $condition->getValue() !!}</span></li>
+                                            <li>{!! $condition->getName()  !!}<span>{!! $condition->getValue() !!}</span></li>
                                         @endforeach
                                         <li>Total<span>{{ Cart::getTotal() }}&euro;</span></li>
                                     </ul>

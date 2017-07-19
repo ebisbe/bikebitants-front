@@ -39,11 +39,12 @@ class CartController extends Controller
 
         $cartCollect = Cart::getContent();
 
-        $lastProduct = $cartCollect->last();
-        $crossSellShop = $productRepository->find($lastProduct['attributes']['_id'])->cross_sell_shop;
         if ($cartCollect->isEmpty()) {
             return view('cart.empty', compact('title', 'subtitle'));
         }
+
+        $lastProduct = $cartCollect->last();
+        $crossSellShop = $productRepository->find($lastProduct['attributes']['_id'])->cross_sell_shop;
 
         return view('cart.index', compact('cartCollect', 'title', 'subtitle', 'crossSellShop'));
     }
