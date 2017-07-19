@@ -34,6 +34,8 @@ class StaticVars
 
     public $logo = '/logo.png';
 
+    public $freeShippingValue = 30;
+
     /**
      * @param $name
      * @param $arguments

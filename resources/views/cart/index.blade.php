@@ -105,6 +105,9 @@ MY ACCOUNT - START
                             </div>
                         </div>
                         <div class="clearfix">
+                            @if($missingToFreeShipping > 0 )
+                            <div class="alert alert-info" role="alert">@lang('cart.missing_to_free_shipping', ['missing' => $missingToFreeShipping])</div>
+                            @endif
                             <a href="{{ route('shop.catalogue') }}"
                                class="btn btn-inverse">@lang('cart.continue_shopping')</a>
 

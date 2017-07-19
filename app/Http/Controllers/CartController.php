@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use MetaTag;
 use Cart;
 use BreadCrumbLinks;
+use StaticVars;
 
 class CartController extends Controller
 {
@@ -46,7 +47,12 @@ class CartController extends Controller
         $lastProduct = $cartCollect->last();
         $crossSellShop = $productRepository->find($lastProduct['attributes']['_id'])->cross_sell_shop;
 
-        return view('cart.index', compact('cartCollect', 'title', 'subtitle', 'crossSellShop'));
+        $missingToFreeShipping = number_format(StaticVars::freeShippingValue() - Cart::getTotal(), 2);
+
+        return view(
+            'cart.index',
+            compact('cartCollect', 'title', 'subtitle', 'crossSellShop', 'missingToFreeShipping')
+        );
     }
 
     /**

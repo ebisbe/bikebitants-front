@@ -26,5 +26,6 @@ return [
     'free_packaging' => 'Entrega sostenible y gratuita',
     'over_30_euros' => 'para pedidos superiores a 30€',
 
-    'cross_sell_products' => 'Quizás también te interesa'
+    'cross_sell_products' => 'Quizás también te interesa',
+    'missing_to_free_shipping' => 'Con :missing€ más de pedido el <b>envío es gratuito</b>. ¿No quieres elegir otro accesorio?'
 ];
