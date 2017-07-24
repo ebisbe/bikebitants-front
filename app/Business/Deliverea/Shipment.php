@@ -3,7 +3,7 @@
 namespace App\Business\Deliverea;
 
 use App\Business\Deliverea\Exceptions\AddressNotFoundException;
-use App\Mail\NotifyProvider;
+use App\Business\Deliverea\Exceptions\DelivereaException;
 use App\Notifications\InformProviderToSendSale;
 use App\Order;
 use Carbon\Carbon;
@@ -12,7 +12,9 @@ use Deliverea\Model\Address;
 use Deliverea\Model\Shipment as DelivereaShipment;
 use Deliverea;
 use Illuminate\Support\Collection;
-use Mail;
+use Deliverea\Exception\CurlException;
+use Deliverea\Exception\ErrorResponseException;
+use Deliverea\Exception\UnexpectedResponseException;
 
 /**
  * Class Shipment
@@ -56,7 +58,15 @@ class Shipment
 
                 $shipment = new \App\Shipment();
                 if (!empty($parcel->get('collection_address'))) {
-                    $shipment = $this->create($shipment, $parcel, 1);
+                    try {
+                        $shipment = $this->create($shipment, $parcel, 1);
+                    } catch (CurlException $e) {
+                        throw new DelivereaException($e->getMessage());
+                    } catch (ErrorResponseException $e) {
+                        throw new DelivereaException($e->getMessage(), $e->getErrorCode());
+                    } catch (UnexpectedResponseException $e) {
+                        throw new DelivereaException($e->getMessage());
+                    }
                 }
 
                 $shipment->order_id = $this->order->_id;
