@@ -151,7 +151,7 @@
                                                 <a role="button" data-toggle="collapse"
                                                    data-parent="#faq-2-accordion" href="#faq-2-q-1"
                                                    aria-expanded="true" aria-controls="faq-2-q-1">
-                                                    ¿Por que comprar en Bikebitants.com?
+                                                    ¿Tengo que pagar por el envío?
                                                 </a>
                                             </h4>
                                         </div>
@@ -175,7 +175,7 @@
                                                 <a role="button" data-toggle="collapse"
                                                    data-parent="#faq-2-accordion" href="#faq-2-q-2"
                                                    aria-expanded="true" aria-controls="faq-2-q-2">
-                                                    ¿Es seguro comprar en Bikebitants.com?
+                                                    ¿Cuánto tarda en llegar mi pedido?
                                                 </a>
                                             </h4>
                                         </div>
