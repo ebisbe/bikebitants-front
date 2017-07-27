@@ -6,6 +6,8 @@ use Jenssegers\Mongodb\Eloquent\Model;
 
 /**
  * @property string name
+ * @property bool set_paid
+ * @property string slug
  */
 class PaymentMethod extends Model
 {
