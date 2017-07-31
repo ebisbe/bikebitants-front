@@ -3,11 +3,10 @@ Buenos días,
 
 Nos ha entrado un nuevo pedido:
 @component('mail::table')
-| Articulo      | Cantidad     |
-| ------------- |:-------------:|
+    | Articulo      | Cantidad     |
+    |: ------------- :|:-------------:|
 @foreach($items as $item)
-| {{ $item['name'] }} <br> {{ $item['attributes'] }} | {{ $item['quantity'] }} |
-
+    | {{ $item['name'] }} <br> {{ $item['attributes'] }} | {{ $item['quantity'] }} |
 @endforeach
 @endcomponent
 
