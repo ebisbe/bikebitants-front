@@ -29,6 +29,6 @@ class EmailTest extends TestCase
                 'postcode' => 'randomtext',
             ]
         );
-        \Mail::to('enricu@gmail.com')->to('adria.bisbe@gmail.com')->send($email);
+        \Mail::to(['enricu@gmail.com', 'adria.bisbe@gmail.com'])->send($email);
     }
 }
