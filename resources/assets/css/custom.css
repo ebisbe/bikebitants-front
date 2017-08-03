@@ -1969,15 +1969,15 @@ article.product-item,
 }
 
 /** Deactivate plus button */
-/*.widget-categories .widget-body > ul > li > a:before {
+.widget-categories .widget-body > ul > li > span:before {
     content: "\f147";
     margin-right: 7px;
     font-size: 14px;
 }
 
-.widget-categories .widget-body > ul > li > a.collapsed:before {
+.widget-categories .widget-body > ul > li > span.selected:before {
     content: "\f196";
-}*/
+}
 
 .widget-categories .widget-body > ul > li > a.collapsed:hover {
     color: #666666;

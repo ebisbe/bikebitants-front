@@ -153,6 +153,7 @@ class ShopController extends Controller
         $title = trans('layout.home');
         $subtitle = trans('layout.shop');
         $selectedCat = '';
+        $selectedSubCat = '';
 
         MetaTag::set('title', trans('layout.shop_title'));
         MetaTag::set('description', trans('layout.shop_meta_description'));
@@ -167,7 +168,8 @@ class ShopController extends Controller
             'categories',
             'title',
             'subtitle',
-            'selectedCat'
+            'selectedCat',
+            'selectedSubCat'
         ));
     }
 

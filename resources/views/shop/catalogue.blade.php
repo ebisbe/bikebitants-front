@@ -22,24 +22,11 @@ PRODUCTS - START
                                 <div class="collapse in" id="widget-categories-collapse" aria-expanded="true"
                                      role="tabpanel">
                                     <div class="widget-body">
-                                        <ul class="list-unstyled" id="categories" role="tablist"
-                                            aria-multiselectable="true">
-                                            @foreach($categories as $cat)
-                                                <li class="panel">
-                                                    <a href="{{ route('shop.slug', ['slug' => $cat->slug]) }}"
-                                                       class="{{ $selectedCat == $cat->_id ? '' : 'collapsed' }}">{{ $cat->name }}
-                                                        <span>[{{ $cat->products_count }}]</span>
-                                                    </a>
-                                                    <ul class="list-unstyled">
-                                                        @foreach($cat->children->sortBy('name') as $subcategory)
-                                                            <li class="{{ isset($selectedSubCat) && $selectedSubCat == $subcategory->_id ? 'active' : '' }}">
-                                                                <a href="{{ route('shop.subslug', ['slug' => $cat->slug, 'subslug' => $subcategory->slug]) }}">{{ $subcategory->name }}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                </li>
-                                            @endforeach
-                                        </ul>
+                                        <categories
+                                                :categories='{!! json_encode($categories) !!}'
+                                                cat="{{ $selectedCat }}"
+                                                subcat="{{ $selectedSubCat }}"
+                                        ></categories>
                                     </div>
                                 </div>
                             </div>

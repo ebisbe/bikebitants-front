@@ -34,6 +34,7 @@ Vue.component('cart-menu', require('./components/cartMenu.vue'));
 Vue.component('cart-add', require('./components/cartAdd.vue'));
 Vue.component('owl-carrousel', require('./components/owlCarrousel.vue'));
 Vue.component('cart-badge', require('./components/cartBadge.vue'));
+Vue.component('categories', require('./components/categories.vue'));
 
 const VueInternalization = require('vue-i18n');
 import Locales from './vue-i18n-locales.generated.js';
