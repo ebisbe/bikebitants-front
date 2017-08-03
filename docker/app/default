@@ -17,6 +17,7 @@ server {
         rewrite ^/(blog.*)$ https://blog.bikebitants.com/$1 permanent;
 
         rewrite ^/producto-etiqueta/(.*)$ /etiqueta-producto/$1 permanent;
+        rewrite ^/contacto https://blog.bikebitants.com/contacto/$1 permanent;
 
         #Remove trailing slashes for all urls
         rewrite ^/(.*)/$ /$1 permanent;

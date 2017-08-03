@@ -26,9 +26,85 @@
 /tienda/complementos-ciclista /complementos-ciclista;
 /tienda/complementos-ciclista/mascara-antipolucion /complementos-ciclista/mascara-antipolucion;
 /tienda/accesorios-bicicleta/timbres-bicicleta /accesorios-bicicleta/timbres-bicicleta;
+/tienda/24-bottles /tienda/24bottles;
+/tienda/complementos-ciclista/mochilas-bolsas-bicicleta /complementos-ciclista/mochilas-bolsas-bicicleta;
+/tienda/bicicletas-urbanas/bicicletas-plegables /bicicletas-urbanas/bicicletas-plegables;
+/tienda/infantil-bicicleta/cascos-bicicleta-ninos /infantil-bicicleta/cascos-bicicleta-ninos;
+/tienda/complementos /complementos;
+/tienda/infantil-bicicleta/silla-portabebes /infantil-bicicleta/silla-portabebes;
+/tienda/accesorios-bicicleta/electronica-bicicleta /accesorios-bicicleta/electronica-bicicleta;
+/tienda/iluminacion /iluminacion;
 
 /carrera-foldable-casco-plegable /carrera-foldable-basic-casco-plegable;
 /flectr-zero-reflectante-ligero-para-radios-de-bicicleta /flectr-zero-reflectante-ligero-radios-bicicleta;
 /luz-delantera-knog-pop-2 /luz-delantera-knog-pop;
 /firstbike-street-bicicleta-sin-pedales-2 /firstbike-street-bicicleta-sin-pedales;
 /kazam-2017-bicicleta-sin-pedales /kazam-bicicleta-sin-pedales;
+
+/quines-somos /quienes-somos;
+/timbre-bicicleta-crane /timbre-bicicleta-crane-mini-suzu;
+/antivandale-antirrobo-sillin-collar /antivandale-antirrobo-sillin;
+/sitemap-pt-product-2015-10.html /;
+/early-rider-trail-runner-bicicleta-sin-pedales-2 /early-rider-trail-runner-bicicleta-sin-pedales;
+/overade-plixi-casco-plegable-2 /overade-plixi-casco-plegable;
+/sitemap.html /sitemap.xml;
+/wordpress/wp-includes/js/mediaelement/flashmediaelement.swf /;
+/wp-login.php /;
+/sitemap-pt-page-2015-10.html /;
+/sitemap-pt-product-2015-09.html /;
+/category-sitemap.xml /;
+/sitemap-pt-post-2015-10.html /;
+/producto/la-one-size-fits-all-shirt /tienda;
+/producto/classic-english-bicycle /tienda;
+/producto/wrap-effect-leather-mini-skirt /tienda;
+/aw14-menswear-trends /;
+/my-account /;
+/producto/blue-denim-shirt /tienda;
+/producto/love-t-shirt /tienda;
+
+/how-to-accessories-wearing /;
+/producto/badger-hair-shaving-brush /tienda;
+
+/tag/formatting /;
+/tag/markup /;
+/tag/blog /;
+/tag/news /;
+/tag/html /;
+/tag/pingback /;
+/tag/template /;
+/tag/connect /;
+/tag/context /;
+/tag/css /;
+/tag/read-more /;
+/tag/content /;
+
+/producto/brown-leather-shoes /tienda;
+/categoria-producto/accessories  /tienda;
+/carrito /cart;
+/fall-fashion-trends-2014 /;
+/etiqueta-producto/audio /tienda;
+/etiqueta-producto/casual /tienda;
+/etiqueta-producto/steel /tienda;
+/etiqueta-producto/jeans /tienda;
+/etiqueta-producto/classic /tienda;
+
+/producto/freshquodax-denim-shirt /tienda;
+/runway-inspired-trends /;
+/must-have-skater-girl-items /;
+/producto/biker-leather-jacket-with-multi-quilted-details /tienda;
+/producto/colored-petite-top /tienda;
+/comments-are-disabled /;
+/categoria-producto/mens-clothing /tienda;
+/marcas /brands;
+/include /;
+
+/some-paginated-blog-post/2 /;
+/producto/brown-animal-print-sunglasses /tienda;
+/producto/classic-black-telephone /tienda;
+/producto/external-affiliate-product /tienda;
+/producto/grouped-product /tienda;
+
+/spice-up-your-wardrobe-with-graphic-prints /;
+/some-paginated-blog-post /;
+/wordpress/wp-admin/admin-ajax.php /;
+/wordpress/xmlrpc.php /;
