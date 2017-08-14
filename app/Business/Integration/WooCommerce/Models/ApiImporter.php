@@ -68,7 +68,9 @@ abstract class ApiImporter extends Model implements SynchronizeEntity
 
         if ($save !== false) {
             if (!is_null($parent)) {
-                $parent->{$child}()->save($this);
+                if (method_exists($parent, $child)) {
+                    $parent->{$child}()->save($this);
+                }
                 $save = true;
             } else {
                 $save = $this->save();
