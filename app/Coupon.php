@@ -20,6 +20,7 @@ use MongoDB\BSON\UTCDatetime;
  * @property array type_options
  * @property string email_list
  * @property boolean exclude_sale_items
+ * @property string target
  */
 class Coupon extends \App\Business\Integration\WooCommerce\Models\Coupon
 {

@@ -38,20 +38,22 @@ class CouponService
         /** @var Coupon $coupon */
         $coupon = $this->couponRepository->whereName($name)->first();
 
-        Cart::getContent()
-            ->each(function ($item) use ($coupon) {
-                /** @var Product $product */
-                $product = $this->productRepository->findBy('_id', $item->attributes['_id']);
+        if ($coupon->target == \App\Cart::CART_CONDITION_TARGET_ITEM) {
+            Cart::getContent()
+                ->each(function ($item) use ($coupon) {
+                    /** @var Product $product */
+                    $product = $this->productRepository->findBy('_id', $item->attributes['_id']);
 
-                if ($product->is_discounted && $coupon->exclude_sale_items) {
-                    //TODO add message that coupon is no appliable
-                    return;
-                }
+                    if ($product->is_discounted && $coupon->exclude_sale_items) {
+                        //TODO add message that coupon is no appliable
+                        return;
+                    }
 
-                $cartCoupon = $this->createCoupon($coupon);
-                Cart::removeItemCondition($item->id, $cartCoupon->getName());
-                Cart::addItemCondition($item->id, $cartCoupon);
-            });
+                    $cartCoupon = $this->createCoupon($coupon);
+                    Cart::removeItemCondition($item->id, $cartCoupon->getName());
+                    Cart::addItemCondition($item->id, $cartCoupon);
+                });
+        }
 
 
         // Add condition to cart only to show it on the subtotal. We add it to every item because of how
@@ -70,7 +72,7 @@ class CouponService
         return new CartCondition([
             'name' => $coupon->name,
             'type' => Coupon::CART_CONDITION_TYPE,
-            'target' => \App\Cart::CART_CONDITION_TARGET_ITEM,
+            'target' => $coupon->target,
             'value' => $coupon->value,
             'order' => 1
         ]);

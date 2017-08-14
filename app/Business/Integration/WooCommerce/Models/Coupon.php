@@ -2,6 +2,8 @@
 
 namespace App\Business\Integration\WooCommerce\Models;
 
+use App\Cart;
+
 /**
  * Class Tag
  * @package App\Business\Integration\WooCommerce\Models
@@ -11,7 +13,6 @@ namespace App\Business\Integration\WooCommerce\Models;
 class Coupon extends ApiImporter
 {
     public $wooCommerceCallback = 'coupons';
-
 
     const CART_CONDITION_TYPE = 'coupon';
 
@@ -23,6 +24,7 @@ class Coupon extends ApiImporter
         'value',
         'magnitude',
         'type',
+        'target',
         'expired_at',
         'minimum_cart',
         'maximum_cart',
@@ -46,8 +48,14 @@ class Coupon extends ApiImporter
     public function sync($entity)
     {
         $entity['name'] = $entity['code'];
-        $entity['magnitude'] = -(float)$entity['amount'];
         $entity['type'] = $this->couponStatus($entity);
+        $entity['target'] = $this->couponTarget($entity);
+        $entity['magnitude'] = -(float)$entity['amount'];
+        if ($entity['type'] == self::DIRECT) {
+            // use always ceil because magnitude is always negative. If positive we should use floor
+            $entity['magnitude'] = $entity['magnitude'] + ceil($entity['magnitude'] * 21) / 100;
+        }
+
         $entity['expired_at'] = $this->convertDate($entity['date_expires']);
         $entity['minimum_cart'] = $entity['minimum_amount'];
         $entity['maximum_cart'] = $entity['maximum_amount'];
@@ -63,6 +71,7 @@ class Coupon extends ApiImporter
      */
     protected function couponStatus($entity)
     {
+        // Entity['type'] is from old API Version
         $status = $entity['discount_type'] ?? $entity['type'];
 
         $statusTypes = [
@@ -73,5 +82,11 @@ class Coupon extends ApiImporter
         ];
 
         return $statusTypes[$status];
+    }
+
+    private function couponTarget($entity)
+    {
+        return $entity['discount_type'] == 'fixed_cart'
+            ? Cart::CART_CONDITION_TARGET_SUBTOTAL : Cart::CART_CONDITION_TARGET_ITEM;
     }
 }
