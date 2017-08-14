@@ -268,6 +268,7 @@ $factory->define(Coupon::class, function (Generator $faker) {
         'name' => str_slug($faker->words(3, true)),
         'magnitude' => $magnitude,
         'type' => $type,
+        'target' => Cart::CART_CONDITION_TARGET_ITEM,
         'description' => $faker->paragraph(),
         //'value' => "{$magnitude}{$type}",
         'expired_at' => new UTCDatetime(Carbon::now()->addDays(4)->timestamp * 1000),
