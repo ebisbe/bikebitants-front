@@ -19,6 +19,13 @@ class Category extends \App\Category
 
     public function scopeIsParent($builder)
     {
-        return $builder->where('father_id', null);
+        return $builder->where('father_id', null)->orWhere('father_id', 'exists', false);
+    }
+
+    public function scopeWithOrderedChildren($builder)
+    {
+        $builder->with(['children' => function ($query) {
+            $query->orderBy('order', 'asc');
+        }]);
     }
 }

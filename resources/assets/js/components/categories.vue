@@ -2,15 +2,15 @@
     <ul class="list-unstyled" id="categories2">
         <li class="panel" v-for="category in categories">
             <span class="fa"
-                :class="{ selected: cat != category._id }"
+                :class="{ selected: selCat != category._id }"
                   @click="selectedCat(category._id)"
             ></span>
             <a :href="'/' + category.slug"
-               :class="{ collapsed: cat != category._id }">{{ category.name }}
+               :class="{ collapsed: selCat != category._id }">{{ category.name }}
                 <span>[{{ category.products_count }}]</span>
             </a>
             <ul class="list-unstyled"
-                :class="{ collapse: cat != category._id }"
+                :class="{ collapse: selCat != category._id }"
             >
                 <li
                         v-for="subcategory in category.children"
@@ -26,9 +26,19 @@
     export default {
         name: 'categories',
         props: ['categories', 'cat', 'subcat'],
+        data() {
+            return {
+                'selCat': ''
+            }
+        },
+
+        created () {
+           this.selCat = this.cat;
+        },
+
         methods: {
             selectedCat: function (selectedCat) {
-                this.cat = selectedCat;
+                this.selCat = selectedCat;
             }
         }
     }

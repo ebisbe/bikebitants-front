@@ -161,7 +161,7 @@ class ShopController extends Controller
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
-        $categories = $this->categoryRepository->isParent()->findAll();
+        $categories = $this->categoryRepository->withOrderedChildren()->isParent()->findAll();
 
         return view('shop.catalogue', compact(
             'productsResult',
@@ -201,7 +201,7 @@ class ShopController extends Controller
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
 
-        $categories = $this->categoryRepository->isParent()->findAll();
+        $categories = $this->categoryRepository->withOrderedChildren()->isParent()->findAll();
 
         return view(
             'shop.catalogue',
@@ -244,7 +244,7 @@ class ShopController extends Controller
 
         $this->productSearch->applyFilters($request->all() + $route->parameters());
         $productsResult = $this->productSearch->apply();
-        $categories = $this->categoryRepository->findAll();
+        $categories = $this->categoryRepository->withOrderedChildren()->isParent()->findAll();
 
         return view(
             'shop.catalogue',
