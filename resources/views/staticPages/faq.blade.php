@@ -157,10 +157,14 @@
                                         </div>
                                         <div id="faq-2-q-1" class="panel-collapse collapse in" role="tabpanel">
                                             <div class="panel-body">
-                                                <p><strong>Los gastos de envío son gratuitos</strong> para todos los pedidos y para toda la península <strong>para pedidos a partir de 30€</strong>.</p>
-                                                <p>Para pedidos inferiores a 30€, el coste del envío sera de 4€.</p>
-                                                <p>El resto de España (Baleares, Canarias, Ceuta y Melilla) quedan excluidas de esta tarifa gratuita:</p>
-                                                <p>Baleares: 10 €</p>
+                                                <p><strong>Los gastos de envío son gratuitos</strong> para todos los pedidos y para España (Península y Baleares) y Portugal, <strong>para pedidos a partir de 30€</strong>.</p>
+                                                <p>Para pedidos inferiores a 30€, el coste del envío sera de:</p>
+                                                <ul>
+                                                    <li>4€ para Peninsula</li>
+                                                    <li>5€ para Baleares</li>
+                                                    <li>6€ para Portugal</li>
+                                                </ul>
+                                                <p>El resto de España (Canarias, Ceuta y Melilla) quedan excluidas de esta tarifa gratuita:</p>
                                                 <p>Canarias: 25€</p>
                                                 <p>Ceuta y Melilla: 25€</p>
                                             </div>
