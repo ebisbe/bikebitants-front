@@ -12,3 +12,25 @@
 	{$unwind: '$cart'},
 	{$project: {"_id": "$_id", 'sku': "$cart.sku"}}
 ]
+
+[
+    {$unwind: "$variations"},
+    {$project: {
+            slug: "$slug",
+            total_ids: { $size: "$variations._id" },
+            variations_ids: "$variations._id",
+            variation_id: { $slice: [ "$variations._id", 1, 1 ] }
+     }},
+    {$match: { total_ids : {$gt: 1} } },
+    {$unwind: "$variation_id"},
+	{$project: {
+		product_slug: {"$concat": ["$slug", "-", "$variation_id"]},
+		variation_id: "$variation_id",
+		slug: '$slug'
+	}},
+	{$group: {
+		_id: "$variation_id",
+		product_slug: {$first: "$product_slug"}
+	}}
+
+ ]
