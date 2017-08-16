@@ -19,13 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Category::saving(function ($category) {
-            //Categories are created at parent level, never on child level
-            if (empty($category->order)) {
-                $order = Category::where('father_id', 'exists', false)->orderBy('order', 'desc')->first();
-                $category->order = !is_null($order) ? $order->order + 1 : 1;
-            }
-        });
 
         Blade::directive('injectCss', function ($cssRoute) {
             return "<style><?php echo file_get_contents(resource_path({$cssRoute})); ?></style>";

@@ -32,6 +32,19 @@ class Category extends \App\Business\Integration\WooCommerce\Models\Category
 
     // TODO Trigger update when category saved
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        Category::saving(function ($category) {
+            //Categories are created at parent level, never on child level
+            if (empty($category->order) && !is_int($category->order)) {
+                $order = Category::where('father_id', 'exists', false)->orderBy('order', 'desc')->first();
+                $category->order = !is_null($order) ? $order->order + 1 : 1;
+            }
+        });
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
