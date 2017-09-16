@@ -28,7 +28,6 @@
         "pulkitjalan/geoip": "2.*",
         "thujohn/twitter": "^2.2",
         "sentry/sentry-laravel": "^0.7",
-        "graham-campbell/htmlmin": "^4.4",
         "ebisbe/fake-omnipay": "dev-master",
         "jenssegers/mongodb": "3.2",
         "spatie/laravel-googletagmanager": "^2.2",
@@ -42,7 +41,8 @@
         "doctrine/dbal": "^2.5",
         "maatwebsite/excel": "^2.1",
         "guzzlehttp/guzzle": "^6.2",
-        "ebisbe/paga-mas-tarde-omnipay": "^1.1"
+        "ebisbe/paga-mas-tarde-omnipay": "^1.1",
+        "htmlmin/htmlmin": "^5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

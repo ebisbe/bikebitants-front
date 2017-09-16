@@ -164,7 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         //if not placed here Custom blade syntaxes are outputed as text
-        GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
+        HTMLMin\HTMLMin\HTMLMinServiceProvider::class,
 
         /*
          * Application Service Providers...

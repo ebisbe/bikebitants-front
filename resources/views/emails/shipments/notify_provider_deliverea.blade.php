@@ -1,3 +1,4 @@
+<!-- skip.minification -->
 @component('mail::message')
 Buenos días,
 
