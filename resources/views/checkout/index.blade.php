@@ -89,11 +89,15 @@
                                             {{ Form::text('shipping[last_name]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('shipping.last_name', '<p class="help-block">:message</p>') !!}
                                         </div>
-                                        <div class="clearfix"></div>
                                         <div class="form-group col-sm-6 {{ $errors->has('shipping.email') ? 'has-error' : ''}}">
                                             {{ Form::label('shipping[email]', trans('checkout.email_address').' <span class="required">*</span>', [], false) }}
                                             {{ Form::text('shipping[email]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('shipping.email', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                        <div class="form-group col-sm-6 {{ $errors->has('shipping.phone') ? 'has-error' : ''}}">
+                                            {{ Form::label('shipping[phone]', trans('checkout.phone').' <span class="required">*</span>', [], false) }}
+                                            {{ Form::text('shipping[phone]', null, ['class' => 'form-control']) }}
+                                            {!! $errors->first('shipping.phone', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="form-group col-sm-12 {{ $errors->has('shipping.address_1') ? 'has-error' : ''}}">
                                             {{ Form::label('shipping[address_1]', trans('checkout.address_1').' <span class="required">*</span>', [], false) }}
@@ -112,12 +116,6 @@
                                             {{ Form::label('shipping[postcode]', trans('checkout.postcode').' <span class="required">*</span>', [], false) }}
                                             {{ Form::text('shipping[postcode]', null, ['class' => 'form-control']) }}
                                             {!! $errors->first('shipping.postcode', '<p class="help-block">:message</p>') !!}
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="form-group col-sm-6 {{ $errors->has('shipping.phone') ? 'has-error' : ''}}">
-                                            {{ Form::label('shipping[phone]', trans('checkout.phone').' <span class="required">*</span>', [], false) }}
-                                            {{ Form::text('shipping[phone]', null, ['class' => 'form-control']) }}
-                                            {!! $errors->first('shipping.phone', '<p class="help-block">:message</p>') !!}
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="form-group col-sm-6 {{ $errors->has('shipping.state') ? 'has-error' : ''}}">
