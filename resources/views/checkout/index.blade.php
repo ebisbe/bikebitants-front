@@ -242,6 +242,16 @@
                                                 {{ Form::select('billing[country]', $countries, 'ES', array_merge(['class' => 'form-control js-country2'], $states)) }}
                                                 {!! $errors->first('billing.country', '<p class="help-block">:message</p>') !!}
                                             </div>
+                                            <div class="form-group col-sm-6  {{ $errors->has('billing.company') ? 'has-error' : ''}}">
+                                                {{ Form::label('billing[company]', trans('checkout.company'), [], false) }}
+                                                {{ Form::text('billing[company]', null, ['class' => 'form-control']) }}
+                                                {!! $errors->first('billing.company', '<p class="help-block">:message</p>') !!}
+                                            </div>
+                                            <div class="form-group col-sm-6 {{ $errors->has('billing.cif') ? 'has-error' : ''}}">
+                                                {{ Form::label('billing[cif]', trans('checkout.cif'), [], false) }}
+                                                {{ Form::text('billing[cif]', null, ['class' => 'form-control']) }}
+                                                {!! $errors->first('billing.cif', '<p class="help-block">:message</p>') !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

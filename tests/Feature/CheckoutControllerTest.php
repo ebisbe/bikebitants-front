@@ -36,7 +36,7 @@ class CheckoutControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_tries_to_checkout_without_billing_data()
+    public function it_tries_to_checkout_without_shipping_data()
     {
         $this->postAndCheckin();
 
@@ -46,15 +46,15 @@ class CheckoutControllerTest extends TestCase
             ->assertRedirect(route('checkout.index'))
             ->assertSessionHasErrors(
                 [
-                    'billing.first_name',
-                    'billing.last_name',
-                    'billing.email',
-                    'billing.phone',
-                    'billing.address_1',
-                    'billing.city',
-                    'billing.postcode',
-                    'billing.country',
-                    'billing.state'
+                    'shipping.first_name',
+                    'shipping.last_name',
+                    'shipping.email',
+                    'shipping.phone',
+                    'shipping.address_1',
+                    'shipping.city',
+                    'shipping.postcode',
+                    'shipping.country',
+                    'shipping.state'
                 ]
             );
     }
@@ -99,7 +99,7 @@ class CheckoutControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_tries_to_checkout_without_shipping_data()
+    public function it_tries_to_checkout_without_billing_data()
     {
         $this->postAndCheckin();
         $data = array_merge(
@@ -157,6 +157,7 @@ class CheckoutControllerTest extends TestCase
             ->assertSee('billing.address_1')
             ->assertSee('billing.city')
             ->assertSee('billing.postcode')
+            ->assertSee('billing.company (billing.cif)')
             ->assertSee('shipping.first_name')
             ->assertSee('shipping.last_name')
             ->assertSee('shipping@email.com')
@@ -274,7 +275,9 @@ class CheckoutControllerTest extends TestCase
                 'city' => 'billing.city',
                 'postcode' => 'billing.postcode',
                 'country' => 'ES',
-                'state' => 'B'
+                'state' => 'B',
+                'cif' => 'billing.cif',
+                'company' => 'billing.company'
             ]
         ];
     }

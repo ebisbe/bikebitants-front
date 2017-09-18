@@ -18,6 +18,7 @@ return [
     'state' => 'Provincia',
     'fax' => 'Fax',
     'company' => 'Compañia',
+    'cif' => 'Cif',
 
     'same_billing_address' => 'Mi dirección de envio y facturación es la misma',
     'billing_information' => 'Información de facturación',
@@ -39,5 +40,6 @@ return [
     'order_cancelled_inactivity' => 'Your order has been cancelled due to inactivity',
 
     'free_shipping' => 'Gratis!',
-    'choose_one_state' => 'Seleccionar provincia'
+    'choose_one_state' => 'Seleccionar provincia',
+
 ];

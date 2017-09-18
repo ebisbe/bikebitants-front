@@ -73,6 +73,7 @@
                                         <li>{{ $order->billing->postcode }} {{ $order->billing->city }}</li>
                                         <li>{{ $order->billing->countryName()->name }} ({{ $order->billing->states()->name }})
                                         </li>
+                                        <li>{{ $order->billing->company_cif }}</li>
                                     </ul>
                                 </div>
                             </div>

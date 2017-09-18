@@ -16,6 +16,9 @@ namespace App\Business\Integration\WooCommerce\Models;
  * @property string postcode
  * @property string phone
  * @property Country country
+ * @property string company
+ * @property string company_cif
+ * @property string cif
  */
 class Billing extends ApiImporter
 {
@@ -30,7 +33,17 @@ class Billing extends ApiImporter
         'phone',
         'country',
         'state',
+        'company',
+        'cif'
     ];
 
+    public function getCompanyCifAttribute()
+    {
+        if (!empty($this->company) && !empty($this->cif)) {
+            return $this->company . ' (' . $this->cif . ')';
+        } else {
+            return $this->company . $this->cif;
+        }
+    }
 
 }

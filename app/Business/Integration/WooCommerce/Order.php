@@ -100,6 +100,7 @@ class Order
                 'country' => $order->billing->country,
                 'email' => $order->billing->email,
                 'phone' => $order->billing->phone,
+                'company' => $order->billing->company_cif,
             ],
             'shipping' => [
                 'first_name' => $order->shipping->first_name,
