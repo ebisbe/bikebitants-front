@@ -10,7 +10,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class EmailTest extends TestCase
 {
-    /** @test */
     public function send_email()
     {
         $email = new NotifyProvider(

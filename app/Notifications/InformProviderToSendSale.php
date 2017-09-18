@@ -64,7 +64,7 @@ class InformProviderToSendSale extends Notification implements ShouldQueue
         }
 
 
-        return $email->to($notifiable->notify_to)->bcc('miguel@bikebitants.com')->bcc('enric@bikebitants.com');
+        return $email->to($notifiable->notify_to)->bcc('miguel@bikebitants.com');
     }
 
     /**
