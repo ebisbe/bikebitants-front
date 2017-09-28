@@ -53,7 +53,6 @@ Route::resource('wp', 'WordPressController', ['only' => ['index', 'show']]);
 // Static pages
 Route::get('/quien-somos', 'StaticPagesController@whoWeAre')->name('who_we_are');
 Route::get('/condiciones-generales', 'StaticPagesController@termsAndConditions')->name('terms_conditions');
-Route::get('/compromiso-bikebitants', 'StaticPagesController@socialCommitment')->name('social_commitment');
 Route::get('/incentivos-empresas', 'StaticPagesController@incentives')->name('incentives');
 Route::get('/prensa', 'StaticPagesController@press')->name('press');
 Route::get('/preguntas-frecuentes', 'StaticPagesController@faq')->name('faq');

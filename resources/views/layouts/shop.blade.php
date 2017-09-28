@@ -117,7 +117,6 @@
                         <h4>@lang('layout.enterprise')</h4>
                         <ul class="list-unstyled">
                             <li><a href="{{ route('who_we_are') }}">@lang('layout.whoweare')</a></li>
-                            <li><a href="{{ route('social_commitment') }}">@lang('layout.commitment')</a></li>
                             <li><a href="{{ route('incentives') }}">@lang('layout.incentives')</a></li>
                             <li><a href="{{ route('press') }}">@lang('layout.press')</a></li>
                             <li><a href="{{ config('app.blog_url') }}/contacto">@lang('layout.contact')</a></li>

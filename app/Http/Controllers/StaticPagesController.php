@@ -50,19 +50,6 @@ class StaticPagesController extends Controller
             ->setTtl(60*60*24);
     }
 
-    public function socialCommitment()
-    {
-        $title = 'Bikebitants';
-        $subtitle = 'Compromiso Social';
-
-        Breadcrumbs::addCrumb('Compromiso Social');
-
-        return response()
-            ->view('staticPages.social_commitment', compact('title', 'subtitle'))
-            ->header('Cache-control', 'public')
-            ->setTtl(60*60*24);
-    }
-
     public function incentives()
     {
         $title = 'Bikebitants';
