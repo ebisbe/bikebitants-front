@@ -31,7 +31,7 @@ class BargainTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertSee('Variable Product 2')
-            ->assertSee('Rebajas Verano')
+            ->assertSee('Oferta')
             ->assertSee('layout.shop')
             ->assertSee('bargain.title')
             ->assertSee('bargain.description')
