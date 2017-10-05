@@ -14,7 +14,7 @@
                     <div class="col-sm-8">
                         <h3>@lang('popup_header.h3')</h3>
                         <p>@lang('popup_header.p')</p>
-                        <form method="POST" action="/lead/" id="js-popup">
+                        <form method="POST" action="/lead" id="js-popup">
                             <div class="input-group">
                                 {{ csrf_field() }}
                                 <input type="email" name="email" class="form-control"
