@@ -20,7 +20,7 @@
                                 <input type="email" name="email" class="form-control"
                                        placeholder="@lang('popup_header.email_placeholder')">
                                 <input type="hidden" name="type" value="popup">
-                                    <span class="input-group-btn">
+                                <span class="input-group-btn">
                                         <button class="btn btn-primary js-popup-send" type="submit">
                                             <i></i>@lang('popup_header.submit')
                                         </button>
@@ -34,7 +34,8 @@
                         </div>
                     </div>
                     <div class="col-sm-4 hidden-xs">
-                        <img data-src="{{ assetCDN('/img/174/Closa-fuga-black-foldable-helmet-02-big.png') }}" class="lazyload img-responsive" alt="">
+                        <img data-src="{{ assetCDN('/img/174/Closa-fuga-black-foldable-helmet-02-big.png') }}"
+                             class="lazyload img-responsive" alt="">
                     </div>
                 </div>
             </div>

@@ -67,6 +67,8 @@
 =========================== -->
 @include('layouts.partials.js_vars')
 <script src="{{ assetCDN(mix('js/app.js')) }}" async></script>
+@include('partials.discount_popup')
+
 @stack('footer.scripts')
 <script type="application/javascript">
     ga('send', 'pageview');

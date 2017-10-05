@@ -88,4 +88,17 @@ class StaticPagesController extends Controller
             ->header('Cache-control', 'public')
             ->setTtl(60*60*24);
     }
+
+    public function thanks()
+    {
+        $title = 'Bikebitants';
+        $subtitle = 'Gracias';
+
+        Breadcrumbs::addCrumb('Gracias');
+
+        return response()
+            ->view('staticPages.thanks', compact('title', 'subtitle'))
+            ->header('Cache-control', 'public')
+            ->setTtl(60*60*24);
+    }
 }

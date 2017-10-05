@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Facades\StaticVars;
-use App\Lead;
+use App\Jobs\MailChimp;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use Illuminate\Support\Facades\URL;
 
 class LeadsController extends Controller
@@ -14,16 +12,10 @@ class LeadsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email|unique:leads,email',
+            'email' => 'required|email',
         ]);
 
-        $lead = Lead::create($request->all());
-
-        \Mail::send('emails.new_lead', [], function ($m) use ($lead) {
-            $m->from(StaticVars::email(), StaticVars::company());
-
-            $m->to($lead->email)->subject('Your discount!');
-        });
+        $this->dispatch(new MailChimp($request->get('email')));
 
         if ($request->ajax()) {
             return ['response' => 'Your discount is on the way!'];
