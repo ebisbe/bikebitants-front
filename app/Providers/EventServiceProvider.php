@@ -8,7 +8,6 @@ use App\Business\Checkout\Events\Create;
 use App\Events\OrderPushed;
 use App\Listeners\PushOrder;
 use App\Listeners\NotifySaleToCarrier;
-use App\Listeners\NotifySaleToProvider;
 use App\Listeners\UpdateStockOrder;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Event;

@@ -2,10 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Business\Checkout\Events\Confirm;
 use App\Business\Deliverea\Shipment;
 use App\Events\OrderPushed;
-use Illuminate\Queue\InteractsWithQueue;
+use App\PaymentMethod;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifySaleToCarrier implements ShouldQueue
@@ -38,5 +37,19 @@ class NotifySaleToCarrier implements ShouldQueue
     {
         $this->shipment->order($event->order);
         $this->shipment->process();
+    }
+
+    /**
+     * @param $queue
+     * @param $job
+     * @param $data
+     */
+    public function queue($queue, $job, $data)
+    {
+        /** @var OrderPushed $event */
+        $event = unserialize($data['data'])[0];
+        if ($event->order->payment_method->slug !== PaymentMethod::BANK_TRANSFER) {
+            $queue->push($job, $data);
+        }
     }
 }
