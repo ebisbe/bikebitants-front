@@ -51,11 +51,6 @@ class Coupon extends ApiImporter
         $entity['type'] = $this->couponStatus($entity);
         $entity['target'] = $this->couponTarget($entity);
         $entity['magnitude'] = -(float)$entity['amount'];
-        if ($entity['type'] == self::DIRECT) {
-            // use always ceil because magnitude is always negative. If positive we should use floor
-            $entity['magnitude'] = $entity['magnitude'] + ceil($entity['magnitude'] * 21) / 100;
-        }
-
         $entity['expired_at'] = $this->convertDate($entity['date_expires']);
         $entity['minimum_cart'] = $entity['minimum_amount'];
         $entity['maximum_cart'] = $entity['maximum_amount'];
