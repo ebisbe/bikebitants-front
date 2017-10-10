@@ -87,8 +87,7 @@ class Order
         return [
             'payment_method' => $order->payment_method->name,
             'payment_method_title' => $order->payment_method->name,
-            'set_paid' => $order->payment_method->set_paid,
-            'status' => $order->payment_method->slug == PaymentMethod::BANK_TRANSFER ? 'pending' : 'on-hold',
+            'status' => $order->payment_method->slug == PaymentMethod::BANK_TRANSFER ? 'on-hold' : 'processing',
             'billing' => [
                 'first_name' => $order->billing->first_name,
                 'last_name' => $order->billing->last_name,
