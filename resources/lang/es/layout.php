@@ -31,5 +31,10 @@ return [
         'message' => 'Tu experiencia en esta web es mejorada gracias al uso de cookies. Al continuar con tu visita en nuestra web aceptas el uso de cookies.',
         'moreinfo' => '/condiciones-generales',
         'linkmsg' => 'Leer más'
+    ],
+    'lead' => [
+        'ok' => 'Tu descuento esta en camino! Revisa tu email',
+        'ko' => 'Ya estas registrado',
+        'error' => 'Ha habido un error, vuelve a intentarlo en un rato'
     ]
 ];

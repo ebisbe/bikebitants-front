@@ -33,8 +33,9 @@ class NewsletterManager
                     $this->listId,
                     ['email' => $email]
                 );
+            return true;
         } catch (Mailchimp_List_AlreadySubscribed $e) {
-            // do something
+            return false;
         } catch (Mailchimp_Error $e) {
             throw new \Exception($e->getMessage());
         }

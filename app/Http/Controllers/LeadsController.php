@@ -2,25 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\MailChimp;
+use App\Business\Services\NewsletterManager;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\URL;
 
 class LeadsController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, NewsletterManager $newsletterManager)
     {
         $this->validate($request, [
             'email' => 'required|email',
         ]);
 
-        $this->dispatch(new MailChimp($request->get('email')));
+        try {
+            $status = $newsletterManager->addEmailToList($request->get('email'));
+            $message = $status ? __('layout.lead.ok') : __('layout.lead.ko');
+        } catch (\Mailchimp_Error $exception) {
+            $message = __('layout.lead.error');
+        }
 
         if ($request->ajax()) {
-            return ['response' => 'Your discount is on the way!'];
+            return ['response' => $message];
         } else {
-            \Session::flash('flash_message', 'Your discount is on the way!');
+            \Session::flash('flash_message', $message);
             return redirect(URL::previous());
         }
     }
