@@ -13,11 +13,10 @@ class NewsletterManager
 
     /**
      * Pull the Mailchimp-instance from the IoC-container.
-     * @param Mailchimp $mailchimp
      */
-    public function __construct(Mailchimp $mailchimp)
+    public function __construct()
     {
-        $this->mailchimp = $mailchimp;
+        $this->mailchimp = new Mailchimp(config('mailchimp.apikey'));
     }
 
     /**
