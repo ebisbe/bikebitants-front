@@ -269,9 +269,10 @@ class Product extends ApiImporter
         $categories = collect($entity['categories'])
             ->pluck('id')
             ->map(function ($id) {
-                return Category::whereExternalId($id)->first();
-            });
-        $this->category()->saveMany($categories);
+                return Category::whereExternalId($id)->first()->id;
+            })
+            ->toArray();
+        $this->category()->sync($categories);
     }
 
     /**
