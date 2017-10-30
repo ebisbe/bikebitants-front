@@ -5,6 +5,8 @@ return [
 
     'first_box_i' => 'fa fa-dropbox',
     'first_box_h3' => 'Envio gratuito 24-48H',
+    'first_box_h3_product' => 'Envio gratuito',
+    'first_box_p_product' => 'Envío sin coste<br/>para pedidos superiores a 30&euro;',
     'first_box_p' => 'Envío en 24-48 horas sin coste<br/>para pedidos superiores a 30&euro;',
 
     'second_box_i' => 'fa fa-bicycle',

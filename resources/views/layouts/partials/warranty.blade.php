@@ -2,9 +2,9 @@
 <div class="col-xs-4 col-sm-4">
     <div class="service">
         <i class="@lang('home.first_box_i')"></i>
-        <h3>@lang('home.first_box_h3')</h3>
+        <h3>@lang('home.first_box_h3' . $isProduct ?? '')</h3>
         @if(!isset($show_paragraph) || $show_paragraph)
-            <p class="hidden-xs">@lang('home.first_box_p')</p>
+            <p class="hidden-xs">@lang('home.first_box_p' . $isProduct ?? '')</p>
         @endif
     </div>
 </div>

@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function ($view) {
             $view_name = str_replace('.', '_', $view->getName());
             view()->share('view_name', $view_name);
+            view()->share('isProduct', '');
         });
 
         if ($this->app->isLocal()) {

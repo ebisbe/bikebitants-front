@@ -138,7 +138,10 @@ class ShopController extends Controller
         $subtitle = $product->name;
         $relatedProducts = $product->up_sell_shop;
 
-        return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle'));
+        /** For layout  */
+        $isProduct = '_product';
+
+        return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle', 'isProduct'));
     }
 
     /**
