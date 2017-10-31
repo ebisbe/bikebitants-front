@@ -2369,6 +2369,9 @@ article.product-item h3 {
     margin-top: 15px;
     letter-spacing: 0;
     height: 44px;
+    word-break: normal;
+    hyphens: auto;
+    overflow: hidden;
 }
 
 article.product-item .product-rating {

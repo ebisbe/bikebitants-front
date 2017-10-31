@@ -25,7 +25,7 @@
                     <h3>
                         <a href="{{ route('shop.slug', ['slug' => $product->slug]) }}"
                            onclick="onProduct{{ $iteration }}Click(); return !ga.loaded;">
-                            {{ str_limit($product->name, 29) }}
+                            {{ $product->name }}
                         </a>
                     </h3>
                     @include('partials.product_rating', ['rating' => $product->rating, 'total_reviews' => count($product->reviews)])
