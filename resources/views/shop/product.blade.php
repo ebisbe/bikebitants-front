@@ -1,6 +1,11 @@
 @extends('layouts.shop')
 
 @section('content')
+    @if($product->canonical)
+        @push('header')
+            <link rel="canonical" href="{{ route('shop.slug', ['slug'=>$product->canonical->slug]) }}">
+        @endpush
+    @endif
 
     @include('partials.breadcrumb')
     <!-- ==========================
@@ -145,7 +150,7 @@ PRODUCTS - START
                                     </div>
                                 </article>
                             </div>
-                        @endforeach
+                    @endforeach
                     <!-- PRODUCT - END -->
                     </div>
                 </div>

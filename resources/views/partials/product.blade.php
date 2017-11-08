@@ -1,4 +1,4 @@
-<article class="product-item product-single" >
+<article class="product-item product-single">
     <div class="row">
         <div class="col-{{ $col_size }}-4">
             <div class="product-carousel-wrapper {{ !empty($hidden) ? 'hidden' : '' }}">
@@ -13,9 +13,10 @@
                 @include('partials.price')
                 <ul class="list-unstyled product-info">
                     @if(isset($product->brand))
-                    <li><span>@lang('catalogue.brand')</span><a
-                                href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
-                    </li>
+                        <li>
+                            <span>@lang('catalogue.brand')</span>
+                            <a href="{{ route('shop.brand', ['slug' => $product->brand->slug]) }}">{{ $product->brand->name }}</a>
+                        </li>
                     @endif
                     <li class="tags"><span>@lang('catalogue.tags')</span>
                         @foreach($product->tag as $tag)
@@ -27,12 +28,32 @@
                     </li>
                 </ul>
                 <div itemprop="description">{!! $product->introduction !!}</div>
+
+                @if($canonical->child_canonicals->count() > 0)
+                    <ul id="split-products">
+                        <li class="{{ $canonical->slug == $product->slug ? 'active' : '' }}">
+                            <a href="{{ route('shop.slug', ['slug'=> $canonical->slug]) }}">
+                                <img src="/img/50/{{ $canonical->images->first()->filename }}"
+                                     alt="{{ $canonical->name }}">
+                            </a>
+                        </li>
+                        @foreach($canonical->child_canonicals as $prod)
+                            <li class="{{ $prod->slug == $product->slug ? 'active' : '' }}">
+                                <a href="{{ route('shop.slug', ['slug'=> $prod->slug]) }}">
+                                    <img src="/img/50/{{ $prod->images->first()->filename }}"
+                                         alt="{{ $prod->name }}">
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+
                 <div class="product-form clearfix">
                     <script type="text/javascript"
                             src="https://cdn.pagamastarde.com/pmt-js-client-sdk/3/js/client-sdk.min.js">
                     </script>
                     <script>
-                        (function(){
+                        (function () {
                             pmtClient.setPublicKey('pk_f3482c65406299a37f3aab53');
                             pmtClient.simulator.init();
                         })();
@@ -53,6 +74,6 @@
             </div>
         </div>
     </div>
-    <meta itemprop="url" content="{{ route('shop.slug', ['slug' => $product->slug]) }}" />
-    <meta itemprop="sku" content="{{ $product->_id }}" />
+    <meta itemprop="url" content="{{ route('shop.slug', ['slug' => $product->slug]) }}"/>
+    <meta itemprop="sku" content="{{ $product->_id }}"/>
 </article>

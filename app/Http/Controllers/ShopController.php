@@ -141,7 +141,10 @@ class ShopController extends Controller
         /** For layout  */
         $isProduct = '_product';
 
-        return view('shop.product', compact('product', 'relatedProducts', 'title', 'subtitle', 'isProduct'));
+        $canonical = !is_null($product->canonical) ? $product->canonical : $product;
+
+        return view('shop.product',
+            compact('product', 'relatedProducts', 'title', 'subtitle', 'isProduct', 'canonical'));
     }
 
     /**

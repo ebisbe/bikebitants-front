@@ -37,6 +37,16 @@ class Product extends \App\Product
         return $this->belongsToMany(self::class, null, 'cross_sell_ids');
     }
 
+    public function canonical()
+    {
+        return $this->hasOne(self::class, '_id', 'canonical_id');
+    }
+
+    public function child_canonicals()
+    {
+        return $this->hasMany(self::class, 'canonical_id', '_id');
+    }
+
     /**
      * @return mixed
      */

@@ -39,7 +39,8 @@ class Product extends ApiImporter
         'height',
         'collection_address',
         'collection_address_cash_on_delivery',
-        'delivery_time'
+        'delivery_time',
+        'canonical_id'
     ];
 
     protected $attributes = [
@@ -205,7 +206,7 @@ class Product extends ApiImporter
     {
         $text = preg_replace('#<img .+garantias-pagina-producto-1\.png.+ \/>#', '', $text);
         $text = preg_replace('#<img .+garantias-bikebitants-producto30eur-300x75\.png.+ \/>#', '', $text);
-        return preg_replace('#\[(/)?vc_.+\]?#', '', $text);
+        return preg_replace(['#\[(/)?vc_.+\]?#', '#style=".+"#'], '', $text);
     }
 
     /**
