@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "72e295855321306e8787db108a98b87a",
+    "content-hash": "5681654272320d9c321ffae9ce83ab8d",
     "packages": [
+        {
+            "name": "approached/laravel-image-optimizer",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/approached/laravel-image-optimizer.git",
+                "reference": "0a409c6cae4c8d6cb39df3d3382136157496f9b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/approached/laravel-image-optimizer/zipball/0a409c6cae4c8d6cb39df3d3382136157496f9b2",
+                "reference": "0a409c6cae4c8d6cb39df3d3382136157496f9b2",
+                "shasum": ""
+            },
+            "require": {
+                "ps/image-optimizer": "~1.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": ">=4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Approached\\LaravelImageOptimizer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexej Kloos",
+                    "email": "alexejkloos@gmail.com",
+                    "homepage": "http://alcodo.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Image optimizer for laravel",
+            "homepage": "https://github.com/approached/laravel-image-optimizer",
+            "keywords": [
+                "image",
+                "laravel",
+                "optimize"
+            ],
+            "time": "2017-02-23T15:14:10+00:00"
+        },
         {
             "name": "automattic/woocommerce",
             "version": "1.3.0",
@@ -3994,6 +4042,55 @@
             "time": "2016-06-16T16:22:20+00:00"
         },
         {
+            "name": "ps/image-optimizer",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/psliwa/image-optimizer.git",
+                "reference": "e8f68a7a8cffd551d788bdd334d697a97daecac8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/psliwa/image-optimizer/zipball/e8f68a7a8cffd551d788bdd334d697a97daecac8",
+                "reference": "e8f68a7a8cffd551d788bdd334d697a97daecac8",
+                "shasum": ""
+            },
+            "require": {
+                "psr/log": "1.0.*",
+                "symfony/options-resolver": "~2.1 | ~3.0",
+                "symfony/process": "~2.0 | ~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ImageOptimizer": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Piotr Sliwa",
+                    "email": "peter.pl7@gmail.com"
+                }
+            ],
+            "description": "Image optimization / compression library. This library is able to optimize png, jpg and gif files in very easy and handy way. It uses optipng, pngquant, pngcrush, pngout, gifsicle, jpegoptim and jpegtran tools.",
+            "keywords": [
+                "compression",
+                "image",
+                "image optimizer",
+                "jpegoptim",
+                "optimization",
+                "optipng"
+            ],
+            "time": "2017-07-24T18:40:03+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
@@ -5383,6 +5480,60 @@
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
             "time": "2017-08-01T10:25:59+00:00"
+        },
+        {
+            "name": "symfony/options-resolver",
+            "version": "v3.3.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/options-resolver.git",
+                "reference": "ee4e22978fe885b54ee5da8c7964f0a5301abfb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/ee4e22978fe885b54ee5da8c7964f0a5301abfb6",
+                "reference": "ee4e22978fe885b54ee5da8c7964f0a5301abfb6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\OptionsResolver\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony OptionsResolver Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "config",
+                "configuration",
+                "options"
+            ],
+            "time": "2017-07-29T21:54:42+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",

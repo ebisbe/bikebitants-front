@@ -2,6 +2,7 @@
 
 namespace App\Business\Traits;
 
+use Approached\LaravelImageOptimizer\ImageOptimizer;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Response as IlluminateResponse;
 use \Image;
@@ -72,8 +73,11 @@ trait ImageTrait
         $dir = public_path("img/$filter/");
         File::makeDirectory($dir, 0777, true, true);
 
-        $file_path = $dir.$filename;
+        $file_path = $dir . $filename;
         $newImage = $image->save($file_path);
+
+        $imageOptimizer = new ImageOptimizer();
+        $imageOptimizer->optimizeImage($file_path);
 
         return $this->buildResponse($newImage);
     }

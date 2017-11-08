@@ -43,7 +43,8 @@
         "guzzlehttp/guzzle": "^6.2",
         "ebisbe/paga-mas-tarde-omnipay": "^1.1",
         "htmlmin/htmlmin": "^5.0",
-        "skovmand/mailchimp-laravel": "^1.0"
+        "skovmand/mailchimp-laravel": "^1.0",
+        "approached/laravel-image-optimizer": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
