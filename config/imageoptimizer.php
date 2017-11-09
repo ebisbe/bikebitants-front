@@ -18,7 +18,7 @@ return [
         'optipng_options' => ['-i0', '-o2', '-quiet'],
 
         'pngquant_bin'     => env('PNGQUANT', '/usr/bin/pngquant'),
-        'pngquant_options' => ['--force', '--ext=.png'],
+        'pngquant_options' => ['--force', '--ext=.png', '--quality=40-80'],
 
         'pngcrush_bin'     => '/usr/bin/pngcrush',
         'pngcrush_options' => ['-reduce', '-q', '-ow'],

@@ -74,7 +74,7 @@ trait ImageTrait
         File::makeDirectory($dir, 0777, true, true);
 
         $file_path = $dir . $filename;
-        $newImage = $image->save($file_path);
+        $newImage = $image->save($file_path, 30);
 
         $imageOptimizer = new ImageOptimizer();
         $imageOptimizer->optimizeImage($file_path);
