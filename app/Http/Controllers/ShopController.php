@@ -63,7 +63,7 @@ class ShopController extends Controller
             //the way data is downloaded from the api
             ->where('filename', '!=', null)
             ->where('father_id', 'exists', false)
-            ->orderBy('name', 'asc')->limit(6)->findAll();
+            ->orderBy('name', 'asc')->limit(8)->findAll();
 
         MetaTag::set('title', trans('home.title'));
         MetaTag::set('description', trans('home.meta_description'));
