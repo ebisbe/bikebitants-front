@@ -32,7 +32,7 @@ class ProductSearchTest extends TestCase
             'min_price' => 1,
             'max_price' => 1000,
             'page' => 1,
-            'per_page' => 160
+            'per_page' => 500
         ], $this->productSearch->getFilters()->toArray());
     }
 
@@ -46,7 +46,7 @@ class ProductSearchTest extends TestCase
             'min_price' => 1,
             'max_price' => 1000,
             'page' => 1,
-            'per_page' => 160,
+            'per_page' => 500,
             'additional' => 'param'
         ], $this->productSearch->getFilters()->toArray());
     }

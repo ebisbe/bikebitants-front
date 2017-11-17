@@ -95,7 +95,7 @@ class ProductSearch
             'min_price' => self::MIN_PRICE,
             'max_price' => self::MAX_PRICE,
             'page' => 1,
-            'per_page' => 160,
+            'per_page' => 500,
             self::SLUG => '',
             self::SUBSLUG => ''
         ]);
