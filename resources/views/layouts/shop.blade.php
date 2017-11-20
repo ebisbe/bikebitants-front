@@ -15,9 +15,9 @@
                     <ul class="list-inline contacts">
                         <li><i class="fa fa-envelope"></i> <a
                                     href="mailto:{{ StaticVars::email() }}">{{ StaticVars::email() }}</a></li>
-                        <li><i class="fa fa-phone"></i> <a
+                        {{-- <li><i class="fa fa-phone"></i> <a
                                     href="tel:{{ StaticVars::telephone() }}">{{ StaticVars::telephone() }}</a> @lang('layout.telephone_schedule')
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <div class="col-sm-3 text-right">
@@ -65,11 +65,11 @@
                             <i class="fa fa-envelope"></i> {{ StaticVars::email() }}
                         </a>
                     </li>
-                    <li class="visible-xs">
+                    {{-- <li class="visible-xs">
                         <a href="tel:{{ StaticVars::telephone() }}">
                             <i class="fa fa-phone"></i> {{ StaticVars::telephone() }}
                         </a>
-                    </li>
+                    </li> --}}
                     <search></search>
                     <cart-menu
                             cart="{{ route('cart.index') }}"
@@ -139,7 +139,7 @@
                         <h4>@lang('layout.contacts')</h4>
                         <ul class="list-unstyled">
                             <li><i class="fa fa-envelope"></i> {{ StaticVars::email() }}</li>
-                            <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li>
+                            {{-- <li><i class="fa fa-phone"></i> {{ StaticVars::telephone() }}</li> --}}
                             {{--<li><i class="fa fa-map-marker"></i> 40°44'00.9"N 73°59'43.4"W</li>--}}
                             <li class="social">
                                 <a target="_blank" rel="noopener" href="{{ StaticVars::facebook() }}">
