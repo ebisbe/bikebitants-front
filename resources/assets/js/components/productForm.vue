@@ -12,6 +12,7 @@
             <div class="col-lg-8" v-if="visible">
                 <attribute-select
                         v-for="property in properties"
+                        :key="property._id"
                         :order="property.order"
                         :name="property.name"
                         :options="property.properties_values"

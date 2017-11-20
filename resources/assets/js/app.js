@@ -17,14 +17,27 @@ require('./custom.js');
 
 require('lazysizes');
 
-Vue.component('total-checkout', require('./components/totalCheckout.vue'));
-Vue.component('product-form', require('./components/productForm.vue'));
-Vue.component('add-review', require('./components/addReview.vue'));
-Vue.component('cart-menu', require('./components/cartMenu.vue'));
-Vue.component('cart-add', require('./components/cartAdd.vue'));
-Vue.component('owl-carrousel', require('./components/owlCarrousel.vue'));
-Vue.component('cart-badge', require('./components/cartBadge.vue'));
-Vue.component('categories', require('./components/categories.vue'));
+import InstantSearch from 'vue-instantsearch';
+import totalCheckout from './components/totalCheckout.vue'
+import productForm from './components/productForm.vue'
+import addReview from './components/addReview.vue'
+import cartMenu from './components/cartMenu.vue'
+import cartAdd from './components/cartAdd.vue'
+import owlCarrousel from './components/owlCarrousel.vue'
+import cartBadge from './components/cartBadge.vue'
+import categories from './components/categories.vue'
+import Search from './components/Search.vue'
+
+Vue.use(InstantSearch);
+Vue.component('total-checkout', totalCheckout);
+Vue.component('product-form', productForm);
+Vue.component('add-review', addReview);
+Vue.component('cart-menu', cartMenu);
+Vue.component('cart-add', cartAdd);
+Vue.component('owl-carrousel', owlCarrousel);
+Vue.component('cart-badge', cartBadge);
+Vue.component('categories', categories);
+Vue.component('search', Search);
 
 const VueInternalization = require('vue-i18n');
 import Locales from './vue-i18n-locales.generated.js';

@@ -200,7 +200,8 @@ return [
         Gahlawat\Slack\SlackServiceProvider::class,
         Spatie\Sitemap\SitemapServiceProvider::class,
         Barryvdh\HttpCache\ServiceProvider::class,
-        Ebisbe\Deliverea\DelivereaServiceProvider::class
+        Ebisbe\Deliverea\DelivereaServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class
 
     ],
 

@@ -6,6 +6,7 @@ use App\Business\Traits\UpdateCategoriesTrait;
 use App\Business\Traits\SluggableTrait;
 use Jenssegers\Mongodb\Eloquent\Builder;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 /**
  * Class Product
@@ -50,7 +51,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  */
 class Product extends \App\Business\Integration\WooCommerce\Models\Product
 {
-    use SoftDeletes, SluggableTrait, UpdateCategoriesTrait;
+    use SoftDeletes, SluggableTrait, UpdateCategoriesTrait, Searchable;
 
     /** @var string $table Defined for inheritance in PublishedProduct */
     protected $table = 'products';
@@ -182,5 +183,25 @@ class Product extends \App\Business\Integration\WooCommerce\Models\Product
     public function deliveryAddress()
     {
         return $this->{self::DELIVERY_ADDRESS};
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $data = $this
+            ->setVisible(['name', 'images', 'slug', 'meta_description', 'categories'])
+            ->toArray();
+
+        return [
+            'name' => $data['name'],
+            'image' => config('app.url') . 'img/150/' . $data['images'][0]['filename'],
+            'url' => route('shop.slug', ['slug' => $data['slug']]),
+            'meta_description' => $data['meta_description'],
+            'categories' => implode(' ', $data['categories'])
+        ];
     }
 }

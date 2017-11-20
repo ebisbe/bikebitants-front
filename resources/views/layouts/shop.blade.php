@@ -70,6 +70,7 @@
                             <i class="fa fa-phone"></i> {{ StaticVars::telephone() }}
                         </a>
                     </li>
+                    <search></search>
                     <cart-menu
                             cart="{{ route('cart.index') }}"
                             checkout="{{ route('checkout.index') }}"
