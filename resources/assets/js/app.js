@@ -26,7 +26,7 @@ import cartAdd from './components/cartAdd.vue'
 import owlCarrousel from './components/owlCarrousel.vue'
 import cartBadge from './components/cartBadge.vue'
 import categories from './components/categories.vue'
-import Search from './components/Search.vue'
+import Search from './components/search.vue'
 
 Vue.use(InstantSearch);
 Vue.component('total-checkout', totalCheckout);
