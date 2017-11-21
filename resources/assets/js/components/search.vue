@@ -42,10 +42,10 @@
                     <template slot-scope="{ result }">
                         <li>
                             <div class="row row-no-padding">
-                                <div class="col-xs-1">
+                                <div class="col-xs-2">
                                     <img :src="result.image" width="100" style="padding: 15px;">
                                 </div>
-                                <div class="col-xs-11">
+                                <div class="col-xs-10">
                                     <h2>
                                         <a :href="result.url">{{ result.name}}</a>
                                     </h2>
@@ -80,6 +80,7 @@
 </script>
 <style>
     .open .search-list {
-        display: contents;
+        display: block;
+        position: relative;
     }
 </style>
