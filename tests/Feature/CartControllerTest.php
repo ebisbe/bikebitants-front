@@ -40,6 +40,7 @@ class CartControllerTest extends TestCase
             ->assertSee('Total<span>12.10');
 
         // TODO this should be done via api
+        $this->postJson(route('coupon.store', ['coupon' => 'DISCOUNT20']));
         $response = $this->postJson(route('coupon.store', ['coupon' => 'DISCOUNT10']));
         $response->assertStatus(302);
 
@@ -49,6 +50,7 @@ class CartControllerTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertSee('discount10<span>-10%')
+            ->assertDontSee('discount20<span>-20%')
             ->assertSee('Total<span>10.89');
     }
 }

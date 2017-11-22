@@ -156,7 +156,7 @@ class CartService
     /**
      * @return CartCondition
      */
-    protected function getTaxCondition()
+    public function getTaxCondition()
     {
         $tax = TaxService::getTax();
         return new CartCondition([

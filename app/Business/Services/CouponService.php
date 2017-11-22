@@ -50,7 +50,8 @@ class CouponService
                     }
 
                     $cartCoupon = $this->createCoupon($coupon);
-                    Cart::removeItemCondition($item->id, $cartCoupon->getName());
+                    Cart::clearItemConditions($item->id);
+                    Cart::addItemCondition($item->id, (new CartService($this->productRepository))->getTaxCondition());
                     Cart::addItemCondition($item->id, $cartCoupon);
                 });
         }
@@ -59,6 +60,7 @@ class CouponService
         // Add condition to cart only to show it on the subtotal. We add it to every item because of how
         //woocommerce works with discounts.
         $cartCoupon = $this->createCoupon($coupon);
+        Cart::removeConditionsByType(Coupon::CART_CONDITION_TYPE);
         Cart::condition($cartCoupon);
     }
 
