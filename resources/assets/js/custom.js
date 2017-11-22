@@ -438,7 +438,7 @@ $(window).load(function () {
      MODAL ADVERTISING
      ------------------------------*/
     if (typeof(Storage) !== "undefined") {
-        if (localStorage.getItem("modalhidden") !== "hidden" && getCookie('hide') == '') {
+        if (getCookie('hide') == '') {
             $('#modalAdvertising').modal('show');
         }
     }

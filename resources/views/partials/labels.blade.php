@@ -3,7 +3,7 @@
         <span class="label label-success"><span class="fa fa-star"></span> </span>
     @endif
     @if($product->is_discounted)
-        <span class="label label-info">Oferta</span>
+        <span class="label label-info">Rebajas</span>
     @endif
     @if($product->stock === 0)
         <span class="label label-danger">@lang('layout.out_of_stock')</span>
