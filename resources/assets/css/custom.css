@@ -811,24 +811,32 @@ textarea {
 ------------------------------*/
 
 #modalAdvertising .modal-header {
-    background-image: url(images/pattern.png);
+    background: #000000e6;
 }
 
 #modalAdvertising .modal-body {
     padding: 15px 30px 0;
-    background-image: url(images/pattern.png);
+    background: #000000e6;
 }
 
-#modalAdvertising .modal-body h1 {
+#modalAdvertising .modal-body h2 {
     font-weight: 900;
-    color: #666666;
+    color: #ffffff;
     letter-spacing: -1px;
     margin-top: 0;
     font-size: 32px;
 }
 
+#modalAdvertising .modal-body strong {
+    font-size: xx-large;
+}
+
+#modalAdvertising .modal-body small{
+    font-size: x-small;
+}
+
 #modalAdvertising .modal-body p {
-    color: #AAAAAA;
+    color: #ffffff;
     font-weight: 600;
     font-size: 16px;
 }
