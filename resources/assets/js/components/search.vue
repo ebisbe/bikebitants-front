@@ -82,5 +82,6 @@
     .open .search-list {
         display: block;
         position: relative;
+        width: 100%;
     }
 </style>
