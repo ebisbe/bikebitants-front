@@ -18,7 +18,6 @@ public/mix-manifest.json
 public/images/*
 !public/images/default-avatar.png
 !public/images/EquipoBikebitants.jpg
-!public/images/alerta.png
 !public/images/*/
 public/sitemap.xml
 storage/httpcache/*
