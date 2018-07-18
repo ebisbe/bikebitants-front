@@ -18,7 +18,7 @@ PORT3="7254"
 
 for PORT in ${PORT1} ${PORT2} ${PORT3}; do
   echo -n "penny? (${PORT})... "
-  telnet "${HOST}" ${PORT} &>/dev/null
+  nc "${HOST}" ${PORT} 
 done
 echo "please open?!"
 
